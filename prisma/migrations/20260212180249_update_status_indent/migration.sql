@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Indent" ALTER COLUMN "status" SET DEFAULT 'FORWARDING_TO_PO';

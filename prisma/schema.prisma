@@ -1,0 +1,892 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// *
+///  * —— Departments ——
+model Department {
+  id                 Int                  @id @default(autoincrement())
+  name               String               @unique @db.VarChar(100)
+  shortCode          String?              @unique @db.VarChar(10)
+  location           String?              @db.VarChar(100)
+  description        String?              @db.VarChar(500)
+  status             Boolean              @default(true)
+  timeFrom           String?
+  timeTo             String?
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+  doctorLinks        DoctorDepartment[]
+  DoctorProcedureFee DoctorProcedureFee[]
+  MedicalRecord      MedicalRecord[]
+  medicalRecordItems MedicalRecordItem[]
+  procedures         Procedure[]
+  grns               GRN[]
+
+  @@index([name])
+}
+
+/// *
+///  * —— Procedures ——
+model Procedure {
+  id                 Int                  @id @default(autoincrement())
+  status             Boolean              @default(true)
+  name               String               @db.VarChar(100)
+  shortCode          String?              @db.VarChar(10)
+  description        String?              @db.VarChar(500)
+  departmentId       Int
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+  feeLinks           DoctorProcedureFee[]
+  MedicalRecord      MedicalRecord[]
+  medicalRecordItems MedicalRecordItem[]
+  department         Department           @relation(fields: [departmentId], references: [id])
+
+  @@unique([departmentId, name])
+  @@index([departmentId])
+  @@index([name])
+}
+
+/// *
+///  * —— Doctor ——
+model Doctor {
+  id                  Int                  @id @default(autoincrement())
+  status              Boolean              @default(true)
+  name                String               @db.VarChar(100)
+  guardianName        String?              @db.VarChar(100)
+  gender              String?
+  dateOfBirth         String?
+  age                 Int
+  idCard              String               @unique @db.VarChar(20)
+  phoneNumber         String               @unique @db.VarChar(20)
+  email               String               @unique @db.VarChar(100)
+  address             String?              @db.VarChar(255)
+  specialization      String?              @db.VarChar(100)
+  qualification       String?              @db.VarChar(100)
+  subSpecialities     String?              @db.VarChar(100)
+  experience          Int
+  languages           String?              @db.VarChar(100)
+  joinDate            String?
+  employmentType      String?
+  shiftType           String?
+  timingFrom          String?              @db.VarChar(10)
+  timingTo            String?              @db.VarChar(10)
+  availableDays       String[]             @db.VarChar(100)
+  maxPatients         Int
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  departmentLinks     DoctorDepartment[]
+  feeLinks            DoctorProcedureFee[]
+  MedicalRecord       MedicalRecord[]
+  medicalRecordItems  MedicalRecordItem[]
+  doctorTokenCounters DoctorTokenCounter[]
+
+  @@index([name])
+  @@index([specialization])
+}
+
+/// *
+///  * —— Doctor ↔ Department ——
+model DoctorDepartment {
+  id           Int        @id @default(autoincrement())
+  doctorId     Int
+  departmentId Int
+  createdAt    DateTime   @default(now())
+  department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  doctor       Doctor     @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+
+  @@unique([doctorId, departmentId])
+  @@index([departmentId])
+}
+
+/// *
+///  * —— Fee Policies ——
+model FeePolicy {
+  id                 Int                  @id @default(autoincrement())
+  name               String               @unique @db.VarChar(100)
+  type               String?
+  fixedAmount        Decimal?             @db.Decimal(10, 2)
+  doctorPercentage   Decimal?             @db.Decimal(5, 2)
+  hospitalPercentage Decimal?             @db.Decimal(5, 2)
+  validFrom          DateTime?
+  validTo            DateTime?
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+  feeLinks           DoctorProcedureFee[]
+}
+
+/// *
+///  * —— Doctor ↔ Procedure Fee Assignment ——
+model DoctorProcedureFee {
+  id                         Int         @id @default(autoincrement())
+  doctorId                   Int
+  procedureId                Int
+  feePolicyId                Int?
+  departmentId               Int?
+  paymentType                String      @db.VarChar(50)
+  description                String?     @db.VarChar(500)
+  status                     Boolean     @default(true)
+  procedurePrice             Decimal?    @db.Decimal(10, 2)
+  overrideFixedAmount        Decimal?    @db.Decimal(10, 2)
+  overrideDoctorPercentage   Decimal?    @db.Decimal(5, 2)
+  overrideHospitalPercentage Decimal?    @db.Decimal(5, 2)
+  createdAt                  DateTime    @default(now())
+  updatedAt                  DateTime    @updatedAt
+  department                 Department? @relation(fields: [departmentId], references: [id])
+  doctor                     Doctor      @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  feePolicy                  FeePolicy?  @relation(fields: [feePolicyId], references: [id], onDelete: Restrict)
+  procedure                  Procedure   @relation(fields: [procedureId], references: [id], onDelete: Cascade)
+
+  @@unique([doctorId, procedureId])
+  @@index([feePolicyId])
+  @@index([departmentId])
+}
+
+model Patient {
+  id              Int             @id @default(autoincrement())
+  patientId       Int             @unique
+  name            String
+  guardianName    String
+  gender          String
+  age             Int
+  maritalStatus   String
+  bloodGroup      String
+  cnicNumber      String
+  phoneNumber     String
+  address         String
+  createdAt       DateTime        @default(now())
+  createdByUserId Int?
+  organizationId  Int?
+  MedicalRecord   MedicalRecord[]
+  createdBy       User?           @relation("PatientCreatedBy", fields: [createdByUserId], references: [id])
+  welfareRecord   WelfarePatient?
+  organization    Organization?   @relation(fields: [organizationId], references: [id])
+  patientPrints   PatientPrint[]
+}
+
+model PatientPrint {
+  id          Int      @id @default(autoincrement())
+  patientId   Int
+  printedById Int
+  amount      Int
+  printedAt   DateTime @default(now())
+
+  patient   Patient @relation(fields: [patientId], references: [id])
+  printedBy User    @relation(fields: [printedById], references: [id])
+}
+
+model PatientCardPrice {
+  id        Int      @id @default(autoincrement())
+  price     Int
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Organization {
+  id        Int       @id @default(autoincrement())
+  name      String
+  email     String
+  phone     String
+  address   String?
+  status    Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  patients  Patient[] // relation to patients
+}
+
+model WelfarePatient {
+  id                 Int       @id @default(autoincrement())
+  patientId          Int       @unique
+  welfareCategory    String    @db.VarChar(100)
+  discountType       String?   @db.VarChar(50)
+  discountPercentage Float     @default(0)
+  startDate          DateTime?
+  endDate            DateTime?
+  approvedBy         String?   @db.VarChar(100)
+  referredBy         String?   @db.VarChar(100)
+  remarks            String?   @db.VarChar(500)
+  monthlyIncome      String?   @db.VarChar(100)
+  sourceOfIncome     String?   @db.VarChar(100)
+  houseOwnership     String?   @db.VarChar(100)
+  houseType          String?   @db.VarChar(100)
+  vehicleOwnership   String?   @db.VarChar(100)
+  familyMembers      Int?
+  workingMembers     Int?
+  educationLevel     String?   @db.VarChar(100)
+  financialRemarks   String?   @db.VarChar(500)
+  verificationStatus String?   @db.VarChar(50)
+  verifiedBy         String?   @db.VarChar(100)
+  verificationDate   DateTime?
+  approvalDate       DateTime?
+  nextReviewDate     DateTime?
+  userId             Int
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  patient            Patient   @relation(fields: [patientId], references: [patientId], onDelete: Cascade)
+  user               User      @relation(fields: [userId], references: [id])
+}
+
+model MedicalRecord {
+  id           Int                 @id @default(autoincrement())
+  patientId    Int
+  tokenNumber  Int?
+  tokenDate    DateTime?
+  receiptNo    String?             @unique @db.VarChar(20)
+  recordDate   DateTime            @default(now())
+  totalFee     Decimal             @default(0) @db.Decimal(10, 2)
+  discount     Float               @default(0)
+  finalFee     Decimal             @db.Decimal(10, 2)
+  notes        String?             @db.VarChar(500)
+  createdAt    DateTime            @default(now())
+  userId       Int
+  departmentId Int?
+  procedureId  Int?
+  doctorId     Int?
+  department   Department?         @relation(fields: [departmentId], references: [id])
+  doctor       Doctor?             @relation(fields: [doctorId], references: [id])
+  patient      Patient             @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  procedure    Procedure?          @relation(fields: [procedureId], references: [id])
+  user         User                @relation(fields: [userId], references: [id])
+  items        MedicalRecordItem[]
+
+  @@index([patientId])
+  @@index([doctorId, tokenDate])
+}
+
+model MedicalRecordItem {
+  id              Int           @id @default(autoincrement())
+  medicalRecordId Int
+  departmentId    Int
+  doctorId        Int?
+  procedureId     Int
+  fee             Decimal       @db.Decimal(10, 2)
+  discount        Float         @default(0)
+  finalFee        Decimal       @db.Decimal(10, 2)
+  notes           String?       @db.VarChar(500)
+  department      Department    @relation(fields: [departmentId], references: [id])
+  doctor          Doctor?       @relation(fields: [doctorId], references: [id], onDelete: Restrict)
+  medicalRecord   MedicalRecord @relation(fields: [medicalRecordId], references: [id], onDelete: Cascade)
+  procedure       Procedure     @relation(fields: [procedureId], references: [id])
+
+  @@index([medicalRecordId])
+  @@index([departmentId])
+  @@index([doctorId])
+}
+
+model ReceiptCounter {
+  id        Int      @id @default(autoincrement())
+  prefix    String   @unique @db.VarChar(10)
+  lastValue Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model DoctorTokenCounter {
+  id        Int      @id @default(autoincrement())
+  doctorId  Int
+  tokenDate DateTime
+  lastValue Int
+
+  doctor Doctor @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+
+  @@unique([doctorId, tokenDate])
+}
+
+model Role {
+  id                       Int     @id @default(autoincrement())
+  name                     String  @unique
+  description              String?
+  canManageDepartments     Boolean @default(false)
+  canManageDoctors         Boolean @default(false)
+  canManagePatients        Boolean @default(false)
+  canManageWelfare         Boolean @default(false)
+  canManageProcedures      Boolean @default(false)
+  canManageFees            Boolean @default(false)
+  canViewReports           Boolean @default(false)
+  canManagePatientsHistory Boolean @default(false)
+  canManageFinanceReport   Boolean @default(false)
+  canManageToken           Boolean @default(false)
+  canManageOrganization    Boolean @default(false)
+  canManagePharma          Boolean @default(false)
+  canManageAccounts        Boolean @default(false)
+  canManageSetting       Boolean @default(false)
+  users                    User[]
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  roleId    Int
+  status    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  medicalRecords  MedicalRecord[]
+  createdPatients Patient[]        @relation("PatientCreatedBy")
+  role            Role             @relation(fields: [roleId], references: [id])
+  welfarePatients WelfarePatient[]
+
+  createdIndents        Indent[]       @relation("CreatedBy")
+  approvedLedgerEntries LedgerEntry[]  @relation("LedgerEntryApprover") // all entries this user approved
+  ledgerEntries         LedgerEntry[] // all entries this user created
+  patientPrints         PatientPrint[]
+}
+
+model Company {
+  id                     Int            @id @default(autoincrement())
+  name                   String
+  code                   String?
+  contactPerson          String?
+  phone                  String?
+  email                  String?
+  drugRegistrationNo     String?
+  manufacturingLicenseNo String?
+  ntnNumber              String?
+  gstNumber              String?
+  isActive               Boolean        @default(true)
+  remarks                String?
+  createdAt              DateTime       @default(now())
+  updatedAt              DateTime       @updatedAt
+  medicines              Medicine[]
+  distributors           Distributor[]  @relation("DistributorCompanies")
+  expiryReturns          ExpiryReturn[]
+}
+
+model Distributor {
+  id              Int              @id @default(autoincrement())
+  name            String           @db.VarChar(150)
+  contactPerson   String?          @db.VarChar(100)
+  phone           String?          @db.VarChar(20)
+  mobile          String?          @db.VarChar(20)
+  email           String?          @db.VarChar(100)
+  website         String?          @db.VarChar(100)
+  status          Boolean          @default(true)
+  addressLine1    String?          @db.VarChar(200)
+  addressLine2    String?          @db.VarChar(200)
+  city            String?          @db.VarChar(100)
+  state           String?          @db.VarChar(100)
+  country         String?          @default("Pakistan") @db.VarChar(100)
+  postalCode      String?          @db.VarChar(20)
+  ntnNumber       String?          @db.VarChar(50)
+  gstNumber       String?          @db.VarChar(50)
+  drugLicenseNo   String?          @db.VarChar(50)
+  registrationNo  String?          @db.VarChar(50)
+  openingBalance  Float?           @default(0)
+  balanceType     String?          @db.VarChar(10)
+  creditLimit     Float?
+  paymentTerms    String?          @db.VarChar(50)
+  bankName        String?          @db.VarChar(100)
+  bankAccountNo   String?          @db.VarChar(50)
+  iban            String?          @db.VarChar(50)
+  remarks         String?          @db.VarChar(500)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  companies       Company[]        @relation("DistributorCompanies")
+  purchaseOrders  PurchaseOrder[]
+  grns            GRN[]
+  purchaseReturns PurchaseReturn[]
+  expiryReturns   ExpiryReturn[]
+}
+
+model Medicine {
+  id                  Int                  @id @default(autoincrement())
+  name                String               @db.VarChar(150)
+  categoryId          Int
+  dosageFormId        Int
+  unitId              Int?
+  // unitPacking         String?              @db.VarChar(50)
+  description         String?              @db.VarChar(500)
+  isActive            Boolean              @default(true)
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  companyId           Int?
+  genericNameId       Int?
+  category            MedicineCategory     @relation(fields: [categoryId], references: [id])
+  company             Company?             @relation(fields: [companyId], references: [id])
+  dosageForm          DosageForm           @relation(fields: [dosageFormId], references: [id])
+  genericName         GenericName?         @relation(fields: [genericNameId], references: [id])
+  unit                MedicineUnit?        @relation(fields: [unitId], references: [id])
+  indentItems         IndentItem[]
+  purchaseOrderItems  PurchaseOrderItem[]
+  grnitems            GRNItem[]
+  stockLedgers        StockLedger[]
+  saleItems           SaleItem[]
+  purchaseReturnItems PurchaseReturnItem[]
+  saleReturnItems     SaleReturnItem[]
+  expiryAlerts        ExpiryAlert[]
+  stockAdjustments    StockAdjustment[]
+  expiryReturnItems   ExpiryReturnItem[]
+}
+
+model MedicineUnit {
+  id Int @id @default(autoincrement())
+
+  value Decimal @db.Decimal(10, 3) // ✅ supports 0.5, 2.5, 400
+  unit  String  @db.VarChar(20) // mg, ml, g, IU
+  label String  @unique @db.VarChar(50) // "400mg", "0.5mg"
+
+  status    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  medicines   Medicine[]
+  indentItems IndentItem[]
+
+  @@unique([value, unit])
+}
+
+/// *
+///  * Medicine Category
+model MedicineCategory {
+  id          Int        @id @default(autoincrement())
+  name        String     @unique @db.VarChar(100)
+  description String?    @db.VarChar(500)
+  status      Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  medicines   Medicine[]
+}
+
+/// *
+///  * Dosage Form
+model DosageForm {
+  id          Int          @id @default(autoincrement())
+  name        String       @unique @db.VarChar(100)
+  description String?      @db.VarChar(500)
+  status      Boolean      @default(true)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  code        String?      @unique
+  medicines   Medicine[]
+  indentItems IndentItem[]
+}
+
+model GenericName {
+  id          Int          @id @default(autoincrement())
+  name        String       @unique @db.VarChar(150)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  status      Boolean      @default(true)
+  medicines   Medicine[]
+  indentItems IndentItem[]
+}
+
+model Indent {
+  id         Int      @id @default(autoincrement())
+  indentNo   String   @unique
+  indentDate DateTime @default(now())
+
+  departmentId Int?
+
+  createdBy Int?
+
+  status String @default("FORWARDING_TO_PO")
+
+  approvedBy Int?
+  approvedAt DateTime?
+
+  remarks String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  items         IndentItem[]
+  createdByUser User?        @relation("CreatedBy", fields: [createdBy], references: [id])
+}
+
+model IndentItem {
+  id Int @id @default(autoincrement())
+
+  indentId      Int
+  genericNameId Int
+
+  requestedQty Float
+  approvedQty  Float? // can be less than requested
+  pendingQty   Float? // auto-calc or manual
+
+  isPoCreated Boolean @default(false)
+
+  unitId       Int? // <-- added
+  dosageFormId Int?
+
+  lastPurchaseRate Float? // optional (reference only)
+  remarks          String?
+
+  indent      Indent      @relation(fields: [indentId], references: [id])
+  genericName GenericName @relation(fields: [genericNameId], references: [id])
+
+  createdAt  DateTime      @default(now())
+  medicine   Medicine?     @relation(fields: [medicineId], references: [id])
+  dosageForm DosageForm?   @relation(fields: [dosageFormId], references: [id])
+  unit       MedicineUnit? @relation(fields: [unitId], references: [id])
+  medicineId Int?
+}
+
+model PurchaseOrder {
+  id            Int      @id @default(autoincrement())
+  poNo          String   @unique
+  poDate        DateTime @default(now())
+  distributorId Int
+  indentId      Int?
+
+  status String @default("OPEN")
+  // OPEN | APPROVED | PARTIALLY_PAID | PAID | CANCELLED
+
+  totalAmount    Float?
+  taxAmount      Float?
+  discountAmount Float?
+  netAmount      Float?
+
+  approvedBy Int?
+  approvedAt DateTime?
+
+  pdfUrl         String?
+  pdfGeneratedAt DateTime?
+
+  paymentType String? // FULL | ADVANCE_50 | AFTER_GRN
+  remarks     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  distributor Distributor         @relation(fields: [distributorId], references: [id])
+  items       PurchaseOrderItem[]
+  grns        GRN[]
+  payments    Payment[]
+}
+
+model PurchaseOrderItem {
+  id              Int    @id @default(autoincrement()) // <-- auto-increment
+  poId            Int
+  medicineId      Int
+  orderedQty      Float
+  rate            Float
+  discountPercent Float? @default(0)
+  taxPercent      Float? @default(0)
+  totalAmount     Float?
+
+  po       PurchaseOrder @relation(fields: [poId], references: [id])
+  medicine Medicine      @relation(fields: [medicineId], references: [id])
+}
+
+// Payment model for PurchaseOrders
+model Payment {
+  id          Int      @id @default(autoincrement())
+  poId        Int // Purchase Order ID
+  amount      Float
+  paymentMode String // CASH | BANK_TRANSFER | CHEQUE | ONLINE
+  paymentDate DateTime @default(now())
+  referenceNo String? // cheque no / transaction id
+  status      String   @default("PENDING") // PENDING | COMPLETED | FAILED
+  createdBy   Int?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+
+  po PurchaseOrder @relation(fields: [poId], references: [id])
+}
+
+model LedgerEntry {
+  id        Int      @id @default(autoincrement())
+  entryDate DateTime @default(now())
+
+  refType String // PO_PAYMENT | SALE | GRN
+  refId   Int
+
+  debit  Float @default(0)
+  credit Float @default(0)
+
+  accountType  String // CASH | BANK | SUPPLIER
+  accountRefId Int? // distributorId / bankId
+
+  approvedBy Int
+  approvedAt DateTime @default(now())
+
+  remarks   String?
+  createdAt DateTime @default(now())
+
+  paymentStatus String?
+
+  // ✅ Relations
+  approver User  @relation("LedgerEntryApprover", fields: [approvedBy], references: [id])
+  userId   Int? // optional: who created the entry
+  user     User? @relation(fields: [userId], references: [id])
+}
+
+model GRN {
+  id      Int      @id @default(autoincrement())
+  grnNo   String   @unique
+  grnDate DateTime @default(now())
+
+  poId   Int
+  poNo   String
+  poDate DateTime
+
+  distributorId Int
+  departmentId  Int?
+
+  invoiceNo     String?
+  invoiceDate   DateTime?
+  invoiceType   String? // DC | INVOICE
+  invoiceStatus String? // PENDING | RECEIVED | VERIFIED
+
+  // 🔹 Totals
+  totalQty       Float?
+  grossAmount    Float? // sum of item gross
+  discountAmount Float?
+  taxAmount      Float?
+  netAmount      Float? // FINAL PAYABLE
+
+  status String @default("RECEIVED")
+  // RECEIVED | CHECKED | APPROVED
+
+  receivedBy Int
+  checkedBy  Int?
+  approvedBy Int?
+  approvedAt DateTime?
+
+  remarks String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  po          PurchaseOrder @relation(fields: [poId], references: [id])
+  distributor Distributor   @relation(fields: [distributorId], references: [id])
+  department  Department?   @relation(fields: [departmentId], references: [id])
+
+  items           GRNItem[]
+  purchaseReturns PurchaseReturn[]
+}
+
+model GRNItem {
+  id         Int @id @default(autoincrement())
+  grnId      Int
+  medicineId Int
+
+  // 🔹 PO Reference
+  orderedQty            Float
+  previouslyReceivedQty Float @default(0)
+
+  // 🔹 Receiving
+  receivedQty Float
+  bonusQty    Float? @default(0)
+  totalQty    Float // received + bonus
+  pendingQty  Float // ordered - (previous + received)
+
+  batchNo    String
+  expiryDate DateTime
+
+  // 🔹 Financials
+  rate            Float // purchase rate
+  grossAmount     Float // receivedQty × rate
+  discountPercent Float? @default(0)
+  discountAmount  Float? // calculated
+  taxPercent      Float? @default(0)
+  taxAmount       Float?
+  netAmount       Float // FINAL LINE TOTAL
+
+  mrp Float?
+
+  grn      GRN      @relation(fields: [grnId], references: [id], onDelete: Cascade)
+  medicine Medicine @relation(fields: [medicineId], references: [id])
+
+  @@index([grnId])
+  @@index([medicineId])
+}
+
+// Stock Ledger
+model StockLedger {
+  id              Int      @id @default(autoincrement())
+  medicineId      Int
+  batchNo         String
+  expiryDate      DateTime
+  transactionType String
+  refTable        String // GRN | SALE | RETURN | ADJUSTMENT
+  refId           Int
+  qtyIn           Float?   @default(0)
+  qtyOut          Float?   @default(0)
+  rate            Float?
+  valueIn         Float?   @default(0)
+  valueOut        Float?   @default(0)
+  balanceQty      Float
+  balanceValue    Float
+  createdAt       DateTime @default(now())
+
+  medicine Medicine @relation(fields: [medicineId], references: [id])
+}
+
+model Sale {
+  id             Int      @id @default(autoincrement())
+  saleNo         String   @unique
+  saleDate       DateTime @default(now())
+  customerName   String?
+  grossAmount    Float
+  discountAmount Float?
+  taxAmount      Float?
+  netAmount      Float
+  paymentMode    String
+  createdAt      DateTime @default(now())
+
+  items           SaleItem[]
+  saleReturns     SaleReturn[]
+  saleReturnItems SaleReturnItem[]
+}
+
+model SaleItem {
+  id              Int      @id @default(autoincrement())
+  saleId          Int
+  medicineId      Int
+  batchNo         String
+  expiryDate      DateTime
+  quantity        Float
+  saleRate        Float
+  discountPercent Float?
+  taxPercent      Float?
+  lineAmount      Float
+
+  sale     Sale     @relation(fields: [saleId], references: [id])
+  medicine Medicine @relation(fields: [medicineId], references: [id])
+}
+
+model PurchaseReturn {
+  id            Int      @id @default(autoincrement())
+  returnNo      String   @unique
+  grnId         Int
+  distributorId Int
+  returnDate    DateTime @default(now())
+  status        String   @default("PENDING")
+  // PENDING | APPROVED | POSTED
+
+  reason     String?
+  approvedBy Int?
+  approvedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  grn         GRN                  @relation(fields: [grnId], references: [id])
+  distributor Distributor          @relation(fields: [distributorId], references: [id])
+  items       PurchaseReturnItem[]
+}
+
+model PurchaseReturnItem {
+  id               Int      @id @default(autoincrement())
+  purchaseReturnId Int
+  medicineId       Int
+  batchNo          String
+  expiryDate       DateTime
+  returnQty        Float
+  purchaseRate     Float
+  lineAmount       Float
+  reason           String?
+
+  purchaseReturn PurchaseReturn @relation(fields: [purchaseReturnId], references: [id])
+  medicine       Medicine       @relation(fields: [medicineId], references: [id])
+}
+
+model SaleReturn {
+  id         Int       @id @default(autoincrement())
+  returnNo   String    @unique
+  saleId     Int
+  returnDate DateTime  @default(now())
+  status     String    @default("PENDING") // PENDING | APPROVED | POSTED
+  reason     String?
+  approvedBy Int?
+  approvedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  sale  Sale             @relation(fields: [saleId], references: [id])
+  items SaleReturnItem[]
+}
+
+model SaleReturnItem {
+  id           Int      @id @default(autoincrement())
+  saleReturnId Int
+  medicineId   Int
+  batchNo      String
+  expiryDate   DateTime
+  returnQty    Float
+  saleRate     Float
+  lineAmount   Float
+  reason       String?
+
+  saleReturn SaleReturn @relation(fields: [saleReturnId], references: [id])
+  medicine   Medicine   @relation(fields: [medicineId], references: [id])
+  sale       Sale?      @relation(fields: [saleId], references: [id])
+  saleId     Int?
+}
+
+model ExpiryAlert {
+  id         Int      @id @default(autoincrement())
+  medicineId Int
+  batchNo    String
+  expiryDate DateTime
+  quantity   Float
+  alertDate  DateTime
+  alertType  String // 90_DAYS | 60_DAYS | 30_DAYS
+  status     String   @default("OPEN")
+  // OPEN | ACTIONED | IGNORED
+
+  createdAt  DateTime  @default(now())
+  actionBy   Int?
+  actionDate DateTime?
+
+  medicine Medicine @relation(fields: [medicineId], references: [id])
+}
+
+model StockAdjustment {
+  id             Int      @id @default(autoincrement())
+  adjustmentNo   String   @unique
+  medicineId     Int
+  batchNo        String
+  expiryDate     DateTime
+  adjustmentQty  Float // +ve or -ve
+  adjustmentType String // DAMAGE | LOSS | COUNT_DIFF
+  reason         String
+
+  approvedBy Int?
+  approvedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  medicine Medicine @relation(fields: [medicineId], references: [id])
+}
+
+model ExpiryReturn {
+  id             Int      @id @default(autoincrement())
+  expiryReturnNo String   @unique
+  distributorId  Int
+  companyId      Int?
+  returnDate     DateTime @default(now())
+
+  returnType String // NEAR_EXPIRY | EXPIRED
+  status     String @default("PENDING")
+  // PENDING | APPROVED | POSTED
+
+  approvedBy Int?
+  approvedAt DateTime?
+  remarks    String?
+
+  createdAt DateTime @default(now())
+
+  distributor Distributor        @relation(fields: [distributorId], references: [id])
+  company     Company?           @relation(fields: [companyId], references: [id])
+  items       ExpiryReturnItem[]
+}
+
+model ExpiryReturnItem {
+  id             Int      @id @default(autoincrement())
+  expiryReturnId Int
+  medicineId     Int
+  batchNo        String
+  expiryDate     DateTime
+
+  returnQty    Float
+  purchaseRate Float
+  lineAmount   Float
+
+  originalGrnId Int? // traceability (audit)
+  reason        String?
+
+  expiryReturn ExpiryReturn @relation(fields: [expiryReturnId], references: [id])
+  medicine     Medicine     @relation(fields: [medicineId], references: [id])
+}
