@@ -1,6 +1,8 @@
 import express from "express";
-import { createCategory, getCategories } from "../../controller/pharmacy/medicineCategoryController.js";
-
+import {
+  createCategory,
+  getCategories,
+} from "../../controller/pharmacy/MedicineCategoryController.js";
 
 const router = express.Router();
 
