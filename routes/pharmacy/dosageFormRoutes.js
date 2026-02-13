@@ -1,5 +1,5 @@
 import express from "express";
-import { createDosageForm, getDosageForms } from "../../controller/pharmacy/dosageFormController.js";
+import { createDosageForm, getDosageForms } from "../../controller/pharmacy/DosageFormController.js";
 
 
 const router = express.Router();
