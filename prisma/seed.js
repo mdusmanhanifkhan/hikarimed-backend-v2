@@ -98,22 +98,73 @@ async function main() {
         canManageToken: false,
         canManagePharma: true,
         canManageAccounts: false,
-        canManageSetting:false
+        canManageSetting: false,
       },
     );
 
+    // ===== ADMIN =====
     await ensureUser(
       "superadmin@system.com",
       "Super Admin",
       "superadmin@01",
       adminRole.id,
     );
+
+    // ===== DEVELOPERS =====
     await ensureUser(
       "developer@system.com",
       "Developer",
       "developer@khan",
       patientRole.id,
     );
+
+    // ===== RECEPTION / STAFF =====
+    await ensureUser(
+      "reception@system.com",
+      "Reception",
+      "reception@01",
+      patientRole.id,
+    );
+    await ensureUser(
+      "reception01@system.com",
+      "Reception One",
+      "reception01@01",
+      patientRole.id,
+    );
+    await ensureUser(
+      "hassan@system.com",
+      "Hassan",
+      "hassan@system",
+      patientRole.id,
+    );
+    await ensureUser(
+      "ithead@system.com",
+      "IT Head",
+      "ithead@system",
+      patientRole.id,
+    );
+
+    // ===== PHARMACY =====
+    await ensureUser(
+      "pharma@system.com",
+      "Pharmacy",
+      "pharma@system",
+      pharmacyRole.id,
+    );
+    await ensureUser(
+      "pharmacysale@system.com",
+      "Pharmacy Sale",
+      "pharmasale@system",
+      pharmacyRole.id,
+    );
+    await ensureUser(
+      "pharmacyhod@system.com",
+      "Pharmacy HOD",
+      "pharmahod@system",
+      pharmacyRole.id,
+    );
+
+    // ===== OTHER INDIVIDUALS =====
     await ensureUser(
       "sharjeel.baig@system.com",
       "Sharjeel Baig",
@@ -123,85 +174,23 @@ async function main() {
     await ensureUser(
       "faisal.ghani@system.com",
       "Faisal Ghani",
-      "faisalghani@system",
+      "faisal.ghani@system",
       patientRole.id,
     );
     await ensureUser(
       "miraj.arif@system.com",
       "Miraj Arif",
-      "miraj@system",
+      "miraj.arif@system",
       patientRole.id,
     );
-    await ensureUser(
-      "sidra@system.com",
-      "Sidra",
-      "sidra@system",
-      patientRole.id,
-    );
+    await ensureUser("sidra@system.com", "Sidra", "sidra@system", patientRole.id);
     await ensureUser(
       "hiraqaiser@system.com",
       "Hira Qaiser",
       "hiraqaiser@system",
       patientRole.id,
     );
-    await ensureUser(
-      "aniba@system.com",
-      "Aniba",
-      "aniba@system",
-      patientRole.id,
-    );
-    await ensureUser(
-      "pharma@system.com",
-      "Pharmacy",
-      "pharma",
-      pharmacyRole.id,
-    );
-
-    // ===== SUPER DEVELOPERS (3) =====
-    await ensureUser(
-      "superdev1@system.com",
-      "Super Developer 1",
-      "superdev@01",
-      adminRole.id,
-    );
-
-    await ensureUser(
-      "superdev2@system.com",
-      "Super Developer 2",
-      "superdev@02",
-      adminRole.id,
-    );
-
-    await ensureUser(
-      "superdev3@system.com",
-      "Super Developer 3",
-      "superdev@03",
-      adminRole.id,
-    );
-
-    // ===== OWNER (1) =====
-    await ensureUser(
-      "owner@system.com",
-      "System Owner",
-      "owner@01",
-      patientRole.id,
-    );
-
-    // ===== PHARMACY SALE (1) =====
-    await ensureUser(
-      "pharmacysale@system.com",
-      "Pharmacy Sale",
-      "pharmasale@01",
-      pharmacyRole.id,
-    );
-
-    // ===== PHARMACY HOD (1) =====
-    await ensureUser(
-      "pharmacyhod@system.com",
-      "Pharmacy HOD",
-      "pharmahod@01",
-      pharmacyRole.id,
-    );
+    await ensureUser("aniba@system.com", "Aniba", "aniba@system", patientRole.id);
 
     console.log("Seeding completed!");
   } catch (error) {
