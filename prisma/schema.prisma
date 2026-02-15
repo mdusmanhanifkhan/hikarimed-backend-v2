@@ -634,10 +634,10 @@ model GRN {
 
   // 🔹 Totals
   totalQty       Float?
-  grossAmount    Float? // sum of item gross
+  grossAmount    Float? 
   discountAmount Float?
   taxAmount      Float?
-  netAmount      Float? // FINAL PAYABLE
+  netAmount      Float? 
 
   status String @default("RECEIVED")
   // RECEIVED | CHECKED | APPROVED
@@ -672,20 +672,20 @@ model GRNItem {
   // 🔹 Receiving
   receivedQty Float
   bonusQty    Float? @default(0)
-  totalQty    Float // received + bonus
-  pendingQty  Float // ordered - (previous + received)
+  totalQty    Float // receivedQty + bonusQty
+  pendingQty  Float // orderedQty - (previouslyReceivedQty + receivedQty)
 
   batchNo    String
   expiryDate DateTime
 
   // 🔹 Financials
-  rate            Float // purchase rate
-  grossAmount     Float // receivedQty × rate
-  discountPercent Float? @default(0)
-  discountAmount  Float? // calculated
+  rate            Float  // TP from company
+  discountPercent Float? @default(0) // line discount %
+  discountAmount  Float? // rate * discountPercent
+  saleRate        Float  // retail price for customer
   taxPercent      Float? @default(0)
   taxAmount       Float?
-  netAmount       Float // FINAL LINE TOTAL
+  netAmount       Float // FINAL LINE TOTAL = (receivedQty+bonusQty)*(rate-discount+tax)
 
   mrp Float?
 
@@ -696,26 +696,32 @@ model GRNItem {
   @@index([medicineId])
 }
 
-// Stock Ledger
 model StockLedger {
-  id              Int      @id @default(autoincrement())
-  medicineId      Int
-  batchNo         String
-  expiryDate      DateTime
-  transactionType String
-  refTable        String // GRN | SALE | RETURN | ADJUSTMENT
-  refId           Int
-  qtyIn           Float?   @default(0)
-  qtyOut          Float?   @default(0)
-  rate            Float?
-  valueIn         Float?   @default(0)
-  valueOut        Float?   @default(0)
-  balanceQty      Float
-  balanceValue    Float
-  createdAt       DateTime @default(now())
+  id                      Int      @id @default(autoincrement())
+  medicineId              Int
+  batchNo                 String
+  expiryDate              DateTime
+  transactionType         String
+  refTable                String
+  refId                   Int
+  qtyIn                   Float?   @default(0)
+  qtyOut                  Float?   @default(0)
+  rate                    Float?   // purchase rate
+  discountPercent         Float?   // ✅ add this
+  discountAmount          Float?   // ✅ add this
+  saleRate                Float?   // retail price
+  valueIn                 Float?   @default(0)
+  valueOut                Float?   @default(0)
+  balanceQty              Float
+  balanceValue            Float
+  customerDiscountPercent Float? 
+  customerDiscountAmount  Float? 
+  createdAt               DateTime @default(now())
 
   medicine Medicine @relation(fields: [medicineId], references: [id])
 }
+
+
 
 model Sale {
   id             Int      @id @default(autoincrement())

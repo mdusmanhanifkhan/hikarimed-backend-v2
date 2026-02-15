@@ -37,9 +37,9 @@ export type GRNItemAvgAggregateOutputType = {
   totalQty: number | null
   pendingQty: number | null
   rate: number | null
-  grossAmount: number | null
   discountPercent: number | null
   discountAmount: number | null
+  saleRate: number | null
   taxPercent: number | null
   taxAmount: number | null
   netAmount: number | null
@@ -57,9 +57,9 @@ export type GRNItemSumAggregateOutputType = {
   totalQty: number | null
   pendingQty: number | null
   rate: number | null
-  grossAmount: number | null
   discountPercent: number | null
   discountAmount: number | null
+  saleRate: number | null
   taxPercent: number | null
   taxAmount: number | null
   netAmount: number | null
@@ -79,9 +79,9 @@ export type GRNItemMinAggregateOutputType = {
   batchNo: string | null
   expiryDate: Date | null
   rate: number | null
-  grossAmount: number | null
   discountPercent: number | null
   discountAmount: number | null
+  saleRate: number | null
   taxPercent: number | null
   taxAmount: number | null
   netAmount: number | null
@@ -101,9 +101,9 @@ export type GRNItemMaxAggregateOutputType = {
   batchNo: string | null
   expiryDate: Date | null
   rate: number | null
-  grossAmount: number | null
   discountPercent: number | null
   discountAmount: number | null
+  saleRate: number | null
   taxPercent: number | null
   taxAmount: number | null
   netAmount: number | null
@@ -123,9 +123,9 @@ export type GRNItemCountAggregateOutputType = {
   batchNo: number
   expiryDate: number
   rate: number
-  grossAmount: number
   discountPercent: number
   discountAmount: number
+  saleRate: number
   taxPercent: number
   taxAmount: number
   netAmount: number
@@ -145,9 +145,9 @@ export type GRNItemAvgAggregateInputType = {
   totalQty?: true
   pendingQty?: true
   rate?: true
-  grossAmount?: true
   discountPercent?: true
   discountAmount?: true
+  saleRate?: true
   taxPercent?: true
   taxAmount?: true
   netAmount?: true
@@ -165,9 +165,9 @@ export type GRNItemSumAggregateInputType = {
   totalQty?: true
   pendingQty?: true
   rate?: true
-  grossAmount?: true
   discountPercent?: true
   discountAmount?: true
+  saleRate?: true
   taxPercent?: true
   taxAmount?: true
   netAmount?: true
@@ -187,9 +187,9 @@ export type GRNItemMinAggregateInputType = {
   batchNo?: true
   expiryDate?: true
   rate?: true
-  grossAmount?: true
   discountPercent?: true
   discountAmount?: true
+  saleRate?: true
   taxPercent?: true
   taxAmount?: true
   netAmount?: true
@@ -209,9 +209,9 @@ export type GRNItemMaxAggregateInputType = {
   batchNo?: true
   expiryDate?: true
   rate?: true
-  grossAmount?: true
   discountPercent?: true
   discountAmount?: true
+  saleRate?: true
   taxPercent?: true
   taxAmount?: true
   netAmount?: true
@@ -231,9 +231,9 @@ export type GRNItemCountAggregateInputType = {
   batchNo?: true
   expiryDate?: true
   rate?: true
-  grossAmount?: true
   discountPercent?: true
   discountAmount?: true
+  saleRate?: true
   taxPercent?: true
   taxAmount?: true
   netAmount?: true
@@ -340,9 +340,9 @@ export type GRNItemGroupByOutputType = {
   batchNo: string
   expiryDate: Date
   rate: number
-  grossAmount: number
   discountPercent: number | null
   discountAmount: number | null
+  saleRate: number
   taxPercent: number | null
   taxAmount: number | null
   netAmount: number
@@ -385,9 +385,9 @@ export type GRNItemWhereInput = {
   batchNo?: Prisma.StringFilter<"GRNItem"> | string
   expiryDate?: Prisma.DateTimeFilter<"GRNItem"> | Date | string
   rate?: Prisma.FloatFilter<"GRNItem"> | number
-  grossAmount?: Prisma.FloatFilter<"GRNItem"> | number
   discountPercent?: Prisma.FloatNullableFilter<"GRNItem"> | number | null
   discountAmount?: Prisma.FloatNullableFilter<"GRNItem"> | number | null
+  saleRate?: Prisma.FloatFilter<"GRNItem"> | number
   taxPercent?: Prisma.FloatNullableFilter<"GRNItem"> | number | null
   taxAmount?: Prisma.FloatNullableFilter<"GRNItem"> | number | null
   netAmount?: Prisma.FloatFilter<"GRNItem"> | number
@@ -409,9 +409,9 @@ export type GRNItemOrderByWithRelationInput = {
   batchNo?: Prisma.SortOrder
   expiryDate?: Prisma.SortOrder
   rate?: Prisma.SortOrder
-  grossAmount?: Prisma.SortOrder
   discountPercent?: Prisma.SortOrderInput | Prisma.SortOrder
   discountAmount?: Prisma.SortOrderInput | Prisma.SortOrder
+  saleRate?: Prisma.SortOrder
   taxPercent?: Prisma.SortOrderInput | Prisma.SortOrder
   taxAmount?: Prisma.SortOrderInput | Prisma.SortOrder
   netAmount?: Prisma.SortOrder
@@ -436,9 +436,9 @@ export type GRNItemWhereUniqueInput = Prisma.AtLeast<{
   batchNo?: Prisma.StringFilter<"GRNItem"> | string
   expiryDate?: Prisma.DateTimeFilter<"GRNItem"> | Date | string
   rate?: Prisma.FloatFilter<"GRNItem"> | number
-  grossAmount?: Prisma.FloatFilter<"GRNItem"> | number
   discountPercent?: Prisma.FloatNullableFilter<"GRNItem"> | number | null
   discountAmount?: Prisma.FloatNullableFilter<"GRNItem"> | number | null
+  saleRate?: Prisma.FloatFilter<"GRNItem"> | number
   taxPercent?: Prisma.FloatNullableFilter<"GRNItem"> | number | null
   taxAmount?: Prisma.FloatNullableFilter<"GRNItem"> | number | null
   netAmount?: Prisma.FloatFilter<"GRNItem"> | number
@@ -460,9 +460,9 @@ export type GRNItemOrderByWithAggregationInput = {
   batchNo?: Prisma.SortOrder
   expiryDate?: Prisma.SortOrder
   rate?: Prisma.SortOrder
-  grossAmount?: Prisma.SortOrder
   discountPercent?: Prisma.SortOrderInput | Prisma.SortOrder
   discountAmount?: Prisma.SortOrderInput | Prisma.SortOrder
+  saleRate?: Prisma.SortOrder
   taxPercent?: Prisma.SortOrderInput | Prisma.SortOrder
   taxAmount?: Prisma.SortOrderInput | Prisma.SortOrder
   netAmount?: Prisma.SortOrder
@@ -490,9 +490,9 @@ export type GRNItemScalarWhereWithAggregatesInput = {
   batchNo?: Prisma.StringWithAggregatesFilter<"GRNItem"> | string
   expiryDate?: Prisma.DateTimeWithAggregatesFilter<"GRNItem"> | Date | string
   rate?: Prisma.FloatWithAggregatesFilter<"GRNItem"> | number
-  grossAmount?: Prisma.FloatWithAggregatesFilter<"GRNItem"> | number
   discountPercent?: Prisma.FloatNullableWithAggregatesFilter<"GRNItem"> | number | null
   discountAmount?: Prisma.FloatNullableWithAggregatesFilter<"GRNItem"> | number | null
+  saleRate?: Prisma.FloatWithAggregatesFilter<"GRNItem"> | number
   taxPercent?: Prisma.FloatNullableWithAggregatesFilter<"GRNItem"> | number | null
   taxAmount?: Prisma.FloatNullableWithAggregatesFilter<"GRNItem"> | number | null
   netAmount?: Prisma.FloatWithAggregatesFilter<"GRNItem"> | number
@@ -509,9 +509,9 @@ export type GRNItemCreateInput = {
   batchNo: string
   expiryDate: Date | string
   rate: number
-  grossAmount: number
   discountPercent?: number | null
   discountAmount?: number | null
+  saleRate: number
   taxPercent?: number | null
   taxAmount?: number | null
   netAmount: number
@@ -533,9 +533,9 @@ export type GRNItemUncheckedCreateInput = {
   batchNo: string
   expiryDate: Date | string
   rate: number
-  grossAmount: number
   discountPercent?: number | null
   discountAmount?: number | null
+  saleRate: number
   taxPercent?: number | null
   taxAmount?: number | null
   netAmount: number
@@ -552,9 +552,9 @@ export type GRNItemUpdateInput = {
   batchNo?: Prisma.StringFieldUpdateOperationsInput | string
   expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rate?: Prisma.FloatFieldUpdateOperationsInput | number
-  grossAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  saleRate?: Prisma.FloatFieldUpdateOperationsInput | number
   taxPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   taxAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   netAmount?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -576,9 +576,9 @@ export type GRNItemUncheckedUpdateInput = {
   batchNo?: Prisma.StringFieldUpdateOperationsInput | string
   expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rate?: Prisma.FloatFieldUpdateOperationsInput | number
-  grossAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  saleRate?: Prisma.FloatFieldUpdateOperationsInput | number
   taxPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   taxAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   netAmount?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -598,9 +598,9 @@ export type GRNItemCreateManyInput = {
   batchNo: string
   expiryDate: Date | string
   rate: number
-  grossAmount: number
   discountPercent?: number | null
   discountAmount?: number | null
+  saleRate: number
   taxPercent?: number | null
   taxAmount?: number | null
   netAmount: number
@@ -617,9 +617,9 @@ export type GRNItemUpdateManyMutationInput = {
   batchNo?: Prisma.StringFieldUpdateOperationsInput | string
   expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rate?: Prisma.FloatFieldUpdateOperationsInput | number
-  grossAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  saleRate?: Prisma.FloatFieldUpdateOperationsInput | number
   taxPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   taxAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   netAmount?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -639,9 +639,9 @@ export type GRNItemUncheckedUpdateManyInput = {
   batchNo?: Prisma.StringFieldUpdateOperationsInput | string
   expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rate?: Prisma.FloatFieldUpdateOperationsInput | number
-  grossAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  saleRate?: Prisma.FloatFieldUpdateOperationsInput | number
   taxPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   taxAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   netAmount?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -671,9 +671,9 @@ export type GRNItemCountOrderByAggregateInput = {
   batchNo?: Prisma.SortOrder
   expiryDate?: Prisma.SortOrder
   rate?: Prisma.SortOrder
-  grossAmount?: Prisma.SortOrder
   discountPercent?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
+  saleRate?: Prisma.SortOrder
   taxPercent?: Prisma.SortOrder
   taxAmount?: Prisma.SortOrder
   netAmount?: Prisma.SortOrder
@@ -691,9 +691,9 @@ export type GRNItemAvgOrderByAggregateInput = {
   totalQty?: Prisma.SortOrder
   pendingQty?: Prisma.SortOrder
   rate?: Prisma.SortOrder
-  grossAmount?: Prisma.SortOrder
   discountPercent?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
+  saleRate?: Prisma.SortOrder
   taxPercent?: Prisma.SortOrder
   taxAmount?: Prisma.SortOrder
   netAmount?: Prisma.SortOrder
@@ -713,9 +713,9 @@ export type GRNItemMaxOrderByAggregateInput = {
   batchNo?: Prisma.SortOrder
   expiryDate?: Prisma.SortOrder
   rate?: Prisma.SortOrder
-  grossAmount?: Prisma.SortOrder
   discountPercent?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
+  saleRate?: Prisma.SortOrder
   taxPercent?: Prisma.SortOrder
   taxAmount?: Prisma.SortOrder
   netAmount?: Prisma.SortOrder
@@ -735,9 +735,9 @@ export type GRNItemMinOrderByAggregateInput = {
   batchNo?: Prisma.SortOrder
   expiryDate?: Prisma.SortOrder
   rate?: Prisma.SortOrder
-  grossAmount?: Prisma.SortOrder
   discountPercent?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
+  saleRate?: Prisma.SortOrder
   taxPercent?: Prisma.SortOrder
   taxAmount?: Prisma.SortOrder
   netAmount?: Prisma.SortOrder
@@ -755,9 +755,9 @@ export type GRNItemSumOrderByAggregateInput = {
   totalQty?: Prisma.SortOrder
   pendingQty?: Prisma.SortOrder
   rate?: Prisma.SortOrder
-  grossAmount?: Prisma.SortOrder
   discountPercent?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
+  saleRate?: Prisma.SortOrder
   taxPercent?: Prisma.SortOrder
   taxAmount?: Prisma.SortOrder
   netAmount?: Prisma.SortOrder
@@ -858,9 +858,9 @@ export type GRNItemCreateWithoutMedicineInput = {
   batchNo: string
   expiryDate: Date | string
   rate: number
-  grossAmount: number
   discountPercent?: number | null
   discountAmount?: number | null
+  saleRate: number
   taxPercent?: number | null
   taxAmount?: number | null
   netAmount: number
@@ -880,9 +880,9 @@ export type GRNItemUncheckedCreateWithoutMedicineInput = {
   batchNo: string
   expiryDate: Date | string
   rate: number
-  grossAmount: number
   discountPercent?: number | null
   discountAmount?: number | null
+  saleRate: number
   taxPercent?: number | null
   taxAmount?: number | null
   netAmount: number
@@ -931,9 +931,9 @@ export type GRNItemScalarWhereInput = {
   batchNo?: Prisma.StringFilter<"GRNItem"> | string
   expiryDate?: Prisma.DateTimeFilter<"GRNItem"> | Date | string
   rate?: Prisma.FloatFilter<"GRNItem"> | number
-  grossAmount?: Prisma.FloatFilter<"GRNItem"> | number
   discountPercent?: Prisma.FloatNullableFilter<"GRNItem"> | number | null
   discountAmount?: Prisma.FloatNullableFilter<"GRNItem"> | number | null
+  saleRate?: Prisma.FloatFilter<"GRNItem"> | number
   taxPercent?: Prisma.FloatNullableFilter<"GRNItem"> | number | null
   taxAmount?: Prisma.FloatNullableFilter<"GRNItem"> | number | null
   netAmount?: Prisma.FloatFilter<"GRNItem"> | number
@@ -950,9 +950,9 @@ export type GRNItemCreateWithoutGrnInput = {
   batchNo: string
   expiryDate: Date | string
   rate: number
-  grossAmount: number
   discountPercent?: number | null
   discountAmount?: number | null
+  saleRate: number
   taxPercent?: number | null
   taxAmount?: number | null
   netAmount: number
@@ -972,9 +972,9 @@ export type GRNItemUncheckedCreateWithoutGrnInput = {
   batchNo: string
   expiryDate: Date | string
   rate: number
-  grossAmount: number
   discountPercent?: number | null
   discountAmount?: number | null
+  saleRate: number
   taxPercent?: number | null
   taxAmount?: number | null
   netAmount: number
@@ -1019,9 +1019,9 @@ export type GRNItemCreateManyMedicineInput = {
   batchNo: string
   expiryDate: Date | string
   rate: number
-  grossAmount: number
   discountPercent?: number | null
   discountAmount?: number | null
+  saleRate: number
   taxPercent?: number | null
   taxAmount?: number | null
   netAmount: number
@@ -1038,9 +1038,9 @@ export type GRNItemUpdateWithoutMedicineInput = {
   batchNo?: Prisma.StringFieldUpdateOperationsInput | string
   expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rate?: Prisma.FloatFieldUpdateOperationsInput | number
-  grossAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  saleRate?: Prisma.FloatFieldUpdateOperationsInput | number
   taxPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   taxAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   netAmount?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1060,9 +1060,9 @@ export type GRNItemUncheckedUpdateWithoutMedicineInput = {
   batchNo?: Prisma.StringFieldUpdateOperationsInput | string
   expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rate?: Prisma.FloatFieldUpdateOperationsInput | number
-  grossAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  saleRate?: Prisma.FloatFieldUpdateOperationsInput | number
   taxPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   taxAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   netAmount?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1081,9 +1081,9 @@ export type GRNItemUncheckedUpdateManyWithoutMedicineInput = {
   batchNo?: Prisma.StringFieldUpdateOperationsInput | string
   expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rate?: Prisma.FloatFieldUpdateOperationsInput | number
-  grossAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  saleRate?: Prisma.FloatFieldUpdateOperationsInput | number
   taxPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   taxAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   netAmount?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1102,9 +1102,9 @@ export type GRNItemCreateManyGrnInput = {
   batchNo: string
   expiryDate: Date | string
   rate: number
-  grossAmount: number
   discountPercent?: number | null
   discountAmount?: number | null
+  saleRate: number
   taxPercent?: number | null
   taxAmount?: number | null
   netAmount: number
@@ -1121,9 +1121,9 @@ export type GRNItemUpdateWithoutGrnInput = {
   batchNo?: Prisma.StringFieldUpdateOperationsInput | string
   expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rate?: Prisma.FloatFieldUpdateOperationsInput | number
-  grossAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  saleRate?: Prisma.FloatFieldUpdateOperationsInput | number
   taxPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   taxAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   netAmount?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1143,9 +1143,9 @@ export type GRNItemUncheckedUpdateWithoutGrnInput = {
   batchNo?: Prisma.StringFieldUpdateOperationsInput | string
   expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rate?: Prisma.FloatFieldUpdateOperationsInput | number
-  grossAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  saleRate?: Prisma.FloatFieldUpdateOperationsInput | number
   taxPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   taxAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   netAmount?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1164,9 +1164,9 @@ export type GRNItemUncheckedUpdateManyWithoutGrnInput = {
   batchNo?: Prisma.StringFieldUpdateOperationsInput | string
   expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rate?: Prisma.FloatFieldUpdateOperationsInput | number
-  grossAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  saleRate?: Prisma.FloatFieldUpdateOperationsInput | number
   taxPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   taxAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   netAmount?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1188,9 +1188,9 @@ export type GRNItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   batchNo?: boolean
   expiryDate?: boolean
   rate?: boolean
-  grossAmount?: boolean
   discountPercent?: boolean
   discountAmount?: boolean
+  saleRate?: boolean
   taxPercent?: boolean
   taxAmount?: boolean
   netAmount?: boolean
@@ -1212,9 +1212,9 @@ export type GRNItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   batchNo?: boolean
   expiryDate?: boolean
   rate?: boolean
-  grossAmount?: boolean
   discountPercent?: boolean
   discountAmount?: boolean
+  saleRate?: boolean
   taxPercent?: boolean
   taxAmount?: boolean
   netAmount?: boolean
@@ -1236,9 +1236,9 @@ export type GRNItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   batchNo?: boolean
   expiryDate?: boolean
   rate?: boolean
-  grossAmount?: boolean
   discountPercent?: boolean
   discountAmount?: boolean
+  saleRate?: boolean
   taxPercent?: boolean
   taxAmount?: boolean
   netAmount?: boolean
@@ -1260,16 +1260,16 @@ export type GRNItemSelectScalar = {
   batchNo?: boolean
   expiryDate?: boolean
   rate?: boolean
-  grossAmount?: boolean
   discountPercent?: boolean
   discountAmount?: boolean
+  saleRate?: boolean
   taxPercent?: boolean
   taxAmount?: boolean
   netAmount?: boolean
   mrp?: boolean
 }
 
-export type GRNItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "grnId" | "medicineId" | "orderedQty" | "previouslyReceivedQty" | "receivedQty" | "bonusQty" | "totalQty" | "pendingQty" | "batchNo" | "expiryDate" | "rate" | "grossAmount" | "discountPercent" | "discountAmount" | "taxPercent" | "taxAmount" | "netAmount" | "mrp", ExtArgs["result"]["gRNItem"]>
+export type GRNItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "grnId" | "medicineId" | "orderedQty" | "previouslyReceivedQty" | "receivedQty" | "bonusQty" | "totalQty" | "pendingQty" | "batchNo" | "expiryDate" | "rate" | "discountPercent" | "discountAmount" | "saleRate" | "taxPercent" | "taxAmount" | "netAmount" | "mrp", ExtArgs["result"]["gRNItem"]>
 export type GRNItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   grn?: boolean | Prisma.GRNDefaultArgs<ExtArgs>
   medicine?: boolean | Prisma.MedicineDefaultArgs<ExtArgs>
@@ -1302,9 +1302,9 @@ export type $GRNItemPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     batchNo: string
     expiryDate: Date
     rate: number
-    grossAmount: number
     discountPercent: number | null
     discountAmount: number | null
+    saleRate: number
     taxPercent: number | null
     taxAmount: number | null
     netAmount: number
@@ -1746,9 +1746,9 @@ export interface GRNItemFieldRefs {
   readonly batchNo: Prisma.FieldRef<"GRNItem", 'String'>
   readonly expiryDate: Prisma.FieldRef<"GRNItem", 'DateTime'>
   readonly rate: Prisma.FieldRef<"GRNItem", 'Float'>
-  readonly grossAmount: Prisma.FieldRef<"GRNItem", 'Float'>
   readonly discountPercent: Prisma.FieldRef<"GRNItem", 'Float'>
   readonly discountAmount: Prisma.FieldRef<"GRNItem", 'Float'>
+  readonly saleRate: Prisma.FieldRef<"GRNItem", 'Float'>
   readonly taxPercent: Prisma.FieldRef<"GRNItem", 'Float'>
   readonly taxAmount: Prisma.FieldRef<"GRNItem", 'Float'>
   readonly netAmount: Prisma.FieldRef<"GRNItem", 'Float'>

@@ -1,9 +1,6 @@
+
+
 import { prisma } from "../../lib/prisma.js";
-
-/* =====================================================
-   CREATE GRN
-===================================================== */
-
 
 export const createGRN = async (req, res) => {
   try {
@@ -29,47 +26,45 @@ export const createGRN = async (req, res) => {
       return res.status(400).json({ message: "Required fields missing" });
     }
 
-    // 🔹 Check if GRN already exists for this PO
-    const existingGRN = await prisma.gRN.findFirst({
-      where: { poId },
-    });
-
+    const existingGRN = await prisma.gRN.findFirst({ where: { poId } });
     if (existingGRN) {
       return res.status(400).json({ message: "A GRN already exists for this PO." });
     }
 
-    // Prepare GRN items
-    const grnItems = items.map((i) => ({
-      medicineId: i.medicineId,
-      orderedQty: i.orderedQty,
-      previouslyReceivedQty: i.previouslyReceivedQty || 0,
-      receivedQty: i.receivedQty,
-      bonusQty: i.bonusQty || 0,
-      totalQty: (i.receivedQty || 0) + (i.bonusQty || 0),
-      pendingQty: (i.orderedQty || 0) - ((i.previouslyReceivedQty || 0) + (i.receivedQty || 0)),
-      batchNo: i.batchNo,
-      expiryDate: i.expiryDate ? new Date(i.expiryDate) : new Date(),
-      rate: i.rate,
-      grossAmount: (i.receivedQty || 0) * (i.rate || 0),
-      discountPercent: i.discountPercent || 0,
-      discountAmount: (((i.receivedQty || 0) * (i.rate || 0)) * (i.discountPercent || 0)) / 100,
-      taxPercent: i.taxPercent || 0,
-      taxAmount:
-        ((((i.receivedQty || 0) * (i.rate || 0)) -
-          (((i.receivedQty || 0) * (i.rate || 0)) * (i.discountPercent || 0)) / 100) *
-          (i.taxPercent || 0)) /
-        100,
-      netAmount:
-        ((i.receivedQty || 0) * (i.rate || 0)) -
-        (((i.receivedQty || 0) * (i.rate || 0) * (i.discountPercent || 0)) / 100) +
-        ((((i.receivedQty || 0) * (i.rate || 0) -
-          ((i.receivedQty || 0) * (i.rate || 0) * (i.discountPercent || 0)) / 100) *
-          (i.taxPercent || 0)) /
-          100),
-      mrp: i.mrp || null,
-    }));
+    const grnItems = items.map((i) => {
+  const receivedQty = i.receivedQty || 0;
+  const bonusQty = i.bonusQty || 0;
+  const totalQty = receivedQty + bonusQty;
+  const orderedQty = i.orderedQty || totalQty;
+  const previouslyReceivedQty = i.previouslyReceivedQty || 0;
 
-    // Create GRN with items
+  const rate = i.rate || 0;
+  const discountPercent = i.discountPercent || 0;
+  const taxPercent = i.taxPercent || 0;
+
+  const discountedRate = rate - (rate * discountPercent) / 100;
+  const netAmount = totalQty * discountedRate * (1 + taxPercent / 100);
+
+  return {
+    medicineId: i.medicineId,
+    batchNo: i.batchNo,
+    expiryDate: i.expiryDate ? new Date(i.expiryDate) : new Date(),
+    receivedQty,
+    bonusQty,
+    totalQty,
+    orderedQty,
+    previouslyReceivedQty,
+    pendingQty: orderedQty - (previouslyReceivedQty + receivedQty), // ✅ calculate
+    rate,
+    discountPercent,
+    taxPercent,
+    netAmount,
+    saleRate: i.saleRate || discountedRate + 30,
+    mrp: i.mrp || null,
+  };
+});
+
+
     const grn = await prisma.gRN.create({
       data: {
         grnNo,
@@ -84,45 +79,51 @@ export const createGRN = async (req, res) => {
         invoiceType,
         invoiceStatus,
         totalQty: grnItems.reduce((sum, x) => sum + x.totalQty, 0),
-        grossAmount: grnItems.reduce((sum, x) => sum + x.grossAmount, 0),
-        discountAmount: grnItems.reduce((sum, x) => sum + x.discountAmount, 0),
-        taxAmount: grnItems.reduce((sum, x) => sum + x.taxAmount, 0),
+        grossAmount: grnItems.reduce((sum, x) => sum + x.rate * x.totalQty, 0),
+        discountAmount: grnItems.reduce((sum, x) => sum + x.rate * x.totalQty * x.discountPercent / 100, 0),
+        taxAmount: grnItems.reduce((sum, x) => sum + x.rate * x.totalQty * x.taxPercent / 100, 0),
         netAmount: grnItems.reduce((sum, x) => sum + x.netAmount, 0),
         receivedBy,
         remarks,
         items: { create: grnItems },
       },
-      include: {
-        items: true,
-      },
+      include: { items: true },
     });
 
-    // 🔹 Update Stock Ledger
+    // 🔹 Update Stock Ledger correctly
     for (const item of grn.items) {
       const lastStock = await prisma.stockLedger.findFirst({
-        where: {
-          medicineId: item.medicineId,
-          batchNo: item.batchNo,
-        },
+        where: { medicineId: item.medicineId, batchNo: item.batchNo },
         orderBy: { createdAt: "desc" },
       });
 
-      const balanceQty = (lastStock?.balanceQty || 0) + item.totalQty;
-      const balanceValue = (lastStock?.balanceValue || 0) + item.netAmount;
+      const previousQty = lastStock?.balanceQty || 0;
+      const previousValue = lastStock?.balanceValue || 0;
+
+      const customerDiscountPercent = item.customerDiscountPercent || 0;
+      const customerDiscountAmount =
+        ((item.saleRate || 0) * item.totalQty * customerDiscountPercent) / 100;
 
       await prisma.stockLedger.create({
         data: {
           medicineId: item.medicineId,
           batchNo: item.batchNo,
           expiryDate: item.expiryDate,
-          transactionType: "IN",
+          transactionType: "GRN",
           refTable: "GRN",
           refId: grn.id,
           qtyIn: item.totalQty,
           valueIn: item.netAmount,
-          balanceQty,
-          balanceValue,
+          qtyOut: 0,
+          valueOut: 0,
+          balanceQty: previousQty + item.totalQty,
+          balanceValue: previousValue + item.netAmount,
           rate: item.rate,
+          discountPercent: item.discountPercent,
+          discountAmount: item.discountAmount,
+          saleRate: item.saleRate,
+          customerDiscountPercent,
+          customerDiscountAmount,
         },
       });
     }
@@ -138,6 +139,7 @@ export const createGRN = async (req, res) => {
   }
 };
 
+
 /* =====================================================
    GET ALL GRNs
 ===================================================== */
@@ -148,14 +150,9 @@ export const getAllGRNs = async (req, res) => {
       include: {
         distributor: true,
         department: true,
-        items: {
-          include: {
-            medicine: true,
-          },
-        },
+        items: { include: { medicine: true } },
       },
     });
-
     return res.json({ success: true, data: grns });
   } catch (error) {
     console.error("getAllGRNs error:", error);
@@ -170,23 +167,17 @@ export const getGRNById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const grn = await prisma.grn.findUnique({
+    const grn = await prisma.gRN.findUnique({
       where: { id: Number(id) },
       include: {
         distributor: true,
         department: true,
         po: true,
-        items: {
-          include: {
-            medicine: true,
-          },
-        },
+        items: { include: { medicine: true } },
       },
     });
 
-    if (!grn) {
-      return res.status(404).json({ message: "GRN not found" });
-    }
+    if (!grn) return res.status(404).json({ message: "GRN not found" });
 
     return res.json({ success: true, data: grn });
   } catch (error) {
@@ -195,62 +186,15 @@ export const getGRNById = async (req, res) => {
   }
 };
 
-// export const getStockList = async (req, res) => {
-//   try {
-//     const { companyId, medicineName, batchNo, expiryFilter } = req.query;
-
-//     const where = {};
-
-//     if (companyId) {
-//       where.medicine = { companyId: Number(companyId) }; // assuming Medicine has companyId
-//     }
-
-//     if (medicineName) {
-//       where.medicine = {
-//         ...where.medicine,
-//         name: { contains: medicineName, mode: "insensitive" },
-//       };
-//     }
-
-//     if (batchNo) {
-//       where.batchNo = { contains: batchNo };
-//     }
-
-//     if (expiryFilter) {
-//       const today = new Date();
-//       if (expiryFilter === "near") {
-//         const threeMonthsLater = new Date();
-//         threeMonthsLater.setMonth(today.getMonth() + 3);
-//         where.expiryDate = { gte: today, lte: threeMonthsLater };
-//       } else if (expiryFilter === "expired") {
-//         where.expiryDate = { lt: today };
-//       }
-//     }
-
-//     const stock = await prisma.stockLedger.findMany({
-//       where,
-//       orderBy: { createdAt: "desc" },
-//       include: {
-//         medicine: true,
-//       },
-//     });
-
-//     return res.json({ success: true, data: stock });
-//   } catch (error) {
-//     console.error("getStockList error:", error);
-//     return res.status(500).json({ success: false, message: "Internal server error" });
-//   }
-// };
-
+/* =====================================================
+   GET STOCK LIST (latest balance per batch)
+===================================================== */
 export const getStockList = async (req, res) => {
   try {
     // 1️⃣ Get all distinct medicineId + batchNo
     const distinctBatches = await prisma.stockLedger.findMany({
-      select: {
-        medicineId: true,
-        batchNo: true,
-      },
-      distinct: ['medicineId', 'batchNo'],
+      select: { medicineId: true, batchNo: true },
+      distinct: ["medicineId", "batchNo"],
     });
 
     // 2️⃣ Get latest record for each batch
@@ -258,14 +202,59 @@ export const getStockList = async (req, res) => {
       distinctBatches.map(async (b) => {
         const last = await prisma.stockLedger.findFirst({
           where: { medicineId: b.medicineId, batchNo: b.batchNo },
-          orderBy: { createdAt: 'desc' },
+          orderBy: { createdAt: "desc" },
           include: { medicine: true },
         });
         return last;
       })
     );
 
-    return res.json({ success: true, data: latestStocks });
+    // 3️⃣ Filter out batches with zero balance
+    const filteredStocks = latestStocks.filter(stock => stock.balanceQty > 0);
+
+    // 4️⃣ Group by medicine
+    const grouped = filteredStocks.reduce((acc, stock) => {
+      const medId = stock.medicine.id;
+
+      if (!acc[medId]) {
+        acc[medId] = {
+          id: stock.medicine.id,
+          name: stock.medicine.name,
+          categoryId: stock.medicine.categoryId,
+          dosageFormId: stock.medicine.dosageFormId,
+          unitId: stock.medicine.unitId,
+          companyId: stock.medicine.companyId,
+          genericNameId: stock.medicine.genericNameId,
+          batches: [],
+        };
+      }
+
+      acc[medId].batches.push({
+        id: stock.id,
+        batchNo: stock.batchNo,
+        expiryDate: stock.expiryDate,
+        transactionType: stock.transactionType,
+        qtyIn: stock.qtyIn,
+        qtyOut: stock.qtyOut,
+        rate: stock.rate,
+        discountPercent: stock.discountPercent,
+        discountAmount: stock.discountAmount,
+        saleRate: stock.saleRate,
+        valueIn: stock.valueIn,
+        valueOut: stock.valueOut,
+        balanceQty: stock.balanceQty,
+        balanceValue: stock.balanceValue,
+        customerDiscountPercent: stock.customerDiscountPercent,
+        customerDiscountAmount: stock.customerDiscountAmount,
+      });
+
+      return acc;
+    }, {});
+
+    // Convert object to array
+    const result = Object.values(grouped);
+
+    return res.json({ success: true, data: result });
   } catch (error) {
     console.error("getStockList error:", error);
     return res.status(500).json({ success: false, message: "Internal server error" });

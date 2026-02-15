@@ -673,9 +673,9 @@ export const GRNItemScalarFieldEnum = {
   batchNo: 'batchNo',
   expiryDate: 'expiryDate',
   rate: 'rate',
-  grossAmount: 'grossAmount',
   discountPercent: 'discountPercent',
   discountAmount: 'discountAmount',
+  saleRate: 'saleRate',
   taxPercent: 'taxPercent',
   taxAmount: 'taxAmount',
   netAmount: 'netAmount',
@@ -696,10 +696,15 @@ export const StockLedgerScalarFieldEnum = {
   qtyIn: 'qtyIn',
   qtyOut: 'qtyOut',
   rate: 'rate',
+  discountPercent: 'discountPercent',
+  discountAmount: 'discountAmount',
+  saleRate: 'saleRate',
   valueIn: 'valueIn',
   valueOut: 'valueOut',
   balanceQty: 'balanceQty',
   balanceValue: 'balanceValue',
+  customerDiscountPercent: 'customerDiscountPercent',
+  customerDiscountAmount: 'customerDiscountAmount',
   createdAt: 'createdAt'
 } as const
 
