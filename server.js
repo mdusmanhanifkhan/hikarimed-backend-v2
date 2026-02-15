@@ -16,7 +16,8 @@ const allowedOrigins = [
   "https://www.hikarimed.online",
   "https://hikarimed.vercel.app",
   "http://localhost:5173",
-  "https://md2vt317-5173.inc1.devtunnels.ms"
+  "https://md2vt317-5173.inc1.devtunnels.ms",
+  "https://hikarimed-v2.vercel.app"
 ];
 
 
