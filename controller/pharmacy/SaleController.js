@@ -1,6 +1,118 @@
 import { prisma } from "../../lib/prisma.js";
 
 /* ========================= CREATE SALE ========================= */
+// export const createSale = async (req, res) => {
+//   try {
+//     const {
+//       saleNo,
+//       saleDate,
+//       customerName,
+//       paymentMode,
+//       totalDiscount = 0,
+//       taxPercent = 0,
+//       items,
+//     } = req.body;
+
+//     if (!saleNo || !items?.length || !paymentMode) {
+//       return res.status(400).json({ message: "Required fields missing" });
+//     }
+
+//     /* ---------------- CALCULATE FINANCIALS ---------------- */
+//     let grossAmount = 0;
+//     let totalItemDiscount = 0;
+
+//     const saleItems = items.map((i) => {
+//       // Use safe defaults for null or undefined
+//       const saleRate = i.saleRate ?? 0;
+//       const discountPercent = i.discountPercent ?? 0;
+//       const qty = i.quantity ?? 0;
+
+//       const lineGross = qty * saleRate;
+//       const lineDiscount = lineGross * (discountPercent / 100);
+//       const lineAmount = lineGross - lineDiscount;
+
+//       grossAmount += lineGross;
+//       totalItemDiscount += lineDiscount;
+
+//       return {
+//         medicineId: i.medicineId,
+//         batchNo: i.batchNo,
+//         expiryDate: i.expiryDate ? new Date(i.expiryDate) : new Date(),
+//         quantity: qty,
+//         saleRate,
+//         discountPercent,
+//         taxPercent: i.taxPercent ?? 0,
+//         lineAmount,
+//       };
+//     });
+
+//     const discountAmount = totalItemDiscount + (totalDiscount ?? 0);
+//     const taxableAmount = grossAmount - discountAmount;
+//     const taxAmount = (taxableAmount * (taxPercent ?? 0)) / 100;
+//     const netAmount = taxableAmount + taxAmount;
+
+//     /* ---------------- CREATE SALE ---------------- */
+//     const sale = await prisma.sale.create({
+//       data: {
+//         saleNo,
+//         saleDate: saleDate ? new Date(saleDate) : new Date(),
+//         customerName,
+//         paymentMode,
+//         grossAmount,
+//         discountAmount,
+//         taxAmount,
+//         netAmount,
+//         items: { create: saleItems },
+//       },
+//       include: { items: true },
+//     });
+
+//     /* ---------------- UPDATE STOCK LEDGER ---------------- */
+//  for (const item of sale.items) {
+//   const lastStock = await prisma.stockLedger.findFirst({
+//     where: { medicineId: item.medicineId, batchNo: item.batchNo },
+//     orderBy: { createdAt: "desc" },
+//   });
+
+//   if (!lastStock) continue;
+
+//   const balanceQty = (lastStock.balanceQty || 0) - (item.quantity || 0);
+//   const balanceValue = (lastStock.rate || 0) * balanceQty;
+
+//   await prisma.stockLedger.create({
+//     data: {
+//       medicineId: item.medicineId,
+//       batchNo: item.batchNo,
+//       expiryDate: item.expiryDate,
+//       transactionType: "OUT",
+//       refTable: "SALE",
+//       refId: sale.id,
+//       qtyOut: item.quantity,
+//       valueOut: (lastStock.rate || 0) * (item.quantity || 0), // stock value only
+//       balanceQty,
+//       balanceValue,
+//       rate: lastStock.rate,           // keep original purchase rate
+//       discountPercent: lastStock.discountPercent,
+//       discountAmount: lastStock.discountAmount,
+//       saleRate: item.saleRate,        // optional: just for info
+//       customerDiscountPercent: item.discountPercent ?? 0,
+//       customerDiscountAmount: item.lineAmount - (item.quantity * item.saleRate),
+//     },
+//   });
+// }
+
+
+//     return res.status(201).json({
+//       success: true,
+//       message: "Sale created successfully",
+//       data: sale,
+//     });
+//   } catch (error) {
+//     console.error("createSale error:", error);
+//     return res.status(500).json({ success: false, message: "Internal server error" });
+//   }
+// };
+
 export const createSale = async (req, res) => {
   try {
     const {
@@ -8,22 +120,25 @@ export const createSale = async (req, res) => {
       saleDate,
       customerName,
       paymentMode,
-      totalDiscount = 0, 
-      taxPercent = 0, 
-      items,            
+      totalDiscount = 0,
+      taxPercent = 0,
+      items,
     } = req.body;
 
     if (!saleNo || !items?.length || !paymentMode) {
       return res.status(400).json({ message: "Required fields missing" });
     }
 
-    /* ---------------- CALCULATE FINANCIALS ---------------- */
     let grossAmount = 0;
     let totalItemDiscount = 0;
 
     const saleItems = items.map((i) => {
-      const lineGross = i.quantity * i.saleRate;
-      const lineDiscount = lineGross * ((i.discountPercent || 0) / 100);
+      const saleRate = i.saleRate ?? 0;
+      const discountPercent = i.discountPercent ?? 0;
+      const qty = i.quantity ?? 0;
+
+      const lineGross = qty * saleRate;
+      const lineDiscount = lineGross * (discountPercent / 100);
       const lineAmount = lineGross - lineDiscount;
 
       grossAmount += lineGross;
@@ -31,23 +146,20 @@ export const createSale = async (req, res) => {
 
       return {
         medicineId: i.medicineId,
-        batchNo: i.batchNo,
-        expiryDate: new Date(i.expiryDate),
-        quantity: i.quantity,
-        saleRate: i.saleRate,
-        discountPercent: i.discountPercent || 0,
-        taxPercent: i.taxPercent || 0,
+        batchNo: i.batchNo || i.batch, // accept front-end batch field
+        expiryDate: i.expiryDate ? new Date(i.expiryDate) : new Date(),
+        quantity: qty,
+        saleRate,
+        discountPercent,
         lineAmount,
       };
     });
 
-    // Apply total discount if provided
-    const discountAmount = totalItemDiscount + (totalDiscount || 0);
+    const discountAmount = totalItemDiscount + (totalDiscount ?? 0);
     const taxableAmount = grossAmount - discountAmount;
-    const taxAmount = (taxableAmount * (taxPercent || 0)) / 100;
+    const taxAmount = (taxableAmount * (taxPercent ?? 0)) / 100;
     const netAmount = taxableAmount + taxAmount;
 
-    /* ---------------- CREATE SALE ---------------- */
     const sale = await prisma.sale.create({
       data: {
         saleNo,
@@ -60,47 +172,65 @@ export const createSale = async (req, res) => {
         netAmount,
         items: { create: saleItems },
       },
-      include: {
-        items: true,
-      },
+      include: { items: true },
     });
 
-    /* ---------------- UPDATE STOCK LEDGER ---------------- */
+    // 🔹 Correct stock ledger update for Sale
     for (const item of sale.items) {
-      // Get last stock for medicine & batch
       const lastStock = await prisma.stockLedger.findFirst({
         where: { medicineId: item.medicineId, batchNo: item.batchNo },
         orderBy: { createdAt: "desc" },
       });
 
-      const balanceQty = (lastStock?.balanceQty || 0) - item.quantity;
-      const balanceValue = (lastStock?.balanceValue || 0) - item.lineAmount;
+      if (!lastStock || lastStock.balanceQty < item.quantity) {
+        return res.status(400).json({
+          success: false,
+          message: `Insufficient stock for batch ${item.batchNo}`,
+        });
+      }
+
+      const previousQty = lastStock.balanceQty;
+      const previousValue = lastStock.balanceValue;
+
+      const saleValue = (lastStock.rate || 0) * item.quantity; // use purchase rate for value
+      const customerDiscountAmount =
+        item.quantity * item.saleRate - item.lineAmount; // correct discount
 
       await prisma.stockLedger.create({
         data: {
           medicineId: item.medicineId,
           batchNo: item.batchNo,
           expiryDate: item.expiryDate,
-          transactionType: "OUT", // Sale out
+          transactionType: "OUT",
           refTable: "SALE",
           refId: sale.id,
+          qtyIn: 0,
+          valueIn: 0,
           qtyOut: item.quantity,
-          valueOut: item.lineAmount,
-          balanceQty,
-          balanceValue,
-          rate: item.saleRate,
+          valueOut: saleValue,
+          balanceQty: previousQty - item.quantity,
+          balanceValue: previousValue - saleValue,
+          rate: lastStock.rate,
+          discountPercent: item.discountPercent,
+          discountAmount: customerDiscountAmount,
+          saleRate: item.saleRate,
+          customerDiscountPercent: item.discountPercent,
+          customerDiscountAmount,
         },
       });
     }
 
-    return res
-      .status(201)
-      .json({ success: true, message: "Sale created successfully", data: sale });
+    return res.status(201).json({
+      success: true,
+      message: "Sale created successfully",
+      data: sale,
+    });
   } catch (error) {
     console.error("createSale error:", error);
     return res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
+
 
 /* ========================= GET ALL SALES ========================= */
 export const getAllSales = async (req, res) => {

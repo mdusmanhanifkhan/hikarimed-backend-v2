@@ -80,12 +80,12 @@ export type PrismaVersion = {
 }
 
 /**
- * Prisma Client JS version: 7.3.0
- * Query Engine version: 9d6ad21cbbceab97458517b147a6a09ff43aa735
+ * Prisma Client JS version: 7.4.0
+ * Query Engine version: ab56fe763f921d033a6c195e7ddeb3e255bdbb57
  */
 export const prismaVersion: PrismaVersion = {
-  client: "7.3.0",
-  engine: "9d6ad21cbbceab97458517b147a6a09ff43aa735"
+  client: "7.4.0",
+  engine: "ab56fe763f921d033a6c195e7ddeb3e255bdbb57"
 }
 
 /**
@@ -4228,9 +4228,9 @@ export const GRNItemScalarFieldEnum = {
   batchNo: 'batchNo',
   expiryDate: 'expiryDate',
   rate: 'rate',
-  grossAmount: 'grossAmount',
   discountPercent: 'discountPercent',
   discountAmount: 'discountAmount',
+  saleRate: 'saleRate',
   taxPercent: 'taxPercent',
   taxAmount: 'taxAmount',
   netAmount: 'netAmount',
@@ -4251,10 +4251,15 @@ export const StockLedgerScalarFieldEnum = {
   qtyIn: 'qtyIn',
   qtyOut: 'qtyOut',
   rate: 'rate',
+  discountPercent: 'discountPercent',
+  discountAmount: 'discountAmount',
+  saleRate: 'saleRate',
   valueIn: 'valueIn',
   valueOut: 'valueOut',
   balanceQty: 'balanceQty',
   balanceValue: 'balanceValue',
+  customerDiscountPercent: 'customerDiscountPercent',
+  customerDiscountAmount: 'customerDiscountAmount',
   createdAt: 'createdAt'
 } as const
 
