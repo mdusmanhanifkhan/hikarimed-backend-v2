@@ -5,7 +5,11 @@ import fs from "fs";
 import path from "path";
 
 export const PurchaseOrderPdfGenerator = async (po) => {
-  const browser = await puppeteer.launch({ headless: true });
+ const browser = await puppeteer.launch({
+  executablePath: '/usr/bin/google-chrome',
+  args: ['--no-sandbox', '--disable-setuid-sandbox'],
+})
+
   const page = await browser.newPage();
 
    const html = `
