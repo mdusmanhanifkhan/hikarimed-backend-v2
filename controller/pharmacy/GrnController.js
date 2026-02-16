@@ -1,5 +1,3 @@
-
-
 import { prisma } from "../../lib/prisma.js";
 
 export const createGRN = async (req, res) => {
@@ -28,42 +26,43 @@ export const createGRN = async (req, res) => {
 
     const existingGRN = await prisma.gRN.findFirst({ where: { poId } });
     if (existingGRN) {
-      return res.status(400).json({ message: "A GRN already exists for this PO." });
+      return res
+        .status(400)
+        .json({ message: "A GRN already exists for this PO." });
     }
 
     const grnItems = items.map((i) => {
-  const receivedQty = i.receivedQty || 0;
-  const bonusQty = i.bonusQty || 0;
-  const totalQty = receivedQty + bonusQty;
-  const orderedQty = i.orderedQty || totalQty;
-  const previouslyReceivedQty = i.previouslyReceivedQty || 0;
+      const receivedQty = i.receivedQty || 0;
+      const bonusQty = i.bonusQty || 0;
+      const totalQty = receivedQty + bonusQty;
+      const orderedQty = i.orderedQty || totalQty;
+      const previouslyReceivedQty = i.previouslyReceivedQty || 0;
 
-  const rate = i.rate || 0;
-  const discountPercent = i.discountPercent || 0;
-  const taxPercent = i.taxPercent || 0;
+      const rate = i.rate || 0;
+      const discountPercent = i.discountPercent || 0;
+      const taxPercent = i.taxPercent || 0;
 
-  const discountedRate = rate - (rate * discountPercent) / 100;
-  const netAmount = totalQty * discountedRate * (1 + taxPercent / 100);
+      const discountedRate = rate - (rate * discountPercent) / 100;
+      const netAmount = totalQty * discountedRate * (1 + taxPercent / 100);
 
-  return {
-    medicineId: i.medicineId,
-    batchNo: i.batchNo,
-    expiryDate: i.expiryDate ? new Date(i.expiryDate) : new Date(),
-    receivedQty,
-    bonusQty,
-    totalQty,
-    orderedQty,
-    previouslyReceivedQty,
-    pendingQty: orderedQty - (previouslyReceivedQty + receivedQty), // ✅ calculate
-    rate,
-    discountPercent,
-    taxPercent,
-    netAmount,
-    saleRate: i.saleRate || discountedRate + 30,
-    mrp: i.mrp || null,
-  };
-});
-
+      return {
+        medicineId: i.medicineId,
+        batchNo: i.batchNo,
+        expiryDate: i.expiryDate ? new Date(i.expiryDate) : new Date(),
+        receivedQty,
+        bonusQty,
+        totalQty,
+        orderedQty,
+        previouslyReceivedQty,
+        pendingQty: orderedQty - (previouslyReceivedQty + receivedQty), // ✅ calculate
+        rate,
+        discountPercent,
+        taxPercent,
+        netAmount,
+        saleRate: i.saleRate || discountedRate + 30,
+        mrp: i.mrp || null,
+      };
+    });
 
     const grn = await prisma.gRN.create({
       data: {
@@ -80,8 +79,14 @@ export const createGRN = async (req, res) => {
         invoiceStatus,
         totalQty: grnItems.reduce((sum, x) => sum + x.totalQty, 0),
         grossAmount: grnItems.reduce((sum, x) => sum + x.rate * x.totalQty, 0),
-        discountAmount: grnItems.reduce((sum, x) => sum + x.rate * x.totalQty * x.discountPercent / 100, 0),
-        taxAmount: grnItems.reduce((sum, x) => sum + x.rate * x.totalQty * x.taxPercent / 100, 0),
+        discountAmount: grnItems.reduce(
+          (sum, x) => sum + (x.rate * x.totalQty * x.discountPercent) / 100,
+          0,
+        ),
+        taxAmount: grnItems.reduce(
+          (sum, x) => sum + (x.rate * x.totalQty * x.taxPercent) / 100,
+          0,
+        ),
         netAmount: grnItems.reduce((sum, x) => sum + x.netAmount, 0),
         receivedBy,
         remarks,
@@ -135,10 +140,11 @@ export const createGRN = async (req, res) => {
     });
   } catch (error) {
     console.error("createGRN error:", error);
-    return res.status(500).json({ success: false, message: "Internal server error" });
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal server error" });
   }
 };
-
 
 /* =====================================================
    GET ALL GRNs
@@ -197,20 +203,26 @@ export const getStockList = async (req, res) => {
       distinct: ["medicineId", "batchNo"],
     });
 
-    // 2️⃣ Get latest record for each batch
+    // 2️⃣ Get latest record for each batch with nested medicine + dosageForm
     const latestStocks = await Promise.all(
       distinctBatches.map(async (b) => {
         const last = await prisma.stockLedger.findFirst({
           where: { medicineId: b.medicineId, batchNo: b.batchNo },
           orderBy: { createdAt: "desc" },
-          include: { medicine: true , dosageForm:true },
+          include: {
+            medicine: {
+              include: {
+                dosageForm: true, // Include dosage form details
+              },
+            },
+          },
         });
         return last;
       })
     );
 
     // 3️⃣ Filter out batches with zero balance
-    const filteredStocks = latestStocks.filter(stock => stock.balanceQty > 0);
+    const filteredStocks = latestStocks.filter((stock) => stock.balanceQty > 0);
 
     // 4️⃣ Group by medicine
     const grouped = filteredStocks.reduce((acc, stock) => {
@@ -221,7 +233,12 @@ export const getStockList = async (req, res) => {
           id: stock.medicine.id,
           name: stock.medicine.name,
           categoryId: stock.medicine.categoryId,
-          dosageFormId: stock.medicine.dosageFormId,
+          dosageForm: stock.medicine.dosageForm
+            ? {
+                id: stock.medicine.dosageForm.id,
+                name: stock.medicine.dosageForm.name,
+              }
+            : null,
           unitId: stock.medicine.unitId,
           companyId: stock.medicine.companyId,
           genericNameId: stock.medicine.genericNameId,
@@ -260,3 +277,4 @@ export const getStockList = async (req, res) => {
     return res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
+
