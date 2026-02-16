@@ -203,7 +203,7 @@ export const getStockList = async (req, res) => {
         const last = await prisma.stockLedger.findFirst({
           where: { medicineId: b.medicineId, batchNo: b.batchNo },
           orderBy: { createdAt: "desc" },
-          include: { medicine: true },
+          include: { medicine: true , dosageForm:true },
         });
         return last;
       })
