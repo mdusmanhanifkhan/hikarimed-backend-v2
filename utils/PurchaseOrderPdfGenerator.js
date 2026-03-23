@@ -5,10 +5,14 @@ import fs from "fs";
 import path from "path";
 
 export const PurchaseOrderPdfGenerator = async (po) => {
- const browser = await puppeteer.launch({
-  executablePath: '/usr/bin/google-chrome',
-  args: ['--no-sandbox', '--disable-setuid-sandbox'],
-})
+//  const browser = await puppeteer.launch({
+//   executablePath: '/usr/bin/google-chrome',
+//   args: ['--no-sandbox', '--disable-setuid-sandbox'],
+// })
+const browser = await puppeteer.launch({
+  headless: true,
+  args: ["--no-sandbox", "--disable-setuid-sandbox"],
+});
 
   const page = await browser.newPage();
 
@@ -136,7 +140,7 @@ export const PurchaseOrderPdfGenerator = async (po) => {
                 <div class="details-col">
                     <div class="detail-row">
                         <span>Vendor:</span>
-                        <span>${po.distributor.name}</span>
+                        <span>${po.supplier.name}</span>
                     </div>
                     <div class="detail-row">
                         <span>Contact Person:</span>
@@ -195,7 +199,7 @@ export const PurchaseOrderPdfGenerator = async (po) => {
                       .map(
                         (item) => `
                         <tr>
-                            <td>${item.medicine.name}</td>
+                            <td>${item.product.name}</td>
                             <td>${item.orderedQty}</td>
                             <td>${item.rate.toFixed(2)}</td>
                             <td>${item.discountPercent || 0}</td>

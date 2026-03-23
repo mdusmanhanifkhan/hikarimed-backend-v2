@@ -126,57 +126,80 @@ export type DoctorTokenCounter = Prisma.DoctorTokenCounterModel
  */
 export type Role = Prisma.RoleModel
 /**
+ * Model Permission
+ * 
+ */
+export type Permission = Prisma.PermissionModel
+/**
+ * Model RolePermission
+ * 
+ */
+export type RolePermission = Prisma.RolePermissionModel
+/**
  * Model User
  * 
  */
 export type User = Prisma.UserModel
-/**
- * Model Company
- * 
- */
-export type Company = Prisma.CompanyModel
-/**
- * Model Distributor
- * 
- */
-export type Distributor = Prisma.DistributorModel
-/**
- * Model Medicine
- * 
- */
-export type Medicine = Prisma.MedicineModel
-/**
- * Model MedicineUnit
- * 
- */
-export type MedicineUnit = Prisma.MedicineUnitModel
-/**
- * Model MedicineCategory
- * *
- * * Medicine Category
- */
-export type MedicineCategory = Prisma.MedicineCategoryModel
-/**
- * Model DosageForm
- * *
- * * Dosage Form
- */
-export type DosageForm = Prisma.DosageFormModel
 /**
  * Model GenericName
  * 
  */
 export type GenericName = Prisma.GenericNameModel
 /**
+ * Model Brand
+ * 
+ */
+export type Brand = Prisma.BrandModel
+/**
+ * Model Supplier
+ * 
+ */
+export type Supplier = Prisma.SupplierModel
+/**
+ * Model SupplierBank
+ * 
+ */
+export type SupplierBank = Prisma.SupplierBankModel
+/**
+ * Model Category
+ * 
+ */
+export type Category = Prisma.CategoryModel
+/**
+ * Model StrengthUnit
+ * 
+ */
+export type StrengthUnit = Prisma.StrengthUnitModel
+/**
+ * Model PackingType
+ * 
+ */
+export type PackingType = Prisma.PackingTypeModel
+/**
+ * Model DosageForm
+ * 
+ */
+export type DosageForm = Prisma.DosageFormModel
+/**
+ * Model Product
+ * 
+ */
+export type Product = Prisma.ProductModel
+/**
+ * Model ProductVariant
+ * 
+ */
+export type ProductVariant = Prisma.ProductVariantModel
+/**
  * Model Indent
  * 
  */
 export type Indent = Prisma.IndentModel
 /**
- * Model IndentItem
+ * Model IndenItem
  * 
  */
-export type IndentItem = Prisma.IndentItemModel
+export type IndenItem = Prisma.IndenItemModel
 /**
  * Model PurchaseOrder
  * 
@@ -188,6 +211,21 @@ export type PurchaseOrder = Prisma.PurchaseOrderModel
  */
 export type PurchaseOrderItem = Prisma.PurchaseOrderItemModel
 /**
+ * Model GoodsReceipt
+ * 
+ */
+export type GoodsReceipt = Prisma.GoodsReceiptModel
+/**
+ * Model GoodsReceiptItem
+ * 
+ */
+export type GoodsReceiptItem = Prisma.GoodsReceiptItemModel
+/**
+ * Model StockLedger
+ * 
+ */
+export type StockLedger = Prisma.StockLedgerModel
+/**
  * Model Payment
  * 
  */
@@ -197,21 +235,6 @@ export type Payment = Prisma.PaymentModel
  * 
  */
 export type LedgerEntry = Prisma.LedgerEntryModel
-/**
- * Model GRN
- * 
- */
-export type GRN = Prisma.GRNModel
-/**
- * Model GRNItem
- * 
- */
-export type GRNItem = Prisma.GRNItemModel
-/**
- * Model StockLedger
- * 
- */
-export type StockLedger = Prisma.StockLedgerModel
 /**
  * Model Sale
  * 
@@ -223,16 +246,6 @@ export type Sale = Prisma.SaleModel
  */
 export type SaleItem = Prisma.SaleItemModel
 /**
- * Model PurchaseReturn
- * 
- */
-export type PurchaseReturn = Prisma.PurchaseReturnModel
-/**
- * Model PurchaseReturnItem
- * 
- */
-export type PurchaseReturnItem = Prisma.PurchaseReturnItemModel
-/**
  * Model SaleReturn
  * 
  */
@@ -242,23 +255,3 @@ export type SaleReturn = Prisma.SaleReturnModel
  * 
  */
 export type SaleReturnItem = Prisma.SaleReturnItemModel
-/**
- * Model ExpiryAlert
- * 
- */
-export type ExpiryAlert = Prisma.ExpiryAlertModel
-/**
- * Model StockAdjustment
- * 
- */
-export type StockAdjustment = Prisma.StockAdjustmentModel
-/**
- * Model ExpiryReturn
- * 
- */
-export type ExpiryReturn = Prisma.ExpiryReturnModel
-/**
- * Model ExpiryReturnItem
- * 
- */
-export type ExpiryReturnItem = Prisma.ExpiryReturnItemModel

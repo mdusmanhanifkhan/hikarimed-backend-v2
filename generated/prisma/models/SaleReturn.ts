@@ -28,38 +28,38 @@ export type AggregateSaleReturn = {
 
 export type SaleReturnAvgAggregateOutputType = {
   id: number | null
+  returnNo: number | null
   saleId: number | null
-  approvedBy: number | null
+  totalRefund: number | null
 }
 
 export type SaleReturnSumAggregateOutputType = {
   id: number | null
+  returnNo: number | null
   saleId: number | null
-  approvedBy: number | null
+  totalRefund: number | null
 }
 
 export type SaleReturnMinAggregateOutputType = {
   id: number | null
-  returnNo: string | null
+  returnNo: number | null
   saleId: number | null
   returnDate: Date | null
-  status: string | null
   reason: string | null
-  approvedBy: number | null
-  approvedAt: Date | null
+  totalRefund: number | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type SaleReturnMaxAggregateOutputType = {
   id: number | null
-  returnNo: string | null
+  returnNo: number | null
   saleId: number | null
   returnDate: Date | null
-  status: string | null
   reason: string | null
-  approvedBy: number | null
-  approvedAt: Date | null
+  totalRefund: number | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type SaleReturnCountAggregateOutputType = {
@@ -67,25 +67,26 @@ export type SaleReturnCountAggregateOutputType = {
   returnNo: number
   saleId: number
   returnDate: number
-  status: number
   reason: number
-  approvedBy: number
-  approvedAt: number
+  totalRefund: number
   createdAt: number
+  updatedAt: number
   _all: number
 }
 
 
 export type SaleReturnAvgAggregateInputType = {
   id?: true
+  returnNo?: true
   saleId?: true
-  approvedBy?: true
+  totalRefund?: true
 }
 
 export type SaleReturnSumAggregateInputType = {
   id?: true
+  returnNo?: true
   saleId?: true
-  approvedBy?: true
+  totalRefund?: true
 }
 
 export type SaleReturnMinAggregateInputType = {
@@ -93,11 +94,10 @@ export type SaleReturnMinAggregateInputType = {
   returnNo?: true
   saleId?: true
   returnDate?: true
-  status?: true
   reason?: true
-  approvedBy?: true
-  approvedAt?: true
+  totalRefund?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type SaleReturnMaxAggregateInputType = {
@@ -105,11 +105,10 @@ export type SaleReturnMaxAggregateInputType = {
   returnNo?: true
   saleId?: true
   returnDate?: true
-  status?: true
   reason?: true
-  approvedBy?: true
-  approvedAt?: true
+  totalRefund?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type SaleReturnCountAggregateInputType = {
@@ -117,11 +116,10 @@ export type SaleReturnCountAggregateInputType = {
   returnNo?: true
   saleId?: true
   returnDate?: true
-  status?: true
   reason?: true
-  approvedBy?: true
-  approvedAt?: true
+  totalRefund?: true
   createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -213,14 +211,13 @@ export type SaleReturnGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inter
 
 export type SaleReturnGroupByOutputType = {
   id: number
-  returnNo: string
+  returnNo: number
   saleId: number
   returnDate: Date
-  status: string
   reason: string | null
-  approvedBy: number | null
-  approvedAt: Date | null
+  totalRefund: number | null
   createdAt: Date
+  updatedAt: Date
   _count: SaleReturnCountAggregateOutputType | null
   _avg: SaleReturnAvgAggregateOutputType | null
   _sum: SaleReturnSumAggregateOutputType | null
@@ -248,14 +245,13 @@ export type SaleReturnWhereInput = {
   OR?: Prisma.SaleReturnWhereInput[]
   NOT?: Prisma.SaleReturnWhereInput | Prisma.SaleReturnWhereInput[]
   id?: Prisma.IntFilter<"SaleReturn"> | number
-  returnNo?: Prisma.StringFilter<"SaleReturn"> | string
+  returnNo?: Prisma.IntFilter<"SaleReturn"> | number
   saleId?: Prisma.IntFilter<"SaleReturn"> | number
   returnDate?: Prisma.DateTimeFilter<"SaleReturn"> | Date | string
-  status?: Prisma.StringFilter<"SaleReturn"> | string
   reason?: Prisma.StringNullableFilter<"SaleReturn"> | string | null
-  approvedBy?: Prisma.IntNullableFilter<"SaleReturn"> | number | null
-  approvedAt?: Prisma.DateTimeNullableFilter<"SaleReturn"> | Date | string | null
+  totalRefund?: Prisma.FloatNullableFilter<"SaleReturn"> | number | null
   createdAt?: Prisma.DateTimeFilter<"SaleReturn"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"SaleReturn"> | Date | string
   sale?: Prisma.XOR<Prisma.SaleScalarRelationFilter, Prisma.SaleWhereInput>
   items?: Prisma.SaleReturnItemListRelationFilter
 }
@@ -265,28 +261,26 @@ export type SaleReturnOrderByWithRelationInput = {
   returnNo?: Prisma.SortOrder
   saleId?: Prisma.SortOrder
   returnDate?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   reason?: Prisma.SortOrderInput | Prisma.SortOrder
-  approvedBy?: Prisma.SortOrderInput | Prisma.SortOrder
-  approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  totalRefund?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   sale?: Prisma.SaleOrderByWithRelationInput
   items?: Prisma.SaleReturnItemOrderByRelationAggregateInput
 }
 
 export type SaleReturnWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  returnNo?: string
+  returnNo?: number
   AND?: Prisma.SaleReturnWhereInput | Prisma.SaleReturnWhereInput[]
   OR?: Prisma.SaleReturnWhereInput[]
   NOT?: Prisma.SaleReturnWhereInput | Prisma.SaleReturnWhereInput[]
   saleId?: Prisma.IntFilter<"SaleReturn"> | number
   returnDate?: Prisma.DateTimeFilter<"SaleReturn"> | Date | string
-  status?: Prisma.StringFilter<"SaleReturn"> | string
   reason?: Prisma.StringNullableFilter<"SaleReturn"> | string | null
-  approvedBy?: Prisma.IntNullableFilter<"SaleReturn"> | number | null
-  approvedAt?: Prisma.DateTimeNullableFilter<"SaleReturn"> | Date | string | null
+  totalRefund?: Prisma.FloatNullableFilter<"SaleReturn"> | number | null
   createdAt?: Prisma.DateTimeFilter<"SaleReturn"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"SaleReturn"> | Date | string
   sale?: Prisma.XOR<Prisma.SaleScalarRelationFilter, Prisma.SaleWhereInput>
   items?: Prisma.SaleReturnItemListRelationFilter
 }, "id" | "returnNo">
@@ -296,11 +290,10 @@ export type SaleReturnOrderByWithAggregationInput = {
   returnNo?: Prisma.SortOrder
   saleId?: Prisma.SortOrder
   returnDate?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   reason?: Prisma.SortOrderInput | Prisma.SortOrder
-  approvedBy?: Prisma.SortOrderInput | Prisma.SortOrder
-  approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  totalRefund?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.SaleReturnCountOrderByAggregateInput
   _avg?: Prisma.SaleReturnAvgOrderByAggregateInput
   _max?: Prisma.SaleReturnMaxOrderByAggregateInput
@@ -313,98 +306,88 @@ export type SaleReturnScalarWhereWithAggregatesInput = {
   OR?: Prisma.SaleReturnScalarWhereWithAggregatesInput[]
   NOT?: Prisma.SaleReturnScalarWhereWithAggregatesInput | Prisma.SaleReturnScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"SaleReturn"> | number
-  returnNo?: Prisma.StringWithAggregatesFilter<"SaleReturn"> | string
+  returnNo?: Prisma.IntWithAggregatesFilter<"SaleReturn"> | number
   saleId?: Prisma.IntWithAggregatesFilter<"SaleReturn"> | number
   returnDate?: Prisma.DateTimeWithAggregatesFilter<"SaleReturn"> | Date | string
-  status?: Prisma.StringWithAggregatesFilter<"SaleReturn"> | string
   reason?: Prisma.StringNullableWithAggregatesFilter<"SaleReturn"> | string | null
-  approvedBy?: Prisma.IntNullableWithAggregatesFilter<"SaleReturn"> | number | null
-  approvedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"SaleReturn"> | Date | string | null
+  totalRefund?: Prisma.FloatNullableWithAggregatesFilter<"SaleReturn"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"SaleReturn"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"SaleReturn"> | Date | string
 }
 
 export type SaleReturnCreateInput = {
-  returnNo: string
+  returnNo?: number
   returnDate?: Date | string
-  status?: string
   reason?: string | null
-  approvedBy?: number | null
-  approvedAt?: Date | string | null
+  totalRefund?: number | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   sale: Prisma.SaleCreateNestedOneWithoutSaleReturnsInput
-  items?: Prisma.SaleReturnItemCreateNestedManyWithoutSaleReturnInput
+  items?: Prisma.SaleReturnItemCreateNestedManyWithoutReturnInput
 }
 
 export type SaleReturnUncheckedCreateInput = {
   id?: number
-  returnNo: string
+  returnNo?: number
   saleId: number
   returnDate?: Date | string
-  status?: string
   reason?: string | null
-  approvedBy?: number | null
-  approvedAt?: Date | string | null
+  totalRefund?: number | null
   createdAt?: Date | string
-  items?: Prisma.SaleReturnItemUncheckedCreateNestedManyWithoutSaleReturnInput
+  updatedAt?: Date | string
+  items?: Prisma.SaleReturnItemUncheckedCreateNestedManyWithoutReturnInput
 }
 
 export type SaleReturnUpdateInput = {
-  returnNo?: Prisma.StringFieldUpdateOperationsInput | string
   returnDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  totalRefund?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sale?: Prisma.SaleUpdateOneRequiredWithoutSaleReturnsNestedInput
-  items?: Prisma.SaleReturnItemUpdateManyWithoutSaleReturnNestedInput
+  items?: Prisma.SaleReturnItemUpdateManyWithoutReturnNestedInput
 }
 
 export type SaleReturnUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  returnNo?: Prisma.StringFieldUpdateOperationsInput | string
+  returnNo?: Prisma.IntFieldUpdateOperationsInput | number
   saleId?: Prisma.IntFieldUpdateOperationsInput | number
   returnDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  totalRefund?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  items?: Prisma.SaleReturnItemUncheckedUpdateManyWithoutSaleReturnNestedInput
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  items?: Prisma.SaleReturnItemUncheckedUpdateManyWithoutReturnNestedInput
 }
 
 export type SaleReturnCreateManyInput = {
   id?: number
-  returnNo: string
+  returnNo?: number
   saleId: number
   returnDate?: Date | string
-  status?: string
   reason?: string | null
-  approvedBy?: number | null
-  approvedAt?: Date | string | null
+  totalRefund?: number | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type SaleReturnUpdateManyMutationInput = {
-  returnNo?: Prisma.StringFieldUpdateOperationsInput | string
   returnDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  totalRefund?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type SaleReturnUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  returnNo?: Prisma.StringFieldUpdateOperationsInput | string
+  returnNo?: Prisma.IntFieldUpdateOperationsInput | number
   saleId?: Prisma.IntFieldUpdateOperationsInput | number
   returnDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  totalRefund?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type SaleReturnListRelationFilter = {
@@ -422,17 +405,17 @@ export type SaleReturnCountOrderByAggregateInput = {
   returnNo?: Prisma.SortOrder
   saleId?: Prisma.SortOrder
   returnDate?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   reason?: Prisma.SortOrder
-  approvedBy?: Prisma.SortOrder
-  approvedAt?: Prisma.SortOrder
+  totalRefund?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type SaleReturnAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  returnNo?: Prisma.SortOrder
   saleId?: Prisma.SortOrder
-  approvedBy?: Prisma.SortOrder
+  totalRefund?: Prisma.SortOrder
 }
 
 export type SaleReturnMaxOrderByAggregateInput = {
@@ -440,11 +423,10 @@ export type SaleReturnMaxOrderByAggregateInput = {
   returnNo?: Prisma.SortOrder
   saleId?: Prisma.SortOrder
   returnDate?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   reason?: Prisma.SortOrder
-  approvedBy?: Prisma.SortOrder
-  approvedAt?: Prisma.SortOrder
+  totalRefund?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type SaleReturnMinOrderByAggregateInput = {
@@ -452,17 +434,17 @@ export type SaleReturnMinOrderByAggregateInput = {
   returnNo?: Prisma.SortOrder
   saleId?: Prisma.SortOrder
   returnDate?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   reason?: Prisma.SortOrder
-  approvedBy?: Prisma.SortOrder
-  approvedAt?: Prisma.SortOrder
+  totalRefund?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type SaleReturnSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  returnNo?: Prisma.SortOrder
   saleId?: Prisma.SortOrder
-  approvedBy?: Prisma.SortOrder
+  totalRefund?: Prisma.SortOrder
 }
 
 export type SaleReturnScalarRelationFilter = {
@@ -527,26 +509,24 @@ export type SaleReturnUpdateOneRequiredWithoutItemsNestedInput = {
 }
 
 export type SaleReturnCreateWithoutSaleInput = {
-  returnNo: string
+  returnNo?: number
   returnDate?: Date | string
-  status?: string
   reason?: string | null
-  approvedBy?: number | null
-  approvedAt?: Date | string | null
+  totalRefund?: number | null
   createdAt?: Date | string
-  items?: Prisma.SaleReturnItemCreateNestedManyWithoutSaleReturnInput
+  updatedAt?: Date | string
+  items?: Prisma.SaleReturnItemCreateNestedManyWithoutReturnInput
 }
 
 export type SaleReturnUncheckedCreateWithoutSaleInput = {
   id?: number
-  returnNo: string
+  returnNo?: number
   returnDate?: Date | string
-  status?: string
   reason?: string | null
-  approvedBy?: number | null
-  approvedAt?: Date | string | null
+  totalRefund?: number | null
   createdAt?: Date | string
-  items?: Prisma.SaleReturnItemUncheckedCreateNestedManyWithoutSaleReturnInput
+  updatedAt?: Date | string
+  items?: Prisma.SaleReturnItemUncheckedCreateNestedManyWithoutReturnInput
 }
 
 export type SaleReturnCreateOrConnectWithoutSaleInput = {
@@ -580,37 +560,34 @@ export type SaleReturnScalarWhereInput = {
   OR?: Prisma.SaleReturnScalarWhereInput[]
   NOT?: Prisma.SaleReturnScalarWhereInput | Prisma.SaleReturnScalarWhereInput[]
   id?: Prisma.IntFilter<"SaleReturn"> | number
-  returnNo?: Prisma.StringFilter<"SaleReturn"> | string
+  returnNo?: Prisma.IntFilter<"SaleReturn"> | number
   saleId?: Prisma.IntFilter<"SaleReturn"> | number
   returnDate?: Prisma.DateTimeFilter<"SaleReturn"> | Date | string
-  status?: Prisma.StringFilter<"SaleReturn"> | string
   reason?: Prisma.StringNullableFilter<"SaleReturn"> | string | null
-  approvedBy?: Prisma.IntNullableFilter<"SaleReturn"> | number | null
-  approvedAt?: Prisma.DateTimeNullableFilter<"SaleReturn"> | Date | string | null
+  totalRefund?: Prisma.FloatNullableFilter<"SaleReturn"> | number | null
   createdAt?: Prisma.DateTimeFilter<"SaleReturn"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"SaleReturn"> | Date | string
 }
 
 export type SaleReturnCreateWithoutItemsInput = {
-  returnNo: string
+  returnNo?: number
   returnDate?: Date | string
-  status?: string
   reason?: string | null
-  approvedBy?: number | null
-  approvedAt?: Date | string | null
+  totalRefund?: number | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   sale: Prisma.SaleCreateNestedOneWithoutSaleReturnsInput
 }
 
 export type SaleReturnUncheckedCreateWithoutItemsInput = {
   id?: number
-  returnNo: string
+  returnNo?: number
   saleId: number
   returnDate?: Date | string
-  status?: string
   reason?: string | null
-  approvedBy?: number | null
-  approvedAt?: Date | string | null
+  totalRefund?: number | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type SaleReturnCreateOrConnectWithoutItemsInput = {
@@ -630,71 +607,63 @@ export type SaleReturnUpdateToOneWithWhereWithoutItemsInput = {
 }
 
 export type SaleReturnUpdateWithoutItemsInput = {
-  returnNo?: Prisma.StringFieldUpdateOperationsInput | string
   returnDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  totalRefund?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sale?: Prisma.SaleUpdateOneRequiredWithoutSaleReturnsNestedInput
 }
 
 export type SaleReturnUncheckedUpdateWithoutItemsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  returnNo?: Prisma.StringFieldUpdateOperationsInput | string
+  returnNo?: Prisma.IntFieldUpdateOperationsInput | number
   saleId?: Prisma.IntFieldUpdateOperationsInput | number
   returnDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  totalRefund?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type SaleReturnCreateManySaleInput = {
   id?: number
-  returnNo: string
+  returnNo?: number
   returnDate?: Date | string
-  status?: string
   reason?: string | null
-  approvedBy?: number | null
-  approvedAt?: Date | string | null
+  totalRefund?: number | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type SaleReturnUpdateWithoutSaleInput = {
-  returnNo?: Prisma.StringFieldUpdateOperationsInput | string
   returnDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  totalRefund?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  items?: Prisma.SaleReturnItemUpdateManyWithoutSaleReturnNestedInput
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  items?: Prisma.SaleReturnItemUpdateManyWithoutReturnNestedInput
 }
 
 export type SaleReturnUncheckedUpdateWithoutSaleInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  returnNo?: Prisma.StringFieldUpdateOperationsInput | string
+  returnNo?: Prisma.IntFieldUpdateOperationsInput | number
   returnDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  totalRefund?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  items?: Prisma.SaleReturnItemUncheckedUpdateManyWithoutSaleReturnNestedInput
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  items?: Prisma.SaleReturnItemUncheckedUpdateManyWithoutReturnNestedInput
 }
 
 export type SaleReturnUncheckedUpdateManyWithoutSaleInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  returnNo?: Prisma.StringFieldUpdateOperationsInput | string
+  returnNo?: Prisma.IntFieldUpdateOperationsInput | number
   returnDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approvedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  totalRefund?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -733,11 +702,10 @@ export type SaleReturnSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   returnNo?: boolean
   saleId?: boolean
   returnDate?: boolean
-  status?: boolean
   reason?: boolean
-  approvedBy?: boolean
-  approvedAt?: boolean
+  totalRefund?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   sale?: boolean | Prisma.SaleDefaultArgs<ExtArgs>
   items?: boolean | Prisma.SaleReturn$itemsArgs<ExtArgs>
   _count?: boolean | Prisma.SaleReturnCountOutputTypeDefaultArgs<ExtArgs>
@@ -748,11 +716,10 @@ export type SaleReturnSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   returnNo?: boolean
   saleId?: boolean
   returnDate?: boolean
-  status?: boolean
   reason?: boolean
-  approvedBy?: boolean
-  approvedAt?: boolean
+  totalRefund?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   sale?: boolean | Prisma.SaleDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["saleReturn"]>
 
@@ -761,11 +728,10 @@ export type SaleReturnSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   returnNo?: boolean
   saleId?: boolean
   returnDate?: boolean
-  status?: boolean
   reason?: boolean
-  approvedBy?: boolean
-  approvedAt?: boolean
+  totalRefund?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   sale?: boolean | Prisma.SaleDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["saleReturn"]>
 
@@ -774,14 +740,13 @@ export type SaleReturnSelectScalar = {
   returnNo?: boolean
   saleId?: boolean
   returnDate?: boolean
-  status?: boolean
   reason?: boolean
-  approvedBy?: boolean
-  approvedAt?: boolean
+  totalRefund?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type SaleReturnOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "returnNo" | "saleId" | "returnDate" | "status" | "reason" | "approvedBy" | "approvedAt" | "createdAt", ExtArgs["result"]["saleReturn"]>
+export type SaleReturnOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "returnNo" | "saleId" | "returnDate" | "reason" | "totalRefund" | "createdAt" | "updatedAt", ExtArgs["result"]["saleReturn"]>
 export type SaleReturnInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sale?: boolean | Prisma.SaleDefaultArgs<ExtArgs>
   items?: boolean | Prisma.SaleReturn$itemsArgs<ExtArgs>
@@ -802,14 +767,13 @@ export type $SaleReturnPayload<ExtArgs extends runtime.Types.Extensions.Internal
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    returnNo: string
+    returnNo: number
     saleId: number
     returnDate: Date
-    status: string
     reason: string | null
-    approvedBy: number | null
-    approvedAt: Date | null
+    totalRefund: number | null
     createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["saleReturn"]>
   composites: {}
 }
@@ -1236,14 +1200,13 @@ export interface Prisma__SaleReturnClient<T, Null = never, ExtArgs extends runti
  */
 export interface SaleReturnFieldRefs {
   readonly id: Prisma.FieldRef<"SaleReturn", 'Int'>
-  readonly returnNo: Prisma.FieldRef<"SaleReturn", 'String'>
+  readonly returnNo: Prisma.FieldRef<"SaleReturn", 'Int'>
   readonly saleId: Prisma.FieldRef<"SaleReturn", 'Int'>
   readonly returnDate: Prisma.FieldRef<"SaleReturn", 'DateTime'>
-  readonly status: Prisma.FieldRef<"SaleReturn", 'String'>
   readonly reason: Prisma.FieldRef<"SaleReturn", 'String'>
-  readonly approvedBy: Prisma.FieldRef<"SaleReturn", 'Int'>
-  readonly approvedAt: Prisma.FieldRef<"SaleReturn", 'DateTime'>
+  readonly totalRefund: Prisma.FieldRef<"SaleReturn", 'Float'>
   readonly createdAt: Prisma.FieldRef<"SaleReturn", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"SaleReturn", 'DateTime'>
 }
     
 

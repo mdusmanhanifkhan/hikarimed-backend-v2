@@ -28,6 +28,7 @@ export type AggregateSale = {
 
 export type SaleAvgAggregateOutputType = {
   id: number | null
+  saleNo: number | null
   grossAmount: number | null
   discountAmount: number | null
   taxAmount: number | null
@@ -36,6 +37,7 @@ export type SaleAvgAggregateOutputType = {
 
 export type SaleSumAggregateOutputType = {
   id: number | null
+  saleNo: number | null
   grossAmount: number | null
   discountAmount: number | null
   taxAmount: number | null
@@ -44,28 +46,30 @@ export type SaleSumAggregateOutputType = {
 
 export type SaleMinAggregateOutputType = {
   id: number | null
-  saleNo: string | null
+  saleNo: number | null
   saleDate: Date | null
   customerName: string | null
+  paymentMode: string | null
   grossAmount: number | null
   discountAmount: number | null
   taxAmount: number | null
   netAmount: number | null
-  paymentMode: string | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type SaleMaxAggregateOutputType = {
   id: number | null
-  saleNo: string | null
+  saleNo: number | null
   saleDate: Date | null
   customerName: string | null
+  paymentMode: string | null
   grossAmount: number | null
   discountAmount: number | null
   taxAmount: number | null
   netAmount: number | null
-  paymentMode: string | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type SaleCountAggregateOutputType = {
@@ -73,18 +77,20 @@ export type SaleCountAggregateOutputType = {
   saleNo: number
   saleDate: number
   customerName: number
+  paymentMode: number
   grossAmount: number
   discountAmount: number
   taxAmount: number
   netAmount: number
-  paymentMode: number
   createdAt: number
+  updatedAt: number
   _all: number
 }
 
 
 export type SaleAvgAggregateInputType = {
   id?: true
+  saleNo?: true
   grossAmount?: true
   discountAmount?: true
   taxAmount?: true
@@ -93,6 +99,7 @@ export type SaleAvgAggregateInputType = {
 
 export type SaleSumAggregateInputType = {
   id?: true
+  saleNo?: true
   grossAmount?: true
   discountAmount?: true
   taxAmount?: true
@@ -104,12 +111,13 @@ export type SaleMinAggregateInputType = {
   saleNo?: true
   saleDate?: true
   customerName?: true
+  paymentMode?: true
   grossAmount?: true
   discountAmount?: true
   taxAmount?: true
   netAmount?: true
-  paymentMode?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type SaleMaxAggregateInputType = {
@@ -117,12 +125,13 @@ export type SaleMaxAggregateInputType = {
   saleNo?: true
   saleDate?: true
   customerName?: true
+  paymentMode?: true
   grossAmount?: true
   discountAmount?: true
   taxAmount?: true
   netAmount?: true
-  paymentMode?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type SaleCountAggregateInputType = {
@@ -130,12 +139,13 @@ export type SaleCountAggregateInputType = {
   saleNo?: true
   saleDate?: true
   customerName?: true
+  paymentMode?: true
   grossAmount?: true
   discountAmount?: true
   taxAmount?: true
   netAmount?: true
-  paymentMode?: true
   createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -227,15 +237,16 @@ export type SaleGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 
 export type SaleGroupByOutputType = {
   id: number
-  saleNo: string
+  saleNo: number
   saleDate: Date
-  customerName: string | null
-  grossAmount: number
-  discountAmount: number | null
-  taxAmount: number | null
-  netAmount: number
+  customerName: string
   paymentMode: string
+  grossAmount: number
+  discountAmount: number
+  taxAmount: number
+  netAmount: number
   createdAt: Date
+  updatedAt: Date
   _count: SaleCountAggregateOutputType | null
   _avg: SaleAvgAggregateOutputType | null
   _sum: SaleSumAggregateOutputType | null
@@ -263,66 +274,67 @@ export type SaleWhereInput = {
   OR?: Prisma.SaleWhereInput[]
   NOT?: Prisma.SaleWhereInput | Prisma.SaleWhereInput[]
   id?: Prisma.IntFilter<"Sale"> | number
-  saleNo?: Prisma.StringFilter<"Sale"> | string
+  saleNo?: Prisma.IntFilter<"Sale"> | number
   saleDate?: Prisma.DateTimeFilter<"Sale"> | Date | string
-  customerName?: Prisma.StringNullableFilter<"Sale"> | string | null
-  grossAmount?: Prisma.FloatFilter<"Sale"> | number
-  discountAmount?: Prisma.FloatNullableFilter<"Sale"> | number | null
-  taxAmount?: Prisma.FloatNullableFilter<"Sale"> | number | null
-  netAmount?: Prisma.FloatFilter<"Sale"> | number
+  customerName?: Prisma.StringFilter<"Sale"> | string
   paymentMode?: Prisma.StringFilter<"Sale"> | string
+  grossAmount?: Prisma.FloatFilter<"Sale"> | number
+  discountAmount?: Prisma.FloatFilter<"Sale"> | number
+  taxAmount?: Prisma.FloatFilter<"Sale"> | number
+  netAmount?: Prisma.FloatFilter<"Sale"> | number
   createdAt?: Prisma.DateTimeFilter<"Sale"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Sale"> | Date | string
   items?: Prisma.SaleItemListRelationFilter
   saleReturns?: Prisma.SaleReturnListRelationFilter
-  saleReturnItems?: Prisma.SaleReturnItemListRelationFilter
 }
 
 export type SaleOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   saleNo?: Prisma.SortOrder
   saleDate?: Prisma.SortOrder
-  customerName?: Prisma.SortOrderInput | Prisma.SortOrder
-  grossAmount?: Prisma.SortOrder
-  discountAmount?: Prisma.SortOrderInput | Prisma.SortOrder
-  taxAmount?: Prisma.SortOrderInput | Prisma.SortOrder
-  netAmount?: Prisma.SortOrder
+  customerName?: Prisma.SortOrder
   paymentMode?: Prisma.SortOrder
+  grossAmount?: Prisma.SortOrder
+  discountAmount?: Prisma.SortOrder
+  taxAmount?: Prisma.SortOrder
+  netAmount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   items?: Prisma.SaleItemOrderByRelationAggregateInput
   saleReturns?: Prisma.SaleReturnOrderByRelationAggregateInput
-  saleReturnItems?: Prisma.SaleReturnItemOrderByRelationAggregateInput
 }
 
 export type SaleWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  saleNo?: string
+  saleNo?: number
   AND?: Prisma.SaleWhereInput | Prisma.SaleWhereInput[]
   OR?: Prisma.SaleWhereInput[]
   NOT?: Prisma.SaleWhereInput | Prisma.SaleWhereInput[]
   saleDate?: Prisma.DateTimeFilter<"Sale"> | Date | string
-  customerName?: Prisma.StringNullableFilter<"Sale"> | string | null
-  grossAmount?: Prisma.FloatFilter<"Sale"> | number
-  discountAmount?: Prisma.FloatNullableFilter<"Sale"> | number | null
-  taxAmount?: Prisma.FloatNullableFilter<"Sale"> | number | null
-  netAmount?: Prisma.FloatFilter<"Sale"> | number
+  customerName?: Prisma.StringFilter<"Sale"> | string
   paymentMode?: Prisma.StringFilter<"Sale"> | string
+  grossAmount?: Prisma.FloatFilter<"Sale"> | number
+  discountAmount?: Prisma.FloatFilter<"Sale"> | number
+  taxAmount?: Prisma.FloatFilter<"Sale"> | number
+  netAmount?: Prisma.FloatFilter<"Sale"> | number
   createdAt?: Prisma.DateTimeFilter<"Sale"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Sale"> | Date | string
   items?: Prisma.SaleItemListRelationFilter
   saleReturns?: Prisma.SaleReturnListRelationFilter
-  saleReturnItems?: Prisma.SaleReturnItemListRelationFilter
 }, "id" | "saleNo">
 
 export type SaleOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   saleNo?: Prisma.SortOrder
   saleDate?: Prisma.SortOrder
-  customerName?: Prisma.SortOrderInput | Prisma.SortOrder
-  grossAmount?: Prisma.SortOrder
-  discountAmount?: Prisma.SortOrderInput | Prisma.SortOrder
-  taxAmount?: Prisma.SortOrderInput | Prisma.SortOrder
-  netAmount?: Prisma.SortOrder
+  customerName?: Prisma.SortOrder
   paymentMode?: Prisma.SortOrder
+  grossAmount?: Prisma.SortOrder
+  discountAmount?: Prisma.SortOrder
+  taxAmount?: Prisma.SortOrder
+  netAmount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.SaleCountOrderByAggregateInput
   _avg?: Prisma.SaleAvgOrderByAggregateInput
   _max?: Prisma.SaleMaxOrderByAggregateInput
@@ -335,115 +347,117 @@ export type SaleScalarWhereWithAggregatesInput = {
   OR?: Prisma.SaleScalarWhereWithAggregatesInput[]
   NOT?: Prisma.SaleScalarWhereWithAggregatesInput | Prisma.SaleScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Sale"> | number
-  saleNo?: Prisma.StringWithAggregatesFilter<"Sale"> | string
+  saleNo?: Prisma.IntWithAggregatesFilter<"Sale"> | number
   saleDate?: Prisma.DateTimeWithAggregatesFilter<"Sale"> | Date | string
-  customerName?: Prisma.StringNullableWithAggregatesFilter<"Sale"> | string | null
-  grossAmount?: Prisma.FloatWithAggregatesFilter<"Sale"> | number
-  discountAmount?: Prisma.FloatNullableWithAggregatesFilter<"Sale"> | number | null
-  taxAmount?: Prisma.FloatNullableWithAggregatesFilter<"Sale"> | number | null
-  netAmount?: Prisma.FloatWithAggregatesFilter<"Sale"> | number
+  customerName?: Prisma.StringWithAggregatesFilter<"Sale"> | string
   paymentMode?: Prisma.StringWithAggregatesFilter<"Sale"> | string
+  grossAmount?: Prisma.FloatWithAggregatesFilter<"Sale"> | number
+  discountAmount?: Prisma.FloatWithAggregatesFilter<"Sale"> | number
+  taxAmount?: Prisma.FloatWithAggregatesFilter<"Sale"> | number
+  netAmount?: Prisma.FloatWithAggregatesFilter<"Sale"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Sale"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Sale"> | Date | string
 }
 
 export type SaleCreateInput = {
-  saleNo: string
+  saleNo?: number
   saleDate?: Date | string
-  customerName?: string | null
-  grossAmount: number
-  discountAmount?: number | null
-  taxAmount?: number | null
-  netAmount: number
+  customerName: string
   paymentMode: string
+  grossAmount: number
+  discountAmount: number
+  taxAmount: number
+  netAmount: number
   createdAt?: Date | string
+  updatedAt?: Date | string
   items?: Prisma.SaleItemCreateNestedManyWithoutSaleInput
   saleReturns?: Prisma.SaleReturnCreateNestedManyWithoutSaleInput
-  saleReturnItems?: Prisma.SaleReturnItemCreateNestedManyWithoutSaleInput
 }
 
 export type SaleUncheckedCreateInput = {
   id?: number
-  saleNo: string
+  saleNo?: number
   saleDate?: Date | string
-  customerName?: string | null
-  grossAmount: number
-  discountAmount?: number | null
-  taxAmount?: number | null
-  netAmount: number
+  customerName: string
   paymentMode: string
+  grossAmount: number
+  discountAmount: number
+  taxAmount: number
+  netAmount: number
   createdAt?: Date | string
+  updatedAt?: Date | string
   items?: Prisma.SaleItemUncheckedCreateNestedManyWithoutSaleInput
   saleReturns?: Prisma.SaleReturnUncheckedCreateNestedManyWithoutSaleInput
-  saleReturnItems?: Prisma.SaleReturnItemUncheckedCreateNestedManyWithoutSaleInput
 }
 
 export type SaleUpdateInput = {
-  saleNo?: Prisma.StringFieldUpdateOperationsInput | string
   saleDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  grossAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  taxAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  netAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  customerName?: Prisma.StringFieldUpdateOperationsInput | string
   paymentMode?: Prisma.StringFieldUpdateOperationsInput | string
+  grossAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  discountAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  taxAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  netAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.SaleItemUpdateManyWithoutSaleNestedInput
   saleReturns?: Prisma.SaleReturnUpdateManyWithoutSaleNestedInput
-  saleReturnItems?: Prisma.SaleReturnItemUpdateManyWithoutSaleNestedInput
 }
 
 export type SaleUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  saleNo?: Prisma.StringFieldUpdateOperationsInput | string
+  saleNo?: Prisma.IntFieldUpdateOperationsInput | number
   saleDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  grossAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  taxAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  netAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  customerName?: Prisma.StringFieldUpdateOperationsInput | string
   paymentMode?: Prisma.StringFieldUpdateOperationsInput | string
+  grossAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  discountAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  taxAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  netAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.SaleItemUncheckedUpdateManyWithoutSaleNestedInput
   saleReturns?: Prisma.SaleReturnUncheckedUpdateManyWithoutSaleNestedInput
-  saleReturnItems?: Prisma.SaleReturnItemUncheckedUpdateManyWithoutSaleNestedInput
 }
 
 export type SaleCreateManyInput = {
   id?: number
-  saleNo: string
+  saleNo?: number
   saleDate?: Date | string
-  customerName?: string | null
-  grossAmount: number
-  discountAmount?: number | null
-  taxAmount?: number | null
-  netAmount: number
+  customerName: string
   paymentMode: string
+  grossAmount: number
+  discountAmount: number
+  taxAmount: number
+  netAmount: number
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type SaleUpdateManyMutationInput = {
-  saleNo?: Prisma.StringFieldUpdateOperationsInput | string
   saleDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  grossAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  taxAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  netAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  customerName?: Prisma.StringFieldUpdateOperationsInput | string
   paymentMode?: Prisma.StringFieldUpdateOperationsInput | string
+  grossAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  discountAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  taxAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  netAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type SaleUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  saleNo?: Prisma.StringFieldUpdateOperationsInput | string
+  saleNo?: Prisma.IntFieldUpdateOperationsInput | number
   saleDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  grossAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  taxAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  netAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  customerName?: Prisma.StringFieldUpdateOperationsInput | string
   paymentMode?: Prisma.StringFieldUpdateOperationsInput | string
+  grossAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  discountAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  taxAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  netAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type SaleCountOrderByAggregateInput = {
@@ -451,16 +465,18 @@ export type SaleCountOrderByAggregateInput = {
   saleNo?: Prisma.SortOrder
   saleDate?: Prisma.SortOrder
   customerName?: Prisma.SortOrder
+  paymentMode?: Prisma.SortOrder
   grossAmount?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
   taxAmount?: Prisma.SortOrder
   netAmount?: Prisma.SortOrder
-  paymentMode?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type SaleAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  saleNo?: Prisma.SortOrder
   grossAmount?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
   taxAmount?: Prisma.SortOrder
@@ -472,12 +488,13 @@ export type SaleMaxOrderByAggregateInput = {
   saleNo?: Prisma.SortOrder
   saleDate?: Prisma.SortOrder
   customerName?: Prisma.SortOrder
+  paymentMode?: Prisma.SortOrder
   grossAmount?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
   taxAmount?: Prisma.SortOrder
   netAmount?: Prisma.SortOrder
-  paymentMode?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type SaleMinOrderByAggregateInput = {
@@ -485,16 +502,18 @@ export type SaleMinOrderByAggregateInput = {
   saleNo?: Prisma.SortOrder
   saleDate?: Prisma.SortOrder
   customerName?: Prisma.SortOrder
+  paymentMode?: Prisma.SortOrder
   grossAmount?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
   taxAmount?: Prisma.SortOrder
   netAmount?: Prisma.SortOrder
-  paymentMode?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type SaleSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  saleNo?: Prisma.SortOrder
   grossAmount?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
   taxAmount?: Prisma.SortOrder
@@ -504,11 +523,6 @@ export type SaleSumOrderByAggregateInput = {
 export type SaleScalarRelationFilter = {
   is?: Prisma.SaleWhereInput
   isNot?: Prisma.SaleWhereInput
-}
-
-export type SaleNullableScalarRelationFilter = {
-  is?: Prisma.SaleWhereInput | null
-  isNot?: Prisma.SaleWhereInput | null
 }
 
 export type SaleCreateNestedOneWithoutItemsInput = {
@@ -539,49 +553,33 @@ export type SaleUpdateOneRequiredWithoutSaleReturnsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.SaleUpdateToOneWithWhereWithoutSaleReturnsInput, Prisma.SaleUpdateWithoutSaleReturnsInput>, Prisma.SaleUncheckedUpdateWithoutSaleReturnsInput>
 }
 
-export type SaleCreateNestedOneWithoutSaleReturnItemsInput = {
-  create?: Prisma.XOR<Prisma.SaleCreateWithoutSaleReturnItemsInput, Prisma.SaleUncheckedCreateWithoutSaleReturnItemsInput>
-  connectOrCreate?: Prisma.SaleCreateOrConnectWithoutSaleReturnItemsInput
-  connect?: Prisma.SaleWhereUniqueInput
-}
-
-export type SaleUpdateOneWithoutSaleReturnItemsNestedInput = {
-  create?: Prisma.XOR<Prisma.SaleCreateWithoutSaleReturnItemsInput, Prisma.SaleUncheckedCreateWithoutSaleReturnItemsInput>
-  connectOrCreate?: Prisma.SaleCreateOrConnectWithoutSaleReturnItemsInput
-  upsert?: Prisma.SaleUpsertWithoutSaleReturnItemsInput
-  disconnect?: Prisma.SaleWhereInput | boolean
-  delete?: Prisma.SaleWhereInput | boolean
-  connect?: Prisma.SaleWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.SaleUpdateToOneWithWhereWithoutSaleReturnItemsInput, Prisma.SaleUpdateWithoutSaleReturnItemsInput>, Prisma.SaleUncheckedUpdateWithoutSaleReturnItemsInput>
-}
-
 export type SaleCreateWithoutItemsInput = {
-  saleNo: string
+  saleNo?: number
   saleDate?: Date | string
-  customerName?: string | null
-  grossAmount: number
-  discountAmount?: number | null
-  taxAmount?: number | null
-  netAmount: number
+  customerName: string
   paymentMode: string
+  grossAmount: number
+  discountAmount: number
+  taxAmount: number
+  netAmount: number
   createdAt?: Date | string
+  updatedAt?: Date | string
   saleReturns?: Prisma.SaleReturnCreateNestedManyWithoutSaleInput
-  saleReturnItems?: Prisma.SaleReturnItemCreateNestedManyWithoutSaleInput
 }
 
 export type SaleUncheckedCreateWithoutItemsInput = {
   id?: number
-  saleNo: string
+  saleNo?: number
   saleDate?: Date | string
-  customerName?: string | null
-  grossAmount: number
-  discountAmount?: number | null
-  taxAmount?: number | null
-  netAmount: number
+  customerName: string
   paymentMode: string
+  grossAmount: number
+  discountAmount: number
+  taxAmount: number
+  netAmount: number
   createdAt?: Date | string
+  updatedAt?: Date | string
   saleReturns?: Prisma.SaleReturnUncheckedCreateNestedManyWithoutSaleInput
-  saleReturnItems?: Prisma.SaleReturnItemUncheckedCreateNestedManyWithoutSaleInput
 }
 
 export type SaleCreateOrConnectWithoutItemsInput = {
@@ -601,61 +599,60 @@ export type SaleUpdateToOneWithWhereWithoutItemsInput = {
 }
 
 export type SaleUpdateWithoutItemsInput = {
-  saleNo?: Prisma.StringFieldUpdateOperationsInput | string
   saleDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  grossAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  taxAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  netAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  customerName?: Prisma.StringFieldUpdateOperationsInput | string
   paymentMode?: Prisma.StringFieldUpdateOperationsInput | string
+  grossAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  discountAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  taxAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  netAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   saleReturns?: Prisma.SaleReturnUpdateManyWithoutSaleNestedInput
-  saleReturnItems?: Prisma.SaleReturnItemUpdateManyWithoutSaleNestedInput
 }
 
 export type SaleUncheckedUpdateWithoutItemsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  saleNo?: Prisma.StringFieldUpdateOperationsInput | string
+  saleNo?: Prisma.IntFieldUpdateOperationsInput | number
   saleDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  grossAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  taxAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  netAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  customerName?: Prisma.StringFieldUpdateOperationsInput | string
   paymentMode?: Prisma.StringFieldUpdateOperationsInput | string
+  grossAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  discountAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  taxAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  netAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   saleReturns?: Prisma.SaleReturnUncheckedUpdateManyWithoutSaleNestedInput
-  saleReturnItems?: Prisma.SaleReturnItemUncheckedUpdateManyWithoutSaleNestedInput
 }
 
 export type SaleCreateWithoutSaleReturnsInput = {
-  saleNo: string
+  saleNo?: number
   saleDate?: Date | string
-  customerName?: string | null
-  grossAmount: number
-  discountAmount?: number | null
-  taxAmount?: number | null
-  netAmount: number
+  customerName: string
   paymentMode: string
+  grossAmount: number
+  discountAmount: number
+  taxAmount: number
+  netAmount: number
   createdAt?: Date | string
+  updatedAt?: Date | string
   items?: Prisma.SaleItemCreateNestedManyWithoutSaleInput
-  saleReturnItems?: Prisma.SaleReturnItemCreateNestedManyWithoutSaleInput
 }
 
 export type SaleUncheckedCreateWithoutSaleReturnsInput = {
   id?: number
-  saleNo: string
+  saleNo?: number
   saleDate?: Date | string
-  customerName?: string | null
-  grossAmount: number
-  discountAmount?: number | null
-  taxAmount?: number | null
-  netAmount: number
+  customerName: string
   paymentMode: string
+  grossAmount: number
+  discountAmount: number
+  taxAmount: number
+  netAmount: number
   createdAt?: Date | string
+  updatedAt?: Date | string
   items?: Prisma.SaleItemUncheckedCreateNestedManyWithoutSaleInput
-  saleReturnItems?: Prisma.SaleReturnItemUncheckedCreateNestedManyWithoutSaleInput
 }
 
 export type SaleCreateOrConnectWithoutSaleReturnsInput = {
@@ -675,106 +672,31 @@ export type SaleUpdateToOneWithWhereWithoutSaleReturnsInput = {
 }
 
 export type SaleUpdateWithoutSaleReturnsInput = {
-  saleNo?: Prisma.StringFieldUpdateOperationsInput | string
   saleDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  grossAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  taxAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  netAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  customerName?: Prisma.StringFieldUpdateOperationsInput | string
   paymentMode?: Prisma.StringFieldUpdateOperationsInput | string
+  grossAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  discountAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  taxAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  netAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.SaleItemUpdateManyWithoutSaleNestedInput
-  saleReturnItems?: Prisma.SaleReturnItemUpdateManyWithoutSaleNestedInput
 }
 
 export type SaleUncheckedUpdateWithoutSaleReturnsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  saleNo?: Prisma.StringFieldUpdateOperationsInput | string
+  saleNo?: Prisma.IntFieldUpdateOperationsInput | number
   saleDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  grossAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  taxAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  netAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  customerName?: Prisma.StringFieldUpdateOperationsInput | string
   paymentMode?: Prisma.StringFieldUpdateOperationsInput | string
+  grossAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  discountAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  taxAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  netAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.SaleItemUncheckedUpdateManyWithoutSaleNestedInput
-  saleReturnItems?: Prisma.SaleReturnItemUncheckedUpdateManyWithoutSaleNestedInput
-}
-
-export type SaleCreateWithoutSaleReturnItemsInput = {
-  saleNo: string
-  saleDate?: Date | string
-  customerName?: string | null
-  grossAmount: number
-  discountAmount?: number | null
-  taxAmount?: number | null
-  netAmount: number
-  paymentMode: string
-  createdAt?: Date | string
-  items?: Prisma.SaleItemCreateNestedManyWithoutSaleInput
-  saleReturns?: Prisma.SaleReturnCreateNestedManyWithoutSaleInput
-}
-
-export type SaleUncheckedCreateWithoutSaleReturnItemsInput = {
-  id?: number
-  saleNo: string
-  saleDate?: Date | string
-  customerName?: string | null
-  grossAmount: number
-  discountAmount?: number | null
-  taxAmount?: number | null
-  netAmount: number
-  paymentMode: string
-  createdAt?: Date | string
-  items?: Prisma.SaleItemUncheckedCreateNestedManyWithoutSaleInput
-  saleReturns?: Prisma.SaleReturnUncheckedCreateNestedManyWithoutSaleInput
-}
-
-export type SaleCreateOrConnectWithoutSaleReturnItemsInput = {
-  where: Prisma.SaleWhereUniqueInput
-  create: Prisma.XOR<Prisma.SaleCreateWithoutSaleReturnItemsInput, Prisma.SaleUncheckedCreateWithoutSaleReturnItemsInput>
-}
-
-export type SaleUpsertWithoutSaleReturnItemsInput = {
-  update: Prisma.XOR<Prisma.SaleUpdateWithoutSaleReturnItemsInput, Prisma.SaleUncheckedUpdateWithoutSaleReturnItemsInput>
-  create: Prisma.XOR<Prisma.SaleCreateWithoutSaleReturnItemsInput, Prisma.SaleUncheckedCreateWithoutSaleReturnItemsInput>
-  where?: Prisma.SaleWhereInput
-}
-
-export type SaleUpdateToOneWithWhereWithoutSaleReturnItemsInput = {
-  where?: Prisma.SaleWhereInput
-  data: Prisma.XOR<Prisma.SaleUpdateWithoutSaleReturnItemsInput, Prisma.SaleUncheckedUpdateWithoutSaleReturnItemsInput>
-}
-
-export type SaleUpdateWithoutSaleReturnItemsInput = {
-  saleNo?: Prisma.StringFieldUpdateOperationsInput | string
-  saleDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  grossAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  taxAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  netAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  paymentMode?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  items?: Prisma.SaleItemUpdateManyWithoutSaleNestedInput
-  saleReturns?: Prisma.SaleReturnUpdateManyWithoutSaleNestedInput
-}
-
-export type SaleUncheckedUpdateWithoutSaleReturnItemsInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  saleNo?: Prisma.StringFieldUpdateOperationsInput | string
-  saleDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  grossAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  taxAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  netAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  paymentMode?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  items?: Prisma.SaleItemUncheckedUpdateManyWithoutSaleNestedInput
-  saleReturns?: Prisma.SaleReturnUncheckedUpdateManyWithoutSaleNestedInput
 }
 
 
@@ -785,13 +707,11 @@ export type SaleUncheckedUpdateWithoutSaleReturnItemsInput = {
 export type SaleCountOutputType = {
   items: number
   saleReturns: number
-  saleReturnItems: number
 }
 
 export type SaleCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   items?: boolean | SaleCountOutputTypeCountItemsArgs
   saleReturns?: boolean | SaleCountOutputTypeCountSaleReturnsArgs
-  saleReturnItems?: boolean | SaleCountOutputTypeCountSaleReturnItemsArgs
 }
 
 /**
@@ -818,28 +738,21 @@ export type SaleCountOutputTypeCountSaleReturnsArgs<ExtArgs extends runtime.Type
   where?: Prisma.SaleReturnWhereInput
 }
 
-/**
- * SaleCountOutputType without action
- */
-export type SaleCountOutputTypeCountSaleReturnItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.SaleReturnItemWhereInput
-}
-
 
 export type SaleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   saleNo?: boolean
   saleDate?: boolean
   customerName?: boolean
+  paymentMode?: boolean
   grossAmount?: boolean
   discountAmount?: boolean
   taxAmount?: boolean
   netAmount?: boolean
-  paymentMode?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   items?: boolean | Prisma.Sale$itemsArgs<ExtArgs>
   saleReturns?: boolean | Prisma.Sale$saleReturnsArgs<ExtArgs>
-  saleReturnItems?: boolean | Prisma.Sale$saleReturnItemsArgs<ExtArgs>
   _count?: boolean | Prisma.SaleCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["sale"]>
 
@@ -848,12 +761,13 @@ export type SaleSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   saleNo?: boolean
   saleDate?: boolean
   customerName?: boolean
+  paymentMode?: boolean
   grossAmount?: boolean
   discountAmount?: boolean
   taxAmount?: boolean
   netAmount?: boolean
-  paymentMode?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["sale"]>
 
 export type SaleSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -861,12 +775,13 @@ export type SaleSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   saleNo?: boolean
   saleDate?: boolean
   customerName?: boolean
+  paymentMode?: boolean
   grossAmount?: boolean
   discountAmount?: boolean
   taxAmount?: boolean
   netAmount?: boolean
-  paymentMode?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["sale"]>
 
 export type SaleSelectScalar = {
@@ -874,19 +789,19 @@ export type SaleSelectScalar = {
   saleNo?: boolean
   saleDate?: boolean
   customerName?: boolean
+  paymentMode?: boolean
   grossAmount?: boolean
   discountAmount?: boolean
   taxAmount?: boolean
   netAmount?: boolean
-  paymentMode?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type SaleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "saleNo" | "saleDate" | "customerName" | "grossAmount" | "discountAmount" | "taxAmount" | "netAmount" | "paymentMode" | "createdAt", ExtArgs["result"]["sale"]>
+export type SaleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "saleNo" | "saleDate" | "customerName" | "paymentMode" | "grossAmount" | "discountAmount" | "taxAmount" | "netAmount" | "createdAt" | "updatedAt", ExtArgs["result"]["sale"]>
 export type SaleInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   items?: boolean | Prisma.Sale$itemsArgs<ExtArgs>
   saleReturns?: boolean | Prisma.Sale$saleReturnsArgs<ExtArgs>
-  saleReturnItems?: boolean | Prisma.Sale$saleReturnItemsArgs<ExtArgs>
   _count?: boolean | Prisma.SaleCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SaleIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -897,19 +812,19 @@ export type $SalePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     items: Prisma.$SaleItemPayload<ExtArgs>[]
     saleReturns: Prisma.$SaleReturnPayload<ExtArgs>[]
-    saleReturnItems: Prisma.$SaleReturnItemPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    saleNo: string
+    saleNo: number
     saleDate: Date
-    customerName: string | null
-    grossAmount: number
-    discountAmount: number | null
-    taxAmount: number | null
-    netAmount: number
+    customerName: string
     paymentMode: string
+    grossAmount: number
+    discountAmount: number
+    taxAmount: number
+    netAmount: number
     createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["sale"]>
   composites: {}
 }
@@ -1306,7 +1221,6 @@ export interface Prisma__SaleClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   items<T extends Prisma.Sale$itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Sale$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SaleItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   saleReturns<T extends Prisma.Sale$saleReturnsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Sale$saleReturnsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SaleReturnPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  saleReturnItems<T extends Prisma.Sale$saleReturnItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Sale$saleReturnItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SaleReturnItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1337,15 +1251,16 @@ export interface Prisma__SaleClient<T, Null = never, ExtArgs extends runtime.Typ
  */
 export interface SaleFieldRefs {
   readonly id: Prisma.FieldRef<"Sale", 'Int'>
-  readonly saleNo: Prisma.FieldRef<"Sale", 'String'>
+  readonly saleNo: Prisma.FieldRef<"Sale", 'Int'>
   readonly saleDate: Prisma.FieldRef<"Sale", 'DateTime'>
   readonly customerName: Prisma.FieldRef<"Sale", 'String'>
+  readonly paymentMode: Prisma.FieldRef<"Sale", 'String'>
   readonly grossAmount: Prisma.FieldRef<"Sale", 'Float'>
   readonly discountAmount: Prisma.FieldRef<"Sale", 'Float'>
   readonly taxAmount: Prisma.FieldRef<"Sale", 'Float'>
   readonly netAmount: Prisma.FieldRef<"Sale", 'Float'>
-  readonly paymentMode: Prisma.FieldRef<"Sale", 'String'>
   readonly createdAt: Prisma.FieldRef<"Sale", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Sale", 'DateTime'>
 }
     
 
@@ -1779,30 +1694,6 @@ export type Sale$saleReturnsArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.SaleReturnScalarFieldEnum | Prisma.SaleReturnScalarFieldEnum[]
-}
-
-/**
- * Sale.saleReturnItems
- */
-export type Sale$saleReturnItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the SaleReturnItem
-   */
-  select?: Prisma.SaleReturnItemSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the SaleReturnItem
-   */
-  omit?: Prisma.SaleReturnItemOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.SaleReturnItemInclude<ExtArgs> | null
-  where?: Prisma.SaleReturnItemWhereInput
-  orderBy?: Prisma.SaleReturnItemOrderByWithRelationInput | Prisma.SaleReturnItemOrderByWithRelationInput[]
-  cursor?: Prisma.SaleReturnItemWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.SaleReturnItemScalarFieldEnum | Prisma.SaleReturnItemScalarFieldEnum[]
 }
 
 /**

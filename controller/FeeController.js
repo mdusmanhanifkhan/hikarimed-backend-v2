@@ -301,7 +301,6 @@ export const bulkUploadFeePolicies = async (req, res) => {
       return res.status(400).json({ message: "No file uploaded" });
     }
 
-    // Read Excel file from memory
     const workbook = XLSX.read(req.file.buffer, { type: "buffer" });
     const sheetName = workbook.SheetNames[0];
     const data = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
@@ -310,25 +309,41 @@ export const bulkUploadFeePolicies = async (req, res) => {
       return res.status(400).json({ message: "Excel file is empty" });
     }
 
-    // Prepare records
-    const records = data.map((row) => ({
-      id: row.id || undefined,
-      doctorId: row.doctorId,
-      procedureId: row.procedureId,
-      feePolicyId: row.feePolicyId || null,
-      departmentId: row.departmentId || null,
-      paymentType: row.paymentType,
-      description: row.description || "",
-      status: row.status !== undefined ? row.status : true,
-      procedurePrice: row.procedurePrice || 0,
-      overrideFixedAmount: row.overrideFixedAmount || null,
-      overrideDoctorPercentage: row.overrideDoctorPercentage || null,
-      overrideHospitalPercentage: row.overrideHospitalPercentage || null,
-      createdAt: row.createdAt ? new Date(row.createdAt) : new Date(), // Excel value or now
-      updatedAt: row.updatedAt ? new Date(row.updatedAt) : new Date(),
-    }));
+    const records = [];
+    const invalidRows = [];
 
-    // Insert/update in bulk
+    for (const row of data) {
+      // Check foreign keys exist
+      const doctorExists = await prisma.doctor.findUnique({ where: { id: row.doctorId } });
+      const procedureExists = await prisma.procedure.findUnique({ where: { id: row.procedureId } });
+
+      if (!doctorExists || !procedureExists) {
+        invalidRows.push({
+          row,
+          message: `Invalid foreign key(s): ${!doctorExists ? 'doctorId ' : ''}${!procedureExists ? 'procedureId' : ''}`
+        });
+        continue; // skip this row
+      }
+
+      records.push({
+        id: row.id || undefined,
+        doctorId: row.doctorId,
+        procedureId: row.procedureId,
+        feePolicyId: row.feePolicyId || null,
+        departmentId: row.departmentId || null,
+        paymentType: row.paymentType,
+        description: row.description || "",
+        status: row.status !== undefined ? row.status : true,
+        procedurePrice: row.procedurePrice || 0,
+        overrideFixedAmount: row.overrideFixedAmount || null,
+        overrideDoctorPercentage: row.overrideDoctorPercentage || null,
+        overrideHospitalPercentage: row.overrideHospitalPercentage || null,
+        createdAt: row.createdAt ? new Date(row.createdAt) : new Date(),
+        updatedAt: row.updatedAt ? new Date(row.updatedAt) : new Date(),
+      });
+    }
+
+    // Upsert valid records
     for (const record of records) {
       if (record.id) {
         await prisma.doctorProcedureFee.upsert({
@@ -342,13 +357,12 @@ export const bulkUploadFeePolicies = async (req, res) => {
     }
 
     res.status(200).json({
-      message: "Bulk upload successful",
-      total: records.length,
+      message: "Bulk upload completed",
+      totalInsertedOrUpdated: records.length,
+      invalidRows,
     });
   } catch (error) {
     console.error("bulkUploadDoctorProcedureFees error:", error);
-    res
-      .status(500)
-      .json({ message: "Internal server error", error: error.message });
+    res.status(500).json({ message: "Internal server error", error: error.message });
   }
 };

@@ -362,17 +362,19 @@ export const bulkUploadProcedures = async (req, res) => {
       })
     }
 
-    // 🔍 Load departments once
+    // ✅ Load all departments once
     const departments = await prisma.department.findMany({
       select: { id: true, name: true },
     })
 
+    const deptById = new Map(departments.map((d) => [d.id, d.id]))
     const deptByName = new Map(
       departments.map((d) => [d.name.toLowerCase(), d.id])
     )
 
     const proceduresToCreate = []
     const skipped = []
+    const invalidDepartmentRows = []
 
     for (const row of rows) {
       const name = row.name?.toString().trim()
@@ -382,18 +384,43 @@ export const bulkUploadProcedures = async (req, res) => {
         continue
       }
 
-      // 🏥 Resolve department
       let departmentId = null
 
+      // 🔎 1️⃣ If departmentId provided in Excel
       if (row.departmentId) {
-        departmentId = Number(row.departmentId)
-      } else if (row.departmentName) {
-        departmentId =
-          deptByName.get(row.departmentName.toString().toLowerCase()) || null
+        const deptId = Number(row.departmentId)
+
+        if (deptById.has(deptId)) {
+          departmentId = deptId
+        } else {
+          invalidDepartmentRows.push({
+            row,
+            reason: `Invalid departmentId: ${deptId}`,
+          })
+          continue
+        }
       }
 
-      if (!departmentId) {
-        skipped.push({ row, reason: "Department not found" })
+      // 🔎 2️⃣ If departmentName provided
+      else if (row.departmentName) {
+        const deptId = deptByName.get(
+          row.departmentName.toString().toLowerCase()
+        )
+
+        if (deptId) {
+          departmentId = deptId
+        } else {
+          invalidDepartmentRows.push({
+            row,
+            reason: `Department name not found: ${row.departmentName}`,
+          })
+          continue
+        }
+      }
+
+      // 🔎 3️⃣ No department info
+      else {
+        skipped.push({ row, reason: "Department missing" })
         continue
       }
 
@@ -405,7 +432,7 @@ export const bulkUploadProcedures = async (req, res) => {
       }
 
       proceduresToCreate.push({
-        id:row.id,
+        // ❌ DO NOT insert id manually
         name,
         shortCode: row.shortCode?.toString().trim() || null,
         description: row.description?.toString().trim() || null,
@@ -417,27 +444,32 @@ export const bulkUploadProcedures = async (req, res) => {
     if (!proceduresToCreate.length) {
       return res.status(400).json({
         success: false,
-        message: "No valid procedures found in Excel",
+        message: "No valid procedures found",
+        invalidDepartmentRows,
+        skipped,
       })
     }
 
+    // ✅ Insert safely
     const result = await prisma.procedure.createMany({
       data: proceduresToCreate,
-      skipDuplicates: true, // respects @@unique([departmentId, name])
+      skipDuplicates: true,
     })
 
     return res.status(201).json({
       success: true,
       message: "Procedures uploaded successfully",
       inserted: result.count,
-      skipped: skipped.length,
-      skippedRows: skipped,
+      invalidDepartmentRows,
+      skipped,
     })
   } catch (error) {
     console.error("bulkUploadProcedures error:", error)
-    res.status(500).json({
+
+    return res.status(500).json({
       success: false,
       message: error.message || "Failed to upload procedures",
     })
   }
 }
+

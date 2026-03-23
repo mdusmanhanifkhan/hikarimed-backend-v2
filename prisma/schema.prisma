@@ -10,24 +10,29 @@ datasource db {
 /// *
 ///  * —— Departments ——
 model Department {
-  id                 Int                  @id @default(autoincrement())
-  name               String               @unique @db.VarChar(100)
-  shortCode          String?              @unique @db.VarChar(10)
-  location           String?              @db.VarChar(100)
-  description        String?              @db.VarChar(500)
-  status             Boolean              @default(true)
-  timeFrom           String?
-  timeTo             String?
-  createdAt          DateTime             @default(now())
-  updatedAt          DateTime             @updatedAt
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  type        String // 'OPD' | 'Business' | 'Other'
+  shortCode   String?
+  location    String?
+  description String?
+  status      Boolean  @default(true)
+  timeFrom    String?
+  timeTo      String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Hospital-only relations
   doctorLinks        DoctorDepartment[]
   DoctorProcedureFee DoctorProcedureFee[]
   MedicalRecord      MedicalRecord[]
   medicalRecordItems MedicalRecordItem[]
   procedures         Procedure[]
-  grns               GRN[]
 
-  @@index([name])
+  // Business-only relations
+  grns       GoodsReceipt[]
+  categories Category[]
+  indent     Indent[]
 }
 
 /// *
@@ -166,6 +171,8 @@ model Patient {
   welfareRecord   WelfarePatient?
   organization    Organization?   @relation(fields: [organizationId], references: [id])
   patientPrints   PatientPrint[]
+  user            User?           @relation(fields: [userId], references: [id])
+  userId          Int?
 }
 
 model PatientPrint {
@@ -295,604 +302,563 @@ model DoctorTokenCounter {
 }
 
 model Role {
-  id                       Int     @id @default(autoincrement())
-  name                     String  @unique
-  description              String?
-  canManageDepartments     Boolean @default(false)
-  canManageDoctors         Boolean @default(false)
-  canManagePatients        Boolean @default(false)
-  canManageWelfare         Boolean @default(false)
-  canManageProcedures      Boolean @default(false)
-  canManageFees            Boolean @default(false)
-  canViewReports           Boolean @default(false)
-  canManagePatientsHistory Boolean @default(false)
-  canManageFinanceReport   Boolean @default(false)
-  canManageToken           Boolean @default(false)
-  canManageOrganization    Boolean @default(false)
-  canManagePharma          Boolean @default(false)
-  canManageAccounts        Boolean @default(false)
-  canManageSetting       Boolean @default(false)
-  users                    User[]
+  id          Int              @id @default(autoincrement())
+  name        String           @unique
+  description String?
+  users       User[]
+  permissions RolePermission[]
 }
 
+model Permission {
+  id          Int              @id @default(autoincrement())
+  name        String           @unique
+  description String?
+  roles       RolePermission[]
+}
+
+model RolePermission {
+  id           Int @id @default(autoincrement())
+  roleId       Int
+  permissionId Int
+
+  role       Role       @relation(fields: [roleId], references: [id])
+  permission Permission @relation(fields: [permissionId], references: [id])
+
+  @@unique([roleId, permissionId]) // prevent duplicates
+}
+
+// --------------------
+// USER MODEL
+// --------------------
 model User {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  password  String
-  roleId    Int
-  status    Boolean  @default(true)
+  id       Int     @id @default(autoincrement())
+  name     String
+  email    String  @unique
+  password String
+  roleId   Int
+  status   Boolean @default(true)
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  medicalRecords  MedicalRecord[]
-  createdPatients Patient[]        @relation("PatientCreatedBy")
-  role            Role             @relation(fields: [roleId], references: [id])
+  role Role @relation(fields: [roleId], references: [id])
+
+  // PR
+  createdPRs  Indent[] @relation("PRCreatedBy")
+  approvedPRs Indent[] @relation("PRApprovedBy")
+
+  // PO
+  createdPOs PurchaseOrder[] @relation("POCreatedBy")
+
+  // Accounting
+  createdLedgerEntries  LedgerEntry[] @relation("LedgerEntryCreatedBy")
+  approvedLedgerEntries LedgerEntry[] @relation("LedgerEntryApprovedBy")
+
+  // Payments
+  payments        Payment[]
+  patients        Patient[]
+  patientPrints   PatientPrint[]
   welfarePatients WelfarePatient[]
+  medicalRecords  MedicalRecord[]
 
-  createdIndents        Indent[]       @relation("CreatedBy")
-  approvedLedgerEntries LedgerEntry[]  @relation("LedgerEntryApprover") // all entries this user approved
-  ledgerEntries         LedgerEntry[] // all entries this user created
-  patientPrints         PatientPrint[]
-}
-
-model Company {
-  id                     Int            @id @default(autoincrement())
-  name                   String
-  code                   String?
-  contactPerson          String?
-  phone                  String?
-  email                  String?
-  drugRegistrationNo     String?
-  manufacturingLicenseNo String?
-  ntnNumber              String?
-  gstNumber              String?
-  isActive               Boolean        @default(true)
-  remarks                String?
-  createdAt              DateTime       @default(now())
-  updatedAt              DateTime       @updatedAt
-  medicines              Medicine[]
-  distributors           Distributor[]  @relation("DistributorCompanies")
-  expiryReturns          ExpiryReturn[]
-}
-
-model Distributor {
-  id              Int              @id @default(autoincrement())
-  name            String           @db.VarChar(150)
-  contactPerson   String?          @db.VarChar(100)
-  phone           String?          @db.VarChar(20)
-  mobile          String?          @db.VarChar(20)
-  email           String?          @db.VarChar(100)
-  website         String?          @db.VarChar(100)
-  status          Boolean          @default(true)
-  addressLine1    String?          @db.VarChar(200)
-  addressLine2    String?          @db.VarChar(200)
-  city            String?          @db.VarChar(100)
-  state           String?          @db.VarChar(100)
-  country         String?          @default("Pakistan") @db.VarChar(100)
-  postalCode      String?          @db.VarChar(20)
-  ntnNumber       String?          @db.VarChar(50)
-  gstNumber       String?          @db.VarChar(50)
-  drugLicenseNo   String?          @db.VarChar(50)
-  registrationNo  String?          @db.VarChar(50)
-  openingBalance  Float?           @default(0)
-  balanceType     String?          @db.VarChar(10)
-  creditLimit     Float?
-  paymentTerms    String?          @db.VarChar(50)
-  bankName        String?          @db.VarChar(100)
-  bankAccountNo   String?          @db.VarChar(50)
-  iban            String?          @db.VarChar(50)
-  remarks         String?          @db.VarChar(500)
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
-  companies       Company[]        @relation("DistributorCompanies")
-  purchaseOrders  PurchaseOrder[]
-  grns            GRN[]
-  purchaseReturns PurchaseReturn[]
-  expiryReturns   ExpiryReturn[]
-}
-
-model Medicine {
-  id                  Int                  @id @default(autoincrement())
-  name                String               @db.VarChar(150)
-  categoryId          Int
-  dosageFormId        Int
-  unitId              Int?
-  // unitPacking         String?              @db.VarChar(50)
-  description         String?              @db.VarChar(500)
-  isActive            Boolean              @default(true)
-  createdAt           DateTime             @default(now())
-  updatedAt           DateTime             @updatedAt
-  companyId           Int?
-  genericNameId       Int?
-  category            MedicineCategory     @relation(fields: [categoryId], references: [id])
-  company             Company?             @relation(fields: [companyId], references: [id])
-  dosageForm          DosageForm           @relation(fields: [dosageFormId], references: [id])
-  genericName         GenericName?         @relation(fields: [genericNameId], references: [id])
-  unit                MedicineUnit?        @relation(fields: [unitId], references: [id])
-  indentItems         IndentItem[]
-  purchaseOrderItems  PurchaseOrderItem[]
-  grnitems            GRNItem[]
-  stockLedgers        StockLedger[]
-  saleItems           SaleItem[]
-  purchaseReturnItems PurchaseReturnItem[]
-  saleReturnItems     SaleReturnItem[]
-  expiryAlerts        ExpiryAlert[]
-  stockAdjustments    StockAdjustment[]
-  expiryReturnItems   ExpiryReturnItem[]
-}
-
-model MedicineUnit {
-  id Int @id @default(autoincrement())
-
-  value Decimal @db.Decimal(10, 3) // ✅ supports 0.5, 2.5, 400
-  unit  String  @db.VarChar(20) // mg, ml, g, IU
-  label String  @unique @db.VarChar(50) // "400mg", "0.5mg"
-
-  status    Boolean  @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  medicines   Medicine[]
-  indentItems IndentItem[]
-
-  @@unique([value, unit])
-}
-
-/// *
-///  * Medicine Category
-model MedicineCategory {
-  id          Int        @id @default(autoincrement())
-  name        String     @unique @db.VarChar(100)
-  description String?    @db.VarChar(500)
-  status      Boolean    @default(true)
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  medicines   Medicine[]
-}
-
-/// *
-///  * Dosage Form
-model DosageForm {
-  id          Int          @id @default(autoincrement())
-  name        String       @unique @db.VarChar(100)
-  description String?      @db.VarChar(500)
-  status      Boolean      @default(true)
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  code        String?      @unique
-  medicines   Medicine[]
-  indentItems IndentItem[]
+  createdPatients Patient[] @relation("PatientCreatedBy")
 }
 
 model GenericName {
-  id          Int          @id @default(autoincrement())
-  name        String       @unique @db.VarChar(150)
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  status      Boolean      @default(true)
-  medicines   Medicine[]
-  indentItems IndentItem[]
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  status   Boolean   @default(true)
+  products Product[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Brand {
+  id       Int     @id @default(autoincrement())
+  name     String
+  code     String?
+  phone    String?
+  email    String?
+  remarks  String?
+  isActive Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  products Product[]
+}
+
+model Supplier {
+  id            Int     @id @default(autoincrement())
+  name          String
+  contactPerson String?
+  phone         String?
+  email         String?
+  address       String?
+  city          String?
+  country       String? @default("Pakistan")
+
+  openingBalance Float?  @default(0)
+  creditLimit    Float?
+  paymentTerms   String?
+
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  purchaseOrders PurchaseOrder[]
+  goodsReceipts  GoodsReceipt[]
+  supplierBanks  SupplierBank[]
+}
+
+model SupplierBank {
+  id         Int      @id @default(autoincrement())
+  supplierId Int
+  bankName   String
+  accountNo  String
+  iban       String?
+  branch     String?
+  isDefault  Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  supplier Supplier @relation(fields: [supplierId], references: [id])
+}
+
+model Category {
+  id       Int    @id @default(autoincrement())
+  name     String
+  parentId Int?
+  level    Int?
+
+  parent   Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children Category[] @relation("CategoryHierarchy")
+
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  products     Product[]
+  department   Department? @relation(fields: [departmentId], references: [id])
+  departmentId Int?
+
+  @@unique([name, parentId])
+}
+
+model StrengthUnit {
+  id     Int     @id @default(autoincrement())
+  name   String  @unique
+  status Boolean
+
+  variants ProductVariant[]
+}
+
+model PackingType {
+  id     Int     @id @default(autoincrement())
+  name   String  @unique
+  status Boolean
+
+  variants ProductVariant[]
+}
+
+model DosageForm {
+  id     Int     @id @default(autoincrement())
+  name   String  @unique // Tablet, Capsule, Syrup, Injection
+  code   String? // optional: TAB, CAP, SYR
+  status Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  variants ProductVariant[]
+}
+
+model Product {
+  id            Int          @id @default(autoincrement())
+  status        Boolean
+  name          String       @unique
+  sku           String?      @unique
+  barcode       String?
+  description   String?
+  genericNameId Int?
+  genericName   GenericName? @relation(fields: [genericNameId], references: [id])
+
+  categoryId Int
+  brandId    Int?
+
+  // Flags
+  isBatchTracked      Boolean @default(false)
+  hasExpiry           Boolean @default(false)
+  isSerialized        Boolean @default(false)
+  requiresColdStorage Boolean @default(false)
+
+  isActive Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  category Category @relation(fields: [categoryId], references: [id])
+  brand    Brand?   @relation(fields: [brandId], references: [id])
+
+  variants ProductVariant[]
+
+  purchaseOrderItems       PurchaseOrderItem[]
+  goodsReceiptItems        GoodsReceiptItem[]
+  stockLedgers             StockLedger[]
+  purchaseRequisitionItems IndenItem[]
+}
+
+model ProductVariant {
+  id        Int     @id @default(autoincrement())
+  status    Boolean
+  productId Int
+  name      String?
+  sku       String? @unique
+
+  purchasePrice Float?
+  salePrice     Float?
+
+  minimumStock   Int?
+  reorderLevel   Int?
+  maximumStock   Int?
+  packingTypeId  Int?
+  strengthUnitId Int?
+  dosageFormId   Int?
+
+  packQuantity        Int?
+  sizeOrType          String?
+  consumable          Boolean?
+  ivOrInjection       Boolean?
+  requiresColdStorage Boolean?
+
+  expiryAlertDays Int? @default(90)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  product Product @relation(fields: [productId], references: [id])
+
+  stockLedgers             StockLedger[]
+  goodsReceiptItems        GoodsReceiptItem[]
+  purchaseRequisitionItems IndenItem[]
+  purchaseOrderItems       PurchaseOrderItem[]
+  strengthUnit             StrengthUnit?       @relation(fields: [strengthUnitId], references: [id])
+
+  packingType     PackingType?     @relation(fields: [packingTypeId], references: [id])
+  saleItems       SaleItem[]
+  saleReturnItems SaleReturnItem[]
+  dosageForm      DosageForm?      @relation(fields: [dosageFormId], references: [id])
+}
+
+enum IndentStatus {
+  OPEN
+  PO_CREATED
+  CLOSED
+  REJECTED
+  PARTIAL
 }
 
 model Indent {
-  id         Int      @id @default(autoincrement())
-  indentNo   String   @unique
-  indentDate DateTime @default(now())
+  id           Int      @id @default(autoincrement())
+  indentNo     String   @unique
+  indentDate   DateTime @default(now())
+  departmentId Int
 
-  departmentId Int?
+  requestedById Int
+  approvedById  Int?
 
-  createdBy Int?
-
-  status String @default("FORWARDING_TO_PO")
-
-  approvedBy Int?
-  approvedAt DateTime?
-
+  status  IndentStatus @default(PO_CREATED)
   remarks String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  items         IndentItem[]
-  createdByUser User?        @relation("CreatedBy", fields: [createdBy], references: [id])
+  requestedBy User  @relation("PRCreatedBy", fields: [requestedById], references: [id])
+  approvedBy  User? @relation("PRApprovedBy", fields: [approvedById], references: [id])
+
+  items          IndenItem[]
+  purchaseOrders PurchaseOrder[]
+  department     Department      @relation(fields: [departmentId], references: [id])
 }
 
-model IndentItem {
-  id Int @id @default(autoincrement())
-
-  indentId      Int
-  genericNameId Int
+model IndenItem {
+  id        Int  @id @default(autoincrement())
+  indentId  Int
+  productId Int
+  variantId Int?
 
   requestedQty Float
-  approvedQty  Float? // can be less than requested
-  pendingQty   Float? // auto-calc or manual
+  approvedQty  Float?
+
+  estimatedPrice Float?
+  remarks        String?
 
   isPoCreated Boolean @default(false)
 
-  unitId       Int? // <-- added
-  dosageFormId Int?
+  indent  Indent          @relation(fields: [indentId], references: [id])
+  product Product         @relation(fields: [productId], references: [id])
+  variant ProductVariant? @relation(fields: [variantId], references: [id])
+}
 
-  lastPurchaseRate Float? // optional (reference only)
-  remarks          String?
-
-  indent      Indent      @relation(fields: [indentId], references: [id])
-  genericName GenericName @relation(fields: [genericNameId], references: [id])
-
-  createdAt  DateTime      @default(now())
-  medicine   Medicine?     @relation(fields: [medicineId], references: [id])
-  dosageForm DosageForm?   @relation(fields: [dosageFormId], references: [id])
-  unit       MedicineUnit? @relation(fields: [unitId], references: [id])
-  medicineId Int?
+enum POStatus {
+  DRAFT
+  FOR_APPROVAL
+  APPROVED
+  SENT_TO_SUPPLIER
+  PARTIALLY_RECEIVED
+  RECEIVED
+  CLOSED
+  CANCELLED
+  PARTIAL
 }
 
 model PurchaseOrder {
-  id            Int      @id @default(autoincrement())
-  poNo          String   @unique
-  poDate        DateTime @default(now())
-  distributorId Int
-  indentId      Int?
+  id          Int      @id @default(autoincrement())
+  poNo        String   @unique
+  poDate      DateTime @default(now())
+  supplierId  Int
+  prId        Int?
+  createdById Int
 
-  status String @default("OPEN")
-  // OPEN | APPROVED | PARTIALLY_PAID | PAID | CANCELLED
-
+  status         POStatus @default(DRAFT)
   totalAmount    Float?
   taxAmount      Float?
   discountAmount Float?
   netAmount      Float?
-
-  approvedBy Int?
-  approvedAt DateTime?
+  remarks        String?
 
   pdfUrl         String?
   pdfGeneratedAt DateTime?
 
-  paymentType String? // FULL | ADVANCE_50 | AFTER_GRN
-  remarks     String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  approvedBy  Int? // for approval
+  approvedAt  DateTime? // for approval
+  cancelledBy Int? // for cancellation
+  cancelledAt DateTime? // for cancellation
 
-  distributor Distributor         @relation(fields: [distributorId], references: [id])
-  items       PurchaseOrderItem[]
-  grns        GRN[]
-  payments    Payment[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  supplier  Supplier @relation(fields: [supplierId], references: [id])
+  pr        Indent?  @relation(fields: [prId], references: [id])
+  createdBy User     @relation("POCreatedBy", fields: [createdById], references: [id])
+
+  items    PurchaseOrderItem[]
+  receipts GoodsReceipt[]
+  payments Payment[]
 }
 
 model PurchaseOrderItem {
-  id              Int    @id @default(autoincrement()) // <-- auto-increment
-  poId            Int
-  medicineId      Int
+  id        Int  @id @default(autoincrement())
+  poId      Int
+  productId Int
+  variantId Int?
+
   orderedQty      Float
   rate            Float
   discountPercent Float? @default(0)
   taxPercent      Float? @default(0)
   totalAmount     Float?
 
-  po       PurchaseOrder @relation(fields: [poId], references: [id])
-  medicine Medicine      @relation(fields: [medicineId], references: [id])
+  po      PurchaseOrder   @relation(fields: [poId], references: [id])
+  product Product         @relation(fields: [productId], references: [id])
+  variant ProductVariant? @relation(fields: [variantId], references: [id])
 }
 
-// Payment model for PurchaseOrders
-model Payment {
+enum GRNStatus {
+  RECEIVED
+  VERIFIED
+  CLOSED
+  CANCELLED
+}
+
+model GoodsReceipt {
   id          Int      @id @default(autoincrement())
-  poId        Int // Purchase Order ID
-  amount      Float
-  paymentMode String // CASH | BANK_TRANSFER | CHEQUE | ONLINE
-  paymentDate DateTime @default(now())
-  referenceNo String? // cheque no / transaction id
-  status      String   @default("PENDING") // PENDING | COMPLETED | FAILED
-  createdBy   Int?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @default(now()) @updatedAt
+  receiptNo   String   @unique
+  receiptDate DateTime @default(now())
+  supplierId  Int
+  poId        Int?
 
-  po PurchaseOrder @relation(fields: [poId], references: [id])
-}
-
-model LedgerEntry {
-  id        Int      @id @default(autoincrement())
-  entryDate DateTime @default(now())
-
-  refType String // PO_PAYMENT | SALE | GRN
-  refId   Int
-
-  debit  Float @default(0)
-  credit Float @default(0)
-
-  accountType  String // CASH | BANK | SUPPLIER
-  accountRefId Int? // distributorId / bankId
-
-  approvedBy Int
-  approvedAt DateTime @default(now())
-
-  remarks   String?
-  createdAt DateTime @default(now())
-
-  paymentStatus String?
-
-  // ✅ Relations
-  approver User  @relation("LedgerEntryApprover", fields: [approvedBy], references: [id])
-  userId   Int? // optional: who created the entry
-  user     User? @relation(fields: [userId], references: [id])
-}
-
-model GRN {
-  id      Int      @id @default(autoincrement())
-  grnNo   String   @unique
-  grnDate DateTime @default(now())
-
-  poId   Int
-  poNo   String
-  poDate DateTime
-
-  distributorId Int
-  departmentId  Int?
-
-  invoiceNo     String?
-  invoiceDate   DateTime?
-  invoiceType   String? // DC | INVOICE
-  invoiceStatus String? // PENDING | RECEIVED | VERIFIED
-
-  // 🔹 Totals
-  totalQty       Float?
-  grossAmount    Float? 
-  discountAmount Float?
-  taxAmount      Float?
-  netAmount      Float? 
-
-  status String @default("RECEIVED")
-  // RECEIVED | CHECKED | APPROVED
-
-  receivedBy Int
-  checkedBy  Int?
-  approvedBy Int?
-  approvedAt DateTime?
-
-  remarks String?
+  status    GRNStatus @default(RECEIVED)
+  totalQty  Float?
+  netAmount Float?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  po          PurchaseOrder @relation(fields: [poId], references: [id])
-  distributor Distributor   @relation(fields: [distributorId], references: [id])
-  department  Department?   @relation(fields: [departmentId], references: [id])
-
-  items           GRNItem[]
-  purchaseReturns PurchaseReturn[]
+  supplier     Supplier           @relation(fields: [supplierId], references: [id])
+  po           PurchaseOrder?     @relation(fields: [poId], references: [id])
+  items        GoodsReceiptItem[]
+  department   Department?        @relation(fields: [departmentId], references: [id])
+  departmentId Int?
 }
 
-model GRNItem {
-  id         Int @id @default(autoincrement())
-  grnId      Int
-  medicineId Int
+model GoodsReceiptItem {
+  id        Int  @id @default(autoincrement())
+  receiptId Int
+  productId Int
+  variantId Int?
 
-  // 🔹 PO Reference
-  orderedQty            Float
-  previouslyReceivedQty Float @default(0)
-
-  // 🔹 Receiving
+  orderedQty  Float?
   receivedQty Float
   bonusQty    Float? @default(0)
-  totalQty    Float // receivedQty + bonusQty
-  pendingQty  Float // orderedQty - (previouslyReceivedQty + receivedQty)
 
-  batchNo    String
-  expiryDate DateTime
+  batchNo    String?
+  expiryDate DateTime?
 
-  // 🔹 Financials
-  rate            Float  // TP from company
-  discountPercent Float? @default(0) // line discount %
-  discountAmount  Float? // rate * discountPercent
-  saleRate        Float  // retail price for customer
-  taxPercent      Float? @default(0)
-  taxAmount       Float?
-  netAmount       Float // FINAL LINE TOTAL = (receivedQty+bonusQty)*(rate-discount+tax)
+  purchasePrice Float
+  salePrice     Float?
 
-  mrp Float?
+  discountPercent Float?
+  discountAmount  Float?
 
-  grn      GRN      @relation(fields: [grnId], references: [id], onDelete: Cascade)
-  medicine Medicine @relation(fields: [medicineId], references: [id])
+  customerDiscountPercent Float? @default(0)
 
-  @@index([grnId])
-  @@index([medicineId])
+  netAmount Float?
+
+  receipt GoodsReceipt    @relation(fields: [receiptId], references: [id])
+  product Product         @relation(fields: [productId], references: [id])
+  variant ProductVariant? @relation(fields: [variantId], references: [id])
 }
 
 model StockLedger {
-  id                      Int      @id @default(autoincrement())
-  medicineId              Int
-  batchNo                 String
-  expiryDate              DateTime
-  transactionType         String
-  refTable                String
-  refId                   Int
-  qtyIn                   Float?   @default(0)
-  qtyOut                  Float?   @default(0)
-  rate                    Float?   // purchase rate
-  discountPercent         Float?   // ✅ add this
-  discountAmount          Float?   // ✅ add this
-  saleRate                Float?   // retail price
-  valueIn                 Float?   @default(0)
-  valueOut                Float?   @default(0)
-  balanceQty              Float
-  balanceValue            Float
-  customerDiscountPercent Float? 
-  customerDiscountAmount  Float? 
-  createdAt               DateTime @default(now())
+  id Int @id @default(autoincrement())
 
-  medicine Medicine @relation(fields: [medicineId], references: [id])
+  productId Int
+  variantId Int?
+
+  transactionType String
+  refTable        String
+  refId           Int
+
+  batchNo    String?
+  expiryDate DateTime?
+
+  qtyIn  Float? @default(0)
+  qtyOut Float? @default(0)
+
+  rate     Float?
+  saleRate Float?
+
+  balanceQty Float
+
+  valueIn      Float? @default(0)
+  valueOut     Float? @default(0)
+  balanceValue Float? @default(0)
+
+  discountPercent Float? @default(0)
+  discountAmount  Float? @default(0)
+  customerDiscountPercent Float? @default(0)
+
+  createdAt DateTime @default(now())
+
+  product Product         @relation(fields: [productId], references: [id])
+  variant ProductVariant? @relation(fields: [variantId], references: [id])
 }
 
+model Payment {
+  id       Int @id @default(autoincrement())
+  poId     Int
+  paidById Int
 
+  amount      Float
+  paymentMode String
+  paymentDate DateTime @default(now())
+  referenceNo String?
+
+  status String @default("PENDING")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  po     PurchaseOrder @relation(fields: [poId], references: [id])
+  paidBy User          @relation(fields: [paidById], references: [id])
+}
+
+model LedgerEntry {
+  id           Int      @id @default(autoincrement())
+  entryDate    DateTime @default(now())
+  description  String
+  amount       Float
+  debitUserId  Int?
+  creditUserId Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  createdBy  User? @relation("LedgerEntryCreatedBy", fields: [debitUserId], references: [id])
+  approvedBy User? @relation("LedgerEntryApprovedBy", fields: [creditUserId], references: [id])
+}
 
 model Sale {
-  id             Int      @id @default(autoincrement())
-  saleNo         String   @unique
-  saleDate       DateTime @default(now())
-  customerName   String?
-  grossAmount    Float
-  discountAmount Float?
-  taxAmount      Float?
-  netAmount      Float
-  paymentMode    String
-  createdAt      DateTime @default(now())
+  id           Int      @id @default(autoincrement())
+  saleNo       Int      @unique @default(autoincrement())
+  saleDate     DateTime @default(now())
+  customerName String
+  paymentMode  String
 
-  items           SaleItem[]
-  saleReturns     SaleReturn[]
-  saleReturnItems SaleReturnItem[]
+  grossAmount    Float
+  discountAmount Float
+  taxAmount      Float
+  netAmount      Float
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  items       SaleItem[]
+  saleReturns SaleReturn[]
 }
 
 model SaleItem {
-  id              Int      @id @default(autoincrement())
-  saleId          Int
-  medicineId      Int
-  batchNo         String
-  expiryDate      DateTime
+  id         Int       @id @default(autoincrement())
+  saleId     Int
+  variantId  Int
+  batchNo    String
+  expiryDate DateTime?
+
   quantity        Float
   saleRate        Float
-  discountPercent Float?
-  taxPercent      Float?
+  discountPercent Float? @default(0)
   lineAmount      Float
 
-  sale     Sale     @relation(fields: [saleId], references: [id])
-  medicine Medicine @relation(fields: [medicineId], references: [id])
-}
+  // Optional: for history and stock ledger reporting
+  purchaseRate            Float?
+  discountAmount          Float?
+  customerDiscountPercent Float?
 
-model PurchaseReturn {
-  id            Int      @id @default(autoincrement())
-  returnNo      String   @unique
-  grnId         Int
-  distributorId Int
-  returnDate    DateTime @default(now())
-  status        String   @default("PENDING")
-  // PENDING | APPROVED | POSTED
-
-  reason     String?
-  approvedBy Int?
-  approvedAt DateTime?
-  createdAt  DateTime  @default(now())
-
-  grn         GRN                  @relation(fields: [grnId], references: [id])
-  distributor Distributor          @relation(fields: [distributorId], references: [id])
-  items       PurchaseReturnItem[]
-}
-
-model PurchaseReturnItem {
-  id               Int      @id @default(autoincrement())
-  purchaseReturnId Int
-  medicineId       Int
-  batchNo          String
-  expiryDate       DateTime
-  returnQty        Float
-  purchaseRate     Float
-  lineAmount       Float
-  reason           String?
-
-  purchaseReturn PurchaseReturn @relation(fields: [purchaseReturnId], references: [id])
-  medicine       Medicine       @relation(fields: [medicineId], references: [id])
+  sale    Sale           @relation(fields: [saleId], references: [id])
+  variant ProductVariant @relation(fields: [variantId], references: [id])
 }
 
 model SaleReturn {
-  id         Int       @id @default(autoincrement())
-  returnNo   String    @unique
-  saleId     Int
-  returnDate DateTime  @default(now())
-  status     String    @default("PENDING") // PENDING | APPROVED | POSTED
-  reason     String?
-  approvedBy Int?
-  approvedAt DateTime?
-  createdAt  DateTime  @default(now())
+  id          Int      @id @default(autoincrement())
+  returnNo    Int      @unique @default(autoincrement())
+  saleId      Int
+  returnDate  DateTime @default(now())
+  reason      String?
+  totalRefund Float?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   sale  Sale             @relation(fields: [saleId], references: [id])
   items SaleReturnItem[]
 }
 
 model SaleReturnItem {
-  id           Int      @id @default(autoincrement())
-  saleReturnId Int
-  medicineId   Int
-  batchNo      String
-  expiryDate   DateTime
-  returnQty    Float
-  saleRate     Float
-  lineAmount   Float
-  reason       String?
+  id        Int @id @default(autoincrement())
+  returnId  Int
+  variantId Int
 
-  saleReturn SaleReturn @relation(fields: [saleReturnId], references: [id])
-  medicine   Medicine   @relation(fields: [medicineId], references: [id])
-  sale       Sale?      @relation(fields: [saleId], references: [id])
-  saleId     Int?
-}
-
-model ExpiryAlert {
-  id         Int      @id @default(autoincrement())
-  medicineId Int
   batchNo    String
-  expiryDate DateTime
-  quantity   Float
-  alertDate  DateTime
-  alertType  String // 90_DAYS | 60_DAYS | 30_DAYS
-  status     String   @default("OPEN")
-  // OPEN | ACTIONED | IGNORED
+  expiryDate DateTime?
 
-  createdAt  DateTime  @default(now())
-  actionBy   Int?
-  actionDate DateTime?
+  returnQty Float
+  saleRate  Float
+  amount    Float
 
-  medicine Medicine @relation(fields: [medicineId], references: [id])
-}
-
-model StockAdjustment {
-  id             Int      @id @default(autoincrement())
-  adjustmentNo   String   @unique
-  medicineId     Int
-  batchNo        String
-  expiryDate     DateTime
-  adjustmentQty  Float // +ve or -ve
-  adjustmentType String // DAMAGE | LOSS | COUNT_DIFF
-  reason         String
-
-  approvedBy Int?
-  approvedAt DateTime?
-  createdAt  DateTime  @default(now())
-
-  medicine Medicine @relation(fields: [medicineId], references: [id])
-}
-
-model ExpiryReturn {
-  id             Int      @id @default(autoincrement())
-  expiryReturnNo String   @unique
-  distributorId  Int
-  companyId      Int?
-  returnDate     DateTime @default(now())
-
-  returnType String // NEAR_EXPIRY | EXPIRED
-  status     String @default("PENDING")
-  // PENDING | APPROVED | POSTED
-
-  approvedBy Int?
-  approvedAt DateTime?
-  remarks    String?
-
-  createdAt DateTime @default(now())
-
-  distributor Distributor        @relation(fields: [distributorId], references: [id])
-  company     Company?           @relation(fields: [companyId], references: [id])
-  items       ExpiryReturnItem[]
-}
-
-model ExpiryReturnItem {
-  id             Int      @id @default(autoincrement())
-  expiryReturnId Int
-  medicineId     Int
-  batchNo        String
-  expiryDate     DateTime
-
-  returnQty    Float
-  purchaseRate Float
-  lineAmount   Float
-
-  originalGrnId Int? // traceability (audit)
-  reason        String?
-
-  expiryReturn ExpiryReturn @relation(fields: [expiryReturnId], references: [id])
-  medicine     Medicine     @relation(fields: [medicineId], references: [id])
+  return  SaleReturn     @relation(fields: [returnId], references: [id])
+  variant ProductVariant @relation(fields: [variantId], references: [id])
 }

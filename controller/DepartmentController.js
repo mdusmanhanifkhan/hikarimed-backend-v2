@@ -1,4 +1,4 @@
-
+import XLSX from "xlsx";
 import { prisma } from "../lib/prisma.js";
 
 // Constants
@@ -19,26 +19,56 @@ const ERROR_MESSAGES = {
   INTERNAL: "Internal server error",
 };
 
+const DEPARTMENT_TYPE_VALUES = [
+  "OPD",
+  "Pharmacy",
+  "Grocery",
+  "Surgical",
+  "General",
+  "IT",
+  "Business",
+  "Other",
+];
 // Helper to send structured errors
 const sendError = (res, status, general_error, errors = {}) =>
   res.status(status).json({ status, general_error, errors });
 
 // Helper for validation
-const validateDepartmentInput = ({ name, shortCode, location, description, timeFrom, timeTo }) => {
+const validateDepartmentInput = ({
+  name,
+  type,
+  shortCode,
+  location,
+  description,
+  timeFrom,
+  timeTo,
+}) => {
   const errors = {};
   const missingFields = [];
 
-  if (!name || typeof name !== "string" || name.trim() === "") missingFields.push("name");
-  else if (name.length > DEPARTMENT_NAME_MAX) errors.name = `Name ${ERROR_MESSAGES.MAX_LENGTH} (${DEPARTMENT_NAME_MAX})`;
+  if (!name || typeof name !== "string" || name.trim() === "")
+    missingFields.push("name");
+  else if (name.length > DEPARTMENT_NAME_MAX)
+    errors.name = `Name ${ERROR_MESSAGES.MAX_LENGTH} (${DEPARTMENT_NAME_MAX})`;
 
-  if (!shortCode || typeof shortCode !== "string" || shortCode.trim() === "") missingFields.push("shortCode");
-  else if (shortCode.length > DEPARTMENT_SHORTCODE_MAX) errors.shortCode = `Short Code ${ERROR_MESSAGES.MAX_LENGTH} (${DEPARTMENT_SHORTCODE_MAX})`;
+  if (!type || typeof type !== "string") missingFields.push("type");
+  else if (!DEPARTMENT_TYPE_VALUES.includes(type))
+    errors.type = `Invalid type. Allowed: ${DEPARTMENT_TYPE_VALUES.join(", ")}`;
 
-  if (location && location.length > DEPARTMENT_LOCATION_MAX) errors.location = `Location ${ERROR_MESSAGES.MAX_LENGTH} (${DEPARTMENT_LOCATION_MAX})`;
-  if (description && description.length > DEPARTMENT_DESCRIPTION_MAX) errors.description = `Description ${ERROR_MESSAGES.MAX_LENGTH} (${DEPARTMENT_DESCRIPTION_MAX})`;
+  if (!shortCode || typeof shortCode !== "string" || shortCode.trim() === "")
+    missingFields.push("shortCode");
+  else if (shortCode.length > DEPARTMENT_SHORTCODE_MAX)
+    errors.shortCode = `Short Code ${ERROR_MESSAGES.MAX_LENGTH} (${DEPARTMENT_SHORTCODE_MAX})`;
 
-  if (timeFrom && timeFrom.length > DEPARTMENT_TIME_MAX) errors.timeFrom = `Opening time ${ERROR_MESSAGES.MAX_LENGTH} (${DEPARTMENT_TIME_MAX})`;
-  if (timeTo && timeTo.length > DEPARTMENT_TIME_MAX) errors.timeTo = `Closing time ${ERROR_MESSAGES.MAX_LENGTH} (${DEPARTMENT_TIME_MAX})`;
+  if (location && location.length > DEPARTMENT_LOCATION_MAX)
+    errors.location = `Location ${ERROR_MESSAGES.MAX_LENGTH} (${DEPARTMENT_LOCATION_MAX})`;
+  if (description && description.length > DEPARTMENT_DESCRIPTION_MAX)
+    errors.description = `Description ${ERROR_MESSAGES.MAX_LENGTH} (${DEPARTMENT_DESCRIPTION_MAX})`;
+
+  if (timeFrom && timeFrom.length > DEPARTMENT_TIME_MAX)
+    errors.timeFrom = `Opening time ${ERROR_MESSAGES.MAX_LENGTH} (${DEPARTMENT_TIME_MAX})`;
+  if (timeTo && timeTo.length > DEPARTMENT_TIME_MAX)
+    errors.timeTo = `Closing time ${ERROR_MESSAGES.MAX_LENGTH} (${DEPARTMENT_TIME_MAX})`;
 
   return { errors, missingFields };
 };
@@ -46,9 +76,18 @@ const validateDepartmentInput = ({ name, shortCode, location, description, timeF
 // Create Department
 export const createDepartment = async (req, res) => {
   try {
-    const { name, shortCode, location, description, timeFrom, timeTo, status } = req.body;
+    const { name, type, shortCode, location, description, timeFrom, timeTo, status } =
+      req.body;
 
-    const { errors, missingFields } = validateDepartmentInput({ name, shortCode, location, description, timeFrom, timeTo });
+    const { errors, missingFields } = validateDepartmentInput({
+      name,
+      type,
+      shortCode,
+      location,
+      description,
+      timeFrom,
+      timeTo,
+    });
 
     if (missingFields.length > 0 || Object.keys(errors).length > 0) {
       const general_error = missingFields.length
@@ -64,17 +103,35 @@ export const createDepartment = async (req, res) => {
 
     if (existing) {
       const dupErrors = {};
-      if (existing.name === name) dupErrors.name = `Name ${ERROR_MESSAGES.DUPLICATE}`;
-      if (existing.shortCode === shortCode) dupErrors.shortCode = `Short Code ${ERROR_MESSAGES.DUPLICATE}`;
+      if (existing.name === name)
+        dupErrors.name = `Name ${ERROR_MESSAGES.DUPLICATE}`;
+      if (existing.shortCode === shortCode)
+        dupErrors.shortCode = `Short Code ${ERROR_MESSAGES.DUPLICATE}`;
       return sendError(res, 409, "Duplicate department", dupErrors);
     }
 
     const department = await prisma.department.create({
-      data: { name, shortCode, location, description, timeFrom, timeTo, status: status ?? true },
+      data: {
+        name,
+        type,
+        shortCode,
+        location,
+        description,
+        timeFrom,
+        timeTo,
+        status: status ?? true,
+      },
     });
 
-    return res.status(201).json({ status: 201, message: "Department created successfully", data: department });
+    return res
+      .status(201)
+      .json({
+        status: 201,
+        message: "Department created successfully",
+        data: department,
+      });
   } catch (error) {
+    console.log(error)
     return sendError(res, 500, ERROR_MESSAGES.INTERNAL);
   }
 };
@@ -82,48 +139,15 @@ export const createDepartment = async (req, res) => {
 // Get all departments (with optional search)
 export const getDepartments = async (req, res) => {
   try {
-    const { search } = req.query;
-
-    // Always return only active departments (status = true)
-    const where = {
-      status: true,
-      ...(search && {
-        OR: [
-          { name: { contains: search, mode: "insensitive" } },
-          { shortCode: { contains: search, mode: "insensitive" } },
-          { location: { contains: search, mode: "insensitive" } },
-        ],
-      }),
-    };
-
-    const departments = await prisma.department.findMany({
-      where,
-      orderBy: { id: "desc" },
-    });
-
-    if (!departments.length)
-      return sendError(
-        res,
-        200,
-        search ? `No active departments match "${search}"` : "No active departments found"
-      );
-
-    return res.status(200).json({
-      status: 200,
-      message: "Active departments retrieved successfully",
-      data: departments,
-    });
-  } catch (error) {
-    return sendError(res, 500, ERROR_MESSAGES.INTERNAL);
-  }
-};
-
-// Get all departments (active + inactive, with optional search)
-export const getAllDepartments = async (req, res) => {
-  try {
-    const { search } = req.query;
+    const { search, type } = req.query;
 
     const where = {
+      status: true, // only active
+
+      // Optional type filter
+      ...(type && { type }),
+
+      // Optional search filter
       ...(search && {
         OR: [
           { name: { contains: search, mode: "insensitive" } },
@@ -139,18 +163,49 @@ export const getAllDepartments = async (req, res) => {
     });
 
     if (!departments.length) {
-      return sendError(
-        res,
-        200,
-        search
-          ? `No departments match "${search}"`
-          : "No departments found"
-      );
+      return res.status(200).json({
+        status: 200,
+        message: "No active departments found",
+        data: [],
+      });
     }
 
     return res.status(200).json({
       status: 200,
-      message: "Departments retrieved successfully",
+      message: "Active departments retrieved successfully",
+      data: departments,
+    });
+
+  } catch (error) {
+    console.error("Error fetching departments:", error);
+    return sendError(res, 500, ERROR_MESSAGES.INTERNAL);
+  }
+};
+
+// Get all departments (active + inactive, with optional search)
+export const getAllDepartments = async (req, res) => {
+  try {
+    const { search, type, status } = req.query;
+
+    const where = {
+      ...(type && { type }),
+      ...(status !== undefined && { status: status === "true" }),
+      ...(search && {
+        OR: [
+          { name: { contains: search, mode: "insensitive" } },
+          { shortCode: { contains: search, mode: "insensitive" } },
+          { location: { contains: search, mode: "insensitive" } },
+        ],
+      }),
+    };
+
+    const departments = await prisma.department.findMany({
+      where,
+      orderBy: { id: "desc" },
+    });
+
+    return res.status(200).json({
+      success: true,
       data: departments,
     });
   } catch (error) {
@@ -158,17 +213,24 @@ export const getAllDepartments = async (req, res) => {
   }
 };
 
-
 // Get single department
 export const getSingleDepartment = async (req, res) => {
   try {
     const id = Number(req.params.id);
-    if (isNaN(id)) return sendError(res, 400, ERROR_MESSAGES.INVALID_ID);
+    if (isNaN(id))
+      return sendError(res, 400, ERROR_MESSAGES.INVALID_ID);
 
-    const department = await prisma.department.findUnique({ where: { id } });
-    if (!department) return sendError(res, 404, ERROR_MESSAGES.NOT_FOUND);
+    const department = await prisma.department.findUnique({
+      where: { id },
+    });
 
-    return res.status(200).json({ status: 200, message: "Department retrieved successfully", data: department });
+    if (!department)
+      return sendError(res, 404, ERROR_MESSAGES.NOT_FOUND);
+
+    return res.status(200).json({
+      success: true,
+      data: department,
+    });
   } catch (error) {
     return sendError(res, 500, ERROR_MESSAGES.INTERNAL);
   }
@@ -178,22 +240,55 @@ export const getSingleDepartment = async (req, res) => {
 export const updateDepartment = async (req, res) => {
   try {
     const id = Number(req.params.id);
-    if (isNaN(id)) return sendError(res, 400, ERROR_MESSAGES.INVALID_ID);
+    if (isNaN(id))
+      return sendError(res, 400, ERROR_MESSAGES.INVALID_ID);
 
-    const { name, shortCode, location, description, timeFrom, timeTo, status } = req.body;
+    const {
+      name,
+      type,
+      shortCode,
+      location,
+      description,
+      timeFrom,
+      timeTo,
+      status,
+    } = req.body;
 
-    const { errors } = validateDepartmentInput({ name, shortCode, location, description, timeFrom, timeTo });
-    if (Object.keys(errors).length > 0) return sendError(res, 400, "Validation failed", errors);
+    if (type && !DEPARTMENT_TYPE_VALUES.includes(type)) {
+      return res.status(400).json({
+        success: false,
+        message: `Invalid type. Allowed values: ${DEPARTMENT_TYPE_VALUES.join(
+          ", "
+        )}`,
+      });
+    }
 
-    const department = await prisma.department.findUnique({ where: { id } });
-    if (!department) return sendError(res, 404, ERROR_MESSAGES.NOT_FOUND);
+    const department = await prisma.department.findUnique({
+      where: { id },
+    });
+
+    if (!department)
+      return sendError(res, 404, ERROR_MESSAGES.NOT_FOUND);
 
     const updatedDepartment = await prisma.department.update({
       where: { id },
-      data: { name, shortCode, location, description, timeFrom, timeTo, status },
+      data: {
+        ...(name && { name }),
+        ...(type && { type }),
+        ...(shortCode && { shortCode }),
+        ...(location !== undefined && { location }),
+        ...(description !== undefined && { description }),
+        ...(timeFrom !== undefined && { timeFrom }),
+        ...(timeTo !== undefined && { timeTo }),
+        ...(status !== undefined && { status }),
+      },
     });
 
-    return res.status(200).json({ status: 200, message: "Department updated successfully", data: updatedDepartment });
+    return res.status(200).json({
+      success: true,
+      message: "Department updated successfully",
+      data: updatedDepartment,
+    });
   } catch (error) {
     console.error("Error updating department:", error);
     return sendError(res, 500, ERROR_MESSAGES.INTERNAL);
@@ -204,17 +299,43 @@ export const updateDepartment = async (req, res) => {
 export const deleteDepartment = async (req, res) => {
   try {
     const id = Number(req.params.id);
-    if (isNaN(id)) return sendError(res, 400, ERROR_MESSAGES.INVALID_ID);
+    if (isNaN(id))
+      return sendError(res, 400, ERROR_MESSAGES.INVALID_ID);
 
-    const department = await prisma.department.findUnique({ where: { id } });
-    if (!department) return sendError(res, 404, ERROR_MESSAGES.NOT_FOUND);
+    const department = await prisma.department.findUnique({
+      where: { id },
+    });
 
-    const relatedProcedures = await prisma.procedure.findMany({ where: { departmentId: id } });
-    if (relatedProcedures.length > 0) return sendError(res, 400, ERROR_MESSAGES.HAS_RELATIONS);
+    if (!department)
+      return sendError(res, 404, ERROR_MESSAGES.NOT_FOUND);
+
+    const hasRelations = await prisma.department.findFirst({
+      where: {
+        id,
+        OR: [
+          { procedures: { some: {} } },
+          { grns: { some: {} } },
+          { categories: { some: {} } },
+          { MedicalRecord: { some: {} } },
+          { DoctorProcedureFee: { some: {} } },
+        ],
+      },
+    });
+
+    if (hasRelations) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "Cannot delete department because it is linked to other records",
+      });
+    }
 
     await prisma.department.delete({ where: { id } });
 
-    return res.status(200).json({ status: 200, message: "Department deleted successfully" });
+    return res.status(200).json({
+      success: true,
+      message: "Department deleted successfully",
+    });
   } catch (error) {
     console.error("Error deleting department:", error);
     return sendError(res, 500, ERROR_MESSAGES.INTERNAL);
@@ -271,23 +392,79 @@ export const deleteDepartment = async (req, res) => {
 //     return res.status(500).json({ message: "Internal server error" });
 //   }
 // };
+// export const getDepartmentDoctorProcedureTree = async (req, res) => {
+//   try {
+//     const allowedDepartments = ["LAB", "X-RAY", "RADIOLOGY", "ULTRASOUND"];
+
+//     const fees = await prisma.doctorProcedureFee.findMany({
+//       where: {
+//         status: true,
+//         department: {
+//           name: {
+//             in: allowedDepartments,
+//             mode: "insensitive", // case insensitive
+//           },
+//         },
+//       },
+//       include: {
+//         doctor: true,
+//         procedure: true,
+//         department: true,
+//       },
+//       orderBy: { id: "asc" },
+//     });
+
+//     const tree = [];
+
+//     fees.forEach((fee) => {
+//       if (!fee.department || !fee.doctor || !fee.procedure) return;
+//       if (!fee.doctor.status || !fee.procedure.status) return;
+
+//       let dept = tree.find((d) => d.id === fee.department.id);
+//       if (!dept) {
+//         dept = {
+//           id: fee.department.id,
+//           name: fee.department.name,
+//           doctors: [],
+//         };
+//         tree.push(dept);
+//       }
+
+//       let doc = dept.doctors.find((d) => d.id === fee.doctor.id);
+//       if (!doc) {
+//         doc = {
+//           id: fee.doctor.id,
+//           name: fee.doctor.name,
+//           procedures: [],
+//         };
+//         dept.doctors.push(doc);
+//       }
+
+//       doc.procedures.push({
+//         id: fee.procedure.id,
+//         name: fee.procedure.name,
+//         fee: Number(fee.procedurePrice) || 0,
+//       });
+//     });
+
+//     return res.status(200).json({
+//       success: true,
+//       data: tree,
+//     });
+//   } catch (error) {
+//     console.error("❌ Error fetching department tree:", error);
+//     return res.status(500).json({ message: "Internal server error" });
+//   }
+// };
+
 export const getDepartmentDoctorProcedureTree = async (req, res) => {
   try {
-    const allowedDepartments = [
-      "LAB",
-      "X-RAY",
-      "RADIOLOGY",
-      "ULTRASOUND",
-    ];
-
     const fees = await prisma.doctorProcedureFee.findMany({
       where: {
         status: true,
         department: {
-          name: {
-            in: allowedDepartments,
-            mode: "insensitive", // case insensitive
-          },
+          type: "OPD",   // ✅ Only OPD departments
+          status: true,  // Only active departments
         },
       },
       include: {
@@ -305,6 +482,7 @@ export const getDepartmentDoctorProcedureTree = async (req, res) => {
       if (!fee.doctor.status || !fee.procedure.status) return;
 
       let dept = tree.find((d) => d.id === fee.department.id);
+
       if (!dept) {
         dept = {
           id: fee.department.id,
@@ -315,6 +493,7 @@ export const getDepartmentDoctorProcedureTree = async (req, res) => {
       }
 
       let doc = dept.doctors.find((d) => d.id === fee.doctor.id);
+
       if (!doc) {
         doc = {
           id: fee.doctor.id,
@@ -336,28 +515,85 @@ export const getDepartmentDoctorProcedureTree = async (req, res) => {
       data: tree,
     });
   } catch (error) {
-    console.error("❌ Error fetching department tree:", error);
+    console.error("❌ Error fetching OPD department tree:", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
+// export const getOtherDepartmentDoctorProcedureTree = async (req, res) => {
+//   try {
+//     const excludedDepartments = ["LAB", "X-RAY", "RADIOLOGY", "ULTRASOUND"];
+
+//     const fees = await prisma.doctorProcedureFee.findMany({
+//       where: {
+//         status: true,
+//         department: {
+//           name: {
+//             notIn: excludedDepartments,
+//             mode: "insensitive",
+//           },
+//         },
+//       },
+//       include: {
+//         doctor: true,
+//         procedure: true,
+//         department: true,
+//       },
+//       orderBy: { id: "asc" },
+//     });
+
+//     const tree = [];
+
+//     fees.forEach((fee) => {
+//       if (!fee.department || !fee.doctor || !fee.procedure) return;
+//       if (!fee.doctor.status || !fee.procedure.status) return;
+
+//       let dept = tree.find((d) => d.id === fee.department.id);
+//       if (!dept) {
+//         dept = {
+//           id: fee.department.id,
+//           name: fee.department.name,
+//           doctors: [],
+//         };
+//         tree.push(dept);
+//       }
+
+//       let doc = dept.doctors.find((d) => d.id === fee.doctor.id);
+//       if (!doc) {
+//         doc = {
+//           id: fee.doctor.id,
+//           name: fee.doctor.name,
+//           procedures: [],
+//         };
+//         dept.doctors.push(doc);
+//       }
+
+//       doc.procedures.push({
+//         id: fee.procedure.id,
+//         name: fee.procedure.name,
+//         fee: Number(fee.procedurePrice) || 0,
+//       });
+//     });
+
+//     return res.status(200).json({
+//       success: true,
+//       data: tree,
+//     });
+//   } catch (error) {
+//     console.error("❌ Error fetching other department tree:", error);
+//     return res.status(500).json({ message: "Internal server error" });
+//   }
+// };
+
 
 export const getOtherDepartmentDoctorProcedureTree = async (req, res) => {
   try {
-    const excludedDepartments = [
-      "LAB",
-      "X-RAY",
-      "RADIOLOGY",
-      "ULTRASOUND",
-    ];
-
     const fees = await prisma.doctorProcedureFee.findMany({
       where: {
         status: true,
         department: {
-          name: {
-            notIn: excludedDepartments,
-            mode: "insensitive",
-          },
+          NOT: { type: "OPD" },  // ✅ Exclude OPD
+          status: true,
         },
       },
       include: {
@@ -375,6 +611,7 @@ export const getOtherDepartmentDoctorProcedureTree = async (req, res) => {
       if (!fee.doctor.status || !fee.procedure.status) return;
 
       let dept = tree.find((d) => d.id === fee.department.id);
+
       if (!dept) {
         dept = {
           id: fee.department.id,
@@ -385,6 +622,7 @@ export const getOtherDepartmentDoctorProcedureTree = async (req, res) => {
       }
 
       let doc = dept.doctors.find((d) => d.id === fee.doctor.id);
+
       if (!doc) {
         doc = {
           id: fee.doctor.id,
@@ -405,16 +643,92 @@ export const getOtherDepartmentDoctorProcedureTree = async (req, res) => {
       success: true,
       data: tree,
     });
-
   } catch (error) {
-    console.error("❌ Error fetching other department tree:", error);
+    console.error("❌ Error fetching non-OPD department tree:", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
 
+// export const bulkUploadDepartments = async (req, res) => {
+//   try {
+//     if (!req.file) {
+//       return res.status(400).json({
+//         success: false,
+//         message: "Excel file is required",
+//       });
+//     }
 
+//     // 📄 Read Excel
+//     const workbook = XLSX.read(req.file.buffer);
+//     const sheetName = workbook.SheetNames[0];
+//     const sheet = workbook.Sheets[sheetName];
+//     const rows = XLSX.utils.sheet_to_json(sheet);
 
-import XLSX from "xlsx"
+//     if (!rows.length) {
+//       return res.status(400).json({
+//         success: false,
+//         message: "Excel file is empty",
+//       });
+//     }
+
+//     const departmentsToCreate = [];
+//     const skipped = [];
+
+//     for (const row of rows) {
+//       const name = row.name?.toString().trim();
+
+//       if (!name) {
+//         skipped.push({ row, reason: "Department name missing" });
+//         continue;
+//       }
+
+//       // ✅ Normalize status
+//       let status = true;
+//       if (row.status !== undefined) {
+//         const s = row.status.toString().toLowerCase();
+//         status = ["active", "true", "1", "yes"].includes(s);
+//       }
+
+//       departmentsToCreate.push({
+//         name,
+//         shortCode: row.shortCode?.toString().trim() || null,
+//         location: row.location?.toString().trim() || null,
+//         description: row.description?.toString().trim() || null,
+//         status,
+//         timeFrom: row.timeFrom?.toString().trim() || null,
+//         timeTo: row.timeTo?.toString().trim() || null,
+//       });
+//     }
+
+//     if (!departmentsToCreate.length) {
+//       return res.status(400).json({
+//         success: false,
+//         message: "No valid departments found in Excel",
+//       });
+//     }
+
+//     // 🚀 Bulk insert
+//     const result = await prisma.department.createMany({
+//       data: departmentsToCreate,
+//       skipDuplicates: true, // name & shortCode unique
+//     });
+
+//     return res.status(201).json({
+//       success: true,
+//       message: "Departments uploaded successfully",
+//       inserted: result.count,
+//       skipped: skipped.length,
+//       skippedRows: skipped,
+//     });
+//   } catch (error) {
+//     console.error("bulkUploadDepartments error:", error);
+//     return res.status(500).json({
+//       success: false,
+//       message: error.message || "Failed to upload departments",
+//     });
+//   }
+// };
+
 
 export const bulkUploadDepartments = async (req, res) => {
   try {
@@ -422,76 +736,68 @@ export const bulkUploadDepartments = async (req, res) => {
       return res.status(400).json({
         success: false,
         message: "Excel file is required",
-      })
+      });
     }
 
-    // 📄 Read Excel
-    const workbook = XLSX.read(req.file.buffer)
-    const sheetName = workbook.SheetNames[0]
-    const sheet = workbook.Sheets[sheetName]
-    const rows = XLSX.utils.sheet_to_json(sheet)
+    const workbook = XLSX.read(req.file.buffer);
+    const sheetName = workbook.SheetNames[0];
+    const sheet = workbook.Sheets[sheetName];
+    const rows = XLSX.utils.sheet_to_json(sheet);
 
     if (!rows.length) {
       return res.status(400).json({
         success: false,
         message: "Excel file is empty",
-      })
+      });
     }
 
-    const departmentsToCreate = []
-    const skipped = []
+    const departmentsToCreate = [];
+    const skipped = [];
 
     for (const row of rows) {
-      const name = row.name?.toString().trim()
+      const name = row.name?.toString().trim();
 
       if (!name) {
-        skipped.push({ row, reason: "Department name missing" })
-        continue
+        skipped.push({ row, reason: "Department name missing" });
+        continue;
       }
 
-      // ✅ Normalize status
-      let status = true
+      let status = true;
       if (row.status !== undefined) {
-        const s = row.status.toString().toLowerCase()
-        status = ["active", "true", "1", "yes"].includes(s)
+        const s = row.status.toString().toLowerCase();
+        status = ["active", "true", "1", "yes"].includes(s);
       }
 
       departmentsToCreate.push({
         name,
+        type: "OPD", // ✅ Force OPD
         shortCode: row.shortCode?.toString().trim() || null,
         location: row.location?.toString().trim() || null,
         description: row.description?.toString().trim() || null,
         status,
         timeFrom: row.timeFrom?.toString().trim() || null,
         timeTo: row.timeTo?.toString().trim() || null,
-      })
+      });
     }
 
-    if (!departmentsToCreate.length) {
-      return res.status(400).json({
-        success: false,
-        message: "No valid departments found in Excel",
-      })
-    }
-
-    // 🚀 Bulk insert
     const result = await prisma.department.createMany({
       data: departmentsToCreate,
-      skipDuplicates: true, // name & shortCode unique
-    })
+      skipDuplicates: true,
+    });
 
     return res.status(201).json({
       success: true,
-      message: "Departments uploaded successfully",
+      message: "OPD Departments uploaded successfully",
       inserted: result.count,
       skipped: skipped.length,
       skippedRows: skipped,
-    })
+    });
+
   } catch (error) {
-    console.error("bulkUploadDepartments error:", error)
+    console.error("bulkUploadDepartments error:", error);
     return res.status(500).json({
       success: false,
       message: error.message || "Failed to upload departments",
-    })
+    });
   }
-}
+};

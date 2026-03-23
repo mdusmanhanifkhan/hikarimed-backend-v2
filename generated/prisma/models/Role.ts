@@ -38,60 +38,18 @@ export type RoleMinAggregateOutputType = {
   id: number | null
   name: string | null
   description: string | null
-  canManageDepartments: boolean | null
-  canManageDoctors: boolean | null
-  canManagePatients: boolean | null
-  canManageWelfare: boolean | null
-  canManageProcedures: boolean | null
-  canManageFees: boolean | null
-  canViewReports: boolean | null
-  canManagePatientsHistory: boolean | null
-  canManageFinanceReport: boolean | null
-  canManageToken: boolean | null
-  canManageOrganization: boolean | null
-  canManagePharma: boolean | null
-  canManageAccounts: boolean | null
-  canManageSetting: boolean | null
 }
 
 export type RoleMaxAggregateOutputType = {
   id: number | null
   name: string | null
   description: string | null
-  canManageDepartments: boolean | null
-  canManageDoctors: boolean | null
-  canManagePatients: boolean | null
-  canManageWelfare: boolean | null
-  canManageProcedures: boolean | null
-  canManageFees: boolean | null
-  canViewReports: boolean | null
-  canManagePatientsHistory: boolean | null
-  canManageFinanceReport: boolean | null
-  canManageToken: boolean | null
-  canManageOrganization: boolean | null
-  canManagePharma: boolean | null
-  canManageAccounts: boolean | null
-  canManageSetting: boolean | null
 }
 
 export type RoleCountAggregateOutputType = {
   id: number
   name: number
   description: number
-  canManageDepartments: number
-  canManageDoctors: number
-  canManagePatients: number
-  canManageWelfare: number
-  canManageProcedures: number
-  canManageFees: number
-  canViewReports: number
-  canManagePatientsHistory: number
-  canManageFinanceReport: number
-  canManageToken: number
-  canManageOrganization: number
-  canManagePharma: number
-  canManageAccounts: number
-  canManageSetting: number
   _all: number
 }
 
@@ -108,60 +66,18 @@ export type RoleMinAggregateInputType = {
   id?: true
   name?: true
   description?: true
-  canManageDepartments?: true
-  canManageDoctors?: true
-  canManagePatients?: true
-  canManageWelfare?: true
-  canManageProcedures?: true
-  canManageFees?: true
-  canViewReports?: true
-  canManagePatientsHistory?: true
-  canManageFinanceReport?: true
-  canManageToken?: true
-  canManageOrganization?: true
-  canManagePharma?: true
-  canManageAccounts?: true
-  canManageSetting?: true
 }
 
 export type RoleMaxAggregateInputType = {
   id?: true
   name?: true
   description?: true
-  canManageDepartments?: true
-  canManageDoctors?: true
-  canManagePatients?: true
-  canManageWelfare?: true
-  canManageProcedures?: true
-  canManageFees?: true
-  canViewReports?: true
-  canManagePatientsHistory?: true
-  canManageFinanceReport?: true
-  canManageToken?: true
-  canManageOrganization?: true
-  canManagePharma?: true
-  canManageAccounts?: true
-  canManageSetting?: true
 }
 
 export type RoleCountAggregateInputType = {
   id?: true
   name?: true
   description?: true
-  canManageDepartments?: true
-  canManageDoctors?: true
-  canManagePatients?: true
-  canManageWelfare?: true
-  canManageProcedures?: true
-  canManageFees?: true
-  canViewReports?: true
-  canManagePatientsHistory?: true
-  canManageFinanceReport?: true
-  canManageToken?: true
-  canManageOrganization?: true
-  canManagePharma?: true
-  canManageAccounts?: true
-  canManageSetting?: true
   _all?: true
 }
 
@@ -255,20 +171,6 @@ export type RoleGroupByOutputType = {
   id: number
   name: string
   description: string | null
-  canManageDepartments: boolean
-  canManageDoctors: boolean
-  canManagePatients: boolean
-  canManageWelfare: boolean
-  canManageProcedures: boolean
-  canManageFees: boolean
-  canViewReports: boolean
-  canManagePatientsHistory: boolean
-  canManageFinanceReport: boolean
-  canManageToken: boolean
-  canManageOrganization: boolean
-  canManagePharma: boolean
-  canManageAccounts: boolean
-  canManageSetting: boolean
   _count: RoleCountAggregateOutputType | null
   _avg: RoleAvgAggregateOutputType | null
   _sum: RoleSumAggregateOutputType | null
@@ -298,42 +200,16 @@ export type RoleWhereInput = {
   id?: Prisma.IntFilter<"Role"> | number
   name?: Prisma.StringFilter<"Role"> | string
   description?: Prisma.StringNullableFilter<"Role"> | string | null
-  canManageDepartments?: Prisma.BoolFilter<"Role"> | boolean
-  canManageDoctors?: Prisma.BoolFilter<"Role"> | boolean
-  canManagePatients?: Prisma.BoolFilter<"Role"> | boolean
-  canManageWelfare?: Prisma.BoolFilter<"Role"> | boolean
-  canManageProcedures?: Prisma.BoolFilter<"Role"> | boolean
-  canManageFees?: Prisma.BoolFilter<"Role"> | boolean
-  canViewReports?: Prisma.BoolFilter<"Role"> | boolean
-  canManagePatientsHistory?: Prisma.BoolFilter<"Role"> | boolean
-  canManageFinanceReport?: Prisma.BoolFilter<"Role"> | boolean
-  canManageToken?: Prisma.BoolFilter<"Role"> | boolean
-  canManageOrganization?: Prisma.BoolFilter<"Role"> | boolean
-  canManagePharma?: Prisma.BoolFilter<"Role"> | boolean
-  canManageAccounts?: Prisma.BoolFilter<"Role"> | boolean
-  canManageSetting?: Prisma.BoolFilter<"Role"> | boolean
   users?: Prisma.UserListRelationFilter
+  permissions?: Prisma.RolePermissionListRelationFilter
 }
 
 export type RoleOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  canManageDepartments?: Prisma.SortOrder
-  canManageDoctors?: Prisma.SortOrder
-  canManagePatients?: Prisma.SortOrder
-  canManageWelfare?: Prisma.SortOrder
-  canManageProcedures?: Prisma.SortOrder
-  canManageFees?: Prisma.SortOrder
-  canViewReports?: Prisma.SortOrder
-  canManagePatientsHistory?: Prisma.SortOrder
-  canManageFinanceReport?: Prisma.SortOrder
-  canManageToken?: Prisma.SortOrder
-  canManageOrganization?: Prisma.SortOrder
-  canManagePharma?: Prisma.SortOrder
-  canManageAccounts?: Prisma.SortOrder
-  canManageSetting?: Prisma.SortOrder
   users?: Prisma.UserOrderByRelationAggregateInput
+  permissions?: Prisma.RolePermissionOrderByRelationAggregateInput
 }
 
 export type RoleWhereUniqueInput = Prisma.AtLeast<{
@@ -343,41 +219,14 @@ export type RoleWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.RoleWhereInput[]
   NOT?: Prisma.RoleWhereInput | Prisma.RoleWhereInput[]
   description?: Prisma.StringNullableFilter<"Role"> | string | null
-  canManageDepartments?: Prisma.BoolFilter<"Role"> | boolean
-  canManageDoctors?: Prisma.BoolFilter<"Role"> | boolean
-  canManagePatients?: Prisma.BoolFilter<"Role"> | boolean
-  canManageWelfare?: Prisma.BoolFilter<"Role"> | boolean
-  canManageProcedures?: Prisma.BoolFilter<"Role"> | boolean
-  canManageFees?: Prisma.BoolFilter<"Role"> | boolean
-  canViewReports?: Prisma.BoolFilter<"Role"> | boolean
-  canManagePatientsHistory?: Prisma.BoolFilter<"Role"> | boolean
-  canManageFinanceReport?: Prisma.BoolFilter<"Role"> | boolean
-  canManageToken?: Prisma.BoolFilter<"Role"> | boolean
-  canManageOrganization?: Prisma.BoolFilter<"Role"> | boolean
-  canManagePharma?: Prisma.BoolFilter<"Role"> | boolean
-  canManageAccounts?: Prisma.BoolFilter<"Role"> | boolean
-  canManageSetting?: Prisma.BoolFilter<"Role"> | boolean
   users?: Prisma.UserListRelationFilter
+  permissions?: Prisma.RolePermissionListRelationFilter
 }, "id" | "name">
 
 export type RoleOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  canManageDepartments?: Prisma.SortOrder
-  canManageDoctors?: Prisma.SortOrder
-  canManagePatients?: Prisma.SortOrder
-  canManageWelfare?: Prisma.SortOrder
-  canManageProcedures?: Prisma.SortOrder
-  canManageFees?: Prisma.SortOrder
-  canViewReports?: Prisma.SortOrder
-  canManagePatientsHistory?: Prisma.SortOrder
-  canManageFinanceReport?: Prisma.SortOrder
-  canManageToken?: Prisma.SortOrder
-  canManageOrganization?: Prisma.SortOrder
-  canManagePharma?: Prisma.SortOrder
-  canManageAccounts?: Prisma.SortOrder
-  canManageSetting?: Prisma.SortOrder
   _count?: Prisma.RoleCountOrderByAggregateInput
   _avg?: Prisma.RoleAvgOrderByAggregateInput
   _max?: Prisma.RoleMaxOrderByAggregateInput
@@ -392,181 +241,59 @@ export type RoleScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Role"> | number
   name?: Prisma.StringWithAggregatesFilter<"Role"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Role"> | string | null
-  canManageDepartments?: Prisma.BoolWithAggregatesFilter<"Role"> | boolean
-  canManageDoctors?: Prisma.BoolWithAggregatesFilter<"Role"> | boolean
-  canManagePatients?: Prisma.BoolWithAggregatesFilter<"Role"> | boolean
-  canManageWelfare?: Prisma.BoolWithAggregatesFilter<"Role"> | boolean
-  canManageProcedures?: Prisma.BoolWithAggregatesFilter<"Role"> | boolean
-  canManageFees?: Prisma.BoolWithAggregatesFilter<"Role"> | boolean
-  canViewReports?: Prisma.BoolWithAggregatesFilter<"Role"> | boolean
-  canManagePatientsHistory?: Prisma.BoolWithAggregatesFilter<"Role"> | boolean
-  canManageFinanceReport?: Prisma.BoolWithAggregatesFilter<"Role"> | boolean
-  canManageToken?: Prisma.BoolWithAggregatesFilter<"Role"> | boolean
-  canManageOrganization?: Prisma.BoolWithAggregatesFilter<"Role"> | boolean
-  canManagePharma?: Prisma.BoolWithAggregatesFilter<"Role"> | boolean
-  canManageAccounts?: Prisma.BoolWithAggregatesFilter<"Role"> | boolean
-  canManageSetting?: Prisma.BoolWithAggregatesFilter<"Role"> | boolean
 }
 
 export type RoleCreateInput = {
   name: string
   description?: string | null
-  canManageDepartments?: boolean
-  canManageDoctors?: boolean
-  canManagePatients?: boolean
-  canManageWelfare?: boolean
-  canManageProcedures?: boolean
-  canManageFees?: boolean
-  canViewReports?: boolean
-  canManagePatientsHistory?: boolean
-  canManageFinanceReport?: boolean
-  canManageToken?: boolean
-  canManageOrganization?: boolean
-  canManagePharma?: boolean
-  canManageAccounts?: boolean
-  canManageSetting?: boolean
   users?: Prisma.UserCreateNestedManyWithoutRoleInput
+  permissions?: Prisma.RolePermissionCreateNestedManyWithoutRoleInput
 }
 
 export type RoleUncheckedCreateInput = {
   id?: number
   name: string
   description?: string | null
-  canManageDepartments?: boolean
-  canManageDoctors?: boolean
-  canManagePatients?: boolean
-  canManageWelfare?: boolean
-  canManageProcedures?: boolean
-  canManageFees?: boolean
-  canViewReports?: boolean
-  canManagePatientsHistory?: boolean
-  canManageFinanceReport?: boolean
-  canManageToken?: boolean
-  canManageOrganization?: boolean
-  canManagePharma?: boolean
-  canManageAccounts?: boolean
-  canManageSetting?: boolean
   users?: Prisma.UserUncheckedCreateNestedManyWithoutRoleInput
+  permissions?: Prisma.RolePermissionUncheckedCreateNestedManyWithoutRoleInput
 }
 
 export type RoleUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  canManageDepartments?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageDoctors?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManagePatients?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageWelfare?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageProcedures?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageFees?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canViewReports?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManagePatientsHistory?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageFinanceReport?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageToken?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageOrganization?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManagePharma?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageAccounts?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageSetting?: Prisma.BoolFieldUpdateOperationsInput | boolean
   users?: Prisma.UserUpdateManyWithoutRoleNestedInput
+  permissions?: Prisma.RolePermissionUpdateManyWithoutRoleNestedInput
 }
 
 export type RoleUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  canManageDepartments?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageDoctors?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManagePatients?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageWelfare?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageProcedures?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageFees?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canViewReports?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManagePatientsHistory?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageFinanceReport?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageToken?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageOrganization?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManagePharma?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageAccounts?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageSetting?: Prisma.BoolFieldUpdateOperationsInput | boolean
   users?: Prisma.UserUncheckedUpdateManyWithoutRoleNestedInput
+  permissions?: Prisma.RolePermissionUncheckedUpdateManyWithoutRoleNestedInput
 }
 
 export type RoleCreateManyInput = {
   id?: number
   name: string
   description?: string | null
-  canManageDepartments?: boolean
-  canManageDoctors?: boolean
-  canManagePatients?: boolean
-  canManageWelfare?: boolean
-  canManageProcedures?: boolean
-  canManageFees?: boolean
-  canViewReports?: boolean
-  canManagePatientsHistory?: boolean
-  canManageFinanceReport?: boolean
-  canManageToken?: boolean
-  canManageOrganization?: boolean
-  canManagePharma?: boolean
-  canManageAccounts?: boolean
-  canManageSetting?: boolean
 }
 
 export type RoleUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  canManageDepartments?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageDoctors?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManagePatients?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageWelfare?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageProcedures?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageFees?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canViewReports?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManagePatientsHistory?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageFinanceReport?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageToken?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageOrganization?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManagePharma?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageAccounts?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageSetting?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type RoleUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  canManageDepartments?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageDoctors?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManagePatients?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageWelfare?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageProcedures?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageFees?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canViewReports?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManagePatientsHistory?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageFinanceReport?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageToken?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageOrganization?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManagePharma?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageAccounts?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageSetting?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type RoleCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  canManageDepartments?: Prisma.SortOrder
-  canManageDoctors?: Prisma.SortOrder
-  canManagePatients?: Prisma.SortOrder
-  canManageWelfare?: Prisma.SortOrder
-  canManageProcedures?: Prisma.SortOrder
-  canManageFees?: Prisma.SortOrder
-  canViewReports?: Prisma.SortOrder
-  canManagePatientsHistory?: Prisma.SortOrder
-  canManageFinanceReport?: Prisma.SortOrder
-  canManageToken?: Prisma.SortOrder
-  canManageOrganization?: Prisma.SortOrder
-  canManagePharma?: Prisma.SortOrder
-  canManageAccounts?: Prisma.SortOrder
-  canManageSetting?: Prisma.SortOrder
 }
 
 export type RoleAvgOrderByAggregateInput = {
@@ -577,40 +304,12 @@ export type RoleMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  canManageDepartments?: Prisma.SortOrder
-  canManageDoctors?: Prisma.SortOrder
-  canManagePatients?: Prisma.SortOrder
-  canManageWelfare?: Prisma.SortOrder
-  canManageProcedures?: Prisma.SortOrder
-  canManageFees?: Prisma.SortOrder
-  canViewReports?: Prisma.SortOrder
-  canManagePatientsHistory?: Prisma.SortOrder
-  canManageFinanceReport?: Prisma.SortOrder
-  canManageToken?: Prisma.SortOrder
-  canManageOrganization?: Prisma.SortOrder
-  canManagePharma?: Prisma.SortOrder
-  canManageAccounts?: Prisma.SortOrder
-  canManageSetting?: Prisma.SortOrder
 }
 
 export type RoleMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  canManageDepartments?: Prisma.SortOrder
-  canManageDoctors?: Prisma.SortOrder
-  canManagePatients?: Prisma.SortOrder
-  canManageWelfare?: Prisma.SortOrder
-  canManageProcedures?: Prisma.SortOrder
-  canManageFees?: Prisma.SortOrder
-  canViewReports?: Prisma.SortOrder
-  canManagePatientsHistory?: Prisma.SortOrder
-  canManageFinanceReport?: Prisma.SortOrder
-  canManageToken?: Prisma.SortOrder
-  canManageOrganization?: Prisma.SortOrder
-  canManagePharma?: Prisma.SortOrder
-  canManageAccounts?: Prisma.SortOrder
-  canManageSetting?: Prisma.SortOrder
 }
 
 export type RoleSumOrderByAggregateInput = {
@@ -620,6 +319,20 @@ export type RoleSumOrderByAggregateInput = {
 export type RoleScalarRelationFilter = {
   is?: Prisma.RoleWhereInput
   isNot?: Prisma.RoleWhereInput
+}
+
+export type RoleCreateNestedOneWithoutPermissionsInput = {
+  create?: Prisma.XOR<Prisma.RoleCreateWithoutPermissionsInput, Prisma.RoleUncheckedCreateWithoutPermissionsInput>
+  connectOrCreate?: Prisma.RoleCreateOrConnectWithoutPermissionsInput
+  connect?: Prisma.RoleWhereUniqueInput
+}
+
+export type RoleUpdateOneRequiredWithoutPermissionsNestedInput = {
+  create?: Prisma.XOR<Prisma.RoleCreateWithoutPermissionsInput, Prisma.RoleUncheckedCreateWithoutPermissionsInput>
+  connectOrCreate?: Prisma.RoleCreateOrConnectWithoutPermissionsInput
+  upsert?: Prisma.RoleUpsertWithoutPermissionsInput
+  connect?: Prisma.RoleWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.RoleUpdateToOneWithWhereWithoutPermissionsInput, Prisma.RoleUpdateWithoutPermissionsInput>, Prisma.RoleUncheckedUpdateWithoutPermissionsInput>
 }
 
 export type RoleCreateNestedOneWithoutUsersInput = {
@@ -636,43 +349,59 @@ export type RoleUpdateOneRequiredWithoutUsersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.RoleUpdateToOneWithWhereWithoutUsersInput, Prisma.RoleUpdateWithoutUsersInput>, Prisma.RoleUncheckedUpdateWithoutUsersInput>
 }
 
+export type RoleCreateWithoutPermissionsInput = {
+  name: string
+  description?: string | null
+  users?: Prisma.UserCreateNestedManyWithoutRoleInput
+}
+
+export type RoleUncheckedCreateWithoutPermissionsInput = {
+  id?: number
+  name: string
+  description?: string | null
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutRoleInput
+}
+
+export type RoleCreateOrConnectWithoutPermissionsInput = {
+  where: Prisma.RoleWhereUniqueInput
+  create: Prisma.XOR<Prisma.RoleCreateWithoutPermissionsInput, Prisma.RoleUncheckedCreateWithoutPermissionsInput>
+}
+
+export type RoleUpsertWithoutPermissionsInput = {
+  update: Prisma.XOR<Prisma.RoleUpdateWithoutPermissionsInput, Prisma.RoleUncheckedUpdateWithoutPermissionsInput>
+  create: Prisma.XOR<Prisma.RoleCreateWithoutPermissionsInput, Prisma.RoleUncheckedCreateWithoutPermissionsInput>
+  where?: Prisma.RoleWhereInput
+}
+
+export type RoleUpdateToOneWithWhereWithoutPermissionsInput = {
+  where?: Prisma.RoleWhereInput
+  data: Prisma.XOR<Prisma.RoleUpdateWithoutPermissionsInput, Prisma.RoleUncheckedUpdateWithoutPermissionsInput>
+}
+
+export type RoleUpdateWithoutPermissionsInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  users?: Prisma.UserUpdateManyWithoutRoleNestedInput
+}
+
+export type RoleUncheckedUpdateWithoutPermissionsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  users?: Prisma.UserUncheckedUpdateManyWithoutRoleNestedInput
+}
+
 export type RoleCreateWithoutUsersInput = {
   name: string
   description?: string | null
-  canManageDepartments?: boolean
-  canManageDoctors?: boolean
-  canManagePatients?: boolean
-  canManageWelfare?: boolean
-  canManageProcedures?: boolean
-  canManageFees?: boolean
-  canViewReports?: boolean
-  canManagePatientsHistory?: boolean
-  canManageFinanceReport?: boolean
-  canManageToken?: boolean
-  canManageOrganization?: boolean
-  canManagePharma?: boolean
-  canManageAccounts?: boolean
-  canManageSetting?: boolean
+  permissions?: Prisma.RolePermissionCreateNestedManyWithoutRoleInput
 }
 
 export type RoleUncheckedCreateWithoutUsersInput = {
   id?: number
   name: string
   description?: string | null
-  canManageDepartments?: boolean
-  canManageDoctors?: boolean
-  canManagePatients?: boolean
-  canManageWelfare?: boolean
-  canManageProcedures?: boolean
-  canManageFees?: boolean
-  canViewReports?: boolean
-  canManagePatientsHistory?: boolean
-  canManageFinanceReport?: boolean
-  canManageToken?: boolean
-  canManageOrganization?: boolean
-  canManagePharma?: boolean
-  canManageAccounts?: boolean
-  canManageSetting?: boolean
+  permissions?: Prisma.RolePermissionUncheckedCreateNestedManyWithoutRoleInput
 }
 
 export type RoleCreateOrConnectWithoutUsersInput = {
@@ -694,40 +423,14 @@ export type RoleUpdateToOneWithWhereWithoutUsersInput = {
 export type RoleUpdateWithoutUsersInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  canManageDepartments?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageDoctors?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManagePatients?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageWelfare?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageProcedures?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageFees?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canViewReports?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManagePatientsHistory?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageFinanceReport?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageToken?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageOrganization?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManagePharma?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageAccounts?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageSetting?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  permissions?: Prisma.RolePermissionUpdateManyWithoutRoleNestedInput
 }
 
 export type RoleUncheckedUpdateWithoutUsersInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  canManageDepartments?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageDoctors?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManagePatients?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageWelfare?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageProcedures?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageFees?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canViewReports?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManagePatientsHistory?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageFinanceReport?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageToken?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageOrganization?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManagePharma?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageAccounts?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canManageSetting?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  permissions?: Prisma.RolePermissionUncheckedUpdateManyWithoutRoleNestedInput
 }
 
 
@@ -737,10 +440,12 @@ export type RoleUncheckedUpdateWithoutUsersInput = {
 
 export type RoleCountOutputType = {
   users: number
+  permissions: number
 }
 
 export type RoleCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   users?: boolean | RoleCountOutputTypeCountUsersArgs
+  permissions?: boolean | RoleCountOutputTypeCountPermissionsArgs
 }
 
 /**
@@ -760,26 +465,20 @@ export type RoleCountOutputTypeCountUsersArgs<ExtArgs extends runtime.Types.Exte
   where?: Prisma.UserWhereInput
 }
 
+/**
+ * RoleCountOutputType without action
+ */
+export type RoleCountOutputTypeCountPermissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RolePermissionWhereInput
+}
+
 
 export type RoleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   description?: boolean
-  canManageDepartments?: boolean
-  canManageDoctors?: boolean
-  canManagePatients?: boolean
-  canManageWelfare?: boolean
-  canManageProcedures?: boolean
-  canManageFees?: boolean
-  canViewReports?: boolean
-  canManagePatientsHistory?: boolean
-  canManageFinanceReport?: boolean
-  canManageToken?: boolean
-  canManageOrganization?: boolean
-  canManagePharma?: boolean
-  canManageAccounts?: boolean
-  canManageSetting?: boolean
   users?: boolean | Prisma.Role$usersArgs<ExtArgs>
+  permissions?: boolean | Prisma.Role$permissionsArgs<ExtArgs>
   _count?: boolean | Prisma.RoleCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["role"]>
 
@@ -787,65 +486,24 @@ export type RoleSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   name?: boolean
   description?: boolean
-  canManageDepartments?: boolean
-  canManageDoctors?: boolean
-  canManagePatients?: boolean
-  canManageWelfare?: boolean
-  canManageProcedures?: boolean
-  canManageFees?: boolean
-  canViewReports?: boolean
-  canManagePatientsHistory?: boolean
-  canManageFinanceReport?: boolean
-  canManageToken?: boolean
-  canManageOrganization?: boolean
-  canManagePharma?: boolean
-  canManageAccounts?: boolean
-  canManageSetting?: boolean
 }, ExtArgs["result"]["role"]>
 
 export type RoleSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   description?: boolean
-  canManageDepartments?: boolean
-  canManageDoctors?: boolean
-  canManagePatients?: boolean
-  canManageWelfare?: boolean
-  canManageProcedures?: boolean
-  canManageFees?: boolean
-  canViewReports?: boolean
-  canManagePatientsHistory?: boolean
-  canManageFinanceReport?: boolean
-  canManageToken?: boolean
-  canManageOrganization?: boolean
-  canManagePharma?: boolean
-  canManageAccounts?: boolean
-  canManageSetting?: boolean
 }, ExtArgs["result"]["role"]>
 
 export type RoleSelectScalar = {
   id?: boolean
   name?: boolean
   description?: boolean
-  canManageDepartments?: boolean
-  canManageDoctors?: boolean
-  canManagePatients?: boolean
-  canManageWelfare?: boolean
-  canManageProcedures?: boolean
-  canManageFees?: boolean
-  canViewReports?: boolean
-  canManagePatientsHistory?: boolean
-  canManageFinanceReport?: boolean
-  canManageToken?: boolean
-  canManageOrganization?: boolean
-  canManagePharma?: boolean
-  canManageAccounts?: boolean
-  canManageSetting?: boolean
 }
 
-export type RoleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "canManageDepartments" | "canManageDoctors" | "canManagePatients" | "canManageWelfare" | "canManageProcedures" | "canManageFees" | "canViewReports" | "canManagePatientsHistory" | "canManageFinanceReport" | "canManageToken" | "canManageOrganization" | "canManagePharma" | "canManageAccounts" | "canManageSetting", ExtArgs["result"]["role"]>
+export type RoleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description", ExtArgs["result"]["role"]>
 export type RoleInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   users?: boolean | Prisma.Role$usersArgs<ExtArgs>
+  permissions?: boolean | Prisma.Role$permissionsArgs<ExtArgs>
   _count?: boolean | Prisma.RoleCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type RoleIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -855,25 +513,12 @@ export type $RolePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "Role"
   objects: {
     users: Prisma.$UserPayload<ExtArgs>[]
+    permissions: Prisma.$RolePermissionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
     description: string | null
-    canManageDepartments: boolean
-    canManageDoctors: boolean
-    canManagePatients: boolean
-    canManageWelfare: boolean
-    canManageProcedures: boolean
-    canManageFees: boolean
-    canViewReports: boolean
-    canManagePatientsHistory: boolean
-    canManageFinanceReport: boolean
-    canManageToken: boolean
-    canManageOrganization: boolean
-    canManagePharma: boolean
-    canManageAccounts: boolean
-    canManageSetting: boolean
   }, ExtArgs["result"]["role"]>
   composites: {}
 }
@@ -1269,6 +914,7 @@ readonly fields: RoleFieldRefs;
 export interface Prisma__RoleClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   users<T extends Prisma.Role$usersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Role$usersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  permissions<T extends Prisma.Role$permissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Role$permissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RolePermissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1301,20 +947,6 @@ export interface RoleFieldRefs {
   readonly id: Prisma.FieldRef<"Role", 'Int'>
   readonly name: Prisma.FieldRef<"Role", 'String'>
   readonly description: Prisma.FieldRef<"Role", 'String'>
-  readonly canManageDepartments: Prisma.FieldRef<"Role", 'Boolean'>
-  readonly canManageDoctors: Prisma.FieldRef<"Role", 'Boolean'>
-  readonly canManagePatients: Prisma.FieldRef<"Role", 'Boolean'>
-  readonly canManageWelfare: Prisma.FieldRef<"Role", 'Boolean'>
-  readonly canManageProcedures: Prisma.FieldRef<"Role", 'Boolean'>
-  readonly canManageFees: Prisma.FieldRef<"Role", 'Boolean'>
-  readonly canViewReports: Prisma.FieldRef<"Role", 'Boolean'>
-  readonly canManagePatientsHistory: Prisma.FieldRef<"Role", 'Boolean'>
-  readonly canManageFinanceReport: Prisma.FieldRef<"Role", 'Boolean'>
-  readonly canManageToken: Prisma.FieldRef<"Role", 'Boolean'>
-  readonly canManageOrganization: Prisma.FieldRef<"Role", 'Boolean'>
-  readonly canManagePharma: Prisma.FieldRef<"Role", 'Boolean'>
-  readonly canManageAccounts: Prisma.FieldRef<"Role", 'Boolean'>
-  readonly canManageSetting: Prisma.FieldRef<"Role", 'Boolean'>
 }
     
 
@@ -1724,6 +1356,30 @@ export type Role$usersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
   take?: number
   skip?: number
   distinct?: Prisma.UserScalarFieldEnum | Prisma.UserScalarFieldEnum[]
+}
+
+/**
+ * Role.permissions
+ */
+export type Role$permissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RolePermission
+   */
+  select?: Prisma.RolePermissionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RolePermission
+   */
+  omit?: Prisma.RolePermissionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RolePermissionInclude<ExtArgs> | null
+  where?: Prisma.RolePermissionWhereInput
+  orderBy?: Prisma.RolePermissionOrderByWithRelationInput | Prisma.RolePermissionOrderByWithRelationInput[]
+  cursor?: Prisma.RolePermissionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RolePermissionScalarFieldEnum | Prisma.RolePermissionScalarFieldEnum[]
 }
 
 /**

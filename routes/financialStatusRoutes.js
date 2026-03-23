@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { getFinancialReportTodayHandler } from "../controller/FinancialStatusController.js";
+import { getFinancialReportHandler } from "../controller/FinancialStatusController.js";
 
 const router = Router()
 
-router.get('/financial-report' , getFinancialReportTodayHandler)
+router.get('/financial-report' , getFinancialReportHandler)
 
 export default router

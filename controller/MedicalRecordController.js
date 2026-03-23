@@ -486,6 +486,7 @@ export const getMedicalRecords = async (req, res) => {
   }
 };
 
+
 export const exportMedicalRecordsExcel = async (req, res) => {
   try {
     const { from, to } = req.query;
@@ -498,12 +499,12 @@ export const exportMedicalRecordsExcel = async (req, res) => {
       };
     }
 
-    // ✅ Fetch medical records
+    // Fetch medical records
     const records = await prisma.medicalRecord.findMany({
       where,
       include: {
         patient: true,
-        user: true, // receptionist / creator
+        user: true,
         items: {
           include: {
             department: true,
@@ -511,60 +512,60 @@ export const exportMedicalRecordsExcel = async (req, res) => {
             procedure: true,
           },
         },
+        // Include these to fetch names even when items are empty
+        department: true,
+        doctor: true,
+        procedure: true,
       },
       orderBy: { recordDate: "asc" },
     });
 
-    // ✅ Flatten data for Excel
     const rows = [];
 
     records.forEach((record) => {
-      // If record has no items, still export one row
-      if (record.items.length === 0) {
+      if (!record.items || record.items.length === 0) {
+        // Use top-level department/doctor/procedure if items are empty
         rows.push({
           Date: record.recordDate.toISOString().split("T")[0],
-          PatientID: record.patient.patientId,
-          PatientName: record.patient.name,
+          PatientID: record.patient?.patientId || "",
+          PatientName: record.patient?.name || "",
           Department: record.department?.name || "",
           Doctor: record.doctor?.name || "",
           Procedure: record.procedure?.name || "",
-          Fee: Number(record.totalFee),
-          Discount: Number(record.discount),
-          FinalFee: Number(record.finalFee),
+          Fee: Number(record.totalFee || 0),
+          Discount: Number(record.discount || 0),
+          FinalFee: Number(record.finalFee || 0),
           CreatedBy: record.user?.name || "",
+        });
+      } else {
+        record.items.forEach((item) => {
+          rows.push({
+            Date: record.recordDate.toISOString().split("T")[0],
+            PatientID: record.patient?.patientId || "",
+            PatientName: record.patient?.name || "",
+            Department: item.department?.name || "",
+            Doctor: item.doctor?.name || "",
+            Procedure: item.procedure?.name || "",
+            Fee: Number(item.fee || 0),
+            Discount: Number(item.discount || 0),
+            FinalFee: Number(item.finalFee || 0),
+            CreatedBy: record.user?.name || "",
+          });
         });
       }
-
-      // If record has items
-      record.items.forEach((item) => {
-        rows.push({
-          Date: record.recordDate.toISOString().split("T")[0],
-          PatientID: record.patient.patientId,
-          PatientName: record.patient.name,
-          Department: item.department?.name || "",
-          Doctor: item.doctor?.name || "",
-          Procedure: item.procedure?.name || "",
-          Fee: Number(item.fee),
-          Discount: Number(item.discount),
-          FinalFee: Number(item.finalFee),
-          CreatedBy: record.user?.name || "",
-        });
-      });
     });
 
-    // ✅ Create Excel
     const worksheet = XLSX.utils.json_to_sheet(rows);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Medical Records");
 
-    // ✅ Response headers
     res.setHeader(
       "Content-Type",
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     );
     res.setHeader(
       "Content-Disposition",
-      `attachment; filename=medical-records.xlsx`,
+      `attachment; filename=medical-records.xlsx`
     );
 
     const buffer = XLSX.write(workbook, {
@@ -581,6 +582,8 @@ export const exportMedicalRecordsExcel = async (req, res) => {
     });
   }
 };
+
+
 
 // export const bulkUploadMedicalRecords = async (req, res) => {
 //   try {
@@ -666,27 +669,104 @@ const parseOptionalInt = (value) => {
   return Number.isNaN(num) ? null : num;
 };
 
+// export const bulkUploadMedicalRecords = async (req, res) => {
+//   try {
+//     if (!req.file?.buffer) {
+//       return res.status(400).json({
+//         success: false,
+//         message: "Excel file is required",
+//       });
+//     }
+
+//     const userId = req.user?.id;
+//     if (!userId) {
+//       return res.status(401).json({ message: "Unauthorized" });
+//     }
+
+//     const workbook = XLSX.read(req.file.buffer, { type: "buffer" });
+//     const sheet = workbook.Sheets[workbook.SheetNames[0]];
+
+//     const rows = XLSX.utils.sheet_to_json(sheet, {
+//       defval: null,
+//       raw: false,
+//     });
+
+//     let inserted = 0;
+//     const skipped = [];
+
+//     for (let i = 0; i < rows.length; i++) {
+//       const raw = rows[i];
+
+//       try {
+//         if (!raw.patientId) {
+//           skipped.push({ row: i + 1, reason: "patientId missing" });
+//           continue;
+//         }
+
+//         const tokenDate = parseExcelDate(raw.tokenDate);
+//         const tokenNumber = parseOptionalInt(raw.tokenNumber);
+
+//         await prisma.medicalRecord.create({
+//           data: {
+//             patientId: Number(raw.patientId),
+
+//             tokenDate,
+//             tokenNumber,
+
+//             recordDate: parseExcelDate(raw.recordDate) || new Date(),
+
+//             totalFee: Number(raw.totalFee || 0),
+//             discount: Number(raw.discount || 0),
+//             finalFee: Number(raw.finalFee || 0),
+
+//             notes: raw.notes || null,
+//             createdAt: raw.createdAt || null,
+//             userId: Number(raw.userId || userId),
+
+//             departmentId: parseOptionalInt(raw.departmentId),
+//             procedureId: parseOptionalInt(raw.procedureId),
+//             doctorId: parseOptionalInt(raw.doctorId),
+//           },
+//         });
+
+//         inserted++;
+//       } catch (err) {
+//         skipped.push({
+//           row: i + 1,
+//           reason: err.message,
+//         });
+//       }
+//     }
+
+//     return res.status(201).json({
+//       success: true,
+//       message: "Medical records uploaded successfully",
+//       inserted,
+//       skipped: skipped.length,
+//       skippedRows: skipped,
+//     });
+//   } catch (error) {
+//     console.error("Bulk upload medical records error:", error);
+//     return res.status(500).json({
+//       success: false,
+//       message: error.message || "Server error",
+//     });
+//   }
+// };
+
+
 export const bulkUploadMedicalRecords = async (req, res) => {
   try {
     if (!req.file?.buffer) {
-      return res.status(400).json({
-        success: false,
-        message: "Excel file is required",
-      });
-    }
-
-    const userId = req.user?.id;
-    if (!userId) {
-      return res.status(401).json({ message: "Unauthorized" });
+      return res.status(400).json({ message: "Excel file is required" });
     }
 
     const workbook = XLSX.read(req.file.buffer, { type: "buffer" });
     const sheet = workbook.Sheets[workbook.SheetNames[0]];
+    const rows = XLSX.utils.sheet_to_json(sheet, { defval: null });
 
-    const rows = XLSX.utils.sheet_to_json(sheet, {
-      defval: null,
-      raw: false,
-    });
+    const userId = req.user?.id;
+    if (!userId) return res.status(401).json({ message: "Unauthorized" });
 
     let inserted = 0;
     const skipped = [];
@@ -700,42 +780,33 @@ export const bulkUploadMedicalRecords = async (req, res) => {
           continue;
         }
 
-        const tokenDate = parseExcelDate(raw.tokenDate);
-        const tokenNumber = parseOptionalInt(raw.tokenNumber);
+        const tokenDate = raw.tokenDate ? new Date(raw.tokenDate) : null;
 
-        await prisma.medicalRecord.create({
+        const medicalRecord = await prisma.medicalRecord.create({
           data: {
             patientId: Number(raw.patientId),
-
-            tokenDate,
-            tokenNumber,
-
-            recordDate: parseExcelDate(raw.recordDate) || new Date(),
-
+            recordDate: raw.recordDate ? new Date(raw.recordDate) : new Date(),
             totalFee: Number(raw.totalFee || 0),
             discount: Number(raw.discount || 0),
             finalFee: Number(raw.finalFee || 0),
-
             notes: raw.notes || null,
-            createdAt: raw.createdAt || null,
+            createdAt: raw.createdAt ? new Date(raw.createdAt) : new Date(),
             userId: Number(raw.userId || userId),
-
-            departmentId: parseOptionalInt(raw.departmentId),
-            procedureId: parseOptionalInt(raw.procedureId),
-            doctorId: parseOptionalInt(raw.doctorId),
+            tokenDate,
+            tokenNumber: raw.tokenNumber ? Number(raw.tokenNumber) : null,
+            departmentId: raw.departmentId ? Number(raw.departmentId) : null,
+            procedureId: raw.procedureId ? Number(raw.procedureId) : null,
+            doctorId: raw.doctorId ? Number(raw.doctorId) : null,
           },
         });
 
         inserted++;
       } catch (err) {
-        skipped.push({
-          row: i + 1,
-          reason: err.message,
-        });
+        skipped.push({ row: i + 1, reason: err.message });
       }
     }
 
-    return res.status(201).json({
+    res.status(201).json({
       success: true,
       message: "Medical records uploaded successfully",
       inserted,
@@ -743,10 +814,7 @@ export const bulkUploadMedicalRecords = async (req, res) => {
       skippedRows: skipped,
     });
   } catch (error) {
-    console.error("Bulk upload medical records error:", error);
-    return res.status(500).json({
-      success: false,
-      message: error.message || "Server error",
-    });
+    console.error("Bulk upload MedicalRecords error:", error);
+    res.status(500).json({ message: error.message || "Server error" });
   }
 };

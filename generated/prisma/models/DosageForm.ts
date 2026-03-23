@@ -14,8 +14,7 @@ import type * as Prisma from "../internal/prismaNamespace.ts"
 
 /**
  * Model DosageForm
- * *
- * * Dosage Form
+ * 
  */
 export type DosageFormModel = runtime.Types.Result.DefaultSelection<Prisma.$DosageFormPayload>
 
@@ -38,31 +37,28 @@ export type DosageFormSumAggregateOutputType = {
 export type DosageFormMinAggregateOutputType = {
   id: number | null
   name: string | null
-  description: string | null
+  code: string | null
   status: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
-  code: string | null
 }
 
 export type DosageFormMaxAggregateOutputType = {
   id: number | null
   name: string | null
-  description: string | null
+  code: string | null
   status: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
-  code: string | null
 }
 
 export type DosageFormCountAggregateOutputType = {
   id: number
   name: number
-  description: number
+  code: number
   status: number
   createdAt: number
   updatedAt: number
-  code: number
   _all: number
 }
 
@@ -78,31 +74,28 @@ export type DosageFormSumAggregateInputType = {
 export type DosageFormMinAggregateInputType = {
   id?: true
   name?: true
-  description?: true
+  code?: true
   status?: true
   createdAt?: true
   updatedAt?: true
-  code?: true
 }
 
 export type DosageFormMaxAggregateInputType = {
   id?: true
   name?: true
-  description?: true
+  code?: true
   status?: true
   createdAt?: true
   updatedAt?: true
-  code?: true
 }
 
 export type DosageFormCountAggregateInputType = {
   id?: true
   name?: true
-  description?: true
+  code?: true
   status?: true
   createdAt?: true
   updatedAt?: true
-  code?: true
   _all?: true
 }
 
@@ -195,11 +188,10 @@ export type DosageFormGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inter
 export type DosageFormGroupByOutputType = {
   id: number
   name: string
-  description: string | null
+  code: string | null
   status: boolean
   createdAt: Date
   updatedAt: Date
-  code: string | null
   _count: DosageFormCountAggregateOutputType | null
   _avg: DosageFormAvgAggregateOutputType | null
   _sum: DosageFormSumAggregateOutputType | null
@@ -228,50 +220,43 @@ export type DosageFormWhereInput = {
   NOT?: Prisma.DosageFormWhereInput | Prisma.DosageFormWhereInput[]
   id?: Prisma.IntFilter<"DosageForm"> | number
   name?: Prisma.StringFilter<"DosageForm"> | string
-  description?: Prisma.StringNullableFilter<"DosageForm"> | string | null
+  code?: Prisma.StringNullableFilter<"DosageForm"> | string | null
   status?: Prisma.BoolFilter<"DosageForm"> | boolean
   createdAt?: Prisma.DateTimeFilter<"DosageForm"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"DosageForm"> | Date | string
-  code?: Prisma.StringNullableFilter<"DosageForm"> | string | null
-  medicines?: Prisma.MedicineListRelationFilter
-  indentItems?: Prisma.IndentItemListRelationFilter
+  variants?: Prisma.ProductVariantListRelationFilter
 }
 
 export type DosageFormOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  description?: Prisma.SortOrderInput | Prisma.SortOrder
+  code?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  code?: Prisma.SortOrderInput | Prisma.SortOrder
-  medicines?: Prisma.MedicineOrderByRelationAggregateInput
-  indentItems?: Prisma.IndentItemOrderByRelationAggregateInput
+  variants?: Prisma.ProductVariantOrderByRelationAggregateInput
 }
 
 export type DosageFormWhereUniqueInput = Prisma.AtLeast<{
   id?: number
   name?: string
-  code?: string
   AND?: Prisma.DosageFormWhereInput | Prisma.DosageFormWhereInput[]
   OR?: Prisma.DosageFormWhereInput[]
   NOT?: Prisma.DosageFormWhereInput | Prisma.DosageFormWhereInput[]
-  description?: Prisma.StringNullableFilter<"DosageForm"> | string | null
+  code?: Prisma.StringNullableFilter<"DosageForm"> | string | null
   status?: Prisma.BoolFilter<"DosageForm"> | boolean
   createdAt?: Prisma.DateTimeFilter<"DosageForm"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"DosageForm"> | Date | string
-  medicines?: Prisma.MedicineListRelationFilter
-  indentItems?: Prisma.IndentItemListRelationFilter
-}, "id" | "name" | "code">
+  variants?: Prisma.ProductVariantListRelationFilter
+}, "id" | "name">
 
 export type DosageFormOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  description?: Prisma.SortOrderInput | Prisma.SortOrder
+  code?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  code?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.DosageFormCountOrderByAggregateInput
   _avg?: Prisma.DosageFormAvgOrderByAggregateInput
   _max?: Prisma.DosageFormMaxOrderByAggregateInput
@@ -285,101 +270,83 @@ export type DosageFormScalarWhereWithAggregatesInput = {
   NOT?: Prisma.DosageFormScalarWhereWithAggregatesInput | Prisma.DosageFormScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"DosageForm"> | number
   name?: Prisma.StringWithAggregatesFilter<"DosageForm"> | string
-  description?: Prisma.StringNullableWithAggregatesFilter<"DosageForm"> | string | null
+  code?: Prisma.StringNullableWithAggregatesFilter<"DosageForm"> | string | null
   status?: Prisma.BoolWithAggregatesFilter<"DosageForm"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"DosageForm"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"DosageForm"> | Date | string
-  code?: Prisma.StringNullableWithAggregatesFilter<"DosageForm"> | string | null
 }
 
 export type DosageFormCreateInput = {
   name: string
-  description?: string | null
+  code?: string | null
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  code?: string | null
-  medicines?: Prisma.MedicineCreateNestedManyWithoutDosageFormInput
-  indentItems?: Prisma.IndentItemCreateNestedManyWithoutDosageFormInput
+  variants?: Prisma.ProductVariantCreateNestedManyWithoutDosageFormInput
 }
 
 export type DosageFormUncheckedCreateInput = {
   id?: number
   name: string
-  description?: string | null
+  code?: string | null
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  code?: string | null
-  medicines?: Prisma.MedicineUncheckedCreateNestedManyWithoutDosageFormInput
-  indentItems?: Prisma.IndentItemUncheckedCreateNestedManyWithoutDosageFormInput
+  variants?: Prisma.ProductVariantUncheckedCreateNestedManyWithoutDosageFormInput
 }
 
 export type DosageFormUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  medicines?: Prisma.MedicineUpdateManyWithoutDosageFormNestedInput
-  indentItems?: Prisma.IndentItemUpdateManyWithoutDosageFormNestedInput
+  variants?: Prisma.ProductVariantUpdateManyWithoutDosageFormNestedInput
 }
 
 export type DosageFormUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  medicines?: Prisma.MedicineUncheckedUpdateManyWithoutDosageFormNestedInput
-  indentItems?: Prisma.IndentItemUncheckedUpdateManyWithoutDosageFormNestedInput
+  variants?: Prisma.ProductVariantUncheckedUpdateManyWithoutDosageFormNestedInput
 }
 
 export type DosageFormCreateManyInput = {
   id?: number
   name: string
-  description?: string | null
+  code?: string | null
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  code?: string | null
 }
 
 export type DosageFormUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type DosageFormUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-}
-
-export type DosageFormScalarRelationFilter = {
-  is?: Prisma.DosageFormWhereInput
-  isNot?: Prisma.DosageFormWhereInput
 }
 
 export type DosageFormCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  description?: Prisma.SortOrder
+  code?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  code?: Prisma.SortOrder
 }
 
 export type DosageFormAvgOrderByAggregateInput = {
@@ -389,21 +356,19 @@ export type DosageFormAvgOrderByAggregateInput = {
 export type DosageFormMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  description?: Prisma.SortOrder
+  code?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  code?: Prisma.SortOrder
 }
 
 export type DosageFormMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  description?: Prisma.SortOrder
+  code?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  code?: Prisma.SortOrder
 }
 
 export type DosageFormSumOrderByAggregateInput = {
@@ -415,150 +380,70 @@ export type DosageFormNullableScalarRelationFilter = {
   isNot?: Prisma.DosageFormWhereInput | null
 }
 
-export type DosageFormCreateNestedOneWithoutMedicinesInput = {
-  create?: Prisma.XOR<Prisma.DosageFormCreateWithoutMedicinesInput, Prisma.DosageFormUncheckedCreateWithoutMedicinesInput>
-  connectOrCreate?: Prisma.DosageFormCreateOrConnectWithoutMedicinesInput
+export type DosageFormCreateNestedOneWithoutVariantsInput = {
+  create?: Prisma.XOR<Prisma.DosageFormCreateWithoutVariantsInput, Prisma.DosageFormUncheckedCreateWithoutVariantsInput>
+  connectOrCreate?: Prisma.DosageFormCreateOrConnectWithoutVariantsInput
   connect?: Prisma.DosageFormWhereUniqueInput
 }
 
-export type DosageFormUpdateOneRequiredWithoutMedicinesNestedInput = {
-  create?: Prisma.XOR<Prisma.DosageFormCreateWithoutMedicinesInput, Prisma.DosageFormUncheckedCreateWithoutMedicinesInput>
-  connectOrCreate?: Prisma.DosageFormCreateOrConnectWithoutMedicinesInput
-  upsert?: Prisma.DosageFormUpsertWithoutMedicinesInput
-  connect?: Prisma.DosageFormWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.DosageFormUpdateToOneWithWhereWithoutMedicinesInput, Prisma.DosageFormUpdateWithoutMedicinesInput>, Prisma.DosageFormUncheckedUpdateWithoutMedicinesInput>
-}
-
-export type DosageFormCreateNestedOneWithoutIndentItemsInput = {
-  create?: Prisma.XOR<Prisma.DosageFormCreateWithoutIndentItemsInput, Prisma.DosageFormUncheckedCreateWithoutIndentItemsInput>
-  connectOrCreate?: Prisma.DosageFormCreateOrConnectWithoutIndentItemsInput
-  connect?: Prisma.DosageFormWhereUniqueInput
-}
-
-export type DosageFormUpdateOneWithoutIndentItemsNestedInput = {
-  create?: Prisma.XOR<Prisma.DosageFormCreateWithoutIndentItemsInput, Prisma.DosageFormUncheckedCreateWithoutIndentItemsInput>
-  connectOrCreate?: Prisma.DosageFormCreateOrConnectWithoutIndentItemsInput
-  upsert?: Prisma.DosageFormUpsertWithoutIndentItemsInput
+export type DosageFormUpdateOneWithoutVariantsNestedInput = {
+  create?: Prisma.XOR<Prisma.DosageFormCreateWithoutVariantsInput, Prisma.DosageFormUncheckedCreateWithoutVariantsInput>
+  connectOrCreate?: Prisma.DosageFormCreateOrConnectWithoutVariantsInput
+  upsert?: Prisma.DosageFormUpsertWithoutVariantsInput
   disconnect?: Prisma.DosageFormWhereInput | boolean
   delete?: Prisma.DosageFormWhereInput | boolean
   connect?: Prisma.DosageFormWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.DosageFormUpdateToOneWithWhereWithoutIndentItemsInput, Prisma.DosageFormUpdateWithoutIndentItemsInput>, Prisma.DosageFormUncheckedUpdateWithoutIndentItemsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DosageFormUpdateToOneWithWhereWithoutVariantsInput, Prisma.DosageFormUpdateWithoutVariantsInput>, Prisma.DosageFormUncheckedUpdateWithoutVariantsInput>
 }
 
-export type DosageFormCreateWithoutMedicinesInput = {
+export type DosageFormCreateWithoutVariantsInput = {
   name: string
-  description?: string | null
+  code?: string | null
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  code?: string | null
-  indentItems?: Prisma.IndentItemCreateNestedManyWithoutDosageFormInput
 }
 
-export type DosageFormUncheckedCreateWithoutMedicinesInput = {
+export type DosageFormUncheckedCreateWithoutVariantsInput = {
   id?: number
   name: string
-  description?: string | null
+  code?: string | null
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  code?: string | null
-  indentItems?: Prisma.IndentItemUncheckedCreateNestedManyWithoutDosageFormInput
 }
 
-export type DosageFormCreateOrConnectWithoutMedicinesInput = {
+export type DosageFormCreateOrConnectWithoutVariantsInput = {
   where: Prisma.DosageFormWhereUniqueInput
-  create: Prisma.XOR<Prisma.DosageFormCreateWithoutMedicinesInput, Prisma.DosageFormUncheckedCreateWithoutMedicinesInput>
+  create: Prisma.XOR<Prisma.DosageFormCreateWithoutVariantsInput, Prisma.DosageFormUncheckedCreateWithoutVariantsInput>
 }
 
-export type DosageFormUpsertWithoutMedicinesInput = {
-  update: Prisma.XOR<Prisma.DosageFormUpdateWithoutMedicinesInput, Prisma.DosageFormUncheckedUpdateWithoutMedicinesInput>
-  create: Prisma.XOR<Prisma.DosageFormCreateWithoutMedicinesInput, Prisma.DosageFormUncheckedCreateWithoutMedicinesInput>
+export type DosageFormUpsertWithoutVariantsInput = {
+  update: Prisma.XOR<Prisma.DosageFormUpdateWithoutVariantsInput, Prisma.DosageFormUncheckedUpdateWithoutVariantsInput>
+  create: Prisma.XOR<Prisma.DosageFormCreateWithoutVariantsInput, Prisma.DosageFormUncheckedCreateWithoutVariantsInput>
   where?: Prisma.DosageFormWhereInput
 }
 
-export type DosageFormUpdateToOneWithWhereWithoutMedicinesInput = {
+export type DosageFormUpdateToOneWithWhereWithoutVariantsInput = {
   where?: Prisma.DosageFormWhereInput
-  data: Prisma.XOR<Prisma.DosageFormUpdateWithoutMedicinesInput, Prisma.DosageFormUncheckedUpdateWithoutMedicinesInput>
+  data: Prisma.XOR<Prisma.DosageFormUpdateWithoutVariantsInput, Prisma.DosageFormUncheckedUpdateWithoutVariantsInput>
 }
 
-export type DosageFormUpdateWithoutMedicinesInput = {
+export type DosageFormUpdateWithoutVariantsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  indentItems?: Prisma.IndentItemUpdateManyWithoutDosageFormNestedInput
 }
 
-export type DosageFormUncheckedUpdateWithoutMedicinesInput = {
+export type DosageFormUncheckedUpdateWithoutVariantsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  indentItems?: Prisma.IndentItemUncheckedUpdateManyWithoutDosageFormNestedInput
-}
-
-export type DosageFormCreateWithoutIndentItemsInput = {
-  name: string
-  description?: string | null
-  status?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  code?: string | null
-  medicines?: Prisma.MedicineCreateNestedManyWithoutDosageFormInput
-}
-
-export type DosageFormUncheckedCreateWithoutIndentItemsInput = {
-  id?: number
-  name: string
-  description?: string | null
-  status?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  code?: string | null
-  medicines?: Prisma.MedicineUncheckedCreateNestedManyWithoutDosageFormInput
-}
-
-export type DosageFormCreateOrConnectWithoutIndentItemsInput = {
-  where: Prisma.DosageFormWhereUniqueInput
-  create: Prisma.XOR<Prisma.DosageFormCreateWithoutIndentItemsInput, Prisma.DosageFormUncheckedCreateWithoutIndentItemsInput>
-}
-
-export type DosageFormUpsertWithoutIndentItemsInput = {
-  update: Prisma.XOR<Prisma.DosageFormUpdateWithoutIndentItemsInput, Prisma.DosageFormUncheckedUpdateWithoutIndentItemsInput>
-  create: Prisma.XOR<Prisma.DosageFormCreateWithoutIndentItemsInput, Prisma.DosageFormUncheckedCreateWithoutIndentItemsInput>
-  where?: Prisma.DosageFormWhereInput
-}
-
-export type DosageFormUpdateToOneWithWhereWithoutIndentItemsInput = {
-  where?: Prisma.DosageFormWhereInput
-  data: Prisma.XOR<Prisma.DosageFormUpdateWithoutIndentItemsInput, Prisma.DosageFormUncheckedUpdateWithoutIndentItemsInput>
-}
-
-export type DosageFormUpdateWithoutIndentItemsInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  medicines?: Prisma.MedicineUpdateManyWithoutDosageFormNestedInput
-}
-
-export type DosageFormUncheckedUpdateWithoutIndentItemsInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  medicines?: Prisma.MedicineUncheckedUpdateManyWithoutDosageFormNestedInput
 }
 
 
@@ -567,13 +452,11 @@ export type DosageFormUncheckedUpdateWithoutIndentItemsInput = {
  */
 
 export type DosageFormCountOutputType = {
-  medicines: number
-  indentItems: number
+  variants: number
 }
 
 export type DosageFormCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  medicines?: boolean | DosageFormCountOutputTypeCountMedicinesArgs
-  indentItems?: boolean | DosageFormCountOutputTypeCountIndentItemsArgs
+  variants?: boolean | DosageFormCountOutputTypeCountVariantsArgs
 }
 
 /**
@@ -589,65 +472,52 @@ export type DosageFormCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.E
 /**
  * DosageFormCountOutputType without action
  */
-export type DosageFormCountOutputTypeCountMedicinesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.MedicineWhereInput
-}
-
-/**
- * DosageFormCountOutputType without action
- */
-export type DosageFormCountOutputTypeCountIndentItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.IndentItemWhereInput
+export type DosageFormCountOutputTypeCountVariantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProductVariantWhereInput
 }
 
 
 export type DosageFormSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  description?: boolean
+  code?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  code?: boolean
-  medicines?: boolean | Prisma.DosageForm$medicinesArgs<ExtArgs>
-  indentItems?: boolean | Prisma.DosageForm$indentItemsArgs<ExtArgs>
+  variants?: boolean | Prisma.DosageForm$variantsArgs<ExtArgs>
   _count?: boolean | Prisma.DosageFormCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["dosageForm"]>
 
 export type DosageFormSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  description?: boolean
+  code?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  code?: boolean
 }, ExtArgs["result"]["dosageForm"]>
 
 export type DosageFormSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  description?: boolean
+  code?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  code?: boolean
 }, ExtArgs["result"]["dosageForm"]>
 
 export type DosageFormSelectScalar = {
   id?: boolean
   name?: boolean
-  description?: boolean
+  code?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  code?: boolean
 }
 
-export type DosageFormOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "status" | "createdAt" | "updatedAt" | "code", ExtArgs["result"]["dosageForm"]>
+export type DosageFormOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "code" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["dosageForm"]>
 export type DosageFormInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  medicines?: boolean | Prisma.DosageForm$medicinesArgs<ExtArgs>
-  indentItems?: boolean | Prisma.DosageForm$indentItemsArgs<ExtArgs>
+  variants?: boolean | Prisma.DosageForm$variantsArgs<ExtArgs>
   _count?: boolean | Prisma.DosageFormCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type DosageFormIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -656,17 +526,15 @@ export type DosageFormIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.E
 export type $DosageFormPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "DosageForm"
   objects: {
-    medicines: Prisma.$MedicinePayload<ExtArgs>[]
-    indentItems: Prisma.$IndentItemPayload<ExtArgs>[]
+    variants: Prisma.$ProductVariantPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
-    description: string | null
+    code: string | null
     status: boolean
     createdAt: Date
     updatedAt: Date
-    code: string | null
   }, ExtArgs["result"]["dosageForm"]>
   composites: {}
 }
@@ -1061,8 +929,7 @@ readonly fields: DosageFormFieldRefs;
  */
 export interface Prisma__DosageFormClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  medicines<T extends Prisma.DosageForm$medicinesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DosageForm$medicinesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MedicinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  indentItems<T extends Prisma.DosageForm$indentItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DosageForm$indentItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IndentItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  variants<T extends Prisma.DosageForm$variantsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DosageForm$variantsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductVariantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1094,11 +961,10 @@ export interface Prisma__DosageFormClient<T, Null = never, ExtArgs extends runti
 export interface DosageFormFieldRefs {
   readonly id: Prisma.FieldRef<"DosageForm", 'Int'>
   readonly name: Prisma.FieldRef<"DosageForm", 'String'>
-  readonly description: Prisma.FieldRef<"DosageForm", 'String'>
+  readonly code: Prisma.FieldRef<"DosageForm", 'String'>
   readonly status: Prisma.FieldRef<"DosageForm", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"DosageForm", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"DosageForm", 'DateTime'>
-  readonly code: Prisma.FieldRef<"DosageForm", 'String'>
 }
     
 
@@ -1487,51 +1353,27 @@ export type DosageFormDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
- * DosageForm.medicines
+ * DosageForm.variants
  */
-export type DosageForm$medicinesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type DosageForm$variantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Medicine
+   * Select specific fields to fetch from the ProductVariant
    */
-  select?: Prisma.MedicineSelect<ExtArgs> | null
+  select?: Prisma.ProductVariantSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Medicine
+   * Omit specific fields from the ProductVariant
    */
-  omit?: Prisma.MedicineOmit<ExtArgs> | null
+  omit?: Prisma.ProductVariantOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.MedicineInclude<ExtArgs> | null
-  where?: Prisma.MedicineWhereInput
-  orderBy?: Prisma.MedicineOrderByWithRelationInput | Prisma.MedicineOrderByWithRelationInput[]
-  cursor?: Prisma.MedicineWhereUniqueInput
+  include?: Prisma.ProductVariantInclude<ExtArgs> | null
+  where?: Prisma.ProductVariantWhereInput
+  orderBy?: Prisma.ProductVariantOrderByWithRelationInput | Prisma.ProductVariantOrderByWithRelationInput[]
+  cursor?: Prisma.ProductVariantWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.MedicineScalarFieldEnum | Prisma.MedicineScalarFieldEnum[]
-}
-
-/**
- * DosageForm.indentItems
- */
-export type DosageForm$indentItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the IndentItem
-   */
-  select?: Prisma.IndentItemSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the IndentItem
-   */
-  omit?: Prisma.IndentItemOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.IndentItemInclude<ExtArgs> | null
-  where?: Prisma.IndentItemWhereInput
-  orderBy?: Prisma.IndentItemOrderByWithRelationInput | Prisma.IndentItemOrderByWithRelationInput[]
-  cursor?: Prisma.IndentItemWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.IndentItemScalarFieldEnum | Prisma.IndentItemScalarFieldEnum[]
+  distinct?: Prisma.ProductVariantScalarFieldEnum | Prisma.ProductVariantScalarFieldEnum[]
 }
 
 /**
