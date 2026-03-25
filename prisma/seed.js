@@ -222,6 +222,8 @@ const allPermissions = [
   { name: "manage_accounts", description: "Manage accounts" },
   { name: "manage_organization", description: "Manage organization settings" },
   { name: "manage_setting", description: "Manage system settings" },
+  { name: "manage_users", description: "Manage users" },
+  { name: "manage_roles", description: "Manage roles" },
 ];
 
 async function ensurePermissions() {
@@ -304,7 +306,7 @@ async function main() {
     await ensureUser(
       "developer@system.com",
       "Developer",
-      "Developer@01",
+      "developer@01",
       developerRole.id
     );
 
