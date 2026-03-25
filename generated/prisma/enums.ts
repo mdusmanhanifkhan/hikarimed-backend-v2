@@ -9,7 +9,37 @@
 * 🟢 You can import this file directly.
 */
 
+export const IndentStatus = {
+  OPEN: 'OPEN',
+  PO_CREATED: 'PO_CREATED',
+  CLOSED: 'CLOSED',
+  REJECTED: 'REJECTED',
+  PARTIAL: 'PARTIAL'
+} as const
+
+export type IndentStatus = (typeof IndentStatus)[keyof typeof IndentStatus]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const POStatus = {
+  DRAFT: 'DRAFT',
+  FOR_APPROVAL: 'FOR_APPROVAL',
+  APPROVED: 'APPROVED',
+  SENT_TO_SUPPLIER: 'SENT_TO_SUPPLIER',
+  PARTIALLY_RECEIVED: 'PARTIALLY_RECEIVED',
+  RECEIVED: 'RECEIVED',
+  CLOSED: 'CLOSED',
+  CANCELLED: 'CANCELLED',
+  PARTIAL: 'PARTIAL'
+} as const
+
+export type POStatus = (typeof POStatus)[keyof typeof POStatus]
+
+
+export const GRNStatus = {
+  RECEIVED: 'RECEIVED',
+  VERIFIED: 'VERIFIED',
+  CLOSED: 'CLOSED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type GRNStatus = (typeof GRNStatus)[keyof typeof GRNStatus]

@@ -5,8 +5,19 @@ import {
 } from "../../utils/pagination.js";
 import { PurchaseOrderPdfGenerator } from "../../utils/PurchaseOrderPdfGenerator.js";
 
+const POStatus = {
+  DRAFT: "DRAFT",
+  FOR_APPROVAL: "FOR_APPROVAL",
+  APPROVED: "APPROVED",
+  SENT_TO_SUPPLIER: "SENT_TO_SUPPLIER",
+  PARTIALLY_RECEIVED: "PARTIALLY_RECEIVED",
+  RECEIVED: "RECEIVED",
+  CLOSED: "CLOSED",
+  CANCELLED: "CANCELLED",
+};
+
 // -------------------------
-// GET all Purchase Orders with pagination
+// GET all POs with pagination
 // -------------------------
 const getAllPOs = async (req, res) => {
   try {
@@ -16,9 +27,15 @@ const getAllPOs = async (req, res) => {
 
     const pos = await prisma.purchaseOrder.findMany({
       include: {
-        distributor: true,
-        items: { include: { medicine: true } },
-        grns: true,
+        supplier: true,
+        items: {
+          include: {
+            product: true,
+            variant: true,
+          },
+        },
+        receipts: true,
+        payments: true,
       },
       orderBy: { poDate: "desc" },
       skip,
@@ -45,18 +62,15 @@ const getPOById = async (req, res) => {
     const po = await prisma.purchaseOrder.findUnique({
       where: { id: Number(id) },
       include: {
-        distributor: true,
+        supplier: true,
         items: {
           include: {
-            medicine: {
-              include: {
-                unit: true,
-                dosageForm: true,
-              },
-            },
+            product: true,
+            variant: true,
           },
         },
-        grns: true,
+        receipts: true,
+        payments: true,
       },
     });
 
@@ -74,320 +88,236 @@ const getPOById = async (req, res) => {
 // -------------------------
 // CREATE a new PO
 // -------------------------
-// Auto-generate PO number like INDENT
 const generatePONo = async () => {
   const count = await prisma.purchaseOrder.count();
   return `PO-${(count + 1).toString().padStart(5, "0")}`;
 };
 
-// const createPO = async (req, res) => {
-//   try {
-//     let {
-//       poNo,
-//       distributorId,
-//       companyId,
-//       indentId,
-//       remarks,
-//       items,
-//       paymentType,
-//     } = req.body;
-
-//     // Auto-generate PO number if not provided
-//     if (!poNo) {
-//       poNo = await generatePONo();
-//     }
-
-//     // Validation
-//     if (!poNo) return res.status(400).json({ message: "PO No is required" });
-//     if (!distributorId)
-//       return res.status(400).json({ message: "Distributor is required" });
-//     if (!indentId)
-//       return res.status(400).json({ message: "Indent ID is required" });
-//     if (!items || items.length === 0)
-//       return res.status(400).json({ message: "PO items are required" });
-//     if (items.some((item) => !item.medicineId))
-//       return res
-//         .status(400)
-//         .json({ message: "All items must have a medicine selected" });
-
-//     // Calculate total
-//     const totalAmount = items.reduce((sum, i) => sum + i.totalAmount, 0);
-
-//     // Build include object dynamically
-//     const includeObj = {
-//       items: { include: { medicine: true } },
-//       distributor: true,
-//     };
-//     if (companyId) includeObj.company = true;
-
-//     // 🔥 TRANSACTION START
-//     const [po] = await prisma.$transaction([
-//       prisma.purchaseOrder.create({
-//         data: {
-//           poNo,
-//           distributorId,
-//           indentId,
-//           totalAmount,
-//           netAmount: totalAmount,
-//           remarks,
-//           paymentType,
-//           status: "OPEN",
-//           items: {
-//             create: items.map((item) => ({
-//               medicineId: item.medicineId,
-//               orderedQty: item.orderedQty,
-//               rate: item.rate,
-//               discountPercent: item.discountPercent || 0,
-//               taxPercent: item.taxPercent || 0,
-//               totalAmount: item.totalAmount,
-//             })),
-//           },
-//         },
-//         include: includeObj,
-//       }),
-
-//       // Update indent status
-//       prisma.indent.update({
-//         where: { id: indentId },
-//         data: { status: "PO_CREATED" },
-//       }),
-//     ]);
-//     // 🔥 TRANSACTION END
-
-//     return res.status(201).json({
-//       message: "PO created successfully & indent updated",
-//       po,
-//     });
-//   } catch (error) {
-//     console.error("createPO error:", error);
-//     return res.status(500).json({
-//       message: "Internal Server Error",
-//       error: error.message,
-//     });
-//   }
-// };
-
 const createPO = async (req, res) => {
   try {
-    let { poNo, distributorId, indentId, remarks, paymentType, items } =
-      req.body;
+    let { poNo, supplierId, prId, remarks, paymentType, items } = req.body;
+    const userId = req.user?.id; // logged in user
+
+    if (!userId) {
+      return res.status(400).json({ message: "User not authenticated" });
+    }
 
     if (!poNo) poNo = await generatePONo();
-
-    if (!distributorId || !indentId || !items?.length) {
+    if (!supplierId || !prId || !items?.length) {
       return res.status(400).json({ message: "Missing data" });
     }
 
-    const totalAmount = items.reduce((s, i) => s + i.totalAmount, 0);
+    // 1️⃣ Check if any item is already PO created
+    const existingItemIds = await prisma.indenItem.findMany({
+      where: {
+        id: { in: items.map((i) => Number(i.indentItemId)) },
+        isPoCreated: true,
+      },
+      select: { id: true },
+    });
 
+    if (existingItemIds.length > 0) {
+      return res.status(400).json({
+        message: `Some items are already included in another PO`,
+        existingItemIds: existingItemIds.map((i) => i.id),
+      });
+    }
+
+    // 2️⃣ Calculate total amount
+    const totalAmount = items.reduce(
+      (sum, i) => sum + Number(i.totalAmount),
+      0,
+    );
+
+    // 3️⃣ Transaction to create PO and update indent items
     const po = await prisma.$transaction(async (tx) => {
-      // 1️⃣ Create PO
+      // Create Purchase Order
       const po = await tx.purchaseOrder.create({
         data: {
           poNo,
-          distributorId,
-          indentId,
+          pr: { connect: { id: Number(prId) } },
+          remarks,
+          status: "DRAFT",
           totalAmount,
           netAmount: totalAmount,
-          remarks,
-          paymentType,
-          status: "OPEN",
+          supplier: { connect: { id: Number(supplierId) } },
+          createdBy: { connect: { id: Number(userId) } },
           items: {
             create: items.map((i) => ({
-              medicineId: i.medicineId,
-              orderedQty: i.orderedQty,
-              rate: i.rate,
-              discountPercent: i.discountPercent,
-              taxPercent: i.taxPercent,
-              totalAmount: i.totalAmount,
+              productId: Number(i.productId),
+              variantId: i.variantId ? Number(i.variantId) : null,
+              orderedQty: Number(i.orderedQty),
+              rate: Number(i.rate),
+              discountPercent: Number(i.discountPercent || 0),
+              taxPercent: Number(i.taxPercent || 0),
+              totalAmount: Number(i.totalAmount),
             })),
           },
         },
+        include: { items: true },
       });
 
-      // 2️⃣ Mark indent items as completed
-      await tx.indentItem.updateMany({
-        where: {
-          id: { in: items.map((i) => i.indentItemId) },
-        },
-        data: {
-          isPoCreated: true,
-        },
+      // Mark indent items as PO created
+      await tx.indenItem.updateMany({
+        where: { id: { in: items.map((i) => Number(i.indentItemId)) } },
+        data: { isPoCreated: true },
       });
 
-      // 3️⃣ Update indent status
-      const remaining = await tx.indentItem.count({
-        where: {
-          indentId,
-          isPoCreated: false,
-        },
+      // Update Indent status
+      const remaining = await tx.indenItem.count({
+        where: { indentId: Number(prId), isPoCreated: false },
       });
 
       await tx.indent.update({
-        where: { id: indentId },
-        data: {
-          status: remaining === 0 ? "PO_GENERATE" : "PARTIAL",
-        },
+        where: { id: Number(prId) },
+        data: { status: remaining === 0 ? "PO_CREATED" : "PARTIAL" },
       });
 
       return po;
     });
 
-    res.status(201).json({ message: "PO created", po });
+    return res.status(201).json({ message: "PO created successfully", po });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error" });
+    console.error("createPO error:", error);
+    return res
+      .status(500)
+      .json({ message: "Server error", error: error.message });
   }
 };
 
 // -------------------------
-// APPROVE PO (forward to accounts)
+// APPROVE PO
 // -------------------------
 const approvePO = async (req, res) => {
   try {
     const { id } = req.params;
-    const { remarks } = req.body;
+    const { remarks, status } = req.body; // receive status from frontend
     const approvedBy = req.user.id;
 
     if (!approvedBy)
       return res.status(400).json({ message: "Approver ID required" });
 
-    // 1️⃣ Update PO status to APPROVED
+    if (!status) return res.status(400).json({ message: "Status is required" });
+
+    const validStatuses = [
+      "DRAFT",
+      "FOR_APPROVAL",
+      "APPROVED",
+      "SENT_TO_SUPPLIER",
+      "PARTIALLY_RECEIVED",
+      "RECEIVED",
+      "CLOSED",
+      "CANCELLED",
+      "PARTIAL",
+    ];
+
+    if (!validStatuses.includes(status)) {
+      return res.status(400).json({ message: "Invalid status provided" });
+    } // define allowed statuses
+    if (!validStatuses.includes(status))
+      return res.status(400).json({ message: "Invalid status provided" });
+
+    // Fetch current PO
+    const po = await prisma.purchaseOrder.findUnique({
+      where: { id: Number(id) },
+      include: {
+        items: { include: { product: true, variant: true } },
+        supplier: true,
+      },
+    });
+
+    if (!po) return res.status(404).json({ message: "PO not found" });
+
+    // Prevent approving invalid POs
+    if (po.status === "CANCELLED")
+      return res.status(400).json({ message: "Cannot approve a cancelled PO" });
+
+    if (po.status === "APPROVED" && status === "APPROVED")
+      return res.status(400).json({ message: "PO is already approved" });
+
+    if (po.status === "CLOSED")
+      return res.status(400).json({ message: "Cannot modify a closed PO" });
+
+    // Update PO with frontend status
     const updatedPO = await prisma.purchaseOrder.update({
       where: { id: Number(id) },
       data: {
-        status: "APPROVED_AND_FORWARD_TO_ACCOUNTS",
+        status, // use status from frontend
         approvedBy,
-        approvedAt: new Date(),
-        remarks: remarks || "",
+        approvedAt: status === "APPROVED" ? new Date() : null, // record approval only if approved
+        remarks: remarks || po.remarks || "",
       },
-      include: { items: { include: { medicine: true } }, distributor: true },
+      include: {
+        items: { include: { product: true, variant: true } },
+        supplier: true,
+      },
     });
 
-    // 2️⃣ Only generate PDF if it doesn't exist yet
-    let pdfPath = updatedPO.pdfUrl;
-    if (!pdfPath) {
-      pdfPath = await PurchaseOrderPdfGenerator(updatedPO);
-
-      // 3️⃣ Save PDF path in DB
+    // Generate PDF only if status is approved and not already generated
+    let pdfUrl = updatedPO.pdfUrl;
+    if (status === "APPROVED" && !pdfUrl) {
+      pdfUrl = await PurchaseOrderPdfGenerator(updatedPO);
       await prisma.purchaseOrder.update({
         where: { id: Number(id) },
-        data: { pdfUrl: pdfPath, pdfGeneratedAt: new Date() },
+        data: { pdfUrl, pdfGeneratedAt: new Date() },
       });
     }
 
     return res.json({
-      message: "PO approved & PDF generated",
-      po: { ...updatedPO, pdfUrl: pdfPath },
+      message: `PO ${status.toLowerCase()}${status === "APPROVED" ? " & PDF generated" : ""}`,
+      po: { ...updatedPO, pdfUrl },
     });
   } catch (error) {
     console.error("approvePO error:", error);
     return res
       .status(500)
-      .json({ message: "Internal Server Error", error: error?.message });
+      .json({ message: "Internal Server Error", error: error.message });
   }
 };
-
-const paymentStatusOptions = [
-  { id: "FULL_AFTER_RECEIVE", name: "Full payment after receiving goods" },
-  { id: "ADVANCE", name: "Advance payment before delivery" },
-  {
-    id: "PARTIAL_50_AFTER_RECEIVE",
-    name: "50% payment now, 50% after receiving goods",
-  },
-  { id: "WITHIN_30_DAYS", name: "Payment within 30 days of delivery" },
-];
-
-const getApprovedPOs = async (req, res) => {
-  try {
-    const approvedPOs = await prisma.purchaseOrder.findMany({
-      where: {
-        status: {
-          in: ["APPROVED", "APPROVED_AND_FORWARD_TO_ACCOUNTS", "PAID","Full payment after receiving goods","Advance payment before delivery","50% payment now, 50% after receiving goods","Payment within 30 days of delivery"],
-        },
-      },
-      include: {
-        items: true,
-        distributor: true,
-      },
-      orderBy: { approvedAt: "desc" },
-    });
-
-    // Return POs + paymentStatusOptions together
-    return res.json({
-      data: approvedPOs,
-      paymentStatusOptions, // ✅ include these in response
-    });
-  } catch (error) {
-    console.error("getApprovedPOs error:", error);
-    return res.status(500).json({
-      message: "Internal Server Error",
-      error: error?.message || "Unknown error",
-    });
-  }
-};
-
 // -------------------------
 // RECORD PAYMENT
 // -------------------------
-// Internal function to handle payment logic
-const recordPaymentLogic = async (po, paidAmount, source = "ACCOUNTS") => {
+const recordPaymentLogic = async (po, paidAmount) => {
   const newPaidAmount = (po.paidAmount || 0) + paidAmount;
-  let newPaymentStatus = "PARTIAL";
-  if (newPaidAmount >= po.netAmount) newPaymentStatus = "PAID";
+  const newPaymentStatus =
+    newPaidAmount >= po.netAmount ? "PAID" : "PARTIALLY_PAID";
 
   const updatedPO = await prisma.purchaseOrder.update({
     where: { id: po.id },
     data: {
       paidAmount: newPaidAmount,
       paymentStatus: newPaymentStatus,
-      status: newPaymentStatus === "PAID" ? "PAID" : "PARTIALLY_PAID",
+      status:
+        newPaymentStatus === "PAID"
+          ? POStatus.CLOSED
+          : POStatus.PARTIALLY_RECEIVED,
     },
-    include: { items: true, distributor: true, company: true },
+    include: { items: true, supplier: true },
   });
 
-  // Generate PDF with payment slip
-  const pdfUrl = await generatePOPDF(updatedPO);
-
-  await prisma.purchaseOrder.update({
-    where: { id: po.id },
-    data: { pdfFileUrl: pdfUrl },
-  });
-
-  // Notify company
-  if (updatedPO.company?.email)
-    await sendEmailWithAttachment(
-      updatedPO.company.email,
-      "PO Payment",
-      pdfUrl,
-    );
-
-  if (updatedPO.company?.phone)
-    await sendWhatsappMessage(
-      updatedPO.company.phone,
-      "PO Payment processed. PDF attached.",
-      pdfUrl,
-    );
+  // Optional: regenerate PDF with payment slip
+  // const pdfUrl = await generatePOPDF(updatedPO);
+  // await prisma.purchaseOrder.update({ where: { id: po.id }, data: { pdfFileUrl: pdfUrl } });
 
   return updatedPO;
 };
 
-// API route for manual payment (accounts)
 const recordPayment = async (req, res) => {
   try {
     const { poId, paidAmount } = req.body;
     if (!poId || !paidAmount)
       return res
         .status(400)
-        .json({ message: "PO ID and paid amount required." });
+        .json({ message: "PO ID and paid amount required" });
 
     const po = await prisma.purchaseOrder.findUnique({ where: { id: poId } });
     if (!po) return res.status(404).json({ message: "PO not found" });
-    if (po.status !== "APPROVED" && po.status !== "PARTIALLY_PAID")
+
+    if (![POStatus.APPROVED, POStatus.PARTIALLY_RECEIVED].includes(po.status)) {
       return res.status(400).json({ message: "Only approved PO can be paid." });
+    }
 
     const updatedPO = await recordPaymentLogic(po, paidAmount);
-
     return res.json({
       message: "Payment recorded successfully",
       po: updatedPO,
@@ -401,7 +331,7 @@ const recordPayment = async (req, res) => {
 };
 
 // -------------------------
-// UPDATE PO STATUS manually (optional)
+// UPDATE PO STATUS manually
 // -------------------------
 const updatePOStatus = async (req, res) => {
   try {
@@ -426,6 +356,39 @@ const updatePOStatus = async (req, res) => {
   }
 };
 
+// -------------------------
+// GET Approved POs
+// -------------------------
+const getApprovedPOs = async (req, res) => {
+  try {
+    const approvedPOs = await prisma.purchaseOrder.findMany({
+      where: {
+        status: {
+          in: [
+            POStatus.APPROVED,
+            POStatus.SENT_TO_SUPPLIER,
+            POStatus.PARTIALLY_RECEIVED,
+            POStatus.RECEIVED,
+            POStatus.CLOSED,
+          ],
+        },
+      },
+      include: {
+        items: { include: { product: true, variant: true } },
+        supplier: true,
+      },
+      orderBy: { approvedAt: "desc" },
+    });
+
+    return res.json({ data: approvedPOs });
+  } catch (error) {
+    console.error("getApprovedPOs error:", error);
+    return res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 export {
   getAllPOs,
   getPOById,
@@ -433,6 +396,5 @@ export {
   approvePO,
   recordPayment,
   updatePOStatus,
-  recordPaymentLogic,
   getApprovedPOs,
 };

@@ -244,14 +244,18 @@ export type UserWhereInput = {
   status?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  role?: Prisma.XOR<Prisma.RoleScalarRelationFilter, Prisma.RoleWhereInput>
+  createdPRs?: Prisma.IndentListRelationFilter
+  approvedPRs?: Prisma.IndentListRelationFilter
+  createdPOs?: Prisma.PurchaseOrderListRelationFilter
+  createdLedgerEntries?: Prisma.LedgerEntryListRelationFilter
+  approvedLedgerEntries?: Prisma.LedgerEntryListRelationFilter
+  payments?: Prisma.PaymentListRelationFilter
+  patients?: Prisma.PatientListRelationFilter
+  patientPrints?: Prisma.PatientPrintListRelationFilter
+  welfarePatients?: Prisma.WelfarePatientListRelationFilter
   medicalRecords?: Prisma.MedicalRecordListRelationFilter
   createdPatients?: Prisma.PatientListRelationFilter
-  role?: Prisma.XOR<Prisma.RoleScalarRelationFilter, Prisma.RoleWhereInput>
-  welfarePatients?: Prisma.WelfarePatientListRelationFilter
-  createdIndents?: Prisma.IndentListRelationFilter
-  approvedLedgerEntries?: Prisma.LedgerEntryListRelationFilter
-  ledgerEntries?: Prisma.LedgerEntryListRelationFilter
-  patientPrints?: Prisma.PatientPrintListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -263,14 +267,18 @@ export type UserOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  role?: Prisma.RoleOrderByWithRelationInput
+  createdPRs?: Prisma.IndentOrderByRelationAggregateInput
+  approvedPRs?: Prisma.IndentOrderByRelationAggregateInput
+  createdPOs?: Prisma.PurchaseOrderOrderByRelationAggregateInput
+  createdLedgerEntries?: Prisma.LedgerEntryOrderByRelationAggregateInput
+  approvedLedgerEntries?: Prisma.LedgerEntryOrderByRelationAggregateInput
+  payments?: Prisma.PaymentOrderByRelationAggregateInput
+  patients?: Prisma.PatientOrderByRelationAggregateInput
+  patientPrints?: Prisma.PatientPrintOrderByRelationAggregateInput
+  welfarePatients?: Prisma.WelfarePatientOrderByRelationAggregateInput
   medicalRecords?: Prisma.MedicalRecordOrderByRelationAggregateInput
   createdPatients?: Prisma.PatientOrderByRelationAggregateInput
-  role?: Prisma.RoleOrderByWithRelationInput
-  welfarePatients?: Prisma.WelfarePatientOrderByRelationAggregateInput
-  createdIndents?: Prisma.IndentOrderByRelationAggregateInput
-  approvedLedgerEntries?: Prisma.LedgerEntryOrderByRelationAggregateInput
-  ledgerEntries?: Prisma.LedgerEntryOrderByRelationAggregateInput
-  patientPrints?: Prisma.PatientPrintOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -285,14 +293,18 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  role?: Prisma.XOR<Prisma.RoleScalarRelationFilter, Prisma.RoleWhereInput>
+  createdPRs?: Prisma.IndentListRelationFilter
+  approvedPRs?: Prisma.IndentListRelationFilter
+  createdPOs?: Prisma.PurchaseOrderListRelationFilter
+  createdLedgerEntries?: Prisma.LedgerEntryListRelationFilter
+  approvedLedgerEntries?: Prisma.LedgerEntryListRelationFilter
+  payments?: Prisma.PaymentListRelationFilter
+  patients?: Prisma.PatientListRelationFilter
+  patientPrints?: Prisma.PatientPrintListRelationFilter
+  welfarePatients?: Prisma.WelfarePatientListRelationFilter
   medicalRecords?: Prisma.MedicalRecordListRelationFilter
   createdPatients?: Prisma.PatientListRelationFilter
-  role?: Prisma.XOR<Prisma.RoleScalarRelationFilter, Prisma.RoleWhereInput>
-  welfarePatients?: Prisma.WelfarePatientListRelationFilter
-  createdIndents?: Prisma.IndentListRelationFilter
-  approvedLedgerEntries?: Prisma.LedgerEntryListRelationFilter
-  ledgerEntries?: Prisma.LedgerEntryListRelationFilter
-  patientPrints?: Prisma.PatientPrintListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -332,14 +344,18 @@ export type UserCreateInput = {
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  role: Prisma.RoleCreateNestedOneWithoutUsersInput
+  createdPRs?: Prisma.IndentCreateNestedManyWithoutRequestedByInput
+  approvedPRs?: Prisma.IndentCreateNestedManyWithoutApprovedByInput
+  createdPOs?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatedByInput
+  createdLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutCreatedByInput
+  approvedLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutApprovedByInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutPaidByInput
+  patients?: Prisma.PatientCreateNestedManyWithoutUserInput
+  patientPrints?: Prisma.PatientPrintCreateNestedManyWithoutPrintedByInput
+  welfarePatients?: Prisma.WelfarePatientCreateNestedManyWithoutUserInput
   medicalRecords?: Prisma.MedicalRecordCreateNestedManyWithoutUserInput
   createdPatients?: Prisma.PatientCreateNestedManyWithoutCreatedByInput
-  role: Prisma.RoleCreateNestedOneWithoutUsersInput
-  welfarePatients?: Prisma.WelfarePatientCreateNestedManyWithoutUserInput
-  createdIndents?: Prisma.IndentCreateNestedManyWithoutCreatedByUserInput
-  approvedLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutApproverInput
-  ledgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutUserInput
-  patientPrints?: Prisma.PatientPrintCreateNestedManyWithoutPrintedByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -351,13 +367,17 @@ export type UserUncheckedCreateInput = {
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  createdPRs?: Prisma.IndentUncheckedCreateNestedManyWithoutRequestedByInput
+  approvedPRs?: Prisma.IndentUncheckedCreateNestedManyWithoutApprovedByInput
+  createdPOs?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutApprovedByInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutPaidByInput
+  patients?: Prisma.PatientUncheckedCreateNestedManyWithoutUserInput
+  patientPrints?: Prisma.PatientPrintUncheckedCreateNestedManyWithoutPrintedByInput
+  welfarePatients?: Prisma.WelfarePatientUncheckedCreateNestedManyWithoutUserInput
   medicalRecords?: Prisma.MedicalRecordUncheckedCreateNestedManyWithoutUserInput
   createdPatients?: Prisma.PatientUncheckedCreateNestedManyWithoutCreatedByInput
-  welfarePatients?: Prisma.WelfarePatientUncheckedCreateNestedManyWithoutUserInput
-  createdIndents?: Prisma.IndentUncheckedCreateNestedManyWithoutCreatedByUserInput
-  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutApproverInput
-  ledgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutUserInput
-  patientPrints?: Prisma.PatientPrintUncheckedCreateNestedManyWithoutPrintedByInput
 }
 
 export type UserUpdateInput = {
@@ -367,14 +387,18 @@ export type UserUpdateInput = {
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
+  createdPRs?: Prisma.IndentUpdateManyWithoutRequestedByNestedInput
+  approvedPRs?: Prisma.IndentUpdateManyWithoutApprovedByNestedInput
+  createdPOs?: Prisma.PurchaseOrderUpdateManyWithoutCreatedByNestedInput
+  createdLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutCreatedByNestedInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutApprovedByNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutPaidByNestedInput
+  patients?: Prisma.PatientUpdateManyWithoutUserNestedInput
+  patientPrints?: Prisma.PatientPrintUpdateManyWithoutPrintedByNestedInput
+  welfarePatients?: Prisma.WelfarePatientUpdateManyWithoutUserNestedInput
   medicalRecords?: Prisma.MedicalRecordUpdateManyWithoutUserNestedInput
   createdPatients?: Prisma.PatientUpdateManyWithoutCreatedByNestedInput
-  role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
-  welfarePatients?: Prisma.WelfarePatientUpdateManyWithoutUserNestedInput
-  createdIndents?: Prisma.IndentUpdateManyWithoutCreatedByUserNestedInput
-  approvedLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutApproverNestedInput
-  ledgerEntries?: Prisma.LedgerEntryUpdateManyWithoutUserNestedInput
-  patientPrints?: Prisma.PatientPrintUpdateManyWithoutPrintedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -386,13 +410,17 @@ export type UserUncheckedUpdateInput = {
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdPRs?: Prisma.IndentUncheckedUpdateManyWithoutRequestedByNestedInput
+  approvedPRs?: Prisma.IndentUncheckedUpdateManyWithoutApprovedByNestedInput
+  createdPOs?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutApprovedByNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutPaidByNestedInput
+  patients?: Prisma.PatientUncheckedUpdateManyWithoutUserNestedInput
+  patientPrints?: Prisma.PatientPrintUncheckedUpdateManyWithoutPrintedByNestedInput
+  welfarePatients?: Prisma.WelfarePatientUncheckedUpdateManyWithoutUserNestedInput
   medicalRecords?: Prisma.MedicalRecordUncheckedUpdateManyWithoutUserNestedInput
   createdPatients?: Prisma.PatientUncheckedUpdateManyWithoutCreatedByNestedInput
-  welfarePatients?: Prisma.WelfarePatientUncheckedUpdateManyWithoutUserNestedInput
-  createdIndents?: Prisma.IndentUncheckedUpdateManyWithoutCreatedByUserNestedInput
-  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutApproverNestedInput
-  ledgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutUserNestedInput
-  patientPrints?: Prisma.PatientPrintUncheckedUpdateManyWithoutPrintedByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -495,6 +523,12 @@ export type UserCreateNestedOneWithoutCreatedPatientsInput = {
   connect?: Prisma.UserWhereUniqueInput
 }
 
+export type UserCreateNestedOneWithoutPatientsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPatientsInput, Prisma.UserUncheckedCreateWithoutPatientsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPatientsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
 export type UserUpdateOneWithoutCreatedPatientsNestedInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedPatientsInput, Prisma.UserUncheckedCreateWithoutCreatedPatientsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedPatientsInput
@@ -503,6 +537,16 @@ export type UserUpdateOneWithoutCreatedPatientsNestedInput = {
   delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedPatientsInput, Prisma.UserUpdateWithoutCreatedPatientsInput>, Prisma.UserUncheckedUpdateWithoutCreatedPatientsInput>
+}
+
+export type UserUpdateOneWithoutPatientsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPatientsInput, Prisma.UserUncheckedCreateWithoutPatientsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPatientsInput
+  upsert?: Prisma.UserUpsertWithoutPatientsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPatientsInput, Prisma.UserUpdateWithoutPatientsInput>, Prisma.UserUncheckedUpdateWithoutPatientsInput>
 }
 
 export type UserCreateNestedOneWithoutPatientPrintsInput = {
@@ -589,20 +633,68 @@ export type UserUncheckedUpdateManyWithoutRoleNestedInput = {
   deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
 }
 
-export type UserCreateNestedOneWithoutCreatedIndentsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedIndentsInput, Prisma.UserUncheckedCreateWithoutCreatedIndentsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedIndentsInput
+export type UserCreateNestedOneWithoutCreatedPRsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedPRsInput, Prisma.UserUncheckedCreateWithoutCreatedPRsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedPRsInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneWithoutCreatedIndentsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedIndentsInput, Prisma.UserUncheckedCreateWithoutCreatedIndentsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedIndentsInput
-  upsert?: Prisma.UserUpsertWithoutCreatedIndentsInput
+export type UserCreateNestedOneWithoutApprovedPRsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutApprovedPRsInput, Prisma.UserUncheckedCreateWithoutApprovedPRsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutApprovedPRsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCreatedPRsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedPRsInput, Prisma.UserUncheckedCreateWithoutCreatedPRsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedPRsInput
+  upsert?: Prisma.UserUpsertWithoutCreatedPRsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedPRsInput, Prisma.UserUpdateWithoutCreatedPRsInput>, Prisma.UserUncheckedUpdateWithoutCreatedPRsInput>
+}
+
+export type UserUpdateOneWithoutApprovedPRsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutApprovedPRsInput, Prisma.UserUncheckedCreateWithoutApprovedPRsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutApprovedPRsInput
+  upsert?: Prisma.UserUpsertWithoutApprovedPRsInput
   disconnect?: Prisma.UserWhereInput | boolean
   delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedIndentsInput, Prisma.UserUpdateWithoutCreatedIndentsInput>, Prisma.UserUncheckedUpdateWithoutCreatedIndentsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutApprovedPRsInput, Prisma.UserUpdateWithoutApprovedPRsInput>, Prisma.UserUncheckedUpdateWithoutApprovedPRsInput>
+}
+
+export type UserCreateNestedOneWithoutCreatedPOsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedPOsInput, Prisma.UserUncheckedCreateWithoutCreatedPOsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedPOsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCreatedPOsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedPOsInput, Prisma.UserUncheckedCreateWithoutCreatedPOsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedPOsInput
+  upsert?: Prisma.UserUpsertWithoutCreatedPOsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedPOsInput, Prisma.UserUpdateWithoutCreatedPOsInput>, Prisma.UserUncheckedUpdateWithoutCreatedPOsInput>
+}
+
+export type UserCreateNestedOneWithoutPaymentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPaymentsInput, Prisma.UserUncheckedCreateWithoutPaymentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPaymentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutPaymentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPaymentsInput, Prisma.UserUncheckedCreateWithoutPaymentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPaymentsInput
+  upsert?: Prisma.UserUpsertWithoutPaymentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPaymentsInput, Prisma.UserUpdateWithoutPaymentsInput>, Prisma.UserUncheckedUpdateWithoutPaymentsInput>
+}
+
+export type UserCreateNestedOneWithoutCreatedLedgerEntriesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedLedgerEntriesInput, Prisma.UserUncheckedCreateWithoutCreatedLedgerEntriesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedLedgerEntriesInput
+  connect?: Prisma.UserWhereUniqueInput
 }
 
 export type UserCreateNestedOneWithoutApprovedLedgerEntriesInput = {
@@ -611,28 +703,24 @@ export type UserCreateNestedOneWithoutApprovedLedgerEntriesInput = {
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserCreateNestedOneWithoutLedgerEntriesInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutLedgerEntriesInput, Prisma.UserUncheckedCreateWithoutLedgerEntriesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLedgerEntriesInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutApprovedLedgerEntriesNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutApprovedLedgerEntriesInput, Prisma.UserUncheckedCreateWithoutApprovedLedgerEntriesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutApprovedLedgerEntriesInput
-  upsert?: Prisma.UserUpsertWithoutApprovedLedgerEntriesInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutApprovedLedgerEntriesInput, Prisma.UserUpdateWithoutApprovedLedgerEntriesInput>, Prisma.UserUncheckedUpdateWithoutApprovedLedgerEntriesInput>
-}
-
-export type UserUpdateOneWithoutLedgerEntriesNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutLedgerEntriesInput, Prisma.UserUncheckedCreateWithoutLedgerEntriesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLedgerEntriesInput
-  upsert?: Prisma.UserUpsertWithoutLedgerEntriesInput
+export type UserUpdateOneWithoutCreatedLedgerEntriesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedLedgerEntriesInput, Prisma.UserUncheckedCreateWithoutCreatedLedgerEntriesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedLedgerEntriesInput
+  upsert?: Prisma.UserUpsertWithoutCreatedLedgerEntriesInput
   disconnect?: Prisma.UserWhereInput | boolean
   delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutLedgerEntriesInput, Prisma.UserUpdateWithoutLedgerEntriesInput>, Prisma.UserUncheckedUpdateWithoutLedgerEntriesInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedLedgerEntriesInput, Prisma.UserUpdateWithoutCreatedLedgerEntriesInput>, Prisma.UserUncheckedUpdateWithoutCreatedLedgerEntriesInput>
+}
+
+export type UserUpdateOneWithoutApprovedLedgerEntriesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutApprovedLedgerEntriesInput, Prisma.UserUncheckedCreateWithoutApprovedLedgerEntriesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutApprovedLedgerEntriesInput
+  upsert?: Prisma.UserUpsertWithoutApprovedLedgerEntriesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutApprovedLedgerEntriesInput, Prisma.UserUpdateWithoutApprovedLedgerEntriesInput>, Prisma.UserUncheckedUpdateWithoutApprovedLedgerEntriesInput>
 }
 
 export type UserCreateWithoutCreatedPatientsInput = {
@@ -642,13 +730,17 @@ export type UserCreateWithoutCreatedPatientsInput = {
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  medicalRecords?: Prisma.MedicalRecordCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
-  welfarePatients?: Prisma.WelfarePatientCreateNestedManyWithoutUserInput
-  createdIndents?: Prisma.IndentCreateNestedManyWithoutCreatedByUserInput
-  approvedLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutApproverInput
-  ledgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutUserInput
+  createdPRs?: Prisma.IndentCreateNestedManyWithoutRequestedByInput
+  approvedPRs?: Prisma.IndentCreateNestedManyWithoutApprovedByInput
+  createdPOs?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatedByInput
+  createdLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutCreatedByInput
+  approvedLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutApprovedByInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutPaidByInput
+  patients?: Prisma.PatientCreateNestedManyWithoutUserInput
   patientPrints?: Prisma.PatientPrintCreateNestedManyWithoutPrintedByInput
+  welfarePatients?: Prisma.WelfarePatientCreateNestedManyWithoutUserInput
+  medicalRecords?: Prisma.MedicalRecordCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCreatedPatientsInput = {
@@ -660,17 +752,67 @@ export type UserUncheckedCreateWithoutCreatedPatientsInput = {
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  medicalRecords?: Prisma.MedicalRecordUncheckedCreateNestedManyWithoutUserInput
-  welfarePatients?: Prisma.WelfarePatientUncheckedCreateNestedManyWithoutUserInput
-  createdIndents?: Prisma.IndentUncheckedCreateNestedManyWithoutCreatedByUserInput
-  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutApproverInput
-  ledgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutUserInput
+  createdPRs?: Prisma.IndentUncheckedCreateNestedManyWithoutRequestedByInput
+  approvedPRs?: Prisma.IndentUncheckedCreateNestedManyWithoutApprovedByInput
+  createdPOs?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutApprovedByInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutPaidByInput
+  patients?: Prisma.PatientUncheckedCreateNestedManyWithoutUserInput
   patientPrints?: Prisma.PatientPrintUncheckedCreateNestedManyWithoutPrintedByInput
+  welfarePatients?: Prisma.WelfarePatientUncheckedCreateNestedManyWithoutUserInput
+  medicalRecords?: Prisma.MedicalRecordUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCreatedPatientsInput = {
   where: Prisma.UserWhereUniqueInput
   create: Prisma.XOR<Prisma.UserCreateWithoutCreatedPatientsInput, Prisma.UserUncheckedCreateWithoutCreatedPatientsInput>
+}
+
+export type UserCreateWithoutPatientsInput = {
+  name: string
+  email: string
+  password: string
+  status?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  role: Prisma.RoleCreateNestedOneWithoutUsersInput
+  createdPRs?: Prisma.IndentCreateNestedManyWithoutRequestedByInput
+  approvedPRs?: Prisma.IndentCreateNestedManyWithoutApprovedByInput
+  createdPOs?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatedByInput
+  createdLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutCreatedByInput
+  approvedLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutApprovedByInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutPaidByInput
+  patientPrints?: Prisma.PatientPrintCreateNestedManyWithoutPrintedByInput
+  welfarePatients?: Prisma.WelfarePatientCreateNestedManyWithoutUserInput
+  medicalRecords?: Prisma.MedicalRecordCreateNestedManyWithoutUserInput
+  createdPatients?: Prisma.PatientCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutPatientsInput = {
+  id?: number
+  name: string
+  email: string
+  password: string
+  roleId: number
+  status?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  createdPRs?: Prisma.IndentUncheckedCreateNestedManyWithoutRequestedByInput
+  approvedPRs?: Prisma.IndentUncheckedCreateNestedManyWithoutApprovedByInput
+  createdPOs?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutApprovedByInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutPaidByInput
+  patientPrints?: Prisma.PatientPrintUncheckedCreateNestedManyWithoutPrintedByInput
+  welfarePatients?: Prisma.WelfarePatientUncheckedCreateNestedManyWithoutUserInput
+  medicalRecords?: Prisma.MedicalRecordUncheckedCreateNestedManyWithoutUserInput
+  createdPatients?: Prisma.PatientUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutPatientsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPatientsInput, Prisma.UserUncheckedCreateWithoutPatientsInput>
 }
 
 export type UserUpsertWithoutCreatedPatientsInput = {
@@ -691,13 +833,17 @@ export type UserUpdateWithoutCreatedPatientsInput = {
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  medicalRecords?: Prisma.MedicalRecordUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
-  welfarePatients?: Prisma.WelfarePatientUpdateManyWithoutUserNestedInput
-  createdIndents?: Prisma.IndentUpdateManyWithoutCreatedByUserNestedInput
-  approvedLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutApproverNestedInput
-  ledgerEntries?: Prisma.LedgerEntryUpdateManyWithoutUserNestedInput
+  createdPRs?: Prisma.IndentUpdateManyWithoutRequestedByNestedInput
+  approvedPRs?: Prisma.IndentUpdateManyWithoutApprovedByNestedInput
+  createdPOs?: Prisma.PurchaseOrderUpdateManyWithoutCreatedByNestedInput
+  createdLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutCreatedByNestedInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutApprovedByNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutPaidByNestedInput
+  patients?: Prisma.PatientUpdateManyWithoutUserNestedInput
   patientPrints?: Prisma.PatientPrintUpdateManyWithoutPrintedByNestedInput
+  welfarePatients?: Prisma.WelfarePatientUpdateManyWithoutUserNestedInput
+  medicalRecords?: Prisma.MedicalRecordUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedPatientsInput = {
@@ -709,12 +855,68 @@ export type UserUncheckedUpdateWithoutCreatedPatientsInput = {
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  medicalRecords?: Prisma.MedicalRecordUncheckedUpdateManyWithoutUserNestedInput
-  welfarePatients?: Prisma.WelfarePatientUncheckedUpdateManyWithoutUserNestedInput
-  createdIndents?: Prisma.IndentUncheckedUpdateManyWithoutCreatedByUserNestedInput
-  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutApproverNestedInput
-  ledgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutUserNestedInput
+  createdPRs?: Prisma.IndentUncheckedUpdateManyWithoutRequestedByNestedInput
+  approvedPRs?: Prisma.IndentUncheckedUpdateManyWithoutApprovedByNestedInput
+  createdPOs?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutApprovedByNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutPaidByNestedInput
+  patients?: Prisma.PatientUncheckedUpdateManyWithoutUserNestedInput
   patientPrints?: Prisma.PatientPrintUncheckedUpdateManyWithoutPrintedByNestedInput
+  welfarePatients?: Prisma.WelfarePatientUncheckedUpdateManyWithoutUserNestedInput
+  medicalRecords?: Prisma.MedicalRecordUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutPatientsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPatientsInput, Prisma.UserUncheckedUpdateWithoutPatientsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPatientsInput, Prisma.UserUncheckedCreateWithoutPatientsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPatientsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPatientsInput, Prisma.UserUncheckedUpdateWithoutPatientsInput>
+}
+
+export type UserUpdateWithoutPatientsInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
+  createdPRs?: Prisma.IndentUpdateManyWithoutRequestedByNestedInput
+  approvedPRs?: Prisma.IndentUpdateManyWithoutApprovedByNestedInput
+  createdPOs?: Prisma.PurchaseOrderUpdateManyWithoutCreatedByNestedInput
+  createdLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutCreatedByNestedInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutApprovedByNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutPaidByNestedInput
+  patientPrints?: Prisma.PatientPrintUpdateManyWithoutPrintedByNestedInput
+  welfarePatients?: Prisma.WelfarePatientUpdateManyWithoutUserNestedInput
+  medicalRecords?: Prisma.MedicalRecordUpdateManyWithoutUserNestedInput
+  createdPatients?: Prisma.PatientUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPatientsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdPRs?: Prisma.IndentUncheckedUpdateManyWithoutRequestedByNestedInput
+  approvedPRs?: Prisma.IndentUncheckedUpdateManyWithoutApprovedByNestedInput
+  createdPOs?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutApprovedByNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutPaidByNestedInput
+  patientPrints?: Prisma.PatientPrintUncheckedUpdateManyWithoutPrintedByNestedInput
+  welfarePatients?: Prisma.WelfarePatientUncheckedUpdateManyWithoutUserNestedInput
+  medicalRecords?: Prisma.MedicalRecordUncheckedUpdateManyWithoutUserNestedInput
+  createdPatients?: Prisma.PatientUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutPatientPrintsInput = {
@@ -724,13 +926,17 @@ export type UserCreateWithoutPatientPrintsInput = {
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  role: Prisma.RoleCreateNestedOneWithoutUsersInput
+  createdPRs?: Prisma.IndentCreateNestedManyWithoutRequestedByInput
+  approvedPRs?: Prisma.IndentCreateNestedManyWithoutApprovedByInput
+  createdPOs?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatedByInput
+  createdLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutCreatedByInput
+  approvedLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutApprovedByInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutPaidByInput
+  patients?: Prisma.PatientCreateNestedManyWithoutUserInput
+  welfarePatients?: Prisma.WelfarePatientCreateNestedManyWithoutUserInput
   medicalRecords?: Prisma.MedicalRecordCreateNestedManyWithoutUserInput
   createdPatients?: Prisma.PatientCreateNestedManyWithoutCreatedByInput
-  role: Prisma.RoleCreateNestedOneWithoutUsersInput
-  welfarePatients?: Prisma.WelfarePatientCreateNestedManyWithoutUserInput
-  createdIndents?: Prisma.IndentCreateNestedManyWithoutCreatedByUserInput
-  approvedLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutApproverInput
-  ledgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPatientPrintsInput = {
@@ -742,12 +948,16 @@ export type UserUncheckedCreateWithoutPatientPrintsInput = {
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  createdPRs?: Prisma.IndentUncheckedCreateNestedManyWithoutRequestedByInput
+  approvedPRs?: Prisma.IndentUncheckedCreateNestedManyWithoutApprovedByInput
+  createdPOs?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutApprovedByInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutPaidByInput
+  patients?: Prisma.PatientUncheckedCreateNestedManyWithoutUserInput
+  welfarePatients?: Prisma.WelfarePatientUncheckedCreateNestedManyWithoutUserInput
   medicalRecords?: Prisma.MedicalRecordUncheckedCreateNestedManyWithoutUserInput
   createdPatients?: Prisma.PatientUncheckedCreateNestedManyWithoutCreatedByInput
-  welfarePatients?: Prisma.WelfarePatientUncheckedCreateNestedManyWithoutUserInput
-  createdIndents?: Prisma.IndentUncheckedCreateNestedManyWithoutCreatedByUserInput
-  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutApproverInput
-  ledgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPatientPrintsInput = {
@@ -773,13 +983,17 @@ export type UserUpdateWithoutPatientPrintsInput = {
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
+  createdPRs?: Prisma.IndentUpdateManyWithoutRequestedByNestedInput
+  approvedPRs?: Prisma.IndentUpdateManyWithoutApprovedByNestedInput
+  createdPOs?: Prisma.PurchaseOrderUpdateManyWithoutCreatedByNestedInput
+  createdLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutCreatedByNestedInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutApprovedByNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutPaidByNestedInput
+  patients?: Prisma.PatientUpdateManyWithoutUserNestedInput
+  welfarePatients?: Prisma.WelfarePatientUpdateManyWithoutUserNestedInput
   medicalRecords?: Prisma.MedicalRecordUpdateManyWithoutUserNestedInput
   createdPatients?: Prisma.PatientUpdateManyWithoutCreatedByNestedInput
-  role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
-  welfarePatients?: Prisma.WelfarePatientUpdateManyWithoutUserNestedInput
-  createdIndents?: Prisma.IndentUpdateManyWithoutCreatedByUserNestedInput
-  approvedLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutApproverNestedInput
-  ledgerEntries?: Prisma.LedgerEntryUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPatientPrintsInput = {
@@ -791,12 +1005,16 @@ export type UserUncheckedUpdateWithoutPatientPrintsInput = {
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdPRs?: Prisma.IndentUncheckedUpdateManyWithoutRequestedByNestedInput
+  approvedPRs?: Prisma.IndentUncheckedUpdateManyWithoutApprovedByNestedInput
+  createdPOs?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutApprovedByNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutPaidByNestedInput
+  patients?: Prisma.PatientUncheckedUpdateManyWithoutUserNestedInput
+  welfarePatients?: Prisma.WelfarePatientUncheckedUpdateManyWithoutUserNestedInput
   medicalRecords?: Prisma.MedicalRecordUncheckedUpdateManyWithoutUserNestedInput
   createdPatients?: Prisma.PatientUncheckedUpdateManyWithoutCreatedByNestedInput
-  welfarePatients?: Prisma.WelfarePatientUncheckedUpdateManyWithoutUserNestedInput
-  createdIndents?: Prisma.IndentUncheckedUpdateManyWithoutCreatedByUserNestedInput
-  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutApproverNestedInput
-  ledgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWelfarePatientsInput = {
@@ -806,13 +1024,17 @@ export type UserCreateWithoutWelfarePatientsInput = {
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  role: Prisma.RoleCreateNestedOneWithoutUsersInput
+  createdPRs?: Prisma.IndentCreateNestedManyWithoutRequestedByInput
+  approvedPRs?: Prisma.IndentCreateNestedManyWithoutApprovedByInput
+  createdPOs?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatedByInput
+  createdLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutCreatedByInput
+  approvedLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutApprovedByInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutPaidByInput
+  patients?: Prisma.PatientCreateNestedManyWithoutUserInput
+  patientPrints?: Prisma.PatientPrintCreateNestedManyWithoutPrintedByInput
   medicalRecords?: Prisma.MedicalRecordCreateNestedManyWithoutUserInput
   createdPatients?: Prisma.PatientCreateNestedManyWithoutCreatedByInput
-  role: Prisma.RoleCreateNestedOneWithoutUsersInput
-  createdIndents?: Prisma.IndentCreateNestedManyWithoutCreatedByUserInput
-  approvedLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutApproverInput
-  ledgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutUserInput
-  patientPrints?: Prisma.PatientPrintCreateNestedManyWithoutPrintedByInput
 }
 
 export type UserUncheckedCreateWithoutWelfarePatientsInput = {
@@ -824,12 +1046,16 @@ export type UserUncheckedCreateWithoutWelfarePatientsInput = {
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  createdPRs?: Prisma.IndentUncheckedCreateNestedManyWithoutRequestedByInput
+  approvedPRs?: Prisma.IndentUncheckedCreateNestedManyWithoutApprovedByInput
+  createdPOs?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutApprovedByInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutPaidByInput
+  patients?: Prisma.PatientUncheckedCreateNestedManyWithoutUserInput
+  patientPrints?: Prisma.PatientPrintUncheckedCreateNestedManyWithoutPrintedByInput
   medicalRecords?: Prisma.MedicalRecordUncheckedCreateNestedManyWithoutUserInput
   createdPatients?: Prisma.PatientUncheckedCreateNestedManyWithoutCreatedByInput
-  createdIndents?: Prisma.IndentUncheckedCreateNestedManyWithoutCreatedByUserInput
-  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutApproverInput
-  ledgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutUserInput
-  patientPrints?: Prisma.PatientPrintUncheckedCreateNestedManyWithoutPrintedByInput
 }
 
 export type UserCreateOrConnectWithoutWelfarePatientsInput = {
@@ -855,13 +1081,17 @@ export type UserUpdateWithoutWelfarePatientsInput = {
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
+  createdPRs?: Prisma.IndentUpdateManyWithoutRequestedByNestedInput
+  approvedPRs?: Prisma.IndentUpdateManyWithoutApprovedByNestedInput
+  createdPOs?: Prisma.PurchaseOrderUpdateManyWithoutCreatedByNestedInput
+  createdLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutCreatedByNestedInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutApprovedByNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutPaidByNestedInput
+  patients?: Prisma.PatientUpdateManyWithoutUserNestedInput
+  patientPrints?: Prisma.PatientPrintUpdateManyWithoutPrintedByNestedInput
   medicalRecords?: Prisma.MedicalRecordUpdateManyWithoutUserNestedInput
   createdPatients?: Prisma.PatientUpdateManyWithoutCreatedByNestedInput
-  role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
-  createdIndents?: Prisma.IndentUpdateManyWithoutCreatedByUserNestedInput
-  approvedLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutApproverNestedInput
-  ledgerEntries?: Prisma.LedgerEntryUpdateManyWithoutUserNestedInput
-  patientPrints?: Prisma.PatientPrintUpdateManyWithoutPrintedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWelfarePatientsInput = {
@@ -873,12 +1103,16 @@ export type UserUncheckedUpdateWithoutWelfarePatientsInput = {
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdPRs?: Prisma.IndentUncheckedUpdateManyWithoutRequestedByNestedInput
+  approvedPRs?: Prisma.IndentUncheckedUpdateManyWithoutApprovedByNestedInput
+  createdPOs?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutApprovedByNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutPaidByNestedInput
+  patients?: Prisma.PatientUncheckedUpdateManyWithoutUserNestedInput
+  patientPrints?: Prisma.PatientPrintUncheckedUpdateManyWithoutPrintedByNestedInput
   medicalRecords?: Prisma.MedicalRecordUncheckedUpdateManyWithoutUserNestedInput
   createdPatients?: Prisma.PatientUncheckedUpdateManyWithoutCreatedByNestedInput
-  createdIndents?: Prisma.IndentUncheckedUpdateManyWithoutCreatedByUserNestedInput
-  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutApproverNestedInput
-  ledgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutUserNestedInput
-  patientPrints?: Prisma.PatientPrintUncheckedUpdateManyWithoutPrintedByNestedInput
 }
 
 export type UserCreateWithoutMedicalRecordsInput = {
@@ -888,13 +1122,17 @@ export type UserCreateWithoutMedicalRecordsInput = {
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  createdPatients?: Prisma.PatientCreateNestedManyWithoutCreatedByInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
-  welfarePatients?: Prisma.WelfarePatientCreateNestedManyWithoutUserInput
-  createdIndents?: Prisma.IndentCreateNestedManyWithoutCreatedByUserInput
-  approvedLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutApproverInput
-  ledgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutUserInput
+  createdPRs?: Prisma.IndentCreateNestedManyWithoutRequestedByInput
+  approvedPRs?: Prisma.IndentCreateNestedManyWithoutApprovedByInput
+  createdPOs?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatedByInput
+  createdLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutCreatedByInput
+  approvedLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutApprovedByInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutPaidByInput
+  patients?: Prisma.PatientCreateNestedManyWithoutUserInput
   patientPrints?: Prisma.PatientPrintCreateNestedManyWithoutPrintedByInput
+  welfarePatients?: Prisma.WelfarePatientCreateNestedManyWithoutUserInput
+  createdPatients?: Prisma.PatientCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutMedicalRecordsInput = {
@@ -906,12 +1144,16 @@ export type UserUncheckedCreateWithoutMedicalRecordsInput = {
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  createdPatients?: Prisma.PatientUncheckedCreateNestedManyWithoutCreatedByInput
-  welfarePatients?: Prisma.WelfarePatientUncheckedCreateNestedManyWithoutUserInput
-  createdIndents?: Prisma.IndentUncheckedCreateNestedManyWithoutCreatedByUserInput
-  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutApproverInput
-  ledgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutUserInput
+  createdPRs?: Prisma.IndentUncheckedCreateNestedManyWithoutRequestedByInput
+  approvedPRs?: Prisma.IndentUncheckedCreateNestedManyWithoutApprovedByInput
+  createdPOs?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutApprovedByInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutPaidByInput
+  patients?: Prisma.PatientUncheckedCreateNestedManyWithoutUserInput
   patientPrints?: Prisma.PatientPrintUncheckedCreateNestedManyWithoutPrintedByInput
+  welfarePatients?: Prisma.WelfarePatientUncheckedCreateNestedManyWithoutUserInput
+  createdPatients?: Prisma.PatientUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutMedicalRecordsInput = {
@@ -937,13 +1179,17 @@ export type UserUpdateWithoutMedicalRecordsInput = {
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  createdPatients?: Prisma.PatientUpdateManyWithoutCreatedByNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
-  welfarePatients?: Prisma.WelfarePatientUpdateManyWithoutUserNestedInput
-  createdIndents?: Prisma.IndentUpdateManyWithoutCreatedByUserNestedInput
-  approvedLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutApproverNestedInput
-  ledgerEntries?: Prisma.LedgerEntryUpdateManyWithoutUserNestedInput
+  createdPRs?: Prisma.IndentUpdateManyWithoutRequestedByNestedInput
+  approvedPRs?: Prisma.IndentUpdateManyWithoutApprovedByNestedInput
+  createdPOs?: Prisma.PurchaseOrderUpdateManyWithoutCreatedByNestedInput
+  createdLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutCreatedByNestedInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutApprovedByNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutPaidByNestedInput
+  patients?: Prisma.PatientUpdateManyWithoutUserNestedInput
   patientPrints?: Prisma.PatientPrintUpdateManyWithoutPrintedByNestedInput
+  welfarePatients?: Prisma.WelfarePatientUpdateManyWithoutUserNestedInput
+  createdPatients?: Prisma.PatientUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMedicalRecordsInput = {
@@ -955,12 +1201,16 @@ export type UserUncheckedUpdateWithoutMedicalRecordsInput = {
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  createdPatients?: Prisma.PatientUncheckedUpdateManyWithoutCreatedByNestedInput
-  welfarePatients?: Prisma.WelfarePatientUncheckedUpdateManyWithoutUserNestedInput
-  createdIndents?: Prisma.IndentUncheckedUpdateManyWithoutCreatedByUserNestedInput
-  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutApproverNestedInput
-  ledgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutUserNestedInput
+  createdPRs?: Prisma.IndentUncheckedUpdateManyWithoutRequestedByNestedInput
+  approvedPRs?: Prisma.IndentUncheckedUpdateManyWithoutApprovedByNestedInput
+  createdPOs?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutApprovedByNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutPaidByNestedInput
+  patients?: Prisma.PatientUncheckedUpdateManyWithoutUserNestedInput
   patientPrints?: Prisma.PatientPrintUncheckedUpdateManyWithoutPrintedByNestedInput
+  welfarePatients?: Prisma.WelfarePatientUncheckedUpdateManyWithoutUserNestedInput
+  createdPatients?: Prisma.PatientUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutRoleInput = {
@@ -970,13 +1220,17 @@ export type UserCreateWithoutRoleInput = {
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  createdPRs?: Prisma.IndentCreateNestedManyWithoutRequestedByInput
+  approvedPRs?: Prisma.IndentCreateNestedManyWithoutApprovedByInput
+  createdPOs?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatedByInput
+  createdLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutCreatedByInput
+  approvedLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutApprovedByInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutPaidByInput
+  patients?: Prisma.PatientCreateNestedManyWithoutUserInput
+  patientPrints?: Prisma.PatientPrintCreateNestedManyWithoutPrintedByInput
+  welfarePatients?: Prisma.WelfarePatientCreateNestedManyWithoutUserInput
   medicalRecords?: Prisma.MedicalRecordCreateNestedManyWithoutUserInput
   createdPatients?: Prisma.PatientCreateNestedManyWithoutCreatedByInput
-  welfarePatients?: Prisma.WelfarePatientCreateNestedManyWithoutUserInput
-  createdIndents?: Prisma.IndentCreateNestedManyWithoutCreatedByUserInput
-  approvedLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutApproverInput
-  ledgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutUserInput
-  patientPrints?: Prisma.PatientPrintCreateNestedManyWithoutPrintedByInput
 }
 
 export type UserUncheckedCreateWithoutRoleInput = {
@@ -987,13 +1241,17 @@ export type UserUncheckedCreateWithoutRoleInput = {
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  createdPRs?: Prisma.IndentUncheckedCreateNestedManyWithoutRequestedByInput
+  approvedPRs?: Prisma.IndentUncheckedCreateNestedManyWithoutApprovedByInput
+  createdPOs?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutApprovedByInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutPaidByInput
+  patients?: Prisma.PatientUncheckedCreateNestedManyWithoutUserInput
+  patientPrints?: Prisma.PatientPrintUncheckedCreateNestedManyWithoutPrintedByInput
+  welfarePatients?: Prisma.WelfarePatientUncheckedCreateNestedManyWithoutUserInput
   medicalRecords?: Prisma.MedicalRecordUncheckedCreateNestedManyWithoutUserInput
   createdPatients?: Prisma.PatientUncheckedCreateNestedManyWithoutCreatedByInput
-  welfarePatients?: Prisma.WelfarePatientUncheckedCreateNestedManyWithoutUserInput
-  createdIndents?: Prisma.IndentUncheckedCreateNestedManyWithoutCreatedByUserInput
-  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutApproverInput
-  ledgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutUserInput
-  patientPrints?: Prisma.PatientPrintUncheckedCreateNestedManyWithoutPrintedByInput
 }
 
 export type UserCreateOrConnectWithoutRoleInput = {
@@ -1036,23 +1294,27 @@ export type UserScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
 }
 
-export type UserCreateWithoutCreatedIndentsInput = {
+export type UserCreateWithoutCreatedPRsInput = {
   name: string
   email: string
   password: string
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  role: Prisma.RoleCreateNestedOneWithoutUsersInput
+  approvedPRs?: Prisma.IndentCreateNestedManyWithoutApprovedByInput
+  createdPOs?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatedByInput
+  createdLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutCreatedByInput
+  approvedLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutApprovedByInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutPaidByInput
+  patients?: Prisma.PatientCreateNestedManyWithoutUserInput
+  patientPrints?: Prisma.PatientPrintCreateNestedManyWithoutPrintedByInput
+  welfarePatients?: Prisma.WelfarePatientCreateNestedManyWithoutUserInput
   medicalRecords?: Prisma.MedicalRecordCreateNestedManyWithoutUserInput
   createdPatients?: Prisma.PatientCreateNestedManyWithoutCreatedByInput
-  role: Prisma.RoleCreateNestedOneWithoutUsersInput
-  welfarePatients?: Prisma.WelfarePatientCreateNestedManyWithoutUserInput
-  approvedLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutApproverInput
-  ledgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutUserInput
-  patientPrints?: Prisma.PatientPrintCreateNestedManyWithoutPrintedByInput
 }
 
-export type UserUncheckedCreateWithoutCreatedIndentsInput = {
+export type UserUncheckedCreateWithoutCreatedPRsInput = {
   id?: number
   name: string
   email: string
@@ -1061,47 +1323,101 @@ export type UserUncheckedCreateWithoutCreatedIndentsInput = {
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  approvedPRs?: Prisma.IndentUncheckedCreateNestedManyWithoutApprovedByInput
+  createdPOs?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutApprovedByInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutPaidByInput
+  patients?: Prisma.PatientUncheckedCreateNestedManyWithoutUserInput
+  patientPrints?: Prisma.PatientPrintUncheckedCreateNestedManyWithoutPrintedByInput
+  welfarePatients?: Prisma.WelfarePatientUncheckedCreateNestedManyWithoutUserInput
   medicalRecords?: Prisma.MedicalRecordUncheckedCreateNestedManyWithoutUserInput
   createdPatients?: Prisma.PatientUncheckedCreateNestedManyWithoutCreatedByInput
-  welfarePatients?: Prisma.WelfarePatientUncheckedCreateNestedManyWithoutUserInput
-  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutApproverInput
-  ledgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutUserInput
-  patientPrints?: Prisma.PatientPrintUncheckedCreateNestedManyWithoutPrintedByInput
 }
 
-export type UserCreateOrConnectWithoutCreatedIndentsInput = {
+export type UserCreateOrConnectWithoutCreatedPRsInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedIndentsInput, Prisma.UserUncheckedCreateWithoutCreatedIndentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedPRsInput, Prisma.UserUncheckedCreateWithoutCreatedPRsInput>
 }
 
-export type UserUpsertWithoutCreatedIndentsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedIndentsInput, Prisma.UserUncheckedUpdateWithoutCreatedIndentsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedIndentsInput, Prisma.UserUncheckedCreateWithoutCreatedIndentsInput>
+export type UserCreateWithoutApprovedPRsInput = {
+  name: string
+  email: string
+  password: string
+  status?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  role: Prisma.RoleCreateNestedOneWithoutUsersInput
+  createdPRs?: Prisma.IndentCreateNestedManyWithoutRequestedByInput
+  createdPOs?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatedByInput
+  createdLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutCreatedByInput
+  approvedLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutApprovedByInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutPaidByInput
+  patients?: Prisma.PatientCreateNestedManyWithoutUserInput
+  patientPrints?: Prisma.PatientPrintCreateNestedManyWithoutPrintedByInput
+  welfarePatients?: Prisma.WelfarePatientCreateNestedManyWithoutUserInput
+  medicalRecords?: Prisma.MedicalRecordCreateNestedManyWithoutUserInput
+  createdPatients?: Prisma.PatientCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutApprovedPRsInput = {
+  id?: number
+  name: string
+  email: string
+  password: string
+  roleId: number
+  status?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  createdPRs?: Prisma.IndentUncheckedCreateNestedManyWithoutRequestedByInput
+  createdPOs?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutApprovedByInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutPaidByInput
+  patients?: Prisma.PatientUncheckedCreateNestedManyWithoutUserInput
+  patientPrints?: Prisma.PatientPrintUncheckedCreateNestedManyWithoutPrintedByInput
+  welfarePatients?: Prisma.WelfarePatientUncheckedCreateNestedManyWithoutUserInput
+  medicalRecords?: Prisma.MedicalRecordUncheckedCreateNestedManyWithoutUserInput
+  createdPatients?: Prisma.PatientUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutApprovedPRsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutApprovedPRsInput, Prisma.UserUncheckedCreateWithoutApprovedPRsInput>
+}
+
+export type UserUpsertWithoutCreatedPRsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedPRsInput, Prisma.UserUncheckedUpdateWithoutCreatedPRsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedPRsInput, Prisma.UserUncheckedCreateWithoutCreatedPRsInput>
   where?: Prisma.UserWhereInput
 }
 
-export type UserUpdateToOneWithWhereWithoutCreatedIndentsInput = {
+export type UserUpdateToOneWithWhereWithoutCreatedPRsInput = {
   where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedIndentsInput, Prisma.UserUncheckedUpdateWithoutCreatedIndentsInput>
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedPRsInput, Prisma.UserUncheckedUpdateWithoutCreatedPRsInput>
 }
 
-export type UserUpdateWithoutCreatedIndentsInput = {
+export type UserUpdateWithoutCreatedPRsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
+  approvedPRs?: Prisma.IndentUpdateManyWithoutApprovedByNestedInput
+  createdPOs?: Prisma.PurchaseOrderUpdateManyWithoutCreatedByNestedInput
+  createdLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutCreatedByNestedInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutApprovedByNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutPaidByNestedInput
+  patients?: Prisma.PatientUpdateManyWithoutUserNestedInput
+  patientPrints?: Prisma.PatientPrintUpdateManyWithoutPrintedByNestedInput
+  welfarePatients?: Prisma.WelfarePatientUpdateManyWithoutUserNestedInput
   medicalRecords?: Prisma.MedicalRecordUpdateManyWithoutUserNestedInput
   createdPatients?: Prisma.PatientUpdateManyWithoutCreatedByNestedInput
-  role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
-  welfarePatients?: Prisma.WelfarePatientUpdateManyWithoutUserNestedInput
-  approvedLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutApproverNestedInput
-  ledgerEntries?: Prisma.LedgerEntryUpdateManyWithoutUserNestedInput
-  patientPrints?: Prisma.PatientPrintUpdateManyWithoutPrintedByNestedInput
 }
 
-export type UserUncheckedUpdateWithoutCreatedIndentsInput = {
+export type UserUncheckedUpdateWithoutCreatedPRsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1110,12 +1426,310 @@ export type UserUncheckedUpdateWithoutCreatedIndentsInput = {
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  approvedPRs?: Prisma.IndentUncheckedUpdateManyWithoutApprovedByNestedInput
+  createdPOs?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutApprovedByNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutPaidByNestedInput
+  patients?: Prisma.PatientUncheckedUpdateManyWithoutUserNestedInput
+  patientPrints?: Prisma.PatientPrintUncheckedUpdateManyWithoutPrintedByNestedInput
+  welfarePatients?: Prisma.WelfarePatientUncheckedUpdateManyWithoutUserNestedInput
   medicalRecords?: Prisma.MedicalRecordUncheckedUpdateManyWithoutUserNestedInput
   createdPatients?: Prisma.PatientUncheckedUpdateManyWithoutCreatedByNestedInput
-  welfarePatients?: Prisma.WelfarePatientUncheckedUpdateManyWithoutUserNestedInput
-  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutApproverNestedInput
-  ledgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutApprovedPRsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutApprovedPRsInput, Prisma.UserUncheckedUpdateWithoutApprovedPRsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutApprovedPRsInput, Prisma.UserUncheckedCreateWithoutApprovedPRsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutApprovedPRsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutApprovedPRsInput, Prisma.UserUncheckedUpdateWithoutApprovedPRsInput>
+}
+
+export type UserUpdateWithoutApprovedPRsInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
+  createdPRs?: Prisma.IndentUpdateManyWithoutRequestedByNestedInput
+  createdPOs?: Prisma.PurchaseOrderUpdateManyWithoutCreatedByNestedInput
+  createdLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutCreatedByNestedInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutApprovedByNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutPaidByNestedInput
+  patients?: Prisma.PatientUpdateManyWithoutUserNestedInput
+  patientPrints?: Prisma.PatientPrintUpdateManyWithoutPrintedByNestedInput
+  welfarePatients?: Prisma.WelfarePatientUpdateManyWithoutUserNestedInput
+  medicalRecords?: Prisma.MedicalRecordUpdateManyWithoutUserNestedInput
+  createdPatients?: Prisma.PatientUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutApprovedPRsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdPRs?: Prisma.IndentUncheckedUpdateManyWithoutRequestedByNestedInput
+  createdPOs?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutApprovedByNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutPaidByNestedInput
+  patients?: Prisma.PatientUncheckedUpdateManyWithoutUserNestedInput
   patientPrints?: Prisma.PatientPrintUncheckedUpdateManyWithoutPrintedByNestedInput
+  welfarePatients?: Prisma.WelfarePatientUncheckedUpdateManyWithoutUserNestedInput
+  medicalRecords?: Prisma.MedicalRecordUncheckedUpdateManyWithoutUserNestedInput
+  createdPatients?: Prisma.PatientUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutCreatedPOsInput = {
+  name: string
+  email: string
+  password: string
+  status?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  role: Prisma.RoleCreateNestedOneWithoutUsersInput
+  createdPRs?: Prisma.IndentCreateNestedManyWithoutRequestedByInput
+  approvedPRs?: Prisma.IndentCreateNestedManyWithoutApprovedByInput
+  createdLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutCreatedByInput
+  approvedLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutApprovedByInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutPaidByInput
+  patients?: Prisma.PatientCreateNestedManyWithoutUserInput
+  patientPrints?: Prisma.PatientPrintCreateNestedManyWithoutPrintedByInput
+  welfarePatients?: Prisma.WelfarePatientCreateNestedManyWithoutUserInput
+  medicalRecords?: Prisma.MedicalRecordCreateNestedManyWithoutUserInput
+  createdPatients?: Prisma.PatientCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutCreatedPOsInput = {
+  id?: number
+  name: string
+  email: string
+  password: string
+  roleId: number
+  status?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  createdPRs?: Prisma.IndentUncheckedCreateNestedManyWithoutRequestedByInput
+  approvedPRs?: Prisma.IndentUncheckedCreateNestedManyWithoutApprovedByInput
+  createdLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutApprovedByInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutPaidByInput
+  patients?: Prisma.PatientUncheckedCreateNestedManyWithoutUserInput
+  patientPrints?: Prisma.PatientPrintUncheckedCreateNestedManyWithoutPrintedByInput
+  welfarePatients?: Prisma.WelfarePatientUncheckedCreateNestedManyWithoutUserInput
+  medicalRecords?: Prisma.MedicalRecordUncheckedCreateNestedManyWithoutUserInput
+  createdPatients?: Prisma.PatientUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutCreatedPOsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedPOsInput, Prisma.UserUncheckedCreateWithoutCreatedPOsInput>
+}
+
+export type UserUpsertWithoutCreatedPOsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedPOsInput, Prisma.UserUncheckedUpdateWithoutCreatedPOsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedPOsInput, Prisma.UserUncheckedCreateWithoutCreatedPOsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedPOsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedPOsInput, Prisma.UserUncheckedUpdateWithoutCreatedPOsInput>
+}
+
+export type UserUpdateWithoutCreatedPOsInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
+  createdPRs?: Prisma.IndentUpdateManyWithoutRequestedByNestedInput
+  approvedPRs?: Prisma.IndentUpdateManyWithoutApprovedByNestedInput
+  createdLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutCreatedByNestedInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutApprovedByNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutPaidByNestedInput
+  patients?: Prisma.PatientUpdateManyWithoutUserNestedInput
+  patientPrints?: Prisma.PatientPrintUpdateManyWithoutPrintedByNestedInput
+  welfarePatients?: Prisma.WelfarePatientUpdateManyWithoutUserNestedInput
+  medicalRecords?: Prisma.MedicalRecordUpdateManyWithoutUserNestedInput
+  createdPatients?: Prisma.PatientUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedPOsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdPRs?: Prisma.IndentUncheckedUpdateManyWithoutRequestedByNestedInput
+  approvedPRs?: Prisma.IndentUncheckedUpdateManyWithoutApprovedByNestedInput
+  createdLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutApprovedByNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutPaidByNestedInput
+  patients?: Prisma.PatientUncheckedUpdateManyWithoutUserNestedInput
+  patientPrints?: Prisma.PatientPrintUncheckedUpdateManyWithoutPrintedByNestedInput
+  welfarePatients?: Prisma.WelfarePatientUncheckedUpdateManyWithoutUserNestedInput
+  medicalRecords?: Prisma.MedicalRecordUncheckedUpdateManyWithoutUserNestedInput
+  createdPatients?: Prisma.PatientUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutPaymentsInput = {
+  name: string
+  email: string
+  password: string
+  status?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  role: Prisma.RoleCreateNestedOneWithoutUsersInput
+  createdPRs?: Prisma.IndentCreateNestedManyWithoutRequestedByInput
+  approvedPRs?: Prisma.IndentCreateNestedManyWithoutApprovedByInput
+  createdPOs?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatedByInput
+  createdLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutCreatedByInput
+  approvedLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutApprovedByInput
+  patients?: Prisma.PatientCreateNestedManyWithoutUserInput
+  patientPrints?: Prisma.PatientPrintCreateNestedManyWithoutPrintedByInput
+  welfarePatients?: Prisma.WelfarePatientCreateNestedManyWithoutUserInput
+  medicalRecords?: Prisma.MedicalRecordCreateNestedManyWithoutUserInput
+  createdPatients?: Prisma.PatientCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutPaymentsInput = {
+  id?: number
+  name: string
+  email: string
+  password: string
+  roleId: number
+  status?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  createdPRs?: Prisma.IndentUncheckedCreateNestedManyWithoutRequestedByInput
+  approvedPRs?: Prisma.IndentUncheckedCreateNestedManyWithoutApprovedByInput
+  createdPOs?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutApprovedByInput
+  patients?: Prisma.PatientUncheckedCreateNestedManyWithoutUserInput
+  patientPrints?: Prisma.PatientPrintUncheckedCreateNestedManyWithoutPrintedByInput
+  welfarePatients?: Prisma.WelfarePatientUncheckedCreateNestedManyWithoutUserInput
+  medicalRecords?: Prisma.MedicalRecordUncheckedCreateNestedManyWithoutUserInput
+  createdPatients?: Prisma.PatientUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutPaymentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPaymentsInput, Prisma.UserUncheckedCreateWithoutPaymentsInput>
+}
+
+export type UserUpsertWithoutPaymentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPaymentsInput, Prisma.UserUncheckedUpdateWithoutPaymentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPaymentsInput, Prisma.UserUncheckedCreateWithoutPaymentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPaymentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPaymentsInput, Prisma.UserUncheckedUpdateWithoutPaymentsInput>
+}
+
+export type UserUpdateWithoutPaymentsInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
+  createdPRs?: Prisma.IndentUpdateManyWithoutRequestedByNestedInput
+  approvedPRs?: Prisma.IndentUpdateManyWithoutApprovedByNestedInput
+  createdPOs?: Prisma.PurchaseOrderUpdateManyWithoutCreatedByNestedInput
+  createdLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutCreatedByNestedInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutApprovedByNestedInput
+  patients?: Prisma.PatientUpdateManyWithoutUserNestedInput
+  patientPrints?: Prisma.PatientPrintUpdateManyWithoutPrintedByNestedInput
+  welfarePatients?: Prisma.WelfarePatientUpdateManyWithoutUserNestedInput
+  medicalRecords?: Prisma.MedicalRecordUpdateManyWithoutUserNestedInput
+  createdPatients?: Prisma.PatientUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPaymentsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdPRs?: Prisma.IndentUncheckedUpdateManyWithoutRequestedByNestedInput
+  approvedPRs?: Prisma.IndentUncheckedUpdateManyWithoutApprovedByNestedInput
+  createdPOs?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutApprovedByNestedInput
+  patients?: Prisma.PatientUncheckedUpdateManyWithoutUserNestedInput
+  patientPrints?: Prisma.PatientPrintUncheckedUpdateManyWithoutPrintedByNestedInput
+  welfarePatients?: Prisma.WelfarePatientUncheckedUpdateManyWithoutUserNestedInput
+  medicalRecords?: Prisma.MedicalRecordUncheckedUpdateManyWithoutUserNestedInput
+  createdPatients?: Prisma.PatientUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutCreatedLedgerEntriesInput = {
+  name: string
+  email: string
+  password: string
+  status?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  role: Prisma.RoleCreateNestedOneWithoutUsersInput
+  createdPRs?: Prisma.IndentCreateNestedManyWithoutRequestedByInput
+  approvedPRs?: Prisma.IndentCreateNestedManyWithoutApprovedByInput
+  createdPOs?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatedByInput
+  approvedLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutApprovedByInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutPaidByInput
+  patients?: Prisma.PatientCreateNestedManyWithoutUserInput
+  patientPrints?: Prisma.PatientPrintCreateNestedManyWithoutPrintedByInput
+  welfarePatients?: Prisma.WelfarePatientCreateNestedManyWithoutUserInput
+  medicalRecords?: Prisma.MedicalRecordCreateNestedManyWithoutUserInput
+  createdPatients?: Prisma.PatientCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutCreatedLedgerEntriesInput = {
+  id?: number
+  name: string
+  email: string
+  password: string
+  roleId: number
+  status?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  createdPRs?: Prisma.IndentUncheckedCreateNestedManyWithoutRequestedByInput
+  approvedPRs?: Prisma.IndentUncheckedCreateNestedManyWithoutApprovedByInput
+  createdPOs?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutApprovedByInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutPaidByInput
+  patients?: Prisma.PatientUncheckedCreateNestedManyWithoutUserInput
+  patientPrints?: Prisma.PatientPrintUncheckedCreateNestedManyWithoutPrintedByInput
+  welfarePatients?: Prisma.WelfarePatientUncheckedCreateNestedManyWithoutUserInput
+  medicalRecords?: Prisma.MedicalRecordUncheckedCreateNestedManyWithoutUserInput
+  createdPatients?: Prisma.PatientUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutCreatedLedgerEntriesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedLedgerEntriesInput, Prisma.UserUncheckedCreateWithoutCreatedLedgerEntriesInput>
 }
 
 export type UserCreateWithoutApprovedLedgerEntriesInput = {
@@ -1125,13 +1739,17 @@ export type UserCreateWithoutApprovedLedgerEntriesInput = {
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  role: Prisma.RoleCreateNestedOneWithoutUsersInput
+  createdPRs?: Prisma.IndentCreateNestedManyWithoutRequestedByInput
+  approvedPRs?: Prisma.IndentCreateNestedManyWithoutApprovedByInput
+  createdPOs?: Prisma.PurchaseOrderCreateNestedManyWithoutCreatedByInput
+  createdLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutCreatedByInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutPaidByInput
+  patients?: Prisma.PatientCreateNestedManyWithoutUserInput
+  patientPrints?: Prisma.PatientPrintCreateNestedManyWithoutPrintedByInput
+  welfarePatients?: Prisma.WelfarePatientCreateNestedManyWithoutUserInput
   medicalRecords?: Prisma.MedicalRecordCreateNestedManyWithoutUserInput
   createdPatients?: Prisma.PatientCreateNestedManyWithoutCreatedByInput
-  role: Prisma.RoleCreateNestedOneWithoutUsersInput
-  welfarePatients?: Prisma.WelfarePatientCreateNestedManyWithoutUserInput
-  createdIndents?: Prisma.IndentCreateNestedManyWithoutCreatedByUserInput
-  ledgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutUserInput
-  patientPrints?: Prisma.PatientPrintCreateNestedManyWithoutPrintedByInput
 }
 
 export type UserUncheckedCreateWithoutApprovedLedgerEntriesInput = {
@@ -1143,12 +1761,16 @@ export type UserUncheckedCreateWithoutApprovedLedgerEntriesInput = {
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  createdPRs?: Prisma.IndentUncheckedCreateNestedManyWithoutRequestedByInput
+  approvedPRs?: Prisma.IndentUncheckedCreateNestedManyWithoutApprovedByInput
+  createdPOs?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  createdLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutCreatedByInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutPaidByInput
+  patients?: Prisma.PatientUncheckedCreateNestedManyWithoutUserInput
+  patientPrints?: Prisma.PatientPrintUncheckedCreateNestedManyWithoutPrintedByInput
+  welfarePatients?: Prisma.WelfarePatientUncheckedCreateNestedManyWithoutUserInput
   medicalRecords?: Prisma.MedicalRecordUncheckedCreateNestedManyWithoutUserInput
   createdPatients?: Prisma.PatientUncheckedCreateNestedManyWithoutCreatedByInput
-  welfarePatients?: Prisma.WelfarePatientUncheckedCreateNestedManyWithoutUserInput
-  createdIndents?: Prisma.IndentUncheckedCreateNestedManyWithoutCreatedByUserInput
-  ledgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutUserInput
-  patientPrints?: Prisma.PatientPrintUncheckedCreateNestedManyWithoutPrintedByInput
 }
 
 export type UserCreateOrConnectWithoutApprovedLedgerEntriesInput = {
@@ -1156,42 +1778,56 @@ export type UserCreateOrConnectWithoutApprovedLedgerEntriesInput = {
   create: Prisma.XOR<Prisma.UserCreateWithoutApprovedLedgerEntriesInput, Prisma.UserUncheckedCreateWithoutApprovedLedgerEntriesInput>
 }
 
-export type UserCreateWithoutLedgerEntriesInput = {
-  name: string
-  email: string
-  password: string
-  status?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  medicalRecords?: Prisma.MedicalRecordCreateNestedManyWithoutUserInput
-  createdPatients?: Prisma.PatientCreateNestedManyWithoutCreatedByInput
-  role: Prisma.RoleCreateNestedOneWithoutUsersInput
-  welfarePatients?: Prisma.WelfarePatientCreateNestedManyWithoutUserInput
-  createdIndents?: Prisma.IndentCreateNestedManyWithoutCreatedByUserInput
-  approvedLedgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutApproverInput
-  patientPrints?: Prisma.PatientPrintCreateNestedManyWithoutPrintedByInput
+export type UserUpsertWithoutCreatedLedgerEntriesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedLedgerEntriesInput, Prisma.UserUncheckedUpdateWithoutCreatedLedgerEntriesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedLedgerEntriesInput, Prisma.UserUncheckedCreateWithoutCreatedLedgerEntriesInput>
+  where?: Prisma.UserWhereInput
 }
 
-export type UserUncheckedCreateWithoutLedgerEntriesInput = {
-  id?: number
-  name: string
-  email: string
-  password: string
-  roleId: number
-  status?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  medicalRecords?: Prisma.MedicalRecordUncheckedCreateNestedManyWithoutUserInput
-  createdPatients?: Prisma.PatientUncheckedCreateNestedManyWithoutCreatedByInput
-  welfarePatients?: Prisma.WelfarePatientUncheckedCreateNestedManyWithoutUserInput
-  createdIndents?: Prisma.IndentUncheckedCreateNestedManyWithoutCreatedByUserInput
-  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutApproverInput
-  patientPrints?: Prisma.PatientPrintUncheckedCreateNestedManyWithoutPrintedByInput
+export type UserUpdateToOneWithWhereWithoutCreatedLedgerEntriesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedLedgerEntriesInput, Prisma.UserUncheckedUpdateWithoutCreatedLedgerEntriesInput>
 }
 
-export type UserCreateOrConnectWithoutLedgerEntriesInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutLedgerEntriesInput, Prisma.UserUncheckedCreateWithoutLedgerEntriesInput>
+export type UserUpdateWithoutCreatedLedgerEntriesInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
+  createdPRs?: Prisma.IndentUpdateManyWithoutRequestedByNestedInput
+  approvedPRs?: Prisma.IndentUpdateManyWithoutApprovedByNestedInput
+  createdPOs?: Prisma.PurchaseOrderUpdateManyWithoutCreatedByNestedInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutApprovedByNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutPaidByNestedInput
+  patients?: Prisma.PatientUpdateManyWithoutUserNestedInput
+  patientPrints?: Prisma.PatientPrintUpdateManyWithoutPrintedByNestedInput
+  welfarePatients?: Prisma.WelfarePatientUpdateManyWithoutUserNestedInput
+  medicalRecords?: Prisma.MedicalRecordUpdateManyWithoutUserNestedInput
+  createdPatients?: Prisma.PatientUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedLedgerEntriesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdPRs?: Prisma.IndentUncheckedUpdateManyWithoutRequestedByNestedInput
+  approvedPRs?: Prisma.IndentUncheckedUpdateManyWithoutApprovedByNestedInput
+  createdPOs?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutApprovedByNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutPaidByNestedInput
+  patients?: Prisma.PatientUncheckedUpdateManyWithoutUserNestedInput
+  patientPrints?: Prisma.PatientPrintUncheckedUpdateManyWithoutPrintedByNestedInput
+  welfarePatients?: Prisma.WelfarePatientUncheckedUpdateManyWithoutUserNestedInput
+  medicalRecords?: Prisma.MedicalRecordUncheckedUpdateManyWithoutUserNestedInput
+  createdPatients?: Prisma.PatientUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUpsertWithoutApprovedLedgerEntriesInput = {
@@ -1212,13 +1848,17 @@ export type UserUpdateWithoutApprovedLedgerEntriesInput = {
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
+  createdPRs?: Prisma.IndentUpdateManyWithoutRequestedByNestedInput
+  approvedPRs?: Prisma.IndentUpdateManyWithoutApprovedByNestedInput
+  createdPOs?: Prisma.PurchaseOrderUpdateManyWithoutCreatedByNestedInput
+  createdLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutCreatedByNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutPaidByNestedInput
+  patients?: Prisma.PatientUpdateManyWithoutUserNestedInput
+  patientPrints?: Prisma.PatientPrintUpdateManyWithoutPrintedByNestedInput
+  welfarePatients?: Prisma.WelfarePatientUpdateManyWithoutUserNestedInput
   medicalRecords?: Prisma.MedicalRecordUpdateManyWithoutUserNestedInput
   createdPatients?: Prisma.PatientUpdateManyWithoutCreatedByNestedInput
-  role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
-  welfarePatients?: Prisma.WelfarePatientUpdateManyWithoutUserNestedInput
-  createdIndents?: Prisma.IndentUpdateManyWithoutCreatedByUserNestedInput
-  ledgerEntries?: Prisma.LedgerEntryUpdateManyWithoutUserNestedInput
-  patientPrints?: Prisma.PatientPrintUpdateManyWithoutPrintedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedLedgerEntriesInput = {
@@ -1230,56 +1870,16 @@ export type UserUncheckedUpdateWithoutApprovedLedgerEntriesInput = {
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdPRs?: Prisma.IndentUncheckedUpdateManyWithoutRequestedByNestedInput
+  approvedPRs?: Prisma.IndentUncheckedUpdateManyWithoutApprovedByNestedInput
+  createdPOs?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutPaidByNestedInput
+  patients?: Prisma.PatientUncheckedUpdateManyWithoutUserNestedInput
+  patientPrints?: Prisma.PatientPrintUncheckedUpdateManyWithoutPrintedByNestedInput
+  welfarePatients?: Prisma.WelfarePatientUncheckedUpdateManyWithoutUserNestedInput
   medicalRecords?: Prisma.MedicalRecordUncheckedUpdateManyWithoutUserNestedInput
   createdPatients?: Prisma.PatientUncheckedUpdateManyWithoutCreatedByNestedInput
-  welfarePatients?: Prisma.WelfarePatientUncheckedUpdateManyWithoutUserNestedInput
-  createdIndents?: Prisma.IndentUncheckedUpdateManyWithoutCreatedByUserNestedInput
-  ledgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutUserNestedInput
-  patientPrints?: Prisma.PatientPrintUncheckedUpdateManyWithoutPrintedByNestedInput
-}
-
-export type UserUpsertWithoutLedgerEntriesInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutLedgerEntriesInput, Prisma.UserUncheckedUpdateWithoutLedgerEntriesInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutLedgerEntriesInput, Prisma.UserUncheckedCreateWithoutLedgerEntriesInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutLedgerEntriesInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutLedgerEntriesInput, Prisma.UserUncheckedUpdateWithoutLedgerEntriesInput>
-}
-
-export type UserUpdateWithoutLedgerEntriesInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  medicalRecords?: Prisma.MedicalRecordUpdateManyWithoutUserNestedInput
-  createdPatients?: Prisma.PatientUpdateManyWithoutCreatedByNestedInput
-  role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
-  welfarePatients?: Prisma.WelfarePatientUpdateManyWithoutUserNestedInput
-  createdIndents?: Prisma.IndentUpdateManyWithoutCreatedByUserNestedInput
-  approvedLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutApproverNestedInput
-  patientPrints?: Prisma.PatientPrintUpdateManyWithoutPrintedByNestedInput
-}
-
-export type UserUncheckedUpdateWithoutLedgerEntriesInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  roleId?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  medicalRecords?: Prisma.MedicalRecordUncheckedUpdateManyWithoutUserNestedInput
-  createdPatients?: Prisma.PatientUncheckedUpdateManyWithoutCreatedByNestedInput
-  welfarePatients?: Prisma.WelfarePatientUncheckedUpdateManyWithoutUserNestedInput
-  createdIndents?: Prisma.IndentUncheckedUpdateManyWithoutCreatedByUserNestedInput
-  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutApproverNestedInput
-  patientPrints?: Prisma.PatientPrintUncheckedUpdateManyWithoutPrintedByNestedInput
 }
 
 export type UserCreateManyRoleInput = {
@@ -1299,13 +1899,17 @@ export type UserUpdateWithoutRoleInput = {
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdPRs?: Prisma.IndentUpdateManyWithoutRequestedByNestedInput
+  approvedPRs?: Prisma.IndentUpdateManyWithoutApprovedByNestedInput
+  createdPOs?: Prisma.PurchaseOrderUpdateManyWithoutCreatedByNestedInput
+  createdLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutCreatedByNestedInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutApprovedByNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutPaidByNestedInput
+  patients?: Prisma.PatientUpdateManyWithoutUserNestedInput
+  patientPrints?: Prisma.PatientPrintUpdateManyWithoutPrintedByNestedInput
+  welfarePatients?: Prisma.WelfarePatientUpdateManyWithoutUserNestedInput
   medicalRecords?: Prisma.MedicalRecordUpdateManyWithoutUserNestedInput
   createdPatients?: Prisma.PatientUpdateManyWithoutCreatedByNestedInput
-  welfarePatients?: Prisma.WelfarePatientUpdateManyWithoutUserNestedInput
-  createdIndents?: Prisma.IndentUpdateManyWithoutCreatedByUserNestedInput
-  approvedLedgerEntries?: Prisma.LedgerEntryUpdateManyWithoutApproverNestedInput
-  ledgerEntries?: Prisma.LedgerEntryUpdateManyWithoutUserNestedInput
-  patientPrints?: Prisma.PatientPrintUpdateManyWithoutPrintedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRoleInput = {
@@ -1316,13 +1920,17 @@ export type UserUncheckedUpdateWithoutRoleInput = {
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdPRs?: Prisma.IndentUncheckedUpdateManyWithoutRequestedByNestedInput
+  approvedPRs?: Prisma.IndentUncheckedUpdateManyWithoutApprovedByNestedInput
+  createdPOs?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutCreatedByNestedInput
+  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutApprovedByNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutPaidByNestedInput
+  patients?: Prisma.PatientUncheckedUpdateManyWithoutUserNestedInput
+  patientPrints?: Prisma.PatientPrintUncheckedUpdateManyWithoutPrintedByNestedInput
+  welfarePatients?: Prisma.WelfarePatientUncheckedUpdateManyWithoutUserNestedInput
   medicalRecords?: Prisma.MedicalRecordUncheckedUpdateManyWithoutUserNestedInput
   createdPatients?: Prisma.PatientUncheckedUpdateManyWithoutCreatedByNestedInput
-  welfarePatients?: Prisma.WelfarePatientUncheckedUpdateManyWithoutUserNestedInput
-  createdIndents?: Prisma.IndentUncheckedUpdateManyWithoutCreatedByUserNestedInput
-  approvedLedgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutApproverNestedInput
-  ledgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutUserNestedInput
-  patientPrints?: Prisma.PatientPrintUncheckedUpdateManyWithoutPrintedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutRoleInput = {
@@ -1341,23 +1949,31 @@ export type UserUncheckedUpdateManyWithoutRoleInput = {
  */
 
 export type UserCountOutputType = {
+  createdPRs: number
+  approvedPRs: number
+  createdPOs: number
+  createdLedgerEntries: number
+  approvedLedgerEntries: number
+  payments: number
+  patients: number
+  patientPrints: number
+  welfarePatients: number
   medicalRecords: number
   createdPatients: number
-  welfarePatients: number
-  createdIndents: number
-  approvedLedgerEntries: number
-  ledgerEntries: number
-  patientPrints: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  createdPRs?: boolean | UserCountOutputTypeCountCreatedPRsArgs
+  approvedPRs?: boolean | UserCountOutputTypeCountApprovedPRsArgs
+  createdPOs?: boolean | UserCountOutputTypeCountCreatedPOsArgs
+  createdLedgerEntries?: boolean | UserCountOutputTypeCountCreatedLedgerEntriesArgs
+  approvedLedgerEntries?: boolean | UserCountOutputTypeCountApprovedLedgerEntriesArgs
+  payments?: boolean | UserCountOutputTypeCountPaymentsArgs
+  patients?: boolean | UserCountOutputTypeCountPatientsArgs
+  patientPrints?: boolean | UserCountOutputTypeCountPatientPrintsArgs
+  welfarePatients?: boolean | UserCountOutputTypeCountWelfarePatientsArgs
   medicalRecords?: boolean | UserCountOutputTypeCountMedicalRecordsArgs
   createdPatients?: boolean | UserCountOutputTypeCountCreatedPatientsArgs
-  welfarePatients?: boolean | UserCountOutputTypeCountWelfarePatientsArgs
-  createdIndents?: boolean | UserCountOutputTypeCountCreatedIndentsArgs
-  approvedLedgerEntries?: boolean | UserCountOutputTypeCountApprovedLedgerEntriesArgs
-  ledgerEntries?: boolean | UserCountOutputTypeCountLedgerEntriesArgs
-  patientPrints?: boolean | UserCountOutputTypeCountPatientPrintsArgs
 }
 
 /**
@@ -1368,6 +1984,69 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
    * Select specific fields to fetch from the UserCountOutputType
    */
   select?: Prisma.UserCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedPRsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.IndentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountApprovedPRsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.IndentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedPOsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PurchaseOrderWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedLedgerEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LedgerEntryWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountApprovedLedgerEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LedgerEntryWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PaymentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPatientsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PatientWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPatientPrintsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PatientPrintWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountWelfarePatientsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WelfarePatientWhereInput
 }
 
 /**
@@ -1384,41 +2063,6 @@ export type UserCountOutputTypeCountCreatedPatientsArgs<ExtArgs extends runtime.
   where?: Prisma.PatientWhereInput
 }
 
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountWelfarePatientsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.WelfarePatientWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountCreatedIndentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.IndentWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountApprovedLedgerEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.LedgerEntryWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountLedgerEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.LedgerEntryWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountPatientPrintsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.PatientPrintWhereInput
-}
-
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1429,14 +2073,18 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  role?: boolean | Prisma.RoleDefaultArgs<ExtArgs>
+  createdPRs?: boolean | Prisma.User$createdPRsArgs<ExtArgs>
+  approvedPRs?: boolean | Prisma.User$approvedPRsArgs<ExtArgs>
+  createdPOs?: boolean | Prisma.User$createdPOsArgs<ExtArgs>
+  createdLedgerEntries?: boolean | Prisma.User$createdLedgerEntriesArgs<ExtArgs>
+  approvedLedgerEntries?: boolean | Prisma.User$approvedLedgerEntriesArgs<ExtArgs>
+  payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
+  patients?: boolean | Prisma.User$patientsArgs<ExtArgs>
+  patientPrints?: boolean | Prisma.User$patientPrintsArgs<ExtArgs>
+  welfarePatients?: boolean | Prisma.User$welfarePatientsArgs<ExtArgs>
   medicalRecords?: boolean | Prisma.User$medicalRecordsArgs<ExtArgs>
   createdPatients?: boolean | Prisma.User$createdPatientsArgs<ExtArgs>
-  role?: boolean | Prisma.RoleDefaultArgs<ExtArgs>
-  welfarePatients?: boolean | Prisma.User$welfarePatientsArgs<ExtArgs>
-  createdIndents?: boolean | Prisma.User$createdIndentsArgs<ExtArgs>
-  approvedLedgerEntries?: boolean | Prisma.User$approvedLedgerEntriesArgs<ExtArgs>
-  ledgerEntries?: boolean | Prisma.User$ledgerEntriesArgs<ExtArgs>
-  patientPrints?: boolean | Prisma.User$patientPrintsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1477,14 +2125,18 @@ export type UserSelectScalar = {
 
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "roleId" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  role?: boolean | Prisma.RoleDefaultArgs<ExtArgs>
+  createdPRs?: boolean | Prisma.User$createdPRsArgs<ExtArgs>
+  approvedPRs?: boolean | Prisma.User$approvedPRsArgs<ExtArgs>
+  createdPOs?: boolean | Prisma.User$createdPOsArgs<ExtArgs>
+  createdLedgerEntries?: boolean | Prisma.User$createdLedgerEntriesArgs<ExtArgs>
+  approvedLedgerEntries?: boolean | Prisma.User$approvedLedgerEntriesArgs<ExtArgs>
+  payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
+  patients?: boolean | Prisma.User$patientsArgs<ExtArgs>
+  patientPrints?: boolean | Prisma.User$patientPrintsArgs<ExtArgs>
+  welfarePatients?: boolean | Prisma.User$welfarePatientsArgs<ExtArgs>
   medicalRecords?: boolean | Prisma.User$medicalRecordsArgs<ExtArgs>
   createdPatients?: boolean | Prisma.User$createdPatientsArgs<ExtArgs>
-  role?: boolean | Prisma.RoleDefaultArgs<ExtArgs>
-  welfarePatients?: boolean | Prisma.User$welfarePatientsArgs<ExtArgs>
-  createdIndents?: boolean | Prisma.User$createdIndentsArgs<ExtArgs>
-  approvedLedgerEntries?: boolean | Prisma.User$approvedLedgerEntriesArgs<ExtArgs>
-  ledgerEntries?: boolean | Prisma.User$ledgerEntriesArgs<ExtArgs>
-  patientPrints?: boolean | Prisma.User$patientPrintsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1497,14 +2149,18 @@ export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
+    role: Prisma.$RolePayload<ExtArgs>
+    createdPRs: Prisma.$IndentPayload<ExtArgs>[]
+    approvedPRs: Prisma.$IndentPayload<ExtArgs>[]
+    createdPOs: Prisma.$PurchaseOrderPayload<ExtArgs>[]
+    createdLedgerEntries: Prisma.$LedgerEntryPayload<ExtArgs>[]
+    approvedLedgerEntries: Prisma.$LedgerEntryPayload<ExtArgs>[]
+    payments: Prisma.$PaymentPayload<ExtArgs>[]
+    patients: Prisma.$PatientPayload<ExtArgs>[]
+    patientPrints: Prisma.$PatientPrintPayload<ExtArgs>[]
+    welfarePatients: Prisma.$WelfarePatientPayload<ExtArgs>[]
     medicalRecords: Prisma.$MedicalRecordPayload<ExtArgs>[]
     createdPatients: Prisma.$PatientPayload<ExtArgs>[]
-    role: Prisma.$RolePayload<ExtArgs>
-    welfarePatients: Prisma.$WelfarePatientPayload<ExtArgs>[]
-    createdIndents: Prisma.$IndentPayload<ExtArgs>[]
-    approvedLedgerEntries: Prisma.$LedgerEntryPayload<ExtArgs>[]
-    ledgerEntries: Prisma.$LedgerEntryPayload<ExtArgs>[]
-    patientPrints: Prisma.$PatientPrintPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1909,14 +2565,18 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  role<T extends Prisma.RoleDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RoleDefaultArgs<ExtArgs>>): Prisma.Prisma__RoleClient<runtime.Types.Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  createdPRs<T extends Prisma.User$createdPRsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdPRsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IndentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  approvedPRs<T extends Prisma.User$approvedPRsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$approvedPRsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IndentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdPOs<T extends Prisma.User$createdPOsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdPOsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PurchaseOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdLedgerEntries<T extends Prisma.User$createdLedgerEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdLedgerEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LedgerEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  approvedLedgerEntries<T extends Prisma.User$approvedLedgerEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$approvedLedgerEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LedgerEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  payments<T extends Prisma.User$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  patients<T extends Prisma.User$patientsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$patientsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PatientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  patientPrints<T extends Prisma.User$patientPrintsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$patientPrintsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PatientPrintPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  welfarePatients<T extends Prisma.User$welfarePatientsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$welfarePatientsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WelfarePatientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   medicalRecords<T extends Prisma.User$medicalRecordsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$medicalRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MedicalRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   createdPatients<T extends Prisma.User$createdPatientsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdPatientsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PatientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  role<T extends Prisma.RoleDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RoleDefaultArgs<ExtArgs>>): Prisma.Prisma__RoleClient<runtime.Types.Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  welfarePatients<T extends Prisma.User$welfarePatientsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$welfarePatientsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WelfarePatientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  createdIndents<T extends Prisma.User$createdIndentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdIndentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IndentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  approvedLedgerEntries<T extends Prisma.User$approvedLedgerEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$approvedLedgerEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LedgerEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  ledgerEntries<T extends Prisma.User$ledgerEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ledgerEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LedgerEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  patientPrints<T extends Prisma.User$patientPrintsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$patientPrintsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PatientPrintPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2350,6 +3010,222 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
+ * User.createdPRs
+ */
+export type User$createdPRsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Indent
+   */
+  select?: Prisma.IndentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Indent
+   */
+  omit?: Prisma.IndentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.IndentInclude<ExtArgs> | null
+  where?: Prisma.IndentWhereInput
+  orderBy?: Prisma.IndentOrderByWithRelationInput | Prisma.IndentOrderByWithRelationInput[]
+  cursor?: Prisma.IndentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.IndentScalarFieldEnum | Prisma.IndentScalarFieldEnum[]
+}
+
+/**
+ * User.approvedPRs
+ */
+export type User$approvedPRsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Indent
+   */
+  select?: Prisma.IndentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Indent
+   */
+  omit?: Prisma.IndentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.IndentInclude<ExtArgs> | null
+  where?: Prisma.IndentWhereInput
+  orderBy?: Prisma.IndentOrderByWithRelationInput | Prisma.IndentOrderByWithRelationInput[]
+  cursor?: Prisma.IndentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.IndentScalarFieldEnum | Prisma.IndentScalarFieldEnum[]
+}
+
+/**
+ * User.createdPOs
+ */
+export type User$createdPOsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PurchaseOrder
+   */
+  select?: Prisma.PurchaseOrderSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PurchaseOrder
+   */
+  omit?: Prisma.PurchaseOrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PurchaseOrderInclude<ExtArgs> | null
+  where?: Prisma.PurchaseOrderWhereInput
+  orderBy?: Prisma.PurchaseOrderOrderByWithRelationInput | Prisma.PurchaseOrderOrderByWithRelationInput[]
+  cursor?: Prisma.PurchaseOrderWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PurchaseOrderScalarFieldEnum | Prisma.PurchaseOrderScalarFieldEnum[]
+}
+
+/**
+ * User.createdLedgerEntries
+ */
+export type User$createdLedgerEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LedgerEntry
+   */
+  select?: Prisma.LedgerEntrySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LedgerEntry
+   */
+  omit?: Prisma.LedgerEntryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LedgerEntryInclude<ExtArgs> | null
+  where?: Prisma.LedgerEntryWhereInput
+  orderBy?: Prisma.LedgerEntryOrderByWithRelationInput | Prisma.LedgerEntryOrderByWithRelationInput[]
+  cursor?: Prisma.LedgerEntryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LedgerEntryScalarFieldEnum | Prisma.LedgerEntryScalarFieldEnum[]
+}
+
+/**
+ * User.approvedLedgerEntries
+ */
+export type User$approvedLedgerEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LedgerEntry
+   */
+  select?: Prisma.LedgerEntrySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LedgerEntry
+   */
+  omit?: Prisma.LedgerEntryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LedgerEntryInclude<ExtArgs> | null
+  where?: Prisma.LedgerEntryWhereInput
+  orderBy?: Prisma.LedgerEntryOrderByWithRelationInput | Prisma.LedgerEntryOrderByWithRelationInput[]
+  cursor?: Prisma.LedgerEntryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LedgerEntryScalarFieldEnum | Prisma.LedgerEntryScalarFieldEnum[]
+}
+
+/**
+ * User.payments
+ */
+export type User$paymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Payment
+   */
+  select?: Prisma.PaymentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Payment
+   */
+  omit?: Prisma.PaymentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PaymentInclude<ExtArgs> | null
+  where?: Prisma.PaymentWhereInput
+  orderBy?: Prisma.PaymentOrderByWithRelationInput | Prisma.PaymentOrderByWithRelationInput[]
+  cursor?: Prisma.PaymentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PaymentScalarFieldEnum | Prisma.PaymentScalarFieldEnum[]
+}
+
+/**
+ * User.patients
+ */
+export type User$patientsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Patient
+   */
+  select?: Prisma.PatientSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Patient
+   */
+  omit?: Prisma.PatientOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PatientInclude<ExtArgs> | null
+  where?: Prisma.PatientWhereInput
+  orderBy?: Prisma.PatientOrderByWithRelationInput | Prisma.PatientOrderByWithRelationInput[]
+  cursor?: Prisma.PatientWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PatientScalarFieldEnum | Prisma.PatientScalarFieldEnum[]
+}
+
+/**
+ * User.patientPrints
+ */
+export type User$patientPrintsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PatientPrint
+   */
+  select?: Prisma.PatientPrintSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PatientPrint
+   */
+  omit?: Prisma.PatientPrintOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PatientPrintInclude<ExtArgs> | null
+  where?: Prisma.PatientPrintWhereInput
+  orderBy?: Prisma.PatientPrintOrderByWithRelationInput | Prisma.PatientPrintOrderByWithRelationInput[]
+  cursor?: Prisma.PatientPrintWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PatientPrintScalarFieldEnum | Prisma.PatientPrintScalarFieldEnum[]
+}
+
+/**
+ * User.welfarePatients
+ */
+export type User$welfarePatientsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WelfarePatient
+   */
+  select?: Prisma.WelfarePatientSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WelfarePatient
+   */
+  omit?: Prisma.WelfarePatientOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WelfarePatientInclude<ExtArgs> | null
+  where?: Prisma.WelfarePatientWhereInput
+  orderBy?: Prisma.WelfarePatientOrderByWithRelationInput | Prisma.WelfarePatientOrderByWithRelationInput[]
+  cursor?: Prisma.WelfarePatientWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WelfarePatientScalarFieldEnum | Prisma.WelfarePatientScalarFieldEnum[]
+}
+
+/**
  * User.medicalRecords
  */
 export type User$medicalRecordsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2395,126 +3271,6 @@ export type User$createdPatientsArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.PatientScalarFieldEnum | Prisma.PatientScalarFieldEnum[]
-}
-
-/**
- * User.welfarePatients
- */
-export type User$welfarePatientsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the WelfarePatient
-   */
-  select?: Prisma.WelfarePatientSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the WelfarePatient
-   */
-  omit?: Prisma.WelfarePatientOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.WelfarePatientInclude<ExtArgs> | null
-  where?: Prisma.WelfarePatientWhereInput
-  orderBy?: Prisma.WelfarePatientOrderByWithRelationInput | Prisma.WelfarePatientOrderByWithRelationInput[]
-  cursor?: Prisma.WelfarePatientWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.WelfarePatientScalarFieldEnum | Prisma.WelfarePatientScalarFieldEnum[]
-}
-
-/**
- * User.createdIndents
- */
-export type User$createdIndentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Indent
-   */
-  select?: Prisma.IndentSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Indent
-   */
-  omit?: Prisma.IndentOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.IndentInclude<ExtArgs> | null
-  where?: Prisma.IndentWhereInput
-  orderBy?: Prisma.IndentOrderByWithRelationInput | Prisma.IndentOrderByWithRelationInput[]
-  cursor?: Prisma.IndentWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.IndentScalarFieldEnum | Prisma.IndentScalarFieldEnum[]
-}
-
-/**
- * User.approvedLedgerEntries
- */
-export type User$approvedLedgerEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the LedgerEntry
-   */
-  select?: Prisma.LedgerEntrySelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the LedgerEntry
-   */
-  omit?: Prisma.LedgerEntryOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.LedgerEntryInclude<ExtArgs> | null
-  where?: Prisma.LedgerEntryWhereInput
-  orderBy?: Prisma.LedgerEntryOrderByWithRelationInput | Prisma.LedgerEntryOrderByWithRelationInput[]
-  cursor?: Prisma.LedgerEntryWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.LedgerEntryScalarFieldEnum | Prisma.LedgerEntryScalarFieldEnum[]
-}
-
-/**
- * User.ledgerEntries
- */
-export type User$ledgerEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the LedgerEntry
-   */
-  select?: Prisma.LedgerEntrySelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the LedgerEntry
-   */
-  omit?: Prisma.LedgerEntryOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.LedgerEntryInclude<ExtArgs> | null
-  where?: Prisma.LedgerEntryWhereInput
-  orderBy?: Prisma.LedgerEntryOrderByWithRelationInput | Prisma.LedgerEntryOrderByWithRelationInput[]
-  cursor?: Prisma.LedgerEntryWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.LedgerEntryScalarFieldEnum | Prisma.LedgerEntryScalarFieldEnum[]
-}
-
-/**
- * User.patientPrints
- */
-export type User$patientPrintsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the PatientPrint
-   */
-  select?: Prisma.PatientPrintSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the PatientPrint
-   */
-  omit?: Prisma.PatientPrintOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.PatientPrintInclude<ExtArgs> | null
-  where?: Prisma.PatientPrintWhereInput
-  orderBy?: Prisma.PatientPrintOrderByWithRelationInput | Prisma.PatientPrintOrderByWithRelationInput[]
-  cursor?: Prisma.PatientPrintWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.PatientPrintScalarFieldEnum | Prisma.PatientPrintScalarFieldEnum[]
 }
 
 /**

@@ -7,7 +7,7 @@ export const createGenericName = async (req, res) => {
     if (!name) {
       return res.status(400).json({ success: false, message: "Generic name is required" });
     }
-
+    console.log(name , status)
     const existing = await prisma.genericName.findUnique({ where: { name } });
     if (existing) {
       return res.status(409).json({ success: false, message: "Generic name already exists" });
@@ -32,7 +32,6 @@ export const getGenericNames = async (req, res) => {
   try {
     const generics = await prisma.genericName.findMany({ 
       orderBy: { name: "asc" },
-      include: { _count: { select: { medicines: true } } }
     });
     res.json({ success: true, data: generics });
   } catch (error) {

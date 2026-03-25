@@ -29,15 +29,15 @@ export type AggregateIndent = {
 export type IndentAvgAggregateOutputType = {
   id: number | null
   departmentId: number | null
-  createdBy: number | null
-  approvedBy: number | null
+  requestedById: number | null
+  approvedById: number | null
 }
 
 export type IndentSumAggregateOutputType = {
   id: number | null
   departmentId: number | null
-  createdBy: number | null
-  approvedBy: number | null
+  requestedById: number | null
+  approvedById: number | null
 }
 
 export type IndentMinAggregateOutputType = {
@@ -45,10 +45,9 @@ export type IndentMinAggregateOutputType = {
   indentNo: string | null
   indentDate: Date | null
   departmentId: number | null
-  createdBy: number | null
-  status: string | null
-  approvedBy: number | null
-  approvedAt: Date | null
+  requestedById: number | null
+  approvedById: number | null
+  status: $Enums.IndentStatus | null
   remarks: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -59,10 +58,9 @@ export type IndentMaxAggregateOutputType = {
   indentNo: string | null
   indentDate: Date | null
   departmentId: number | null
-  createdBy: number | null
-  status: string | null
-  approvedBy: number | null
-  approvedAt: Date | null
+  requestedById: number | null
+  approvedById: number | null
+  status: $Enums.IndentStatus | null
   remarks: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -73,10 +71,9 @@ export type IndentCountAggregateOutputType = {
   indentNo: number
   indentDate: number
   departmentId: number
-  createdBy: number
+  requestedById: number
+  approvedById: number
   status: number
-  approvedBy: number
-  approvedAt: number
   remarks: number
   createdAt: number
   updatedAt: number
@@ -87,15 +84,15 @@ export type IndentCountAggregateOutputType = {
 export type IndentAvgAggregateInputType = {
   id?: true
   departmentId?: true
-  createdBy?: true
-  approvedBy?: true
+  requestedById?: true
+  approvedById?: true
 }
 
 export type IndentSumAggregateInputType = {
   id?: true
   departmentId?: true
-  createdBy?: true
-  approvedBy?: true
+  requestedById?: true
+  approvedById?: true
 }
 
 export type IndentMinAggregateInputType = {
@@ -103,10 +100,9 @@ export type IndentMinAggregateInputType = {
   indentNo?: true
   indentDate?: true
   departmentId?: true
-  createdBy?: true
+  requestedById?: true
+  approvedById?: true
   status?: true
-  approvedBy?: true
-  approvedAt?: true
   remarks?: true
   createdAt?: true
   updatedAt?: true
@@ -117,10 +113,9 @@ export type IndentMaxAggregateInputType = {
   indentNo?: true
   indentDate?: true
   departmentId?: true
-  createdBy?: true
+  requestedById?: true
+  approvedById?: true
   status?: true
-  approvedBy?: true
-  approvedAt?: true
   remarks?: true
   createdAt?: true
   updatedAt?: true
@@ -131,10 +126,9 @@ export type IndentCountAggregateInputType = {
   indentNo?: true
   indentDate?: true
   departmentId?: true
-  createdBy?: true
+  requestedById?: true
+  approvedById?: true
   status?: true
-  approvedBy?: true
-  approvedAt?: true
   remarks?: true
   createdAt?: true
   updatedAt?: true
@@ -231,11 +225,10 @@ export type IndentGroupByOutputType = {
   id: number
   indentNo: string
   indentDate: Date
-  departmentId: number | null
-  createdBy: number | null
-  status: string
-  approvedBy: number | null
-  approvedAt: Date | null
+  departmentId: number
+  requestedById: number
+  approvedById: number | null
+  status: $Enums.IndentStatus
   remarks: string | null
   createdAt: Date
   updatedAt: Date
@@ -268,32 +261,36 @@ export type IndentWhereInput = {
   id?: Prisma.IntFilter<"Indent"> | number
   indentNo?: Prisma.StringFilter<"Indent"> | string
   indentDate?: Prisma.DateTimeFilter<"Indent"> | Date | string
-  departmentId?: Prisma.IntNullableFilter<"Indent"> | number | null
-  createdBy?: Prisma.IntNullableFilter<"Indent"> | number | null
-  status?: Prisma.StringFilter<"Indent"> | string
-  approvedBy?: Prisma.IntNullableFilter<"Indent"> | number | null
-  approvedAt?: Prisma.DateTimeNullableFilter<"Indent"> | Date | string | null
+  departmentId?: Prisma.IntFilter<"Indent"> | number
+  requestedById?: Prisma.IntFilter<"Indent"> | number
+  approvedById?: Prisma.IntNullableFilter<"Indent"> | number | null
+  status?: Prisma.EnumIndentStatusFilter<"Indent"> | $Enums.IndentStatus
   remarks?: Prisma.StringNullableFilter<"Indent"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Indent"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Indent"> | Date | string
-  items?: Prisma.IndentItemListRelationFilter
-  createdByUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  requestedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  approvedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  items?: Prisma.IndenItemListRelationFilter
+  purchaseOrders?: Prisma.PurchaseOrderListRelationFilter
+  department?: Prisma.XOR<Prisma.DepartmentScalarRelationFilter, Prisma.DepartmentWhereInput>
 }
 
 export type IndentOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   indentNo?: Prisma.SortOrder
   indentDate?: Prisma.SortOrder
-  departmentId?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  departmentId?: Prisma.SortOrder
+  requestedById?: Prisma.SortOrder
+  approvedById?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
-  approvedBy?: Prisma.SortOrderInput | Prisma.SortOrder
-  approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   remarks?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  items?: Prisma.IndentItemOrderByRelationAggregateInput
-  createdByUser?: Prisma.UserOrderByWithRelationInput
+  requestedBy?: Prisma.UserOrderByWithRelationInput
+  approvedBy?: Prisma.UserOrderByWithRelationInput
+  items?: Prisma.IndenItemOrderByRelationAggregateInput
+  purchaseOrders?: Prisma.PurchaseOrderOrderByRelationAggregateInput
+  department?: Prisma.DepartmentOrderByWithRelationInput
 }
 
 export type IndentWhereUniqueInput = Prisma.AtLeast<{
@@ -303,27 +300,28 @@ export type IndentWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.IndentWhereInput[]
   NOT?: Prisma.IndentWhereInput | Prisma.IndentWhereInput[]
   indentDate?: Prisma.DateTimeFilter<"Indent"> | Date | string
-  departmentId?: Prisma.IntNullableFilter<"Indent"> | number | null
-  createdBy?: Prisma.IntNullableFilter<"Indent"> | number | null
-  status?: Prisma.StringFilter<"Indent"> | string
-  approvedBy?: Prisma.IntNullableFilter<"Indent"> | number | null
-  approvedAt?: Prisma.DateTimeNullableFilter<"Indent"> | Date | string | null
+  departmentId?: Prisma.IntFilter<"Indent"> | number
+  requestedById?: Prisma.IntFilter<"Indent"> | number
+  approvedById?: Prisma.IntNullableFilter<"Indent"> | number | null
+  status?: Prisma.EnumIndentStatusFilter<"Indent"> | $Enums.IndentStatus
   remarks?: Prisma.StringNullableFilter<"Indent"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Indent"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Indent"> | Date | string
-  items?: Prisma.IndentItemListRelationFilter
-  createdByUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  requestedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  approvedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  items?: Prisma.IndenItemListRelationFilter
+  purchaseOrders?: Prisma.PurchaseOrderListRelationFilter
+  department?: Prisma.XOR<Prisma.DepartmentScalarRelationFilter, Prisma.DepartmentWhereInput>
 }, "id" | "indentNo">
 
 export type IndentOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   indentNo?: Prisma.SortOrder
   indentDate?: Prisma.SortOrder
-  departmentId?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  departmentId?: Prisma.SortOrder
+  requestedById?: Prisma.SortOrder
+  approvedById?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
-  approvedBy?: Prisma.SortOrderInput | Prisma.SortOrder
-  approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   remarks?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -341,11 +339,10 @@ export type IndentScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Indent"> | number
   indentNo?: Prisma.StringWithAggregatesFilter<"Indent"> | string
   indentDate?: Prisma.DateTimeWithAggregatesFilter<"Indent"> | Date | string
-  departmentId?: Prisma.IntNullableWithAggregatesFilter<"Indent"> | number | null
-  createdBy?: Prisma.IntNullableWithAggregatesFilter<"Indent"> | number | null
-  status?: Prisma.StringWithAggregatesFilter<"Indent"> | string
-  approvedBy?: Prisma.IntNullableWithAggregatesFilter<"Indent"> | number | null
-  approvedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Indent"> | Date | string | null
+  departmentId?: Prisma.IntWithAggregatesFilter<"Indent"> | number
+  requestedById?: Prisma.IntWithAggregatesFilter<"Indent"> | number
+  approvedById?: Prisma.IntNullableWithAggregatesFilter<"Indent"> | number | null
+  status?: Prisma.EnumIndentStatusWithAggregatesFilter<"Indent"> | $Enums.IndentStatus
   remarks?: Prisma.StringNullableWithAggregatesFilter<"Indent"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Indent"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Indent"> | Date | string
@@ -354,70 +351,69 @@ export type IndentScalarWhereWithAggregatesInput = {
 export type IndentCreateInput = {
   indentNo: string
   indentDate?: Date | string
-  departmentId?: number | null
-  status?: string
-  approvedBy?: number | null
-  approvedAt?: Date | string | null
+  status?: $Enums.IndentStatus
   remarks?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  items?: Prisma.IndentItemCreateNestedManyWithoutIndentInput
-  createdByUser?: Prisma.UserCreateNestedOneWithoutCreatedIndentsInput
+  requestedBy: Prisma.UserCreateNestedOneWithoutCreatedPRsInput
+  approvedBy?: Prisma.UserCreateNestedOneWithoutApprovedPRsInput
+  items?: Prisma.IndenItemCreateNestedManyWithoutIndentInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutPrInput
+  department: Prisma.DepartmentCreateNestedOneWithoutIndentInput
 }
 
 export type IndentUncheckedCreateInput = {
   id?: number
   indentNo: string
   indentDate?: Date | string
-  departmentId?: number | null
-  createdBy?: number | null
-  status?: string
-  approvedBy?: number | null
-  approvedAt?: Date | string | null
+  departmentId: number
+  requestedById: number
+  approvedById?: number | null
+  status?: $Enums.IndentStatus
   remarks?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  items?: Prisma.IndentItemUncheckedCreateNestedManyWithoutIndentInput
+  items?: Prisma.IndenItemUncheckedCreateNestedManyWithoutIndentInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutPrInput
 }
 
 export type IndentUpdateInput = {
   indentNo?: Prisma.StringFieldUpdateOperationsInput | string
   indentDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  departmentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  approvedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumIndentStatusFieldUpdateOperationsInput | $Enums.IndentStatus
   remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  items?: Prisma.IndentItemUpdateManyWithoutIndentNestedInput
-  createdByUser?: Prisma.UserUpdateOneWithoutCreatedIndentsNestedInput
+  requestedBy?: Prisma.UserUpdateOneRequiredWithoutCreatedPRsNestedInput
+  approvedBy?: Prisma.UserUpdateOneWithoutApprovedPRsNestedInput
+  items?: Prisma.IndenItemUpdateManyWithoutIndentNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutPrNestedInput
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutIndentNestedInput
 }
 
 export type IndentUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   indentNo?: Prisma.StringFieldUpdateOperationsInput | string
   indentDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  departmentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  createdBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  approvedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  departmentId?: Prisma.IntFieldUpdateOperationsInput | number
+  requestedById?: Prisma.IntFieldUpdateOperationsInput | number
+  approvedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status?: Prisma.EnumIndentStatusFieldUpdateOperationsInput | $Enums.IndentStatus
   remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  items?: Prisma.IndentItemUncheckedUpdateManyWithoutIndentNestedInput
+  items?: Prisma.IndenItemUncheckedUpdateManyWithoutIndentNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutPrNestedInput
 }
 
 export type IndentCreateManyInput = {
   id?: number
   indentNo: string
   indentDate?: Date | string
-  departmentId?: number | null
-  createdBy?: number | null
-  status?: string
-  approvedBy?: number | null
-  approvedAt?: Date | string | null
+  departmentId: number
+  requestedById: number
+  approvedById?: number | null
+  status?: $Enums.IndentStatus
   remarks?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -426,10 +422,7 @@ export type IndentCreateManyInput = {
 export type IndentUpdateManyMutationInput = {
   indentNo?: Prisma.StringFieldUpdateOperationsInput | string
   indentDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  departmentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  approvedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumIndentStatusFieldUpdateOperationsInput | $Enums.IndentStatus
   remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -439,11 +432,10 @@ export type IndentUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   indentNo?: Prisma.StringFieldUpdateOperationsInput | string
   indentDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  departmentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  createdBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  approvedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  departmentId?: Prisma.IntFieldUpdateOperationsInput | number
+  requestedById?: Prisma.IntFieldUpdateOperationsInput | number
+  approvedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status?: Prisma.EnumIndentStatusFieldUpdateOperationsInput | $Enums.IndentStatus
   remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -464,10 +456,9 @@ export type IndentCountOrderByAggregateInput = {
   indentNo?: Prisma.SortOrder
   indentDate?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
-  createdBy?: Prisma.SortOrder
+  requestedById?: Prisma.SortOrder
+  approvedById?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  approvedBy?: Prisma.SortOrder
-  approvedAt?: Prisma.SortOrder
   remarks?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -476,8 +467,8 @@ export type IndentCountOrderByAggregateInput = {
 export type IndentAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
-  createdBy?: Prisma.SortOrder
-  approvedBy?: Prisma.SortOrder
+  requestedById?: Prisma.SortOrder
+  approvedById?: Prisma.SortOrder
 }
 
 export type IndentMaxOrderByAggregateInput = {
@@ -485,10 +476,9 @@ export type IndentMaxOrderByAggregateInput = {
   indentNo?: Prisma.SortOrder
   indentDate?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
-  createdBy?: Prisma.SortOrder
+  requestedById?: Prisma.SortOrder
+  approvedById?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  approvedBy?: Prisma.SortOrder
-  approvedAt?: Prisma.SortOrder
   remarks?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -499,10 +489,9 @@ export type IndentMinOrderByAggregateInput = {
   indentNo?: Prisma.SortOrder
   indentDate?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
-  createdBy?: Prisma.SortOrder
+  requestedById?: Prisma.SortOrder
+  approvedById?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  approvedBy?: Prisma.SortOrder
-  approvedAt?: Prisma.SortOrder
   remarks?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -511,8 +500,8 @@ export type IndentMinOrderByAggregateInput = {
 export type IndentSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
-  createdBy?: Prisma.SortOrder
-  approvedBy?: Prisma.SortOrder
+  requestedById?: Prisma.SortOrder
+  approvedById?: Prisma.SortOrder
 }
 
 export type IndentScalarRelationFilter = {
@@ -520,46 +509,139 @@ export type IndentScalarRelationFilter = {
   isNot?: Prisma.IndentWhereInput
 }
 
-export type IndentCreateNestedManyWithoutCreatedByUserInput = {
-  create?: Prisma.XOR<Prisma.IndentCreateWithoutCreatedByUserInput, Prisma.IndentUncheckedCreateWithoutCreatedByUserInput> | Prisma.IndentCreateWithoutCreatedByUserInput[] | Prisma.IndentUncheckedCreateWithoutCreatedByUserInput[]
-  connectOrCreate?: Prisma.IndentCreateOrConnectWithoutCreatedByUserInput | Prisma.IndentCreateOrConnectWithoutCreatedByUserInput[]
-  createMany?: Prisma.IndentCreateManyCreatedByUserInputEnvelope
+export type IndentNullableScalarRelationFilter = {
+  is?: Prisma.IndentWhereInput | null
+  isNot?: Prisma.IndentWhereInput | null
+}
+
+export type IndentCreateNestedManyWithoutDepartmentInput = {
+  create?: Prisma.XOR<Prisma.IndentCreateWithoutDepartmentInput, Prisma.IndentUncheckedCreateWithoutDepartmentInput> | Prisma.IndentCreateWithoutDepartmentInput[] | Prisma.IndentUncheckedCreateWithoutDepartmentInput[]
+  connectOrCreate?: Prisma.IndentCreateOrConnectWithoutDepartmentInput | Prisma.IndentCreateOrConnectWithoutDepartmentInput[]
+  createMany?: Prisma.IndentCreateManyDepartmentInputEnvelope
   connect?: Prisma.IndentWhereUniqueInput | Prisma.IndentWhereUniqueInput[]
 }
 
-export type IndentUncheckedCreateNestedManyWithoutCreatedByUserInput = {
-  create?: Prisma.XOR<Prisma.IndentCreateWithoutCreatedByUserInput, Prisma.IndentUncheckedCreateWithoutCreatedByUserInput> | Prisma.IndentCreateWithoutCreatedByUserInput[] | Prisma.IndentUncheckedCreateWithoutCreatedByUserInput[]
-  connectOrCreate?: Prisma.IndentCreateOrConnectWithoutCreatedByUserInput | Prisma.IndentCreateOrConnectWithoutCreatedByUserInput[]
-  createMany?: Prisma.IndentCreateManyCreatedByUserInputEnvelope
+export type IndentUncheckedCreateNestedManyWithoutDepartmentInput = {
+  create?: Prisma.XOR<Prisma.IndentCreateWithoutDepartmentInput, Prisma.IndentUncheckedCreateWithoutDepartmentInput> | Prisma.IndentCreateWithoutDepartmentInput[] | Prisma.IndentUncheckedCreateWithoutDepartmentInput[]
+  connectOrCreate?: Prisma.IndentCreateOrConnectWithoutDepartmentInput | Prisma.IndentCreateOrConnectWithoutDepartmentInput[]
+  createMany?: Prisma.IndentCreateManyDepartmentInputEnvelope
   connect?: Prisma.IndentWhereUniqueInput | Prisma.IndentWhereUniqueInput[]
 }
 
-export type IndentUpdateManyWithoutCreatedByUserNestedInput = {
-  create?: Prisma.XOR<Prisma.IndentCreateWithoutCreatedByUserInput, Prisma.IndentUncheckedCreateWithoutCreatedByUserInput> | Prisma.IndentCreateWithoutCreatedByUserInput[] | Prisma.IndentUncheckedCreateWithoutCreatedByUserInput[]
-  connectOrCreate?: Prisma.IndentCreateOrConnectWithoutCreatedByUserInput | Prisma.IndentCreateOrConnectWithoutCreatedByUserInput[]
-  upsert?: Prisma.IndentUpsertWithWhereUniqueWithoutCreatedByUserInput | Prisma.IndentUpsertWithWhereUniqueWithoutCreatedByUserInput[]
-  createMany?: Prisma.IndentCreateManyCreatedByUserInputEnvelope
+export type IndentUpdateManyWithoutDepartmentNestedInput = {
+  create?: Prisma.XOR<Prisma.IndentCreateWithoutDepartmentInput, Prisma.IndentUncheckedCreateWithoutDepartmentInput> | Prisma.IndentCreateWithoutDepartmentInput[] | Prisma.IndentUncheckedCreateWithoutDepartmentInput[]
+  connectOrCreate?: Prisma.IndentCreateOrConnectWithoutDepartmentInput | Prisma.IndentCreateOrConnectWithoutDepartmentInput[]
+  upsert?: Prisma.IndentUpsertWithWhereUniqueWithoutDepartmentInput | Prisma.IndentUpsertWithWhereUniqueWithoutDepartmentInput[]
+  createMany?: Prisma.IndentCreateManyDepartmentInputEnvelope
   set?: Prisma.IndentWhereUniqueInput | Prisma.IndentWhereUniqueInput[]
   disconnect?: Prisma.IndentWhereUniqueInput | Prisma.IndentWhereUniqueInput[]
   delete?: Prisma.IndentWhereUniqueInput | Prisma.IndentWhereUniqueInput[]
   connect?: Prisma.IndentWhereUniqueInput | Prisma.IndentWhereUniqueInput[]
-  update?: Prisma.IndentUpdateWithWhereUniqueWithoutCreatedByUserInput | Prisma.IndentUpdateWithWhereUniqueWithoutCreatedByUserInput[]
-  updateMany?: Prisma.IndentUpdateManyWithWhereWithoutCreatedByUserInput | Prisma.IndentUpdateManyWithWhereWithoutCreatedByUserInput[]
+  update?: Prisma.IndentUpdateWithWhereUniqueWithoutDepartmentInput | Prisma.IndentUpdateWithWhereUniqueWithoutDepartmentInput[]
+  updateMany?: Prisma.IndentUpdateManyWithWhereWithoutDepartmentInput | Prisma.IndentUpdateManyWithWhereWithoutDepartmentInput[]
   deleteMany?: Prisma.IndentScalarWhereInput | Prisma.IndentScalarWhereInput[]
 }
 
-export type IndentUncheckedUpdateManyWithoutCreatedByUserNestedInput = {
-  create?: Prisma.XOR<Prisma.IndentCreateWithoutCreatedByUserInput, Prisma.IndentUncheckedCreateWithoutCreatedByUserInput> | Prisma.IndentCreateWithoutCreatedByUserInput[] | Prisma.IndentUncheckedCreateWithoutCreatedByUserInput[]
-  connectOrCreate?: Prisma.IndentCreateOrConnectWithoutCreatedByUserInput | Prisma.IndentCreateOrConnectWithoutCreatedByUserInput[]
-  upsert?: Prisma.IndentUpsertWithWhereUniqueWithoutCreatedByUserInput | Prisma.IndentUpsertWithWhereUniqueWithoutCreatedByUserInput[]
-  createMany?: Prisma.IndentCreateManyCreatedByUserInputEnvelope
+export type IndentUncheckedUpdateManyWithoutDepartmentNestedInput = {
+  create?: Prisma.XOR<Prisma.IndentCreateWithoutDepartmentInput, Prisma.IndentUncheckedCreateWithoutDepartmentInput> | Prisma.IndentCreateWithoutDepartmentInput[] | Prisma.IndentUncheckedCreateWithoutDepartmentInput[]
+  connectOrCreate?: Prisma.IndentCreateOrConnectWithoutDepartmentInput | Prisma.IndentCreateOrConnectWithoutDepartmentInput[]
+  upsert?: Prisma.IndentUpsertWithWhereUniqueWithoutDepartmentInput | Prisma.IndentUpsertWithWhereUniqueWithoutDepartmentInput[]
+  createMany?: Prisma.IndentCreateManyDepartmentInputEnvelope
   set?: Prisma.IndentWhereUniqueInput | Prisma.IndentWhereUniqueInput[]
   disconnect?: Prisma.IndentWhereUniqueInput | Prisma.IndentWhereUniqueInput[]
   delete?: Prisma.IndentWhereUniqueInput | Prisma.IndentWhereUniqueInput[]
   connect?: Prisma.IndentWhereUniqueInput | Prisma.IndentWhereUniqueInput[]
-  update?: Prisma.IndentUpdateWithWhereUniqueWithoutCreatedByUserInput | Prisma.IndentUpdateWithWhereUniqueWithoutCreatedByUserInput[]
-  updateMany?: Prisma.IndentUpdateManyWithWhereWithoutCreatedByUserInput | Prisma.IndentUpdateManyWithWhereWithoutCreatedByUserInput[]
+  update?: Prisma.IndentUpdateWithWhereUniqueWithoutDepartmentInput | Prisma.IndentUpdateWithWhereUniqueWithoutDepartmentInput[]
+  updateMany?: Prisma.IndentUpdateManyWithWhereWithoutDepartmentInput | Prisma.IndentUpdateManyWithWhereWithoutDepartmentInput[]
   deleteMany?: Prisma.IndentScalarWhereInput | Prisma.IndentScalarWhereInput[]
+}
+
+export type IndentCreateNestedManyWithoutRequestedByInput = {
+  create?: Prisma.XOR<Prisma.IndentCreateWithoutRequestedByInput, Prisma.IndentUncheckedCreateWithoutRequestedByInput> | Prisma.IndentCreateWithoutRequestedByInput[] | Prisma.IndentUncheckedCreateWithoutRequestedByInput[]
+  connectOrCreate?: Prisma.IndentCreateOrConnectWithoutRequestedByInput | Prisma.IndentCreateOrConnectWithoutRequestedByInput[]
+  createMany?: Prisma.IndentCreateManyRequestedByInputEnvelope
+  connect?: Prisma.IndentWhereUniqueInput | Prisma.IndentWhereUniqueInput[]
+}
+
+export type IndentCreateNestedManyWithoutApprovedByInput = {
+  create?: Prisma.XOR<Prisma.IndentCreateWithoutApprovedByInput, Prisma.IndentUncheckedCreateWithoutApprovedByInput> | Prisma.IndentCreateWithoutApprovedByInput[] | Prisma.IndentUncheckedCreateWithoutApprovedByInput[]
+  connectOrCreate?: Prisma.IndentCreateOrConnectWithoutApprovedByInput | Prisma.IndentCreateOrConnectWithoutApprovedByInput[]
+  createMany?: Prisma.IndentCreateManyApprovedByInputEnvelope
+  connect?: Prisma.IndentWhereUniqueInput | Prisma.IndentWhereUniqueInput[]
+}
+
+export type IndentUncheckedCreateNestedManyWithoutRequestedByInput = {
+  create?: Prisma.XOR<Prisma.IndentCreateWithoutRequestedByInput, Prisma.IndentUncheckedCreateWithoutRequestedByInput> | Prisma.IndentCreateWithoutRequestedByInput[] | Prisma.IndentUncheckedCreateWithoutRequestedByInput[]
+  connectOrCreate?: Prisma.IndentCreateOrConnectWithoutRequestedByInput | Prisma.IndentCreateOrConnectWithoutRequestedByInput[]
+  createMany?: Prisma.IndentCreateManyRequestedByInputEnvelope
+  connect?: Prisma.IndentWhereUniqueInput | Prisma.IndentWhereUniqueInput[]
+}
+
+export type IndentUncheckedCreateNestedManyWithoutApprovedByInput = {
+  create?: Prisma.XOR<Prisma.IndentCreateWithoutApprovedByInput, Prisma.IndentUncheckedCreateWithoutApprovedByInput> | Prisma.IndentCreateWithoutApprovedByInput[] | Prisma.IndentUncheckedCreateWithoutApprovedByInput[]
+  connectOrCreate?: Prisma.IndentCreateOrConnectWithoutApprovedByInput | Prisma.IndentCreateOrConnectWithoutApprovedByInput[]
+  createMany?: Prisma.IndentCreateManyApprovedByInputEnvelope
+  connect?: Prisma.IndentWhereUniqueInput | Prisma.IndentWhereUniqueInput[]
+}
+
+export type IndentUpdateManyWithoutRequestedByNestedInput = {
+  create?: Prisma.XOR<Prisma.IndentCreateWithoutRequestedByInput, Prisma.IndentUncheckedCreateWithoutRequestedByInput> | Prisma.IndentCreateWithoutRequestedByInput[] | Prisma.IndentUncheckedCreateWithoutRequestedByInput[]
+  connectOrCreate?: Prisma.IndentCreateOrConnectWithoutRequestedByInput | Prisma.IndentCreateOrConnectWithoutRequestedByInput[]
+  upsert?: Prisma.IndentUpsertWithWhereUniqueWithoutRequestedByInput | Prisma.IndentUpsertWithWhereUniqueWithoutRequestedByInput[]
+  createMany?: Prisma.IndentCreateManyRequestedByInputEnvelope
+  set?: Prisma.IndentWhereUniqueInput | Prisma.IndentWhereUniqueInput[]
+  disconnect?: Prisma.IndentWhereUniqueInput | Prisma.IndentWhereUniqueInput[]
+  delete?: Prisma.IndentWhereUniqueInput | Prisma.IndentWhereUniqueInput[]
+  connect?: Prisma.IndentWhereUniqueInput | Prisma.IndentWhereUniqueInput[]
+  update?: Prisma.IndentUpdateWithWhereUniqueWithoutRequestedByInput | Prisma.IndentUpdateWithWhereUniqueWithoutRequestedByInput[]
+  updateMany?: Prisma.IndentUpdateManyWithWhereWithoutRequestedByInput | Prisma.IndentUpdateManyWithWhereWithoutRequestedByInput[]
+  deleteMany?: Prisma.IndentScalarWhereInput | Prisma.IndentScalarWhereInput[]
+}
+
+export type IndentUpdateManyWithoutApprovedByNestedInput = {
+  create?: Prisma.XOR<Prisma.IndentCreateWithoutApprovedByInput, Prisma.IndentUncheckedCreateWithoutApprovedByInput> | Prisma.IndentCreateWithoutApprovedByInput[] | Prisma.IndentUncheckedCreateWithoutApprovedByInput[]
+  connectOrCreate?: Prisma.IndentCreateOrConnectWithoutApprovedByInput | Prisma.IndentCreateOrConnectWithoutApprovedByInput[]
+  upsert?: Prisma.IndentUpsertWithWhereUniqueWithoutApprovedByInput | Prisma.IndentUpsertWithWhereUniqueWithoutApprovedByInput[]
+  createMany?: Prisma.IndentCreateManyApprovedByInputEnvelope
+  set?: Prisma.IndentWhereUniqueInput | Prisma.IndentWhereUniqueInput[]
+  disconnect?: Prisma.IndentWhereUniqueInput | Prisma.IndentWhereUniqueInput[]
+  delete?: Prisma.IndentWhereUniqueInput | Prisma.IndentWhereUniqueInput[]
+  connect?: Prisma.IndentWhereUniqueInput | Prisma.IndentWhereUniqueInput[]
+  update?: Prisma.IndentUpdateWithWhereUniqueWithoutApprovedByInput | Prisma.IndentUpdateWithWhereUniqueWithoutApprovedByInput[]
+  updateMany?: Prisma.IndentUpdateManyWithWhereWithoutApprovedByInput | Prisma.IndentUpdateManyWithWhereWithoutApprovedByInput[]
+  deleteMany?: Prisma.IndentScalarWhereInput | Prisma.IndentScalarWhereInput[]
+}
+
+export type IndentUncheckedUpdateManyWithoutRequestedByNestedInput = {
+  create?: Prisma.XOR<Prisma.IndentCreateWithoutRequestedByInput, Prisma.IndentUncheckedCreateWithoutRequestedByInput> | Prisma.IndentCreateWithoutRequestedByInput[] | Prisma.IndentUncheckedCreateWithoutRequestedByInput[]
+  connectOrCreate?: Prisma.IndentCreateOrConnectWithoutRequestedByInput | Prisma.IndentCreateOrConnectWithoutRequestedByInput[]
+  upsert?: Prisma.IndentUpsertWithWhereUniqueWithoutRequestedByInput | Prisma.IndentUpsertWithWhereUniqueWithoutRequestedByInput[]
+  createMany?: Prisma.IndentCreateManyRequestedByInputEnvelope
+  set?: Prisma.IndentWhereUniqueInput | Prisma.IndentWhereUniqueInput[]
+  disconnect?: Prisma.IndentWhereUniqueInput | Prisma.IndentWhereUniqueInput[]
+  delete?: Prisma.IndentWhereUniqueInput | Prisma.IndentWhereUniqueInput[]
+  connect?: Prisma.IndentWhereUniqueInput | Prisma.IndentWhereUniqueInput[]
+  update?: Prisma.IndentUpdateWithWhereUniqueWithoutRequestedByInput | Prisma.IndentUpdateWithWhereUniqueWithoutRequestedByInput[]
+  updateMany?: Prisma.IndentUpdateManyWithWhereWithoutRequestedByInput | Prisma.IndentUpdateManyWithWhereWithoutRequestedByInput[]
+  deleteMany?: Prisma.IndentScalarWhereInput | Prisma.IndentScalarWhereInput[]
+}
+
+export type IndentUncheckedUpdateManyWithoutApprovedByNestedInput = {
+  create?: Prisma.XOR<Prisma.IndentCreateWithoutApprovedByInput, Prisma.IndentUncheckedCreateWithoutApprovedByInput> | Prisma.IndentCreateWithoutApprovedByInput[] | Prisma.IndentUncheckedCreateWithoutApprovedByInput[]
+  connectOrCreate?: Prisma.IndentCreateOrConnectWithoutApprovedByInput | Prisma.IndentCreateOrConnectWithoutApprovedByInput[]
+  upsert?: Prisma.IndentUpsertWithWhereUniqueWithoutApprovedByInput | Prisma.IndentUpsertWithWhereUniqueWithoutApprovedByInput[]
+  createMany?: Prisma.IndentCreateManyApprovedByInputEnvelope
+  set?: Prisma.IndentWhereUniqueInput | Prisma.IndentWhereUniqueInput[]
+  disconnect?: Prisma.IndentWhereUniqueInput | Prisma.IndentWhereUniqueInput[]
+  delete?: Prisma.IndentWhereUniqueInput | Prisma.IndentWhereUniqueInput[]
+  connect?: Prisma.IndentWhereUniqueInput | Prisma.IndentWhereUniqueInput[]
+  update?: Prisma.IndentUpdateWithWhereUniqueWithoutApprovedByInput | Prisma.IndentUpdateWithWhereUniqueWithoutApprovedByInput[]
+  updateMany?: Prisma.IndentUpdateManyWithWhereWithoutApprovedByInput | Prisma.IndentUpdateManyWithWhereWithoutApprovedByInput[]
+  deleteMany?: Prisma.IndentScalarWhereInput | Prisma.IndentScalarWhereInput[]
+}
+
+export type EnumIndentStatusFieldUpdateOperationsInput = {
+  set?: $Enums.IndentStatus
 }
 
 export type IndentCreateNestedOneWithoutItemsInput = {
@@ -576,57 +658,73 @@ export type IndentUpdateOneRequiredWithoutItemsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.IndentUpdateToOneWithWhereWithoutItemsInput, Prisma.IndentUpdateWithoutItemsInput>, Prisma.IndentUncheckedUpdateWithoutItemsInput>
 }
 
-export type IndentCreateWithoutCreatedByUserInput = {
+export type IndentCreateNestedOneWithoutPurchaseOrdersInput = {
+  create?: Prisma.XOR<Prisma.IndentCreateWithoutPurchaseOrdersInput, Prisma.IndentUncheckedCreateWithoutPurchaseOrdersInput>
+  connectOrCreate?: Prisma.IndentCreateOrConnectWithoutPurchaseOrdersInput
+  connect?: Prisma.IndentWhereUniqueInput
+}
+
+export type IndentUpdateOneWithoutPurchaseOrdersNestedInput = {
+  create?: Prisma.XOR<Prisma.IndentCreateWithoutPurchaseOrdersInput, Prisma.IndentUncheckedCreateWithoutPurchaseOrdersInput>
+  connectOrCreate?: Prisma.IndentCreateOrConnectWithoutPurchaseOrdersInput
+  upsert?: Prisma.IndentUpsertWithoutPurchaseOrdersInput
+  disconnect?: Prisma.IndentWhereInput | boolean
+  delete?: Prisma.IndentWhereInput | boolean
+  connect?: Prisma.IndentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.IndentUpdateToOneWithWhereWithoutPurchaseOrdersInput, Prisma.IndentUpdateWithoutPurchaseOrdersInput>, Prisma.IndentUncheckedUpdateWithoutPurchaseOrdersInput>
+}
+
+export type IndentCreateWithoutDepartmentInput = {
   indentNo: string
   indentDate?: Date | string
-  departmentId?: number | null
-  status?: string
-  approvedBy?: number | null
-  approvedAt?: Date | string | null
+  status?: $Enums.IndentStatus
   remarks?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  items?: Prisma.IndentItemCreateNestedManyWithoutIndentInput
+  requestedBy: Prisma.UserCreateNestedOneWithoutCreatedPRsInput
+  approvedBy?: Prisma.UserCreateNestedOneWithoutApprovedPRsInput
+  items?: Prisma.IndenItemCreateNestedManyWithoutIndentInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutPrInput
 }
 
-export type IndentUncheckedCreateWithoutCreatedByUserInput = {
+export type IndentUncheckedCreateWithoutDepartmentInput = {
   id?: number
   indentNo: string
   indentDate?: Date | string
-  departmentId?: number | null
-  status?: string
-  approvedBy?: number | null
-  approvedAt?: Date | string | null
+  requestedById: number
+  approvedById?: number | null
+  status?: $Enums.IndentStatus
   remarks?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  items?: Prisma.IndentItemUncheckedCreateNestedManyWithoutIndentInput
+  items?: Prisma.IndenItemUncheckedCreateNestedManyWithoutIndentInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutPrInput
 }
 
-export type IndentCreateOrConnectWithoutCreatedByUserInput = {
+export type IndentCreateOrConnectWithoutDepartmentInput = {
   where: Prisma.IndentWhereUniqueInput
-  create: Prisma.XOR<Prisma.IndentCreateWithoutCreatedByUserInput, Prisma.IndentUncheckedCreateWithoutCreatedByUserInput>
+  create: Prisma.XOR<Prisma.IndentCreateWithoutDepartmentInput, Prisma.IndentUncheckedCreateWithoutDepartmentInput>
 }
 
-export type IndentCreateManyCreatedByUserInputEnvelope = {
-  data: Prisma.IndentCreateManyCreatedByUserInput | Prisma.IndentCreateManyCreatedByUserInput[]
+export type IndentCreateManyDepartmentInputEnvelope = {
+  data: Prisma.IndentCreateManyDepartmentInput | Prisma.IndentCreateManyDepartmentInput[]
   skipDuplicates?: boolean
 }
 
-export type IndentUpsertWithWhereUniqueWithoutCreatedByUserInput = {
+export type IndentUpsertWithWhereUniqueWithoutDepartmentInput = {
   where: Prisma.IndentWhereUniqueInput
-  update: Prisma.XOR<Prisma.IndentUpdateWithoutCreatedByUserInput, Prisma.IndentUncheckedUpdateWithoutCreatedByUserInput>
-  create: Prisma.XOR<Prisma.IndentCreateWithoutCreatedByUserInput, Prisma.IndentUncheckedCreateWithoutCreatedByUserInput>
+  update: Prisma.XOR<Prisma.IndentUpdateWithoutDepartmentInput, Prisma.IndentUncheckedUpdateWithoutDepartmentInput>
+  create: Prisma.XOR<Prisma.IndentCreateWithoutDepartmentInput, Prisma.IndentUncheckedCreateWithoutDepartmentInput>
 }
 
-export type IndentUpdateWithWhereUniqueWithoutCreatedByUserInput = {
+export type IndentUpdateWithWhereUniqueWithoutDepartmentInput = {
   where: Prisma.IndentWhereUniqueInput
-  data: Prisma.XOR<Prisma.IndentUpdateWithoutCreatedByUserInput, Prisma.IndentUncheckedUpdateWithoutCreatedByUserInput>
+  data: Prisma.XOR<Prisma.IndentUpdateWithoutDepartmentInput, Prisma.IndentUncheckedUpdateWithoutDepartmentInput>
 }
 
-export type IndentUpdateManyWithWhereWithoutCreatedByUserInput = {
+export type IndentUpdateManyWithWhereWithoutDepartmentInput = {
   where: Prisma.IndentScalarWhereInput
-  data: Prisma.XOR<Prisma.IndentUpdateManyMutationInput, Prisma.IndentUncheckedUpdateManyWithoutCreatedByUserInput>
+  data: Prisma.XOR<Prisma.IndentUpdateManyMutationInput, Prisma.IndentUncheckedUpdateManyWithoutDepartmentInput>
 }
 
 export type IndentScalarWhereInput = {
@@ -636,41 +734,146 @@ export type IndentScalarWhereInput = {
   id?: Prisma.IntFilter<"Indent"> | number
   indentNo?: Prisma.StringFilter<"Indent"> | string
   indentDate?: Prisma.DateTimeFilter<"Indent"> | Date | string
-  departmentId?: Prisma.IntNullableFilter<"Indent"> | number | null
-  createdBy?: Prisma.IntNullableFilter<"Indent"> | number | null
-  status?: Prisma.StringFilter<"Indent"> | string
-  approvedBy?: Prisma.IntNullableFilter<"Indent"> | number | null
-  approvedAt?: Prisma.DateTimeNullableFilter<"Indent"> | Date | string | null
+  departmentId?: Prisma.IntFilter<"Indent"> | number
+  requestedById?: Prisma.IntFilter<"Indent"> | number
+  approvedById?: Prisma.IntNullableFilter<"Indent"> | number | null
+  status?: Prisma.EnumIndentStatusFilter<"Indent"> | $Enums.IndentStatus
   remarks?: Prisma.StringNullableFilter<"Indent"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Indent"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Indent"> | Date | string
 }
 
-export type IndentCreateWithoutItemsInput = {
+export type IndentCreateWithoutRequestedByInput = {
   indentNo: string
   indentDate?: Date | string
-  departmentId?: number | null
-  status?: string
-  approvedBy?: number | null
-  approvedAt?: Date | string | null
+  status?: $Enums.IndentStatus
   remarks?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  createdByUser?: Prisma.UserCreateNestedOneWithoutCreatedIndentsInput
+  approvedBy?: Prisma.UserCreateNestedOneWithoutApprovedPRsInput
+  items?: Prisma.IndenItemCreateNestedManyWithoutIndentInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutPrInput
+  department: Prisma.DepartmentCreateNestedOneWithoutIndentInput
+}
+
+export type IndentUncheckedCreateWithoutRequestedByInput = {
+  id?: number
+  indentNo: string
+  indentDate?: Date | string
+  departmentId: number
+  approvedById?: number | null
+  status?: $Enums.IndentStatus
+  remarks?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  items?: Prisma.IndenItemUncheckedCreateNestedManyWithoutIndentInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutPrInput
+}
+
+export type IndentCreateOrConnectWithoutRequestedByInput = {
+  where: Prisma.IndentWhereUniqueInput
+  create: Prisma.XOR<Prisma.IndentCreateWithoutRequestedByInput, Prisma.IndentUncheckedCreateWithoutRequestedByInput>
+}
+
+export type IndentCreateManyRequestedByInputEnvelope = {
+  data: Prisma.IndentCreateManyRequestedByInput | Prisma.IndentCreateManyRequestedByInput[]
+  skipDuplicates?: boolean
+}
+
+export type IndentCreateWithoutApprovedByInput = {
+  indentNo: string
+  indentDate?: Date | string
+  status?: $Enums.IndentStatus
+  remarks?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  requestedBy: Prisma.UserCreateNestedOneWithoutCreatedPRsInput
+  items?: Prisma.IndenItemCreateNestedManyWithoutIndentInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutPrInput
+  department: Prisma.DepartmentCreateNestedOneWithoutIndentInput
+}
+
+export type IndentUncheckedCreateWithoutApprovedByInput = {
+  id?: number
+  indentNo: string
+  indentDate?: Date | string
+  departmentId: number
+  requestedById: number
+  status?: $Enums.IndentStatus
+  remarks?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  items?: Prisma.IndenItemUncheckedCreateNestedManyWithoutIndentInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutPrInput
+}
+
+export type IndentCreateOrConnectWithoutApprovedByInput = {
+  where: Prisma.IndentWhereUniqueInput
+  create: Prisma.XOR<Prisma.IndentCreateWithoutApprovedByInput, Prisma.IndentUncheckedCreateWithoutApprovedByInput>
+}
+
+export type IndentCreateManyApprovedByInputEnvelope = {
+  data: Prisma.IndentCreateManyApprovedByInput | Prisma.IndentCreateManyApprovedByInput[]
+  skipDuplicates?: boolean
+}
+
+export type IndentUpsertWithWhereUniqueWithoutRequestedByInput = {
+  where: Prisma.IndentWhereUniqueInput
+  update: Prisma.XOR<Prisma.IndentUpdateWithoutRequestedByInput, Prisma.IndentUncheckedUpdateWithoutRequestedByInput>
+  create: Prisma.XOR<Prisma.IndentCreateWithoutRequestedByInput, Prisma.IndentUncheckedCreateWithoutRequestedByInput>
+}
+
+export type IndentUpdateWithWhereUniqueWithoutRequestedByInput = {
+  where: Prisma.IndentWhereUniqueInput
+  data: Prisma.XOR<Prisma.IndentUpdateWithoutRequestedByInput, Prisma.IndentUncheckedUpdateWithoutRequestedByInput>
+}
+
+export type IndentUpdateManyWithWhereWithoutRequestedByInput = {
+  where: Prisma.IndentScalarWhereInput
+  data: Prisma.XOR<Prisma.IndentUpdateManyMutationInput, Prisma.IndentUncheckedUpdateManyWithoutRequestedByInput>
+}
+
+export type IndentUpsertWithWhereUniqueWithoutApprovedByInput = {
+  where: Prisma.IndentWhereUniqueInput
+  update: Prisma.XOR<Prisma.IndentUpdateWithoutApprovedByInput, Prisma.IndentUncheckedUpdateWithoutApprovedByInput>
+  create: Prisma.XOR<Prisma.IndentCreateWithoutApprovedByInput, Prisma.IndentUncheckedCreateWithoutApprovedByInput>
+}
+
+export type IndentUpdateWithWhereUniqueWithoutApprovedByInput = {
+  where: Prisma.IndentWhereUniqueInput
+  data: Prisma.XOR<Prisma.IndentUpdateWithoutApprovedByInput, Prisma.IndentUncheckedUpdateWithoutApprovedByInput>
+}
+
+export type IndentUpdateManyWithWhereWithoutApprovedByInput = {
+  where: Prisma.IndentScalarWhereInput
+  data: Prisma.XOR<Prisma.IndentUpdateManyMutationInput, Prisma.IndentUncheckedUpdateManyWithoutApprovedByInput>
+}
+
+export type IndentCreateWithoutItemsInput = {
+  indentNo: string
+  indentDate?: Date | string
+  status?: $Enums.IndentStatus
+  remarks?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  requestedBy: Prisma.UserCreateNestedOneWithoutCreatedPRsInput
+  approvedBy?: Prisma.UserCreateNestedOneWithoutApprovedPRsInput
+  purchaseOrders?: Prisma.PurchaseOrderCreateNestedManyWithoutPrInput
+  department: Prisma.DepartmentCreateNestedOneWithoutIndentInput
 }
 
 export type IndentUncheckedCreateWithoutItemsInput = {
   id?: number
   indentNo: string
   indentDate?: Date | string
-  departmentId?: number | null
-  createdBy?: number | null
-  status?: string
-  approvedBy?: number | null
-  approvedAt?: Date | string | null
+  departmentId: number
+  requestedById: number
+  approvedById?: number | null
+  status?: $Enums.IndentStatus
   remarks?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedCreateNestedManyWithoutPrInput
 }
 
 export type IndentCreateOrConnectWithoutItemsInput = {
@@ -692,78 +895,248 @@ export type IndentUpdateToOneWithWhereWithoutItemsInput = {
 export type IndentUpdateWithoutItemsInput = {
   indentNo?: Prisma.StringFieldUpdateOperationsInput | string
   indentDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  departmentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  approvedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumIndentStatusFieldUpdateOperationsInput | $Enums.IndentStatus
   remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  createdByUser?: Prisma.UserUpdateOneWithoutCreatedIndentsNestedInput
+  requestedBy?: Prisma.UserUpdateOneRequiredWithoutCreatedPRsNestedInput
+  approvedBy?: Prisma.UserUpdateOneWithoutApprovedPRsNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutPrNestedInput
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutIndentNestedInput
 }
 
 export type IndentUncheckedUpdateWithoutItemsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   indentNo?: Prisma.StringFieldUpdateOperationsInput | string
   indentDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  departmentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  createdBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  approvedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  departmentId?: Prisma.IntFieldUpdateOperationsInput | number
+  requestedById?: Prisma.IntFieldUpdateOperationsInput | number
+  approvedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status?: Prisma.EnumIndentStatusFieldUpdateOperationsInput | $Enums.IndentStatus
   remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutPrNestedInput
 }
 
-export type IndentCreateManyCreatedByUserInput = {
+export type IndentCreateWithoutPurchaseOrdersInput = {
+  indentNo: string
+  indentDate?: Date | string
+  status?: $Enums.IndentStatus
+  remarks?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  requestedBy: Prisma.UserCreateNestedOneWithoutCreatedPRsInput
+  approvedBy?: Prisma.UserCreateNestedOneWithoutApprovedPRsInput
+  items?: Prisma.IndenItemCreateNestedManyWithoutIndentInput
+  department: Prisma.DepartmentCreateNestedOneWithoutIndentInput
+}
+
+export type IndentUncheckedCreateWithoutPurchaseOrdersInput = {
   id?: number
   indentNo: string
   indentDate?: Date | string
-  departmentId?: number | null
-  status?: string
-  approvedBy?: number | null
-  approvedAt?: Date | string | null
+  departmentId: number
+  requestedById: number
+  approvedById?: number | null
+  status?: $Enums.IndentStatus
+  remarks?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  items?: Prisma.IndenItemUncheckedCreateNestedManyWithoutIndentInput
+}
+
+export type IndentCreateOrConnectWithoutPurchaseOrdersInput = {
+  where: Prisma.IndentWhereUniqueInput
+  create: Prisma.XOR<Prisma.IndentCreateWithoutPurchaseOrdersInput, Prisma.IndentUncheckedCreateWithoutPurchaseOrdersInput>
+}
+
+export type IndentUpsertWithoutPurchaseOrdersInput = {
+  update: Prisma.XOR<Prisma.IndentUpdateWithoutPurchaseOrdersInput, Prisma.IndentUncheckedUpdateWithoutPurchaseOrdersInput>
+  create: Prisma.XOR<Prisma.IndentCreateWithoutPurchaseOrdersInput, Prisma.IndentUncheckedCreateWithoutPurchaseOrdersInput>
+  where?: Prisma.IndentWhereInput
+}
+
+export type IndentUpdateToOneWithWhereWithoutPurchaseOrdersInput = {
+  where?: Prisma.IndentWhereInput
+  data: Prisma.XOR<Prisma.IndentUpdateWithoutPurchaseOrdersInput, Prisma.IndentUncheckedUpdateWithoutPurchaseOrdersInput>
+}
+
+export type IndentUpdateWithoutPurchaseOrdersInput = {
+  indentNo?: Prisma.StringFieldUpdateOperationsInput | string
+  indentDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumIndentStatusFieldUpdateOperationsInput | $Enums.IndentStatus
+  remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  requestedBy?: Prisma.UserUpdateOneRequiredWithoutCreatedPRsNestedInput
+  approvedBy?: Prisma.UserUpdateOneWithoutApprovedPRsNestedInput
+  items?: Prisma.IndenItemUpdateManyWithoutIndentNestedInput
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutIndentNestedInput
+}
+
+export type IndentUncheckedUpdateWithoutPurchaseOrdersInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  indentNo?: Prisma.StringFieldUpdateOperationsInput | string
+  indentDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  departmentId?: Prisma.IntFieldUpdateOperationsInput | number
+  requestedById?: Prisma.IntFieldUpdateOperationsInput | number
+  approvedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status?: Prisma.EnumIndentStatusFieldUpdateOperationsInput | $Enums.IndentStatus
+  remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  items?: Prisma.IndenItemUncheckedUpdateManyWithoutIndentNestedInput
+}
+
+export type IndentCreateManyDepartmentInput = {
+  id?: number
+  indentNo: string
+  indentDate?: Date | string
+  requestedById: number
+  approvedById?: number | null
+  status?: $Enums.IndentStatus
   remarks?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
-export type IndentUpdateWithoutCreatedByUserInput = {
+export type IndentUpdateWithoutDepartmentInput = {
   indentNo?: Prisma.StringFieldUpdateOperationsInput | string
   indentDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  departmentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  approvedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumIndentStatusFieldUpdateOperationsInput | $Enums.IndentStatus
   remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  items?: Prisma.IndentItemUpdateManyWithoutIndentNestedInput
+  requestedBy?: Prisma.UserUpdateOneRequiredWithoutCreatedPRsNestedInput
+  approvedBy?: Prisma.UserUpdateOneWithoutApprovedPRsNestedInput
+  items?: Prisma.IndenItemUpdateManyWithoutIndentNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutPrNestedInput
 }
 
-export type IndentUncheckedUpdateWithoutCreatedByUserInput = {
+export type IndentUncheckedUpdateWithoutDepartmentInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   indentNo?: Prisma.StringFieldUpdateOperationsInput | string
   indentDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  departmentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  approvedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  requestedById?: Prisma.IntFieldUpdateOperationsInput | number
+  approvedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status?: Prisma.EnumIndentStatusFieldUpdateOperationsInput | $Enums.IndentStatus
   remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  items?: Prisma.IndentItemUncheckedUpdateManyWithoutIndentNestedInput
+  items?: Prisma.IndenItemUncheckedUpdateManyWithoutIndentNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutPrNestedInput
 }
 
-export type IndentUncheckedUpdateManyWithoutCreatedByUserInput = {
+export type IndentUncheckedUpdateManyWithoutDepartmentInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   indentNo?: Prisma.StringFieldUpdateOperationsInput | string
   indentDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  departmentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  approvedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  requestedById?: Prisma.IntFieldUpdateOperationsInput | number
+  approvedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status?: Prisma.EnumIndentStatusFieldUpdateOperationsInput | $Enums.IndentStatus
+  remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type IndentCreateManyRequestedByInput = {
+  id?: number
+  indentNo: string
+  indentDate?: Date | string
+  departmentId: number
+  approvedById?: number | null
+  status?: $Enums.IndentStatus
+  remarks?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type IndentCreateManyApprovedByInput = {
+  id?: number
+  indentNo: string
+  indentDate?: Date | string
+  departmentId: number
+  requestedById: number
+  status?: $Enums.IndentStatus
+  remarks?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type IndentUpdateWithoutRequestedByInput = {
+  indentNo?: Prisma.StringFieldUpdateOperationsInput | string
+  indentDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumIndentStatusFieldUpdateOperationsInput | $Enums.IndentStatus
+  remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  approvedBy?: Prisma.UserUpdateOneWithoutApprovedPRsNestedInput
+  items?: Prisma.IndenItemUpdateManyWithoutIndentNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutPrNestedInput
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutIndentNestedInput
+}
+
+export type IndentUncheckedUpdateWithoutRequestedByInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  indentNo?: Prisma.StringFieldUpdateOperationsInput | string
+  indentDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  departmentId?: Prisma.IntFieldUpdateOperationsInput | number
+  approvedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status?: Prisma.EnumIndentStatusFieldUpdateOperationsInput | $Enums.IndentStatus
+  remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  items?: Prisma.IndenItemUncheckedUpdateManyWithoutIndentNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutPrNestedInput
+}
+
+export type IndentUncheckedUpdateManyWithoutRequestedByInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  indentNo?: Prisma.StringFieldUpdateOperationsInput | string
+  indentDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  departmentId?: Prisma.IntFieldUpdateOperationsInput | number
+  approvedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status?: Prisma.EnumIndentStatusFieldUpdateOperationsInput | $Enums.IndentStatus
+  remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type IndentUpdateWithoutApprovedByInput = {
+  indentNo?: Prisma.StringFieldUpdateOperationsInput | string
+  indentDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumIndentStatusFieldUpdateOperationsInput | $Enums.IndentStatus
+  remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  requestedBy?: Prisma.UserUpdateOneRequiredWithoutCreatedPRsNestedInput
+  items?: Prisma.IndenItemUpdateManyWithoutIndentNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUpdateManyWithoutPrNestedInput
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutIndentNestedInput
+}
+
+export type IndentUncheckedUpdateWithoutApprovedByInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  indentNo?: Prisma.StringFieldUpdateOperationsInput | string
+  indentDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  departmentId?: Prisma.IntFieldUpdateOperationsInput | number
+  requestedById?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumIndentStatusFieldUpdateOperationsInput | $Enums.IndentStatus
+  remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  items?: Prisma.IndenItemUncheckedUpdateManyWithoutIndentNestedInput
+  purchaseOrders?: Prisma.PurchaseOrderUncheckedUpdateManyWithoutPrNestedInput
+}
+
+export type IndentUncheckedUpdateManyWithoutApprovedByInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  indentNo?: Prisma.StringFieldUpdateOperationsInput | string
+  indentDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  departmentId?: Prisma.IntFieldUpdateOperationsInput | number
+  requestedById?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumIndentStatusFieldUpdateOperationsInput | $Enums.IndentStatus
   remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -776,10 +1149,12 @@ export type IndentUncheckedUpdateManyWithoutCreatedByUserInput = {
 
 export type IndentCountOutputType = {
   items: number
+  purchaseOrders: number
 }
 
 export type IndentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   items?: boolean | IndentCountOutputTypeCountItemsArgs
+  purchaseOrders?: boolean | IndentCountOutputTypeCountPurchaseOrdersArgs
 }
 
 /**
@@ -796,7 +1171,14 @@ export type IndentCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exten
  * IndentCountOutputType without action
  */
 export type IndentCountOutputTypeCountItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.IndentItemWhereInput
+  where?: Prisma.IndenItemWhereInput
+}
+
+/**
+ * IndentCountOutputType without action
+ */
+export type IndentCountOutputTypeCountPurchaseOrdersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PurchaseOrderWhereInput
 }
 
 
@@ -805,15 +1187,17 @@ export type IndentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   indentNo?: boolean
   indentDate?: boolean
   departmentId?: boolean
-  createdBy?: boolean
+  requestedById?: boolean
+  approvedById?: boolean
   status?: boolean
-  approvedBy?: boolean
-  approvedAt?: boolean
   remarks?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  requestedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  approvedBy?: boolean | Prisma.Indent$approvedByArgs<ExtArgs>
   items?: boolean | Prisma.Indent$itemsArgs<ExtArgs>
-  createdByUser?: boolean | Prisma.Indent$createdByUserArgs<ExtArgs>
+  purchaseOrders?: boolean | Prisma.Indent$purchaseOrdersArgs<ExtArgs>
+  department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.IndentCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["indent"]>
 
@@ -822,14 +1206,15 @@ export type IndentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   indentNo?: boolean
   indentDate?: boolean
   departmentId?: boolean
-  createdBy?: boolean
+  requestedById?: boolean
+  approvedById?: boolean
   status?: boolean
-  approvedBy?: boolean
-  approvedAt?: boolean
   remarks?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  createdByUser?: boolean | Prisma.Indent$createdByUserArgs<ExtArgs>
+  requestedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  approvedBy?: boolean | Prisma.Indent$approvedByArgs<ExtArgs>
+  department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["indent"]>
 
 export type IndentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -837,14 +1222,15 @@ export type IndentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   indentNo?: boolean
   indentDate?: boolean
   departmentId?: boolean
-  createdBy?: boolean
+  requestedById?: boolean
+  approvedById?: boolean
   status?: boolean
-  approvedBy?: boolean
-  approvedAt?: boolean
   remarks?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  createdByUser?: boolean | Prisma.Indent$createdByUserArgs<ExtArgs>
+  requestedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  approvedBy?: boolean | Prisma.Indent$approvedByArgs<ExtArgs>
+  department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["indent"]>
 
 export type IndentSelectScalar = {
@@ -852,43 +1238,51 @@ export type IndentSelectScalar = {
   indentNo?: boolean
   indentDate?: boolean
   departmentId?: boolean
-  createdBy?: boolean
+  requestedById?: boolean
+  approvedById?: boolean
   status?: boolean
-  approvedBy?: boolean
-  approvedAt?: boolean
   remarks?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type IndentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "indentNo" | "indentDate" | "departmentId" | "createdBy" | "status" | "approvedBy" | "approvedAt" | "remarks" | "createdAt" | "updatedAt", ExtArgs["result"]["indent"]>
+export type IndentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "indentNo" | "indentDate" | "departmentId" | "requestedById" | "approvedById" | "status" | "remarks" | "createdAt" | "updatedAt", ExtArgs["result"]["indent"]>
 export type IndentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  requestedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  approvedBy?: boolean | Prisma.Indent$approvedByArgs<ExtArgs>
   items?: boolean | Prisma.Indent$itemsArgs<ExtArgs>
-  createdByUser?: boolean | Prisma.Indent$createdByUserArgs<ExtArgs>
+  purchaseOrders?: boolean | Prisma.Indent$purchaseOrdersArgs<ExtArgs>
+  department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.IndentCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type IndentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  createdByUser?: boolean | Prisma.Indent$createdByUserArgs<ExtArgs>
+  requestedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  approvedBy?: boolean | Prisma.Indent$approvedByArgs<ExtArgs>
+  department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
 }
 export type IndentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  createdByUser?: boolean | Prisma.Indent$createdByUserArgs<ExtArgs>
+  requestedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  approvedBy?: boolean | Prisma.Indent$approvedByArgs<ExtArgs>
+  department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
 }
 
 export type $IndentPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Indent"
   objects: {
-    items: Prisma.$IndentItemPayload<ExtArgs>[]
-    createdByUser: Prisma.$UserPayload<ExtArgs> | null
+    requestedBy: Prisma.$UserPayload<ExtArgs>
+    approvedBy: Prisma.$UserPayload<ExtArgs> | null
+    items: Prisma.$IndenItemPayload<ExtArgs>[]
+    purchaseOrders: Prisma.$PurchaseOrderPayload<ExtArgs>[]
+    department: Prisma.$DepartmentPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     indentNo: string
     indentDate: Date
-    departmentId: number | null
-    createdBy: number | null
-    status: string
-    approvedBy: number | null
-    approvedAt: Date | null
+    departmentId: number
+    requestedById: number
+    approvedById: number | null
+    status: $Enums.IndentStatus
     remarks: string | null
     createdAt: Date
     updatedAt: Date
@@ -1286,8 +1680,11 @@ readonly fields: IndentFieldRefs;
  */
 export interface Prisma__IndentClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  items<T extends Prisma.Indent$itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Indent$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IndentItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  createdByUser<T extends Prisma.Indent$createdByUserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Indent$createdByUserArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  requestedBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  approvedBy<T extends Prisma.Indent$approvedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Indent$approvedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  items<T extends Prisma.Indent$itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Indent$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IndenItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  purchaseOrders<T extends Prisma.Indent$purchaseOrdersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Indent$purchaseOrdersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PurchaseOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  department<T extends Prisma.DepartmentDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DepartmentDefaultArgs<ExtArgs>>): Prisma.Prisma__DepartmentClient<runtime.Types.Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1321,10 +1718,9 @@ export interface IndentFieldRefs {
   readonly indentNo: Prisma.FieldRef<"Indent", 'String'>
   readonly indentDate: Prisma.FieldRef<"Indent", 'DateTime'>
   readonly departmentId: Prisma.FieldRef<"Indent", 'Int'>
-  readonly createdBy: Prisma.FieldRef<"Indent", 'Int'>
-  readonly status: Prisma.FieldRef<"Indent", 'String'>
-  readonly approvedBy: Prisma.FieldRef<"Indent", 'Int'>
-  readonly approvedAt: Prisma.FieldRef<"Indent", 'DateTime'>
+  readonly requestedById: Prisma.FieldRef<"Indent", 'Int'>
+  readonly approvedById: Prisma.FieldRef<"Indent", 'Int'>
+  readonly status: Prisma.FieldRef<"Indent", 'IndentStatus'>
   readonly remarks: Prisma.FieldRef<"Indent", 'String'>
   readonly createdAt: Prisma.FieldRef<"Indent", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Indent", 'DateTime'>
@@ -1724,33 +2120,9 @@ export type IndentDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
- * Indent.items
+ * Indent.approvedBy
  */
-export type Indent$itemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the IndentItem
-   */
-  select?: Prisma.IndentItemSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the IndentItem
-   */
-  omit?: Prisma.IndentItemOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.IndentItemInclude<ExtArgs> | null
-  where?: Prisma.IndentItemWhereInput
-  orderBy?: Prisma.IndentItemOrderByWithRelationInput | Prisma.IndentItemOrderByWithRelationInput[]
-  cursor?: Prisma.IndentItemWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.IndentItemScalarFieldEnum | Prisma.IndentItemScalarFieldEnum[]
-}
-
-/**
- * Indent.createdByUser
- */
-export type Indent$createdByUserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Indent$approvedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the User
    */
@@ -1764,6 +2136,54 @@ export type Indent$createdByUserArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   include?: Prisma.UserInclude<ExtArgs> | null
   where?: Prisma.UserWhereInput
+}
+
+/**
+ * Indent.items
+ */
+export type Indent$itemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the IndenItem
+   */
+  select?: Prisma.IndenItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the IndenItem
+   */
+  omit?: Prisma.IndenItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.IndenItemInclude<ExtArgs> | null
+  where?: Prisma.IndenItemWhereInput
+  orderBy?: Prisma.IndenItemOrderByWithRelationInput | Prisma.IndenItemOrderByWithRelationInput[]
+  cursor?: Prisma.IndenItemWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.IndenItemScalarFieldEnum | Prisma.IndenItemScalarFieldEnum[]
+}
+
+/**
+ * Indent.purchaseOrders
+ */
+export type Indent$purchaseOrdersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PurchaseOrder
+   */
+  select?: Prisma.PurchaseOrderSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PurchaseOrder
+   */
+  omit?: Prisma.PurchaseOrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PurchaseOrderInclude<ExtArgs> | null
+  where?: Prisma.PurchaseOrderWhereInput
+  orderBy?: Prisma.PurchaseOrderOrderByWithRelationInput | Prisma.PurchaseOrderOrderByWithRelationInput[]
+  cursor?: Prisma.PurchaseOrderWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PurchaseOrderScalarFieldEnum | Prisma.PurchaseOrderScalarFieldEnum[]
 }
 
 /**

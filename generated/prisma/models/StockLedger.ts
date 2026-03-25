@@ -28,106 +28,106 @@ export type AggregateStockLedger = {
 
 export type StockLedgerAvgAggregateOutputType = {
   id: number | null
-  medicineId: number | null
+  productId: number | null
+  variantId: number | null
   refId: number | null
   qtyIn: number | null
   qtyOut: number | null
   rate: number | null
-  discountPercent: number | null
-  discountAmount: number | null
   saleRate: number | null
+  balanceQty: number | null
   valueIn: number | null
   valueOut: number | null
-  balanceQty: number | null
   balanceValue: number | null
+  discountPercent: number | null
+  discountAmount: number | null
   customerDiscountPercent: number | null
-  customerDiscountAmount: number | null
 }
 
 export type StockLedgerSumAggregateOutputType = {
   id: number | null
-  medicineId: number | null
+  productId: number | null
+  variantId: number | null
   refId: number | null
   qtyIn: number | null
   qtyOut: number | null
   rate: number | null
-  discountPercent: number | null
-  discountAmount: number | null
   saleRate: number | null
+  balanceQty: number | null
   valueIn: number | null
   valueOut: number | null
-  balanceQty: number | null
   balanceValue: number | null
+  discountPercent: number | null
+  discountAmount: number | null
   customerDiscountPercent: number | null
-  customerDiscountAmount: number | null
 }
 
 export type StockLedgerMinAggregateOutputType = {
   id: number | null
-  medicineId: number | null
-  batchNo: string | null
-  expiryDate: Date | null
+  productId: number | null
+  variantId: number | null
   transactionType: string | null
   refTable: string | null
   refId: number | null
+  batchNo: string | null
+  expiryDate: Date | null
   qtyIn: number | null
   qtyOut: number | null
   rate: number | null
-  discountPercent: number | null
-  discountAmount: number | null
   saleRate: number | null
+  balanceQty: number | null
   valueIn: number | null
   valueOut: number | null
-  balanceQty: number | null
   balanceValue: number | null
+  discountPercent: number | null
+  discountAmount: number | null
   customerDiscountPercent: number | null
-  customerDiscountAmount: number | null
   createdAt: Date | null
 }
 
 export type StockLedgerMaxAggregateOutputType = {
   id: number | null
-  medicineId: number | null
-  batchNo: string | null
-  expiryDate: Date | null
+  productId: number | null
+  variantId: number | null
   transactionType: string | null
   refTable: string | null
   refId: number | null
+  batchNo: string | null
+  expiryDate: Date | null
   qtyIn: number | null
   qtyOut: number | null
   rate: number | null
-  discountPercent: number | null
-  discountAmount: number | null
   saleRate: number | null
+  balanceQty: number | null
   valueIn: number | null
   valueOut: number | null
-  balanceQty: number | null
   balanceValue: number | null
+  discountPercent: number | null
+  discountAmount: number | null
   customerDiscountPercent: number | null
-  customerDiscountAmount: number | null
   createdAt: Date | null
 }
 
 export type StockLedgerCountAggregateOutputType = {
   id: number
-  medicineId: number
-  batchNo: number
-  expiryDate: number
+  productId: number
+  variantId: number
   transactionType: number
   refTable: number
   refId: number
+  batchNo: number
+  expiryDate: number
   qtyIn: number
   qtyOut: number
   rate: number
-  discountPercent: number
-  discountAmount: number
   saleRate: number
+  balanceQty: number
   valueIn: number
   valueOut: number
-  balanceQty: number
   balanceValue: number
+  discountPercent: number
+  discountAmount: number
   customerDiscountPercent: number
-  customerDiscountAmount: number
   createdAt: number
   _all: number
 }
@@ -135,106 +135,106 @@ export type StockLedgerCountAggregateOutputType = {
 
 export type StockLedgerAvgAggregateInputType = {
   id?: true
-  medicineId?: true
+  productId?: true
+  variantId?: true
   refId?: true
   qtyIn?: true
   qtyOut?: true
   rate?: true
-  discountPercent?: true
-  discountAmount?: true
   saleRate?: true
+  balanceQty?: true
   valueIn?: true
   valueOut?: true
-  balanceQty?: true
   balanceValue?: true
+  discountPercent?: true
+  discountAmount?: true
   customerDiscountPercent?: true
-  customerDiscountAmount?: true
 }
 
 export type StockLedgerSumAggregateInputType = {
   id?: true
-  medicineId?: true
+  productId?: true
+  variantId?: true
   refId?: true
   qtyIn?: true
   qtyOut?: true
   rate?: true
-  discountPercent?: true
-  discountAmount?: true
   saleRate?: true
+  balanceQty?: true
   valueIn?: true
   valueOut?: true
-  balanceQty?: true
   balanceValue?: true
+  discountPercent?: true
+  discountAmount?: true
   customerDiscountPercent?: true
-  customerDiscountAmount?: true
 }
 
 export type StockLedgerMinAggregateInputType = {
   id?: true
-  medicineId?: true
-  batchNo?: true
-  expiryDate?: true
+  productId?: true
+  variantId?: true
   transactionType?: true
   refTable?: true
   refId?: true
+  batchNo?: true
+  expiryDate?: true
   qtyIn?: true
   qtyOut?: true
   rate?: true
-  discountPercent?: true
-  discountAmount?: true
   saleRate?: true
+  balanceQty?: true
   valueIn?: true
   valueOut?: true
-  balanceQty?: true
   balanceValue?: true
+  discountPercent?: true
+  discountAmount?: true
   customerDiscountPercent?: true
-  customerDiscountAmount?: true
   createdAt?: true
 }
 
 export type StockLedgerMaxAggregateInputType = {
   id?: true
-  medicineId?: true
-  batchNo?: true
-  expiryDate?: true
+  productId?: true
+  variantId?: true
   transactionType?: true
   refTable?: true
   refId?: true
+  batchNo?: true
+  expiryDate?: true
   qtyIn?: true
   qtyOut?: true
   rate?: true
-  discountPercent?: true
-  discountAmount?: true
   saleRate?: true
+  balanceQty?: true
   valueIn?: true
   valueOut?: true
-  balanceQty?: true
   balanceValue?: true
+  discountPercent?: true
+  discountAmount?: true
   customerDiscountPercent?: true
-  customerDiscountAmount?: true
   createdAt?: true
 }
 
 export type StockLedgerCountAggregateInputType = {
   id?: true
-  medicineId?: true
-  batchNo?: true
-  expiryDate?: true
+  productId?: true
+  variantId?: true
   transactionType?: true
   refTable?: true
   refId?: true
+  batchNo?: true
+  expiryDate?: true
   qtyIn?: true
   qtyOut?: true
   rate?: true
-  discountPercent?: true
-  discountAmount?: true
   saleRate?: true
+  balanceQty?: true
   valueIn?: true
   valueOut?: true
-  balanceQty?: true
   balanceValue?: true
+  discountPercent?: true
+  discountAmount?: true
   customerDiscountPercent?: true
-  customerDiscountAmount?: true
   createdAt?: true
   _all?: true
 }
@@ -327,24 +327,24 @@ export type StockLedgerGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 
 export type StockLedgerGroupByOutputType = {
   id: number
-  medicineId: number
-  batchNo: string
-  expiryDate: Date
+  productId: number
+  variantId: number | null
   transactionType: string
   refTable: string
   refId: number
+  batchNo: string | null
+  expiryDate: Date | null
   qtyIn: number | null
   qtyOut: number | null
   rate: number | null
-  discountPercent: number | null
-  discountAmount: number | null
   saleRate: number | null
+  balanceQty: number
   valueIn: number | null
   valueOut: number | null
-  balanceQty: number
-  balanceValue: number
+  balanceValue: number | null
+  discountPercent: number | null
+  discountAmount: number | null
   customerDiscountPercent: number | null
-  customerDiscountAmount: number | null
   createdAt: Date
   _count: StockLedgerCountAggregateOutputType | null
   _avg: StockLedgerAvgAggregateOutputType | null
@@ -373,50 +373,52 @@ export type StockLedgerWhereInput = {
   OR?: Prisma.StockLedgerWhereInput[]
   NOT?: Prisma.StockLedgerWhereInput | Prisma.StockLedgerWhereInput[]
   id?: Prisma.IntFilter<"StockLedger"> | number
-  medicineId?: Prisma.IntFilter<"StockLedger"> | number
-  batchNo?: Prisma.StringFilter<"StockLedger"> | string
-  expiryDate?: Prisma.DateTimeFilter<"StockLedger"> | Date | string
+  productId?: Prisma.IntFilter<"StockLedger"> | number
+  variantId?: Prisma.IntNullableFilter<"StockLedger"> | number | null
   transactionType?: Prisma.StringFilter<"StockLedger"> | string
   refTable?: Prisma.StringFilter<"StockLedger"> | string
   refId?: Prisma.IntFilter<"StockLedger"> | number
+  batchNo?: Prisma.StringNullableFilter<"StockLedger"> | string | null
+  expiryDate?: Prisma.DateTimeNullableFilter<"StockLedger"> | Date | string | null
   qtyIn?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
   qtyOut?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
   rate?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
-  discountPercent?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
-  discountAmount?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
   saleRate?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
+  balanceQty?: Prisma.FloatFilter<"StockLedger"> | number
   valueIn?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
   valueOut?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
-  balanceQty?: Prisma.FloatFilter<"StockLedger"> | number
-  balanceValue?: Prisma.FloatFilter<"StockLedger"> | number
+  balanceValue?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
+  discountPercent?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
+  discountAmount?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
   customerDiscountPercent?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
-  customerDiscountAmount?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
   createdAt?: Prisma.DateTimeFilter<"StockLedger"> | Date | string
-  medicine?: Prisma.XOR<Prisma.MedicineScalarRelationFilter, Prisma.MedicineWhereInput>
+  product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
+  variant?: Prisma.XOR<Prisma.ProductVariantNullableScalarRelationFilter, Prisma.ProductVariantWhereInput> | null
 }
 
 export type StockLedgerOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  medicineId?: Prisma.SortOrder
-  batchNo?: Prisma.SortOrder
-  expiryDate?: Prisma.SortOrder
+  productId?: Prisma.SortOrder
+  variantId?: Prisma.SortOrderInput | Prisma.SortOrder
   transactionType?: Prisma.SortOrder
   refTable?: Prisma.SortOrder
   refId?: Prisma.SortOrder
+  batchNo?: Prisma.SortOrderInput | Prisma.SortOrder
+  expiryDate?: Prisma.SortOrderInput | Prisma.SortOrder
   qtyIn?: Prisma.SortOrderInput | Prisma.SortOrder
   qtyOut?: Prisma.SortOrderInput | Prisma.SortOrder
   rate?: Prisma.SortOrderInput | Prisma.SortOrder
-  discountPercent?: Prisma.SortOrderInput | Prisma.SortOrder
-  discountAmount?: Prisma.SortOrderInput | Prisma.SortOrder
   saleRate?: Prisma.SortOrderInput | Prisma.SortOrder
+  balanceQty?: Prisma.SortOrder
   valueIn?: Prisma.SortOrderInput | Prisma.SortOrder
   valueOut?: Prisma.SortOrderInput | Prisma.SortOrder
-  balanceQty?: Prisma.SortOrder
-  balanceValue?: Prisma.SortOrder
+  balanceValue?: Prisma.SortOrderInput | Prisma.SortOrder
+  discountPercent?: Prisma.SortOrderInput | Prisma.SortOrder
+  discountAmount?: Prisma.SortOrderInput | Prisma.SortOrder
   customerDiscountPercent?: Prisma.SortOrderInput | Prisma.SortOrder
-  customerDiscountAmount?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  medicine?: Prisma.MedicineOrderByWithRelationInput
+  product?: Prisma.ProductOrderByWithRelationInput
+  variant?: Prisma.ProductVariantOrderByWithRelationInput
 }
 
 export type StockLedgerWhereUniqueInput = Prisma.AtLeast<{
@@ -424,48 +426,49 @@ export type StockLedgerWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.StockLedgerWhereInput | Prisma.StockLedgerWhereInput[]
   OR?: Prisma.StockLedgerWhereInput[]
   NOT?: Prisma.StockLedgerWhereInput | Prisma.StockLedgerWhereInput[]
-  medicineId?: Prisma.IntFilter<"StockLedger"> | number
-  batchNo?: Prisma.StringFilter<"StockLedger"> | string
-  expiryDate?: Prisma.DateTimeFilter<"StockLedger"> | Date | string
+  productId?: Prisma.IntFilter<"StockLedger"> | number
+  variantId?: Prisma.IntNullableFilter<"StockLedger"> | number | null
   transactionType?: Prisma.StringFilter<"StockLedger"> | string
   refTable?: Prisma.StringFilter<"StockLedger"> | string
   refId?: Prisma.IntFilter<"StockLedger"> | number
+  batchNo?: Prisma.StringNullableFilter<"StockLedger"> | string | null
+  expiryDate?: Prisma.DateTimeNullableFilter<"StockLedger"> | Date | string | null
   qtyIn?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
   qtyOut?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
   rate?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
-  discountPercent?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
-  discountAmount?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
   saleRate?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
+  balanceQty?: Prisma.FloatFilter<"StockLedger"> | number
   valueIn?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
   valueOut?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
-  balanceQty?: Prisma.FloatFilter<"StockLedger"> | number
-  balanceValue?: Prisma.FloatFilter<"StockLedger"> | number
+  balanceValue?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
+  discountPercent?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
+  discountAmount?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
   customerDiscountPercent?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
-  customerDiscountAmount?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
   createdAt?: Prisma.DateTimeFilter<"StockLedger"> | Date | string
-  medicine?: Prisma.XOR<Prisma.MedicineScalarRelationFilter, Prisma.MedicineWhereInput>
+  product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
+  variant?: Prisma.XOR<Prisma.ProductVariantNullableScalarRelationFilter, Prisma.ProductVariantWhereInput> | null
 }, "id">
 
 export type StockLedgerOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  medicineId?: Prisma.SortOrder
-  batchNo?: Prisma.SortOrder
-  expiryDate?: Prisma.SortOrder
+  productId?: Prisma.SortOrder
+  variantId?: Prisma.SortOrderInput | Prisma.SortOrder
   transactionType?: Prisma.SortOrder
   refTable?: Prisma.SortOrder
   refId?: Prisma.SortOrder
+  batchNo?: Prisma.SortOrderInput | Prisma.SortOrder
+  expiryDate?: Prisma.SortOrderInput | Prisma.SortOrder
   qtyIn?: Prisma.SortOrderInput | Prisma.SortOrder
   qtyOut?: Prisma.SortOrderInput | Prisma.SortOrder
   rate?: Prisma.SortOrderInput | Prisma.SortOrder
-  discountPercent?: Prisma.SortOrderInput | Prisma.SortOrder
-  discountAmount?: Prisma.SortOrderInput | Prisma.SortOrder
   saleRate?: Prisma.SortOrderInput | Prisma.SortOrder
+  balanceQty?: Prisma.SortOrder
   valueIn?: Prisma.SortOrderInput | Prisma.SortOrder
   valueOut?: Prisma.SortOrderInput | Prisma.SortOrder
-  balanceQty?: Prisma.SortOrder
-  balanceValue?: Prisma.SortOrder
+  balanceValue?: Prisma.SortOrderInput | Prisma.SortOrder
+  discountPercent?: Prisma.SortOrderInput | Prisma.SortOrder
+  discountAmount?: Prisma.SortOrderInput | Prisma.SortOrder
   customerDiscountPercent?: Prisma.SortOrderInput | Prisma.SortOrder
-  customerDiscountAmount?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.StockLedgerCountOrderByAggregateInput
   _avg?: Prisma.StockLedgerAvgOrderByAggregateInput
@@ -479,181 +482,180 @@ export type StockLedgerScalarWhereWithAggregatesInput = {
   OR?: Prisma.StockLedgerScalarWhereWithAggregatesInput[]
   NOT?: Prisma.StockLedgerScalarWhereWithAggregatesInput | Prisma.StockLedgerScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"StockLedger"> | number
-  medicineId?: Prisma.IntWithAggregatesFilter<"StockLedger"> | number
-  batchNo?: Prisma.StringWithAggregatesFilter<"StockLedger"> | string
-  expiryDate?: Prisma.DateTimeWithAggregatesFilter<"StockLedger"> | Date | string
+  productId?: Prisma.IntWithAggregatesFilter<"StockLedger"> | number
+  variantId?: Prisma.IntNullableWithAggregatesFilter<"StockLedger"> | number | null
   transactionType?: Prisma.StringWithAggregatesFilter<"StockLedger"> | string
   refTable?: Prisma.StringWithAggregatesFilter<"StockLedger"> | string
   refId?: Prisma.IntWithAggregatesFilter<"StockLedger"> | number
+  batchNo?: Prisma.StringNullableWithAggregatesFilter<"StockLedger"> | string | null
+  expiryDate?: Prisma.DateTimeNullableWithAggregatesFilter<"StockLedger"> | Date | string | null
   qtyIn?: Prisma.FloatNullableWithAggregatesFilter<"StockLedger"> | number | null
   qtyOut?: Prisma.FloatNullableWithAggregatesFilter<"StockLedger"> | number | null
   rate?: Prisma.FloatNullableWithAggregatesFilter<"StockLedger"> | number | null
-  discountPercent?: Prisma.FloatNullableWithAggregatesFilter<"StockLedger"> | number | null
-  discountAmount?: Prisma.FloatNullableWithAggregatesFilter<"StockLedger"> | number | null
   saleRate?: Prisma.FloatNullableWithAggregatesFilter<"StockLedger"> | number | null
+  balanceQty?: Prisma.FloatWithAggregatesFilter<"StockLedger"> | number
   valueIn?: Prisma.FloatNullableWithAggregatesFilter<"StockLedger"> | number | null
   valueOut?: Prisma.FloatNullableWithAggregatesFilter<"StockLedger"> | number | null
-  balanceQty?: Prisma.FloatWithAggregatesFilter<"StockLedger"> | number
-  balanceValue?: Prisma.FloatWithAggregatesFilter<"StockLedger"> | number
+  balanceValue?: Prisma.FloatNullableWithAggregatesFilter<"StockLedger"> | number | null
+  discountPercent?: Prisma.FloatNullableWithAggregatesFilter<"StockLedger"> | number | null
+  discountAmount?: Prisma.FloatNullableWithAggregatesFilter<"StockLedger"> | number | null
   customerDiscountPercent?: Prisma.FloatNullableWithAggregatesFilter<"StockLedger"> | number | null
-  customerDiscountAmount?: Prisma.FloatNullableWithAggregatesFilter<"StockLedger"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"StockLedger"> | Date | string
 }
 
 export type StockLedgerCreateInput = {
-  batchNo: string
-  expiryDate: Date | string
   transactionType: string
   refTable: string
   refId: number
+  batchNo?: string | null
+  expiryDate?: Date | string | null
   qtyIn?: number | null
   qtyOut?: number | null
   rate?: number | null
-  discountPercent?: number | null
-  discountAmount?: number | null
   saleRate?: number | null
+  balanceQty: number
   valueIn?: number | null
   valueOut?: number | null
-  balanceQty: number
-  balanceValue: number
+  balanceValue?: number | null
+  discountPercent?: number | null
+  discountAmount?: number | null
   customerDiscountPercent?: number | null
-  customerDiscountAmount?: number | null
   createdAt?: Date | string
-  medicine: Prisma.MedicineCreateNestedOneWithoutStockLedgersInput
+  product: Prisma.ProductCreateNestedOneWithoutStockLedgersInput
+  variant?: Prisma.ProductVariantCreateNestedOneWithoutStockLedgersInput
 }
 
 export type StockLedgerUncheckedCreateInput = {
   id?: number
-  medicineId: number
-  batchNo: string
-  expiryDate: Date | string
+  productId: number
+  variantId?: number | null
   transactionType: string
   refTable: string
   refId: number
+  batchNo?: string | null
+  expiryDate?: Date | string | null
   qtyIn?: number | null
   qtyOut?: number | null
   rate?: number | null
-  discountPercent?: number | null
-  discountAmount?: number | null
   saleRate?: number | null
+  balanceQty: number
   valueIn?: number | null
   valueOut?: number | null
-  balanceQty: number
-  balanceValue: number
+  balanceValue?: number | null
+  discountPercent?: number | null
+  discountAmount?: number | null
   customerDiscountPercent?: number | null
-  customerDiscountAmount?: number | null
   createdAt?: Date | string
 }
 
 export type StockLedgerUpdateInput = {
-  batchNo?: Prisma.StringFieldUpdateOperationsInput | string
-  expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   transactionType?: Prisma.StringFieldUpdateOperationsInput | string
   refTable?: Prisma.StringFieldUpdateOperationsInput | string
   refId?: Prisma.IntFieldUpdateOperationsInput | number
+  batchNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   qtyIn?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   qtyOut?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   rate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  discountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   saleRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  balanceQty?: Prisma.FloatFieldUpdateOperationsInput | number
   valueIn?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   valueOut?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  balanceQty?: Prisma.FloatFieldUpdateOperationsInput | number
-  balanceValue?: Prisma.FloatFieldUpdateOperationsInput | number
+  balanceValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  discountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   customerDiscountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  customerDiscountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  medicine?: Prisma.MedicineUpdateOneRequiredWithoutStockLedgersNestedInput
+  product?: Prisma.ProductUpdateOneRequiredWithoutStockLedgersNestedInput
+  variant?: Prisma.ProductVariantUpdateOneWithoutStockLedgersNestedInput
 }
 
 export type StockLedgerUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  medicineId?: Prisma.IntFieldUpdateOperationsInput | number
-  batchNo?: Prisma.StringFieldUpdateOperationsInput | string
-  expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  productId?: Prisma.IntFieldUpdateOperationsInput | number
+  variantId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   transactionType?: Prisma.StringFieldUpdateOperationsInput | string
   refTable?: Prisma.StringFieldUpdateOperationsInput | string
   refId?: Prisma.IntFieldUpdateOperationsInput | number
+  batchNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   qtyIn?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   qtyOut?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   rate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  discountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   saleRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  balanceQty?: Prisma.FloatFieldUpdateOperationsInput | number
   valueIn?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   valueOut?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  balanceQty?: Prisma.FloatFieldUpdateOperationsInput | number
-  balanceValue?: Prisma.FloatFieldUpdateOperationsInput | number
+  balanceValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  discountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   customerDiscountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  customerDiscountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type StockLedgerCreateManyInput = {
   id?: number
-  medicineId: number
-  batchNo: string
-  expiryDate: Date | string
+  productId: number
+  variantId?: number | null
   transactionType: string
   refTable: string
   refId: number
+  batchNo?: string | null
+  expiryDate?: Date | string | null
   qtyIn?: number | null
   qtyOut?: number | null
   rate?: number | null
-  discountPercent?: number | null
-  discountAmount?: number | null
   saleRate?: number | null
+  balanceQty: number
   valueIn?: number | null
   valueOut?: number | null
-  balanceQty: number
-  balanceValue: number
+  balanceValue?: number | null
+  discountPercent?: number | null
+  discountAmount?: number | null
   customerDiscountPercent?: number | null
-  customerDiscountAmount?: number | null
   createdAt?: Date | string
 }
 
 export type StockLedgerUpdateManyMutationInput = {
-  batchNo?: Prisma.StringFieldUpdateOperationsInput | string
-  expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   transactionType?: Prisma.StringFieldUpdateOperationsInput | string
   refTable?: Prisma.StringFieldUpdateOperationsInput | string
   refId?: Prisma.IntFieldUpdateOperationsInput | number
+  batchNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   qtyIn?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   qtyOut?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   rate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  discountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   saleRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  balanceQty?: Prisma.FloatFieldUpdateOperationsInput | number
   valueIn?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   valueOut?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  balanceQty?: Prisma.FloatFieldUpdateOperationsInput | number
-  balanceValue?: Prisma.FloatFieldUpdateOperationsInput | number
+  balanceValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  discountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   customerDiscountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  customerDiscountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type StockLedgerUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  medicineId?: Prisma.IntFieldUpdateOperationsInput | number
-  batchNo?: Prisma.StringFieldUpdateOperationsInput | string
-  expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  productId?: Prisma.IntFieldUpdateOperationsInput | number
+  variantId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   transactionType?: Prisma.StringFieldUpdateOperationsInput | string
   refTable?: Prisma.StringFieldUpdateOperationsInput | string
   refId?: Prisma.IntFieldUpdateOperationsInput | number
+  batchNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   qtyIn?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   qtyOut?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   rate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  discountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   saleRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  balanceQty?: Prisma.FloatFieldUpdateOperationsInput | number
   valueIn?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   valueOut?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  balanceQty?: Prisma.FloatFieldUpdateOperationsInput | number
-  balanceValue?: Prisma.FloatFieldUpdateOperationsInput | number
+  balanceValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  discountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   customerDiscountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  customerDiscountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -669,218 +671,260 @@ export type StockLedgerOrderByRelationAggregateInput = {
 
 export type StockLedgerCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  medicineId?: Prisma.SortOrder
-  batchNo?: Prisma.SortOrder
-  expiryDate?: Prisma.SortOrder
+  productId?: Prisma.SortOrder
+  variantId?: Prisma.SortOrder
   transactionType?: Prisma.SortOrder
   refTable?: Prisma.SortOrder
   refId?: Prisma.SortOrder
+  batchNo?: Prisma.SortOrder
+  expiryDate?: Prisma.SortOrder
   qtyIn?: Prisma.SortOrder
   qtyOut?: Prisma.SortOrder
   rate?: Prisma.SortOrder
-  discountPercent?: Prisma.SortOrder
-  discountAmount?: Prisma.SortOrder
   saleRate?: Prisma.SortOrder
+  balanceQty?: Prisma.SortOrder
   valueIn?: Prisma.SortOrder
   valueOut?: Prisma.SortOrder
-  balanceQty?: Prisma.SortOrder
   balanceValue?: Prisma.SortOrder
+  discountPercent?: Prisma.SortOrder
+  discountAmount?: Prisma.SortOrder
   customerDiscountPercent?: Prisma.SortOrder
-  customerDiscountAmount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type StockLedgerAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  medicineId?: Prisma.SortOrder
+  productId?: Prisma.SortOrder
+  variantId?: Prisma.SortOrder
   refId?: Prisma.SortOrder
   qtyIn?: Prisma.SortOrder
   qtyOut?: Prisma.SortOrder
   rate?: Prisma.SortOrder
-  discountPercent?: Prisma.SortOrder
-  discountAmount?: Prisma.SortOrder
   saleRate?: Prisma.SortOrder
+  balanceQty?: Prisma.SortOrder
   valueIn?: Prisma.SortOrder
   valueOut?: Prisma.SortOrder
-  balanceQty?: Prisma.SortOrder
   balanceValue?: Prisma.SortOrder
+  discountPercent?: Prisma.SortOrder
+  discountAmount?: Prisma.SortOrder
   customerDiscountPercent?: Prisma.SortOrder
-  customerDiscountAmount?: Prisma.SortOrder
 }
 
 export type StockLedgerMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  medicineId?: Prisma.SortOrder
-  batchNo?: Prisma.SortOrder
-  expiryDate?: Prisma.SortOrder
+  productId?: Prisma.SortOrder
+  variantId?: Prisma.SortOrder
   transactionType?: Prisma.SortOrder
   refTable?: Prisma.SortOrder
   refId?: Prisma.SortOrder
+  batchNo?: Prisma.SortOrder
+  expiryDate?: Prisma.SortOrder
   qtyIn?: Prisma.SortOrder
   qtyOut?: Prisma.SortOrder
   rate?: Prisma.SortOrder
-  discountPercent?: Prisma.SortOrder
-  discountAmount?: Prisma.SortOrder
   saleRate?: Prisma.SortOrder
+  balanceQty?: Prisma.SortOrder
   valueIn?: Prisma.SortOrder
   valueOut?: Prisma.SortOrder
-  balanceQty?: Prisma.SortOrder
   balanceValue?: Prisma.SortOrder
+  discountPercent?: Prisma.SortOrder
+  discountAmount?: Prisma.SortOrder
   customerDiscountPercent?: Prisma.SortOrder
-  customerDiscountAmount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type StockLedgerMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  medicineId?: Prisma.SortOrder
-  batchNo?: Prisma.SortOrder
-  expiryDate?: Prisma.SortOrder
+  productId?: Prisma.SortOrder
+  variantId?: Prisma.SortOrder
   transactionType?: Prisma.SortOrder
   refTable?: Prisma.SortOrder
   refId?: Prisma.SortOrder
+  batchNo?: Prisma.SortOrder
+  expiryDate?: Prisma.SortOrder
   qtyIn?: Prisma.SortOrder
   qtyOut?: Prisma.SortOrder
   rate?: Prisma.SortOrder
-  discountPercent?: Prisma.SortOrder
-  discountAmount?: Prisma.SortOrder
   saleRate?: Prisma.SortOrder
+  balanceQty?: Prisma.SortOrder
   valueIn?: Prisma.SortOrder
   valueOut?: Prisma.SortOrder
-  balanceQty?: Prisma.SortOrder
   balanceValue?: Prisma.SortOrder
+  discountPercent?: Prisma.SortOrder
+  discountAmount?: Prisma.SortOrder
   customerDiscountPercent?: Prisma.SortOrder
-  customerDiscountAmount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type StockLedgerSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  medicineId?: Prisma.SortOrder
+  productId?: Prisma.SortOrder
+  variantId?: Prisma.SortOrder
   refId?: Prisma.SortOrder
   qtyIn?: Prisma.SortOrder
   qtyOut?: Prisma.SortOrder
   rate?: Prisma.SortOrder
-  discountPercent?: Prisma.SortOrder
-  discountAmount?: Prisma.SortOrder
   saleRate?: Prisma.SortOrder
+  balanceQty?: Prisma.SortOrder
   valueIn?: Prisma.SortOrder
   valueOut?: Prisma.SortOrder
-  balanceQty?: Prisma.SortOrder
   balanceValue?: Prisma.SortOrder
+  discountPercent?: Prisma.SortOrder
+  discountAmount?: Prisma.SortOrder
   customerDiscountPercent?: Prisma.SortOrder
-  customerDiscountAmount?: Prisma.SortOrder
 }
 
-export type StockLedgerCreateNestedManyWithoutMedicineInput = {
-  create?: Prisma.XOR<Prisma.StockLedgerCreateWithoutMedicineInput, Prisma.StockLedgerUncheckedCreateWithoutMedicineInput> | Prisma.StockLedgerCreateWithoutMedicineInput[] | Prisma.StockLedgerUncheckedCreateWithoutMedicineInput[]
-  connectOrCreate?: Prisma.StockLedgerCreateOrConnectWithoutMedicineInput | Prisma.StockLedgerCreateOrConnectWithoutMedicineInput[]
-  createMany?: Prisma.StockLedgerCreateManyMedicineInputEnvelope
+export type StockLedgerCreateNestedManyWithoutProductInput = {
+  create?: Prisma.XOR<Prisma.StockLedgerCreateWithoutProductInput, Prisma.StockLedgerUncheckedCreateWithoutProductInput> | Prisma.StockLedgerCreateWithoutProductInput[] | Prisma.StockLedgerUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.StockLedgerCreateOrConnectWithoutProductInput | Prisma.StockLedgerCreateOrConnectWithoutProductInput[]
+  createMany?: Prisma.StockLedgerCreateManyProductInputEnvelope
   connect?: Prisma.StockLedgerWhereUniqueInput | Prisma.StockLedgerWhereUniqueInput[]
 }
 
-export type StockLedgerUncheckedCreateNestedManyWithoutMedicineInput = {
-  create?: Prisma.XOR<Prisma.StockLedgerCreateWithoutMedicineInput, Prisma.StockLedgerUncheckedCreateWithoutMedicineInput> | Prisma.StockLedgerCreateWithoutMedicineInput[] | Prisma.StockLedgerUncheckedCreateWithoutMedicineInput[]
-  connectOrCreate?: Prisma.StockLedgerCreateOrConnectWithoutMedicineInput | Prisma.StockLedgerCreateOrConnectWithoutMedicineInput[]
-  createMany?: Prisma.StockLedgerCreateManyMedicineInputEnvelope
+export type StockLedgerUncheckedCreateNestedManyWithoutProductInput = {
+  create?: Prisma.XOR<Prisma.StockLedgerCreateWithoutProductInput, Prisma.StockLedgerUncheckedCreateWithoutProductInput> | Prisma.StockLedgerCreateWithoutProductInput[] | Prisma.StockLedgerUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.StockLedgerCreateOrConnectWithoutProductInput | Prisma.StockLedgerCreateOrConnectWithoutProductInput[]
+  createMany?: Prisma.StockLedgerCreateManyProductInputEnvelope
   connect?: Prisma.StockLedgerWhereUniqueInput | Prisma.StockLedgerWhereUniqueInput[]
 }
 
-export type StockLedgerUpdateManyWithoutMedicineNestedInput = {
-  create?: Prisma.XOR<Prisma.StockLedgerCreateWithoutMedicineInput, Prisma.StockLedgerUncheckedCreateWithoutMedicineInput> | Prisma.StockLedgerCreateWithoutMedicineInput[] | Prisma.StockLedgerUncheckedCreateWithoutMedicineInput[]
-  connectOrCreate?: Prisma.StockLedgerCreateOrConnectWithoutMedicineInput | Prisma.StockLedgerCreateOrConnectWithoutMedicineInput[]
-  upsert?: Prisma.StockLedgerUpsertWithWhereUniqueWithoutMedicineInput | Prisma.StockLedgerUpsertWithWhereUniqueWithoutMedicineInput[]
-  createMany?: Prisma.StockLedgerCreateManyMedicineInputEnvelope
+export type StockLedgerUpdateManyWithoutProductNestedInput = {
+  create?: Prisma.XOR<Prisma.StockLedgerCreateWithoutProductInput, Prisma.StockLedgerUncheckedCreateWithoutProductInput> | Prisma.StockLedgerCreateWithoutProductInput[] | Prisma.StockLedgerUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.StockLedgerCreateOrConnectWithoutProductInput | Prisma.StockLedgerCreateOrConnectWithoutProductInput[]
+  upsert?: Prisma.StockLedgerUpsertWithWhereUniqueWithoutProductInput | Prisma.StockLedgerUpsertWithWhereUniqueWithoutProductInput[]
+  createMany?: Prisma.StockLedgerCreateManyProductInputEnvelope
   set?: Prisma.StockLedgerWhereUniqueInput | Prisma.StockLedgerWhereUniqueInput[]
   disconnect?: Prisma.StockLedgerWhereUniqueInput | Prisma.StockLedgerWhereUniqueInput[]
   delete?: Prisma.StockLedgerWhereUniqueInput | Prisma.StockLedgerWhereUniqueInput[]
   connect?: Prisma.StockLedgerWhereUniqueInput | Prisma.StockLedgerWhereUniqueInput[]
-  update?: Prisma.StockLedgerUpdateWithWhereUniqueWithoutMedicineInput | Prisma.StockLedgerUpdateWithWhereUniqueWithoutMedicineInput[]
-  updateMany?: Prisma.StockLedgerUpdateManyWithWhereWithoutMedicineInput | Prisma.StockLedgerUpdateManyWithWhereWithoutMedicineInput[]
+  update?: Prisma.StockLedgerUpdateWithWhereUniqueWithoutProductInput | Prisma.StockLedgerUpdateWithWhereUniqueWithoutProductInput[]
+  updateMany?: Prisma.StockLedgerUpdateManyWithWhereWithoutProductInput | Prisma.StockLedgerUpdateManyWithWhereWithoutProductInput[]
   deleteMany?: Prisma.StockLedgerScalarWhereInput | Prisma.StockLedgerScalarWhereInput[]
 }
 
-export type StockLedgerUncheckedUpdateManyWithoutMedicineNestedInput = {
-  create?: Prisma.XOR<Prisma.StockLedgerCreateWithoutMedicineInput, Prisma.StockLedgerUncheckedCreateWithoutMedicineInput> | Prisma.StockLedgerCreateWithoutMedicineInput[] | Prisma.StockLedgerUncheckedCreateWithoutMedicineInput[]
-  connectOrCreate?: Prisma.StockLedgerCreateOrConnectWithoutMedicineInput | Prisma.StockLedgerCreateOrConnectWithoutMedicineInput[]
-  upsert?: Prisma.StockLedgerUpsertWithWhereUniqueWithoutMedicineInput | Prisma.StockLedgerUpsertWithWhereUniqueWithoutMedicineInput[]
-  createMany?: Prisma.StockLedgerCreateManyMedicineInputEnvelope
+export type StockLedgerUncheckedUpdateManyWithoutProductNestedInput = {
+  create?: Prisma.XOR<Prisma.StockLedgerCreateWithoutProductInput, Prisma.StockLedgerUncheckedCreateWithoutProductInput> | Prisma.StockLedgerCreateWithoutProductInput[] | Prisma.StockLedgerUncheckedCreateWithoutProductInput[]
+  connectOrCreate?: Prisma.StockLedgerCreateOrConnectWithoutProductInput | Prisma.StockLedgerCreateOrConnectWithoutProductInput[]
+  upsert?: Prisma.StockLedgerUpsertWithWhereUniqueWithoutProductInput | Prisma.StockLedgerUpsertWithWhereUniqueWithoutProductInput[]
+  createMany?: Prisma.StockLedgerCreateManyProductInputEnvelope
   set?: Prisma.StockLedgerWhereUniqueInput | Prisma.StockLedgerWhereUniqueInput[]
   disconnect?: Prisma.StockLedgerWhereUniqueInput | Prisma.StockLedgerWhereUniqueInput[]
   delete?: Prisma.StockLedgerWhereUniqueInput | Prisma.StockLedgerWhereUniqueInput[]
   connect?: Prisma.StockLedgerWhereUniqueInput | Prisma.StockLedgerWhereUniqueInput[]
-  update?: Prisma.StockLedgerUpdateWithWhereUniqueWithoutMedicineInput | Prisma.StockLedgerUpdateWithWhereUniqueWithoutMedicineInput[]
-  updateMany?: Prisma.StockLedgerUpdateManyWithWhereWithoutMedicineInput | Prisma.StockLedgerUpdateManyWithWhereWithoutMedicineInput[]
+  update?: Prisma.StockLedgerUpdateWithWhereUniqueWithoutProductInput | Prisma.StockLedgerUpdateWithWhereUniqueWithoutProductInput[]
+  updateMany?: Prisma.StockLedgerUpdateManyWithWhereWithoutProductInput | Prisma.StockLedgerUpdateManyWithWhereWithoutProductInput[]
   deleteMany?: Prisma.StockLedgerScalarWhereInput | Prisma.StockLedgerScalarWhereInput[]
 }
 
-export type StockLedgerCreateWithoutMedicineInput = {
-  batchNo: string
-  expiryDate: Date | string
+export type StockLedgerCreateNestedManyWithoutVariantInput = {
+  create?: Prisma.XOR<Prisma.StockLedgerCreateWithoutVariantInput, Prisma.StockLedgerUncheckedCreateWithoutVariantInput> | Prisma.StockLedgerCreateWithoutVariantInput[] | Prisma.StockLedgerUncheckedCreateWithoutVariantInput[]
+  connectOrCreate?: Prisma.StockLedgerCreateOrConnectWithoutVariantInput | Prisma.StockLedgerCreateOrConnectWithoutVariantInput[]
+  createMany?: Prisma.StockLedgerCreateManyVariantInputEnvelope
+  connect?: Prisma.StockLedgerWhereUniqueInput | Prisma.StockLedgerWhereUniqueInput[]
+}
+
+export type StockLedgerUncheckedCreateNestedManyWithoutVariantInput = {
+  create?: Prisma.XOR<Prisma.StockLedgerCreateWithoutVariantInput, Prisma.StockLedgerUncheckedCreateWithoutVariantInput> | Prisma.StockLedgerCreateWithoutVariantInput[] | Prisma.StockLedgerUncheckedCreateWithoutVariantInput[]
+  connectOrCreate?: Prisma.StockLedgerCreateOrConnectWithoutVariantInput | Prisma.StockLedgerCreateOrConnectWithoutVariantInput[]
+  createMany?: Prisma.StockLedgerCreateManyVariantInputEnvelope
+  connect?: Prisma.StockLedgerWhereUniqueInput | Prisma.StockLedgerWhereUniqueInput[]
+}
+
+export type StockLedgerUpdateManyWithoutVariantNestedInput = {
+  create?: Prisma.XOR<Prisma.StockLedgerCreateWithoutVariantInput, Prisma.StockLedgerUncheckedCreateWithoutVariantInput> | Prisma.StockLedgerCreateWithoutVariantInput[] | Prisma.StockLedgerUncheckedCreateWithoutVariantInput[]
+  connectOrCreate?: Prisma.StockLedgerCreateOrConnectWithoutVariantInput | Prisma.StockLedgerCreateOrConnectWithoutVariantInput[]
+  upsert?: Prisma.StockLedgerUpsertWithWhereUniqueWithoutVariantInput | Prisma.StockLedgerUpsertWithWhereUniqueWithoutVariantInput[]
+  createMany?: Prisma.StockLedgerCreateManyVariantInputEnvelope
+  set?: Prisma.StockLedgerWhereUniqueInput | Prisma.StockLedgerWhereUniqueInput[]
+  disconnect?: Prisma.StockLedgerWhereUniqueInput | Prisma.StockLedgerWhereUniqueInput[]
+  delete?: Prisma.StockLedgerWhereUniqueInput | Prisma.StockLedgerWhereUniqueInput[]
+  connect?: Prisma.StockLedgerWhereUniqueInput | Prisma.StockLedgerWhereUniqueInput[]
+  update?: Prisma.StockLedgerUpdateWithWhereUniqueWithoutVariantInput | Prisma.StockLedgerUpdateWithWhereUniqueWithoutVariantInput[]
+  updateMany?: Prisma.StockLedgerUpdateManyWithWhereWithoutVariantInput | Prisma.StockLedgerUpdateManyWithWhereWithoutVariantInput[]
+  deleteMany?: Prisma.StockLedgerScalarWhereInput | Prisma.StockLedgerScalarWhereInput[]
+}
+
+export type StockLedgerUncheckedUpdateManyWithoutVariantNestedInput = {
+  create?: Prisma.XOR<Prisma.StockLedgerCreateWithoutVariantInput, Prisma.StockLedgerUncheckedCreateWithoutVariantInput> | Prisma.StockLedgerCreateWithoutVariantInput[] | Prisma.StockLedgerUncheckedCreateWithoutVariantInput[]
+  connectOrCreate?: Prisma.StockLedgerCreateOrConnectWithoutVariantInput | Prisma.StockLedgerCreateOrConnectWithoutVariantInput[]
+  upsert?: Prisma.StockLedgerUpsertWithWhereUniqueWithoutVariantInput | Prisma.StockLedgerUpsertWithWhereUniqueWithoutVariantInput[]
+  createMany?: Prisma.StockLedgerCreateManyVariantInputEnvelope
+  set?: Prisma.StockLedgerWhereUniqueInput | Prisma.StockLedgerWhereUniqueInput[]
+  disconnect?: Prisma.StockLedgerWhereUniqueInput | Prisma.StockLedgerWhereUniqueInput[]
+  delete?: Prisma.StockLedgerWhereUniqueInput | Prisma.StockLedgerWhereUniqueInput[]
+  connect?: Prisma.StockLedgerWhereUniqueInput | Prisma.StockLedgerWhereUniqueInput[]
+  update?: Prisma.StockLedgerUpdateWithWhereUniqueWithoutVariantInput | Prisma.StockLedgerUpdateWithWhereUniqueWithoutVariantInput[]
+  updateMany?: Prisma.StockLedgerUpdateManyWithWhereWithoutVariantInput | Prisma.StockLedgerUpdateManyWithWhereWithoutVariantInput[]
+  deleteMany?: Prisma.StockLedgerScalarWhereInput | Prisma.StockLedgerScalarWhereInput[]
+}
+
+export type StockLedgerCreateWithoutProductInput = {
   transactionType: string
   refTable: string
   refId: number
+  batchNo?: string | null
+  expiryDate?: Date | string | null
   qtyIn?: number | null
   qtyOut?: number | null
   rate?: number | null
-  discountPercent?: number | null
-  discountAmount?: number | null
   saleRate?: number | null
+  balanceQty: number
   valueIn?: number | null
   valueOut?: number | null
-  balanceQty: number
-  balanceValue: number
+  balanceValue?: number | null
+  discountPercent?: number | null
+  discountAmount?: number | null
   customerDiscountPercent?: number | null
-  customerDiscountAmount?: number | null
   createdAt?: Date | string
+  variant?: Prisma.ProductVariantCreateNestedOneWithoutStockLedgersInput
 }
 
-export type StockLedgerUncheckedCreateWithoutMedicineInput = {
+export type StockLedgerUncheckedCreateWithoutProductInput = {
   id?: number
-  batchNo: string
-  expiryDate: Date | string
+  variantId?: number | null
   transactionType: string
   refTable: string
   refId: number
+  batchNo?: string | null
+  expiryDate?: Date | string | null
   qtyIn?: number | null
   qtyOut?: number | null
   rate?: number | null
-  discountPercent?: number | null
-  discountAmount?: number | null
   saleRate?: number | null
+  balanceQty: number
   valueIn?: number | null
   valueOut?: number | null
-  balanceQty: number
-  balanceValue: number
+  balanceValue?: number | null
+  discountPercent?: number | null
+  discountAmount?: number | null
   customerDiscountPercent?: number | null
-  customerDiscountAmount?: number | null
   createdAt?: Date | string
 }
 
-export type StockLedgerCreateOrConnectWithoutMedicineInput = {
+export type StockLedgerCreateOrConnectWithoutProductInput = {
   where: Prisma.StockLedgerWhereUniqueInput
-  create: Prisma.XOR<Prisma.StockLedgerCreateWithoutMedicineInput, Prisma.StockLedgerUncheckedCreateWithoutMedicineInput>
+  create: Prisma.XOR<Prisma.StockLedgerCreateWithoutProductInput, Prisma.StockLedgerUncheckedCreateWithoutProductInput>
 }
 
-export type StockLedgerCreateManyMedicineInputEnvelope = {
-  data: Prisma.StockLedgerCreateManyMedicineInput | Prisma.StockLedgerCreateManyMedicineInput[]
+export type StockLedgerCreateManyProductInputEnvelope = {
+  data: Prisma.StockLedgerCreateManyProductInput | Prisma.StockLedgerCreateManyProductInput[]
   skipDuplicates?: boolean
 }
 
-export type StockLedgerUpsertWithWhereUniqueWithoutMedicineInput = {
+export type StockLedgerUpsertWithWhereUniqueWithoutProductInput = {
   where: Prisma.StockLedgerWhereUniqueInput
-  update: Prisma.XOR<Prisma.StockLedgerUpdateWithoutMedicineInput, Prisma.StockLedgerUncheckedUpdateWithoutMedicineInput>
-  create: Prisma.XOR<Prisma.StockLedgerCreateWithoutMedicineInput, Prisma.StockLedgerUncheckedCreateWithoutMedicineInput>
+  update: Prisma.XOR<Prisma.StockLedgerUpdateWithoutProductInput, Prisma.StockLedgerUncheckedUpdateWithoutProductInput>
+  create: Prisma.XOR<Prisma.StockLedgerCreateWithoutProductInput, Prisma.StockLedgerUncheckedCreateWithoutProductInput>
 }
 
-export type StockLedgerUpdateWithWhereUniqueWithoutMedicineInput = {
+export type StockLedgerUpdateWithWhereUniqueWithoutProductInput = {
   where: Prisma.StockLedgerWhereUniqueInput
-  data: Prisma.XOR<Prisma.StockLedgerUpdateWithoutMedicineInput, Prisma.StockLedgerUncheckedUpdateWithoutMedicineInput>
+  data: Prisma.XOR<Prisma.StockLedgerUpdateWithoutProductInput, Prisma.StockLedgerUncheckedUpdateWithoutProductInput>
 }
 
-export type StockLedgerUpdateManyWithWhereWithoutMedicineInput = {
+export type StockLedgerUpdateManyWithWhereWithoutProductInput = {
   where: Prisma.StockLedgerScalarWhereInput
-  data: Prisma.XOR<Prisma.StockLedgerUpdateManyMutationInput, Prisma.StockLedgerUncheckedUpdateManyWithoutMedicineInput>
+  data: Prisma.XOR<Prisma.StockLedgerUpdateManyMutationInput, Prisma.StockLedgerUncheckedUpdateManyWithoutProductInput>
 }
 
 export type StockLedgerScalarWhereInput = {
@@ -888,111 +932,267 @@ export type StockLedgerScalarWhereInput = {
   OR?: Prisma.StockLedgerScalarWhereInput[]
   NOT?: Prisma.StockLedgerScalarWhereInput | Prisma.StockLedgerScalarWhereInput[]
   id?: Prisma.IntFilter<"StockLedger"> | number
-  medicineId?: Prisma.IntFilter<"StockLedger"> | number
-  batchNo?: Prisma.StringFilter<"StockLedger"> | string
-  expiryDate?: Prisma.DateTimeFilter<"StockLedger"> | Date | string
+  productId?: Prisma.IntFilter<"StockLedger"> | number
+  variantId?: Prisma.IntNullableFilter<"StockLedger"> | number | null
   transactionType?: Prisma.StringFilter<"StockLedger"> | string
   refTable?: Prisma.StringFilter<"StockLedger"> | string
   refId?: Prisma.IntFilter<"StockLedger"> | number
+  batchNo?: Prisma.StringNullableFilter<"StockLedger"> | string | null
+  expiryDate?: Prisma.DateTimeNullableFilter<"StockLedger"> | Date | string | null
   qtyIn?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
   qtyOut?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
   rate?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
-  discountPercent?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
-  discountAmount?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
   saleRate?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
+  balanceQty?: Prisma.FloatFilter<"StockLedger"> | number
   valueIn?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
   valueOut?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
-  balanceQty?: Prisma.FloatFilter<"StockLedger"> | number
-  balanceValue?: Prisma.FloatFilter<"StockLedger"> | number
+  balanceValue?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
+  discountPercent?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
+  discountAmount?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
   customerDiscountPercent?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
-  customerDiscountAmount?: Prisma.FloatNullableFilter<"StockLedger"> | number | null
   createdAt?: Prisma.DateTimeFilter<"StockLedger"> | Date | string
 }
 
-export type StockLedgerCreateManyMedicineInput = {
-  id?: number
-  batchNo: string
-  expiryDate: Date | string
+export type StockLedgerCreateWithoutVariantInput = {
   transactionType: string
   refTable: string
   refId: number
+  batchNo?: string | null
+  expiryDate?: Date | string | null
   qtyIn?: number | null
   qtyOut?: number | null
   rate?: number | null
-  discountPercent?: number | null
-  discountAmount?: number | null
   saleRate?: number | null
+  balanceQty: number
   valueIn?: number | null
   valueOut?: number | null
-  balanceQty: number
-  balanceValue: number
+  balanceValue?: number | null
+  discountPercent?: number | null
+  discountAmount?: number | null
   customerDiscountPercent?: number | null
-  customerDiscountAmount?: number | null
+  createdAt?: Date | string
+  product: Prisma.ProductCreateNestedOneWithoutStockLedgersInput
+}
+
+export type StockLedgerUncheckedCreateWithoutVariantInput = {
+  id?: number
+  productId: number
+  transactionType: string
+  refTable: string
+  refId: number
+  batchNo?: string | null
+  expiryDate?: Date | string | null
+  qtyIn?: number | null
+  qtyOut?: number | null
+  rate?: number | null
+  saleRate?: number | null
+  balanceQty: number
+  valueIn?: number | null
+  valueOut?: number | null
+  balanceValue?: number | null
+  discountPercent?: number | null
+  discountAmount?: number | null
+  customerDiscountPercent?: number | null
   createdAt?: Date | string
 }
 
-export type StockLedgerUpdateWithoutMedicineInput = {
-  batchNo?: Prisma.StringFieldUpdateOperationsInput | string
-  expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+export type StockLedgerCreateOrConnectWithoutVariantInput = {
+  where: Prisma.StockLedgerWhereUniqueInput
+  create: Prisma.XOR<Prisma.StockLedgerCreateWithoutVariantInput, Prisma.StockLedgerUncheckedCreateWithoutVariantInput>
+}
+
+export type StockLedgerCreateManyVariantInputEnvelope = {
+  data: Prisma.StockLedgerCreateManyVariantInput | Prisma.StockLedgerCreateManyVariantInput[]
+  skipDuplicates?: boolean
+}
+
+export type StockLedgerUpsertWithWhereUniqueWithoutVariantInput = {
+  where: Prisma.StockLedgerWhereUniqueInput
+  update: Prisma.XOR<Prisma.StockLedgerUpdateWithoutVariantInput, Prisma.StockLedgerUncheckedUpdateWithoutVariantInput>
+  create: Prisma.XOR<Prisma.StockLedgerCreateWithoutVariantInput, Prisma.StockLedgerUncheckedCreateWithoutVariantInput>
+}
+
+export type StockLedgerUpdateWithWhereUniqueWithoutVariantInput = {
+  where: Prisma.StockLedgerWhereUniqueInput
+  data: Prisma.XOR<Prisma.StockLedgerUpdateWithoutVariantInput, Prisma.StockLedgerUncheckedUpdateWithoutVariantInput>
+}
+
+export type StockLedgerUpdateManyWithWhereWithoutVariantInput = {
+  where: Prisma.StockLedgerScalarWhereInput
+  data: Prisma.XOR<Prisma.StockLedgerUpdateManyMutationInput, Prisma.StockLedgerUncheckedUpdateManyWithoutVariantInput>
+}
+
+export type StockLedgerCreateManyProductInput = {
+  id?: number
+  variantId?: number | null
+  transactionType: string
+  refTable: string
+  refId: number
+  batchNo?: string | null
+  expiryDate?: Date | string | null
+  qtyIn?: number | null
+  qtyOut?: number | null
+  rate?: number | null
+  saleRate?: number | null
+  balanceQty: number
+  valueIn?: number | null
+  valueOut?: number | null
+  balanceValue?: number | null
+  discountPercent?: number | null
+  discountAmount?: number | null
+  customerDiscountPercent?: number | null
+  createdAt?: Date | string
+}
+
+export type StockLedgerUpdateWithoutProductInput = {
   transactionType?: Prisma.StringFieldUpdateOperationsInput | string
   refTable?: Prisma.StringFieldUpdateOperationsInput | string
   refId?: Prisma.IntFieldUpdateOperationsInput | number
+  batchNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   qtyIn?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   qtyOut?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   rate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  discountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   saleRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  balanceQty?: Prisma.FloatFieldUpdateOperationsInput | number
   valueIn?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   valueOut?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  balanceQty?: Prisma.FloatFieldUpdateOperationsInput | number
-  balanceValue?: Prisma.FloatFieldUpdateOperationsInput | number
+  balanceValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  discountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   customerDiscountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  customerDiscountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  variant?: Prisma.ProductVariantUpdateOneWithoutStockLedgersNestedInput
+}
+
+export type StockLedgerUncheckedUpdateWithoutProductInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  variantId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  transactionType?: Prisma.StringFieldUpdateOperationsInput | string
+  refTable?: Prisma.StringFieldUpdateOperationsInput | string
+  refId?: Prisma.IntFieldUpdateOperationsInput | number
+  batchNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qtyIn?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  qtyOut?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  rate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  saleRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  balanceQty?: Prisma.FloatFieldUpdateOperationsInput | number
+  valueIn?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  valueOut?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  balanceValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  discountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  customerDiscountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type StockLedgerUncheckedUpdateWithoutMedicineInput = {
+export type StockLedgerUncheckedUpdateManyWithoutProductInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  batchNo?: Prisma.StringFieldUpdateOperationsInput | string
-  expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  variantId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   transactionType?: Prisma.StringFieldUpdateOperationsInput | string
   refTable?: Prisma.StringFieldUpdateOperationsInput | string
   refId?: Prisma.IntFieldUpdateOperationsInput | number
+  batchNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   qtyIn?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   qtyOut?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   rate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  discountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   saleRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  balanceQty?: Prisma.FloatFieldUpdateOperationsInput | number
   valueIn?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   valueOut?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  balanceQty?: Prisma.FloatFieldUpdateOperationsInput | number
-  balanceValue?: Prisma.FloatFieldUpdateOperationsInput | number
+  balanceValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  discountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   customerDiscountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  customerDiscountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type StockLedgerUncheckedUpdateManyWithoutMedicineInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  batchNo?: Prisma.StringFieldUpdateOperationsInput | string
-  expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+export type StockLedgerCreateManyVariantInput = {
+  id?: number
+  productId: number
+  transactionType: string
+  refTable: string
+  refId: number
+  batchNo?: string | null
+  expiryDate?: Date | string | null
+  qtyIn?: number | null
+  qtyOut?: number | null
+  rate?: number | null
+  saleRate?: number | null
+  balanceQty: number
+  valueIn?: number | null
+  valueOut?: number | null
+  balanceValue?: number | null
+  discountPercent?: number | null
+  discountAmount?: number | null
+  customerDiscountPercent?: number | null
+  createdAt?: Date | string
+}
+
+export type StockLedgerUpdateWithoutVariantInput = {
   transactionType?: Prisma.StringFieldUpdateOperationsInput | string
   refTable?: Prisma.StringFieldUpdateOperationsInput | string
   refId?: Prisma.IntFieldUpdateOperationsInput | number
+  batchNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   qtyIn?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   qtyOut?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   rate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  discountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   saleRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  balanceQty?: Prisma.FloatFieldUpdateOperationsInput | number
   valueIn?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   valueOut?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  balanceQty?: Prisma.FloatFieldUpdateOperationsInput | number
-  balanceValue?: Prisma.FloatFieldUpdateOperationsInput | number
+  balanceValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  discountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   customerDiscountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  customerDiscountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  product?: Prisma.ProductUpdateOneRequiredWithoutStockLedgersNestedInput
+}
+
+export type StockLedgerUncheckedUpdateWithoutVariantInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  productId?: Prisma.IntFieldUpdateOperationsInput | number
+  transactionType?: Prisma.StringFieldUpdateOperationsInput | string
+  refTable?: Prisma.StringFieldUpdateOperationsInput | string
+  refId?: Prisma.IntFieldUpdateOperationsInput | number
+  batchNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qtyIn?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  qtyOut?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  rate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  saleRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  balanceQty?: Prisma.FloatFieldUpdateOperationsInput | number
+  valueIn?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  valueOut?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  balanceValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  discountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  customerDiscountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type StockLedgerUncheckedUpdateManyWithoutVariantInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  productId?: Prisma.IntFieldUpdateOperationsInput | number
+  transactionType?: Prisma.StringFieldUpdateOperationsInput | string
+  refTable?: Prisma.StringFieldUpdateOperationsInput | string
+  refId?: Prisma.IntFieldUpdateOperationsInput | number
+  batchNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qtyIn?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  qtyOut?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  rate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  saleRate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  balanceQty?: Prisma.FloatFieldUpdateOperationsInput | number
+  valueIn?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  valueOut?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  balanceValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  discountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  customerDiscountPercent?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1000,135 +1200,142 @@ export type StockLedgerUncheckedUpdateManyWithoutMedicineInput = {
 
 export type StockLedgerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  medicineId?: boolean
-  batchNo?: boolean
-  expiryDate?: boolean
+  productId?: boolean
+  variantId?: boolean
   transactionType?: boolean
   refTable?: boolean
   refId?: boolean
+  batchNo?: boolean
+  expiryDate?: boolean
   qtyIn?: boolean
   qtyOut?: boolean
   rate?: boolean
-  discountPercent?: boolean
-  discountAmount?: boolean
   saleRate?: boolean
+  balanceQty?: boolean
   valueIn?: boolean
   valueOut?: boolean
-  balanceQty?: boolean
   balanceValue?: boolean
+  discountPercent?: boolean
+  discountAmount?: boolean
   customerDiscountPercent?: boolean
-  customerDiscountAmount?: boolean
   createdAt?: boolean
-  medicine?: boolean | Prisma.MedicineDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.StockLedger$variantArgs<ExtArgs>
 }, ExtArgs["result"]["stockLedger"]>
 
 export type StockLedgerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  medicineId?: boolean
-  batchNo?: boolean
-  expiryDate?: boolean
+  productId?: boolean
+  variantId?: boolean
   transactionType?: boolean
   refTable?: boolean
   refId?: boolean
+  batchNo?: boolean
+  expiryDate?: boolean
   qtyIn?: boolean
   qtyOut?: boolean
   rate?: boolean
-  discountPercent?: boolean
-  discountAmount?: boolean
   saleRate?: boolean
+  balanceQty?: boolean
   valueIn?: boolean
   valueOut?: boolean
-  balanceQty?: boolean
   balanceValue?: boolean
+  discountPercent?: boolean
+  discountAmount?: boolean
   customerDiscountPercent?: boolean
-  customerDiscountAmount?: boolean
   createdAt?: boolean
-  medicine?: boolean | Prisma.MedicineDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.StockLedger$variantArgs<ExtArgs>
 }, ExtArgs["result"]["stockLedger"]>
 
 export type StockLedgerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  medicineId?: boolean
-  batchNo?: boolean
-  expiryDate?: boolean
+  productId?: boolean
+  variantId?: boolean
   transactionType?: boolean
   refTable?: boolean
   refId?: boolean
+  batchNo?: boolean
+  expiryDate?: boolean
   qtyIn?: boolean
   qtyOut?: boolean
   rate?: boolean
-  discountPercent?: boolean
-  discountAmount?: boolean
   saleRate?: boolean
+  balanceQty?: boolean
   valueIn?: boolean
   valueOut?: boolean
-  balanceQty?: boolean
   balanceValue?: boolean
+  discountPercent?: boolean
+  discountAmount?: boolean
   customerDiscountPercent?: boolean
-  customerDiscountAmount?: boolean
   createdAt?: boolean
-  medicine?: boolean | Prisma.MedicineDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.StockLedger$variantArgs<ExtArgs>
 }, ExtArgs["result"]["stockLedger"]>
 
 export type StockLedgerSelectScalar = {
   id?: boolean
-  medicineId?: boolean
-  batchNo?: boolean
-  expiryDate?: boolean
+  productId?: boolean
+  variantId?: boolean
   transactionType?: boolean
   refTable?: boolean
   refId?: boolean
+  batchNo?: boolean
+  expiryDate?: boolean
   qtyIn?: boolean
   qtyOut?: boolean
   rate?: boolean
-  discountPercent?: boolean
-  discountAmount?: boolean
   saleRate?: boolean
+  balanceQty?: boolean
   valueIn?: boolean
   valueOut?: boolean
-  balanceQty?: boolean
   balanceValue?: boolean
+  discountPercent?: boolean
+  discountAmount?: boolean
   customerDiscountPercent?: boolean
-  customerDiscountAmount?: boolean
   createdAt?: boolean
 }
 
-export type StockLedgerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "medicineId" | "batchNo" | "expiryDate" | "transactionType" | "refTable" | "refId" | "qtyIn" | "qtyOut" | "rate" | "discountPercent" | "discountAmount" | "saleRate" | "valueIn" | "valueOut" | "balanceQty" | "balanceValue" | "customerDiscountPercent" | "customerDiscountAmount" | "createdAt", ExtArgs["result"]["stockLedger"]>
+export type StockLedgerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productId" | "variantId" | "transactionType" | "refTable" | "refId" | "batchNo" | "expiryDate" | "qtyIn" | "qtyOut" | "rate" | "saleRate" | "balanceQty" | "valueIn" | "valueOut" | "balanceValue" | "discountPercent" | "discountAmount" | "customerDiscountPercent" | "createdAt", ExtArgs["result"]["stockLedger"]>
 export type StockLedgerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  medicine?: boolean | Prisma.MedicineDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.StockLedger$variantArgs<ExtArgs>
 }
 export type StockLedgerIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  medicine?: boolean | Prisma.MedicineDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.StockLedger$variantArgs<ExtArgs>
 }
 export type StockLedgerIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  medicine?: boolean | Prisma.MedicineDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.StockLedger$variantArgs<ExtArgs>
 }
 
 export type $StockLedgerPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "StockLedger"
   objects: {
-    medicine: Prisma.$MedicinePayload<ExtArgs>
+    product: Prisma.$ProductPayload<ExtArgs>
+    variant: Prisma.$ProductVariantPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    medicineId: number
-    batchNo: string
-    expiryDate: Date
+    productId: number
+    variantId: number | null
     transactionType: string
     refTable: string
     refId: number
+    batchNo: string | null
+    expiryDate: Date | null
     qtyIn: number | null
     qtyOut: number | null
     rate: number | null
-    discountPercent: number | null
-    discountAmount: number | null
     saleRate: number | null
+    balanceQty: number
     valueIn: number | null
     valueOut: number | null
-    balanceQty: number
-    balanceValue: number
+    balanceValue: number | null
+    discountPercent: number | null
+    discountAmount: number | null
     customerDiscountPercent: number | null
-    customerDiscountAmount: number | null
     createdAt: Date
   }, ExtArgs["result"]["stockLedger"]>
   composites: {}
@@ -1524,7 +1731,8 @@ readonly fields: StockLedgerFieldRefs;
  */
 export interface Prisma__StockLedgerClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  medicine<T extends Prisma.MedicineDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MedicineDefaultArgs<ExtArgs>>): Prisma.Prisma__MedicineClient<runtime.Types.Result.GetResult<Prisma.$MedicinePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  product<T extends Prisma.ProductDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductDefaultArgs<ExtArgs>>): Prisma.Prisma__ProductClient<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  variant<T extends Prisma.StockLedger$variantArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StockLedger$variantArgs<ExtArgs>>): Prisma.Prisma__ProductVariantClient<runtime.Types.Result.GetResult<Prisma.$ProductVariantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1555,24 +1763,24 @@ export interface Prisma__StockLedgerClient<T, Null = never, ExtArgs extends runt
  */
 export interface StockLedgerFieldRefs {
   readonly id: Prisma.FieldRef<"StockLedger", 'Int'>
-  readonly medicineId: Prisma.FieldRef<"StockLedger", 'Int'>
-  readonly batchNo: Prisma.FieldRef<"StockLedger", 'String'>
-  readonly expiryDate: Prisma.FieldRef<"StockLedger", 'DateTime'>
+  readonly productId: Prisma.FieldRef<"StockLedger", 'Int'>
+  readonly variantId: Prisma.FieldRef<"StockLedger", 'Int'>
   readonly transactionType: Prisma.FieldRef<"StockLedger", 'String'>
   readonly refTable: Prisma.FieldRef<"StockLedger", 'String'>
   readonly refId: Prisma.FieldRef<"StockLedger", 'Int'>
+  readonly batchNo: Prisma.FieldRef<"StockLedger", 'String'>
+  readonly expiryDate: Prisma.FieldRef<"StockLedger", 'DateTime'>
   readonly qtyIn: Prisma.FieldRef<"StockLedger", 'Float'>
   readonly qtyOut: Prisma.FieldRef<"StockLedger", 'Float'>
   readonly rate: Prisma.FieldRef<"StockLedger", 'Float'>
-  readonly discountPercent: Prisma.FieldRef<"StockLedger", 'Float'>
-  readonly discountAmount: Prisma.FieldRef<"StockLedger", 'Float'>
   readonly saleRate: Prisma.FieldRef<"StockLedger", 'Float'>
+  readonly balanceQty: Prisma.FieldRef<"StockLedger", 'Float'>
   readonly valueIn: Prisma.FieldRef<"StockLedger", 'Float'>
   readonly valueOut: Prisma.FieldRef<"StockLedger", 'Float'>
-  readonly balanceQty: Prisma.FieldRef<"StockLedger", 'Float'>
   readonly balanceValue: Prisma.FieldRef<"StockLedger", 'Float'>
+  readonly discountPercent: Prisma.FieldRef<"StockLedger", 'Float'>
+  readonly discountAmount: Prisma.FieldRef<"StockLedger", 'Float'>
   readonly customerDiscountPercent: Prisma.FieldRef<"StockLedger", 'Float'>
-  readonly customerDiscountAmount: Prisma.FieldRef<"StockLedger", 'Float'>
   readonly createdAt: Prisma.FieldRef<"StockLedger", 'DateTime'>
 }
     
@@ -1967,6 +2175,25 @@ export type StockLedgerDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Limit how many StockLedgers to delete.
    */
   limit?: number
+}
+
+/**
+ * StockLedger.variant
+ */
+export type StockLedger$variantArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProductVariant
+   */
+  select?: Prisma.ProductVariantSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProductVariant
+   */
+  omit?: Prisma.ProductVariantOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductVariantInclude<ExtArgs> | null
+  where?: Prisma.ProductVariantWhereInput
 }
 
 /**

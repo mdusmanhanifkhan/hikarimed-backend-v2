@@ -31,7 +31,6 @@ export const createMedicineUnit = async (req, res) => {
   }
 }
 
-
 /**
  * Get all active units
  */

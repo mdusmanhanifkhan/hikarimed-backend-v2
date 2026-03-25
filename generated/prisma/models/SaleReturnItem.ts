@@ -28,122 +28,106 @@ export type AggregateSaleReturnItem = {
 
 export type SaleReturnItemAvgAggregateOutputType = {
   id: number | null
-  saleReturnId: number | null
-  medicineId: number | null
+  returnId: number | null
+  variantId: number | null
   returnQty: number | null
   saleRate: number | null
-  lineAmount: number | null
-  saleId: number | null
+  amount: number | null
 }
 
 export type SaleReturnItemSumAggregateOutputType = {
   id: number | null
-  saleReturnId: number | null
-  medicineId: number | null
+  returnId: number | null
+  variantId: number | null
   returnQty: number | null
   saleRate: number | null
-  lineAmount: number | null
-  saleId: number | null
+  amount: number | null
 }
 
 export type SaleReturnItemMinAggregateOutputType = {
   id: number | null
-  saleReturnId: number | null
-  medicineId: number | null
+  returnId: number | null
+  variantId: number | null
   batchNo: string | null
   expiryDate: Date | null
   returnQty: number | null
   saleRate: number | null
-  lineAmount: number | null
-  reason: string | null
-  saleId: number | null
+  amount: number | null
 }
 
 export type SaleReturnItemMaxAggregateOutputType = {
   id: number | null
-  saleReturnId: number | null
-  medicineId: number | null
+  returnId: number | null
+  variantId: number | null
   batchNo: string | null
   expiryDate: Date | null
   returnQty: number | null
   saleRate: number | null
-  lineAmount: number | null
-  reason: string | null
-  saleId: number | null
+  amount: number | null
 }
 
 export type SaleReturnItemCountAggregateOutputType = {
   id: number
-  saleReturnId: number
-  medicineId: number
+  returnId: number
+  variantId: number
   batchNo: number
   expiryDate: number
   returnQty: number
   saleRate: number
-  lineAmount: number
-  reason: number
-  saleId: number
+  amount: number
   _all: number
 }
 
 
 export type SaleReturnItemAvgAggregateInputType = {
   id?: true
-  saleReturnId?: true
-  medicineId?: true
+  returnId?: true
+  variantId?: true
   returnQty?: true
   saleRate?: true
-  lineAmount?: true
-  saleId?: true
+  amount?: true
 }
 
 export type SaleReturnItemSumAggregateInputType = {
   id?: true
-  saleReturnId?: true
-  medicineId?: true
+  returnId?: true
+  variantId?: true
   returnQty?: true
   saleRate?: true
-  lineAmount?: true
-  saleId?: true
+  amount?: true
 }
 
 export type SaleReturnItemMinAggregateInputType = {
   id?: true
-  saleReturnId?: true
-  medicineId?: true
+  returnId?: true
+  variantId?: true
   batchNo?: true
   expiryDate?: true
   returnQty?: true
   saleRate?: true
-  lineAmount?: true
-  reason?: true
-  saleId?: true
+  amount?: true
 }
 
 export type SaleReturnItemMaxAggregateInputType = {
   id?: true
-  saleReturnId?: true
-  medicineId?: true
+  returnId?: true
+  variantId?: true
   batchNo?: true
   expiryDate?: true
   returnQty?: true
   saleRate?: true
-  lineAmount?: true
-  reason?: true
-  saleId?: true
+  amount?: true
 }
 
 export type SaleReturnItemCountAggregateInputType = {
   id?: true
-  saleReturnId?: true
-  medicineId?: true
+  returnId?: true
+  variantId?: true
   batchNo?: true
   expiryDate?: true
   returnQty?: true
   saleRate?: true
-  lineAmount?: true
-  reason?: true
-  saleId?: true
+  amount?: true
   _all?: true
 }
 
@@ -235,15 +219,13 @@ export type SaleReturnItemGroupByArgs<ExtArgs extends runtime.Types.Extensions.I
 
 export type SaleReturnItemGroupByOutputType = {
   id: number
-  saleReturnId: number
-  medicineId: number
+  returnId: number
+  variantId: number
   batchNo: string
-  expiryDate: Date
+  expiryDate: Date | null
   returnQty: number
   saleRate: number
-  lineAmount: number
-  reason: string | null
-  saleId: number | null
+  amount: number
   _count: SaleReturnItemCountAggregateOutputType | null
   _avg: SaleReturnItemAvgAggregateOutputType | null
   _sum: SaleReturnItemSumAggregateOutputType | null
@@ -271,34 +253,28 @@ export type SaleReturnItemWhereInput = {
   OR?: Prisma.SaleReturnItemWhereInput[]
   NOT?: Prisma.SaleReturnItemWhereInput | Prisma.SaleReturnItemWhereInput[]
   id?: Prisma.IntFilter<"SaleReturnItem"> | number
-  saleReturnId?: Prisma.IntFilter<"SaleReturnItem"> | number
-  medicineId?: Prisma.IntFilter<"SaleReturnItem"> | number
+  returnId?: Prisma.IntFilter<"SaleReturnItem"> | number
+  variantId?: Prisma.IntFilter<"SaleReturnItem"> | number
   batchNo?: Prisma.StringFilter<"SaleReturnItem"> | string
-  expiryDate?: Prisma.DateTimeFilter<"SaleReturnItem"> | Date | string
+  expiryDate?: Prisma.DateTimeNullableFilter<"SaleReturnItem"> | Date | string | null
   returnQty?: Prisma.FloatFilter<"SaleReturnItem"> | number
   saleRate?: Prisma.FloatFilter<"SaleReturnItem"> | number
-  lineAmount?: Prisma.FloatFilter<"SaleReturnItem"> | number
-  reason?: Prisma.StringNullableFilter<"SaleReturnItem"> | string | null
-  saleId?: Prisma.IntNullableFilter<"SaleReturnItem"> | number | null
-  saleReturn?: Prisma.XOR<Prisma.SaleReturnScalarRelationFilter, Prisma.SaleReturnWhereInput>
-  medicine?: Prisma.XOR<Prisma.MedicineScalarRelationFilter, Prisma.MedicineWhereInput>
-  sale?: Prisma.XOR<Prisma.SaleNullableScalarRelationFilter, Prisma.SaleWhereInput> | null
+  amount?: Prisma.FloatFilter<"SaleReturnItem"> | number
+  return?: Prisma.XOR<Prisma.SaleReturnScalarRelationFilter, Prisma.SaleReturnWhereInput>
+  variant?: Prisma.XOR<Prisma.ProductVariantScalarRelationFilter, Prisma.ProductVariantWhereInput>
 }
 
 export type SaleReturnItemOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  saleReturnId?: Prisma.SortOrder
-  medicineId?: Prisma.SortOrder
+  returnId?: Prisma.SortOrder
+  variantId?: Prisma.SortOrder
   batchNo?: Prisma.SortOrder
-  expiryDate?: Prisma.SortOrder
+  expiryDate?: Prisma.SortOrderInput | Prisma.SortOrder
   returnQty?: Prisma.SortOrder
   saleRate?: Prisma.SortOrder
-  lineAmount?: Prisma.SortOrder
-  reason?: Prisma.SortOrderInput | Prisma.SortOrder
-  saleId?: Prisma.SortOrderInput | Prisma.SortOrder
-  saleReturn?: Prisma.SaleReturnOrderByWithRelationInput
-  medicine?: Prisma.MedicineOrderByWithRelationInput
-  sale?: Prisma.SaleOrderByWithRelationInput
+  amount?: Prisma.SortOrder
+  return?: Prisma.SaleReturnOrderByWithRelationInput
+  variant?: Prisma.ProductVariantOrderByWithRelationInput
 }
 
 export type SaleReturnItemWhereUniqueInput = Prisma.AtLeast<{
@@ -306,31 +282,26 @@ export type SaleReturnItemWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.SaleReturnItemWhereInput | Prisma.SaleReturnItemWhereInput[]
   OR?: Prisma.SaleReturnItemWhereInput[]
   NOT?: Prisma.SaleReturnItemWhereInput | Prisma.SaleReturnItemWhereInput[]
-  saleReturnId?: Prisma.IntFilter<"SaleReturnItem"> | number
-  medicineId?: Prisma.IntFilter<"SaleReturnItem"> | number
+  returnId?: Prisma.IntFilter<"SaleReturnItem"> | number
+  variantId?: Prisma.IntFilter<"SaleReturnItem"> | number
   batchNo?: Prisma.StringFilter<"SaleReturnItem"> | string
-  expiryDate?: Prisma.DateTimeFilter<"SaleReturnItem"> | Date | string
+  expiryDate?: Prisma.DateTimeNullableFilter<"SaleReturnItem"> | Date | string | null
   returnQty?: Prisma.FloatFilter<"SaleReturnItem"> | number
   saleRate?: Prisma.FloatFilter<"SaleReturnItem"> | number
-  lineAmount?: Prisma.FloatFilter<"SaleReturnItem"> | number
-  reason?: Prisma.StringNullableFilter<"SaleReturnItem"> | string | null
-  saleId?: Prisma.IntNullableFilter<"SaleReturnItem"> | number | null
-  saleReturn?: Prisma.XOR<Prisma.SaleReturnScalarRelationFilter, Prisma.SaleReturnWhereInput>
-  medicine?: Prisma.XOR<Prisma.MedicineScalarRelationFilter, Prisma.MedicineWhereInput>
-  sale?: Prisma.XOR<Prisma.SaleNullableScalarRelationFilter, Prisma.SaleWhereInput> | null
+  amount?: Prisma.FloatFilter<"SaleReturnItem"> | number
+  return?: Prisma.XOR<Prisma.SaleReturnScalarRelationFilter, Prisma.SaleReturnWhereInput>
+  variant?: Prisma.XOR<Prisma.ProductVariantScalarRelationFilter, Prisma.ProductVariantWhereInput>
 }, "id">
 
 export type SaleReturnItemOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  saleReturnId?: Prisma.SortOrder
-  medicineId?: Prisma.SortOrder
+  returnId?: Prisma.SortOrder
+  variantId?: Prisma.SortOrder
   batchNo?: Prisma.SortOrder
-  expiryDate?: Prisma.SortOrder
+  expiryDate?: Prisma.SortOrderInput | Prisma.SortOrder
   returnQty?: Prisma.SortOrder
   saleRate?: Prisma.SortOrder
-  lineAmount?: Prisma.SortOrder
-  reason?: Prisma.SortOrderInput | Prisma.SortOrder
-  saleId?: Prisma.SortOrderInput | Prisma.SortOrder
+  amount?: Prisma.SortOrder
   _count?: Prisma.SaleReturnItemCountOrderByAggregateInput
   _avg?: Prisma.SaleReturnItemAvgOrderByAggregateInput
   _max?: Prisma.SaleReturnItemMaxOrderByAggregateInput
@@ -343,100 +314,85 @@ export type SaleReturnItemScalarWhereWithAggregatesInput = {
   OR?: Prisma.SaleReturnItemScalarWhereWithAggregatesInput[]
   NOT?: Prisma.SaleReturnItemScalarWhereWithAggregatesInput | Prisma.SaleReturnItemScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"SaleReturnItem"> | number
-  saleReturnId?: Prisma.IntWithAggregatesFilter<"SaleReturnItem"> | number
-  medicineId?: Prisma.IntWithAggregatesFilter<"SaleReturnItem"> | number
+  returnId?: Prisma.IntWithAggregatesFilter<"SaleReturnItem"> | number
+  variantId?: Prisma.IntWithAggregatesFilter<"SaleReturnItem"> | number
   batchNo?: Prisma.StringWithAggregatesFilter<"SaleReturnItem"> | string
-  expiryDate?: Prisma.DateTimeWithAggregatesFilter<"SaleReturnItem"> | Date | string
+  expiryDate?: Prisma.DateTimeNullableWithAggregatesFilter<"SaleReturnItem"> | Date | string | null
   returnQty?: Prisma.FloatWithAggregatesFilter<"SaleReturnItem"> | number
   saleRate?: Prisma.FloatWithAggregatesFilter<"SaleReturnItem"> | number
-  lineAmount?: Prisma.FloatWithAggregatesFilter<"SaleReturnItem"> | number
-  reason?: Prisma.StringNullableWithAggregatesFilter<"SaleReturnItem"> | string | null
-  saleId?: Prisma.IntNullableWithAggregatesFilter<"SaleReturnItem"> | number | null
+  amount?: Prisma.FloatWithAggregatesFilter<"SaleReturnItem"> | number
 }
 
 export type SaleReturnItemCreateInput = {
   batchNo: string
-  expiryDate: Date | string
+  expiryDate?: Date | string | null
   returnQty: number
   saleRate: number
-  lineAmount: number
-  reason?: string | null
-  saleReturn: Prisma.SaleReturnCreateNestedOneWithoutItemsInput
-  medicine: Prisma.MedicineCreateNestedOneWithoutSaleReturnItemsInput
-  sale?: Prisma.SaleCreateNestedOneWithoutSaleReturnItemsInput
+  amount: number
+  return: Prisma.SaleReturnCreateNestedOneWithoutItemsInput
+  variant: Prisma.ProductVariantCreateNestedOneWithoutSaleReturnItemsInput
 }
 
 export type SaleReturnItemUncheckedCreateInput = {
   id?: number
-  saleReturnId: number
-  medicineId: number
+  returnId: number
+  variantId: number
   batchNo: string
-  expiryDate: Date | string
+  expiryDate?: Date | string | null
   returnQty: number
   saleRate: number
-  lineAmount: number
-  reason?: string | null
-  saleId?: number | null
+  amount: number
 }
 
 export type SaleReturnItemUpdateInput = {
   batchNo?: Prisma.StringFieldUpdateOperationsInput | string
-  expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   returnQty?: Prisma.FloatFieldUpdateOperationsInput | number
   saleRate?: Prisma.FloatFieldUpdateOperationsInput | number
-  lineAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  saleReturn?: Prisma.SaleReturnUpdateOneRequiredWithoutItemsNestedInput
-  medicine?: Prisma.MedicineUpdateOneRequiredWithoutSaleReturnItemsNestedInput
-  sale?: Prisma.SaleUpdateOneWithoutSaleReturnItemsNestedInput
+  amount?: Prisma.FloatFieldUpdateOperationsInput | number
+  return?: Prisma.SaleReturnUpdateOneRequiredWithoutItemsNestedInput
+  variant?: Prisma.ProductVariantUpdateOneRequiredWithoutSaleReturnItemsNestedInput
 }
 
 export type SaleReturnItemUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  saleReturnId?: Prisma.IntFieldUpdateOperationsInput | number
-  medicineId?: Prisma.IntFieldUpdateOperationsInput | number
+  returnId?: Prisma.IntFieldUpdateOperationsInput | number
+  variantId?: Prisma.IntFieldUpdateOperationsInput | number
   batchNo?: Prisma.StringFieldUpdateOperationsInput | string
-  expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   returnQty?: Prisma.FloatFieldUpdateOperationsInput | number
   saleRate?: Prisma.FloatFieldUpdateOperationsInput | number
-  lineAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  saleId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  amount?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 export type SaleReturnItemCreateManyInput = {
   id?: number
-  saleReturnId: number
-  medicineId: number
+  returnId: number
+  variantId: number
   batchNo: string
-  expiryDate: Date | string
+  expiryDate?: Date | string | null
   returnQty: number
   saleRate: number
-  lineAmount: number
-  reason?: string | null
-  saleId?: number | null
+  amount: number
 }
 
 export type SaleReturnItemUpdateManyMutationInput = {
   batchNo?: Prisma.StringFieldUpdateOperationsInput | string
-  expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   returnQty?: Prisma.FloatFieldUpdateOperationsInput | number
   saleRate?: Prisma.FloatFieldUpdateOperationsInput | number
-  lineAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 export type SaleReturnItemUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  saleReturnId?: Prisma.IntFieldUpdateOperationsInput | number
-  medicineId?: Prisma.IntFieldUpdateOperationsInput | number
+  returnId?: Prisma.IntFieldUpdateOperationsInput | number
+  variantId?: Prisma.IntFieldUpdateOperationsInput | number
   batchNo?: Prisma.StringFieldUpdateOperationsInput | string
-  expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   returnQty?: Prisma.FloatFieldUpdateOperationsInput | number
   saleRate?: Prisma.FloatFieldUpdateOperationsInput | number
-  lineAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  saleId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  amount?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 export type SaleReturnItemListRelationFilter = {
@@ -451,236 +407,182 @@ export type SaleReturnItemOrderByRelationAggregateInput = {
 
 export type SaleReturnItemCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  saleReturnId?: Prisma.SortOrder
-  medicineId?: Prisma.SortOrder
+  returnId?: Prisma.SortOrder
+  variantId?: Prisma.SortOrder
   batchNo?: Prisma.SortOrder
   expiryDate?: Prisma.SortOrder
   returnQty?: Prisma.SortOrder
   saleRate?: Prisma.SortOrder
-  lineAmount?: Prisma.SortOrder
-  reason?: Prisma.SortOrder
-  saleId?: Prisma.SortOrder
+  amount?: Prisma.SortOrder
 }
 
 export type SaleReturnItemAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  saleReturnId?: Prisma.SortOrder
-  medicineId?: Prisma.SortOrder
+  returnId?: Prisma.SortOrder
+  variantId?: Prisma.SortOrder
   returnQty?: Prisma.SortOrder
   saleRate?: Prisma.SortOrder
-  lineAmount?: Prisma.SortOrder
-  saleId?: Prisma.SortOrder
+  amount?: Prisma.SortOrder
 }
 
 export type SaleReturnItemMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  saleReturnId?: Prisma.SortOrder
-  medicineId?: Prisma.SortOrder
+  returnId?: Prisma.SortOrder
+  variantId?: Prisma.SortOrder
   batchNo?: Prisma.SortOrder
   expiryDate?: Prisma.SortOrder
   returnQty?: Prisma.SortOrder
   saleRate?: Prisma.SortOrder
-  lineAmount?: Prisma.SortOrder
-  reason?: Prisma.SortOrder
-  saleId?: Prisma.SortOrder
+  amount?: Prisma.SortOrder
 }
 
 export type SaleReturnItemMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  saleReturnId?: Prisma.SortOrder
-  medicineId?: Prisma.SortOrder
+  returnId?: Prisma.SortOrder
+  variantId?: Prisma.SortOrder
   batchNo?: Prisma.SortOrder
   expiryDate?: Prisma.SortOrder
   returnQty?: Prisma.SortOrder
   saleRate?: Prisma.SortOrder
-  lineAmount?: Prisma.SortOrder
-  reason?: Prisma.SortOrder
-  saleId?: Prisma.SortOrder
+  amount?: Prisma.SortOrder
 }
 
 export type SaleReturnItemSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  saleReturnId?: Prisma.SortOrder
-  medicineId?: Prisma.SortOrder
+  returnId?: Prisma.SortOrder
+  variantId?: Prisma.SortOrder
   returnQty?: Prisma.SortOrder
   saleRate?: Prisma.SortOrder
-  lineAmount?: Prisma.SortOrder
-  saleId?: Prisma.SortOrder
+  amount?: Prisma.SortOrder
 }
 
-export type SaleReturnItemCreateNestedManyWithoutMedicineInput = {
-  create?: Prisma.XOR<Prisma.SaleReturnItemCreateWithoutMedicineInput, Prisma.SaleReturnItemUncheckedCreateWithoutMedicineInput> | Prisma.SaleReturnItemCreateWithoutMedicineInput[] | Prisma.SaleReturnItemUncheckedCreateWithoutMedicineInput[]
-  connectOrCreate?: Prisma.SaleReturnItemCreateOrConnectWithoutMedicineInput | Prisma.SaleReturnItemCreateOrConnectWithoutMedicineInput[]
-  createMany?: Prisma.SaleReturnItemCreateManyMedicineInputEnvelope
+export type SaleReturnItemCreateNestedManyWithoutVariantInput = {
+  create?: Prisma.XOR<Prisma.SaleReturnItemCreateWithoutVariantInput, Prisma.SaleReturnItemUncheckedCreateWithoutVariantInput> | Prisma.SaleReturnItemCreateWithoutVariantInput[] | Prisma.SaleReturnItemUncheckedCreateWithoutVariantInput[]
+  connectOrCreate?: Prisma.SaleReturnItemCreateOrConnectWithoutVariantInput | Prisma.SaleReturnItemCreateOrConnectWithoutVariantInput[]
+  createMany?: Prisma.SaleReturnItemCreateManyVariantInputEnvelope
   connect?: Prisma.SaleReturnItemWhereUniqueInput | Prisma.SaleReturnItemWhereUniqueInput[]
 }
 
-export type SaleReturnItemUncheckedCreateNestedManyWithoutMedicineInput = {
-  create?: Prisma.XOR<Prisma.SaleReturnItemCreateWithoutMedicineInput, Prisma.SaleReturnItemUncheckedCreateWithoutMedicineInput> | Prisma.SaleReturnItemCreateWithoutMedicineInput[] | Prisma.SaleReturnItemUncheckedCreateWithoutMedicineInput[]
-  connectOrCreate?: Prisma.SaleReturnItemCreateOrConnectWithoutMedicineInput | Prisma.SaleReturnItemCreateOrConnectWithoutMedicineInput[]
-  createMany?: Prisma.SaleReturnItemCreateManyMedicineInputEnvelope
+export type SaleReturnItemUncheckedCreateNestedManyWithoutVariantInput = {
+  create?: Prisma.XOR<Prisma.SaleReturnItemCreateWithoutVariantInput, Prisma.SaleReturnItemUncheckedCreateWithoutVariantInput> | Prisma.SaleReturnItemCreateWithoutVariantInput[] | Prisma.SaleReturnItemUncheckedCreateWithoutVariantInput[]
+  connectOrCreate?: Prisma.SaleReturnItemCreateOrConnectWithoutVariantInput | Prisma.SaleReturnItemCreateOrConnectWithoutVariantInput[]
+  createMany?: Prisma.SaleReturnItemCreateManyVariantInputEnvelope
   connect?: Prisma.SaleReturnItemWhereUniqueInput | Prisma.SaleReturnItemWhereUniqueInput[]
 }
 
-export type SaleReturnItemUpdateManyWithoutMedicineNestedInput = {
-  create?: Prisma.XOR<Prisma.SaleReturnItemCreateWithoutMedicineInput, Prisma.SaleReturnItemUncheckedCreateWithoutMedicineInput> | Prisma.SaleReturnItemCreateWithoutMedicineInput[] | Prisma.SaleReturnItemUncheckedCreateWithoutMedicineInput[]
-  connectOrCreate?: Prisma.SaleReturnItemCreateOrConnectWithoutMedicineInput | Prisma.SaleReturnItemCreateOrConnectWithoutMedicineInput[]
-  upsert?: Prisma.SaleReturnItemUpsertWithWhereUniqueWithoutMedicineInput | Prisma.SaleReturnItemUpsertWithWhereUniqueWithoutMedicineInput[]
-  createMany?: Prisma.SaleReturnItemCreateManyMedicineInputEnvelope
+export type SaleReturnItemUpdateManyWithoutVariantNestedInput = {
+  create?: Prisma.XOR<Prisma.SaleReturnItemCreateWithoutVariantInput, Prisma.SaleReturnItemUncheckedCreateWithoutVariantInput> | Prisma.SaleReturnItemCreateWithoutVariantInput[] | Prisma.SaleReturnItemUncheckedCreateWithoutVariantInput[]
+  connectOrCreate?: Prisma.SaleReturnItemCreateOrConnectWithoutVariantInput | Prisma.SaleReturnItemCreateOrConnectWithoutVariantInput[]
+  upsert?: Prisma.SaleReturnItemUpsertWithWhereUniqueWithoutVariantInput | Prisma.SaleReturnItemUpsertWithWhereUniqueWithoutVariantInput[]
+  createMany?: Prisma.SaleReturnItemCreateManyVariantInputEnvelope
   set?: Prisma.SaleReturnItemWhereUniqueInput | Prisma.SaleReturnItemWhereUniqueInput[]
   disconnect?: Prisma.SaleReturnItemWhereUniqueInput | Prisma.SaleReturnItemWhereUniqueInput[]
   delete?: Prisma.SaleReturnItemWhereUniqueInput | Prisma.SaleReturnItemWhereUniqueInput[]
   connect?: Prisma.SaleReturnItemWhereUniqueInput | Prisma.SaleReturnItemWhereUniqueInput[]
-  update?: Prisma.SaleReturnItemUpdateWithWhereUniqueWithoutMedicineInput | Prisma.SaleReturnItemUpdateWithWhereUniqueWithoutMedicineInput[]
-  updateMany?: Prisma.SaleReturnItemUpdateManyWithWhereWithoutMedicineInput | Prisma.SaleReturnItemUpdateManyWithWhereWithoutMedicineInput[]
+  update?: Prisma.SaleReturnItemUpdateWithWhereUniqueWithoutVariantInput | Prisma.SaleReturnItemUpdateWithWhereUniqueWithoutVariantInput[]
+  updateMany?: Prisma.SaleReturnItemUpdateManyWithWhereWithoutVariantInput | Prisma.SaleReturnItemUpdateManyWithWhereWithoutVariantInput[]
   deleteMany?: Prisma.SaleReturnItemScalarWhereInput | Prisma.SaleReturnItemScalarWhereInput[]
 }
 
-export type SaleReturnItemUncheckedUpdateManyWithoutMedicineNestedInput = {
-  create?: Prisma.XOR<Prisma.SaleReturnItemCreateWithoutMedicineInput, Prisma.SaleReturnItemUncheckedCreateWithoutMedicineInput> | Prisma.SaleReturnItemCreateWithoutMedicineInput[] | Prisma.SaleReturnItemUncheckedCreateWithoutMedicineInput[]
-  connectOrCreate?: Prisma.SaleReturnItemCreateOrConnectWithoutMedicineInput | Prisma.SaleReturnItemCreateOrConnectWithoutMedicineInput[]
-  upsert?: Prisma.SaleReturnItemUpsertWithWhereUniqueWithoutMedicineInput | Prisma.SaleReturnItemUpsertWithWhereUniqueWithoutMedicineInput[]
-  createMany?: Prisma.SaleReturnItemCreateManyMedicineInputEnvelope
+export type SaleReturnItemUncheckedUpdateManyWithoutVariantNestedInput = {
+  create?: Prisma.XOR<Prisma.SaleReturnItemCreateWithoutVariantInput, Prisma.SaleReturnItemUncheckedCreateWithoutVariantInput> | Prisma.SaleReturnItemCreateWithoutVariantInput[] | Prisma.SaleReturnItemUncheckedCreateWithoutVariantInput[]
+  connectOrCreate?: Prisma.SaleReturnItemCreateOrConnectWithoutVariantInput | Prisma.SaleReturnItemCreateOrConnectWithoutVariantInput[]
+  upsert?: Prisma.SaleReturnItemUpsertWithWhereUniqueWithoutVariantInput | Prisma.SaleReturnItemUpsertWithWhereUniqueWithoutVariantInput[]
+  createMany?: Prisma.SaleReturnItemCreateManyVariantInputEnvelope
   set?: Prisma.SaleReturnItemWhereUniqueInput | Prisma.SaleReturnItemWhereUniqueInput[]
   disconnect?: Prisma.SaleReturnItemWhereUniqueInput | Prisma.SaleReturnItemWhereUniqueInput[]
   delete?: Prisma.SaleReturnItemWhereUniqueInput | Prisma.SaleReturnItemWhereUniqueInput[]
   connect?: Prisma.SaleReturnItemWhereUniqueInput | Prisma.SaleReturnItemWhereUniqueInput[]
-  update?: Prisma.SaleReturnItemUpdateWithWhereUniqueWithoutMedicineInput | Prisma.SaleReturnItemUpdateWithWhereUniqueWithoutMedicineInput[]
-  updateMany?: Prisma.SaleReturnItemUpdateManyWithWhereWithoutMedicineInput | Prisma.SaleReturnItemUpdateManyWithWhereWithoutMedicineInput[]
+  update?: Prisma.SaleReturnItemUpdateWithWhereUniqueWithoutVariantInput | Prisma.SaleReturnItemUpdateWithWhereUniqueWithoutVariantInput[]
+  updateMany?: Prisma.SaleReturnItemUpdateManyWithWhereWithoutVariantInput | Prisma.SaleReturnItemUpdateManyWithWhereWithoutVariantInput[]
   deleteMany?: Prisma.SaleReturnItemScalarWhereInput | Prisma.SaleReturnItemScalarWhereInput[]
 }
 
-export type SaleReturnItemCreateNestedManyWithoutSaleInput = {
-  create?: Prisma.XOR<Prisma.SaleReturnItemCreateWithoutSaleInput, Prisma.SaleReturnItemUncheckedCreateWithoutSaleInput> | Prisma.SaleReturnItemCreateWithoutSaleInput[] | Prisma.SaleReturnItemUncheckedCreateWithoutSaleInput[]
-  connectOrCreate?: Prisma.SaleReturnItemCreateOrConnectWithoutSaleInput | Prisma.SaleReturnItemCreateOrConnectWithoutSaleInput[]
-  createMany?: Prisma.SaleReturnItemCreateManySaleInputEnvelope
+export type SaleReturnItemCreateNestedManyWithoutReturnInput = {
+  create?: Prisma.XOR<Prisma.SaleReturnItemCreateWithoutReturnInput, Prisma.SaleReturnItemUncheckedCreateWithoutReturnInput> | Prisma.SaleReturnItemCreateWithoutReturnInput[] | Prisma.SaleReturnItemUncheckedCreateWithoutReturnInput[]
+  connectOrCreate?: Prisma.SaleReturnItemCreateOrConnectWithoutReturnInput | Prisma.SaleReturnItemCreateOrConnectWithoutReturnInput[]
+  createMany?: Prisma.SaleReturnItemCreateManyReturnInputEnvelope
   connect?: Prisma.SaleReturnItemWhereUniqueInput | Prisma.SaleReturnItemWhereUniqueInput[]
 }
 
-export type SaleReturnItemUncheckedCreateNestedManyWithoutSaleInput = {
-  create?: Prisma.XOR<Prisma.SaleReturnItemCreateWithoutSaleInput, Prisma.SaleReturnItemUncheckedCreateWithoutSaleInput> | Prisma.SaleReturnItemCreateWithoutSaleInput[] | Prisma.SaleReturnItemUncheckedCreateWithoutSaleInput[]
-  connectOrCreate?: Prisma.SaleReturnItemCreateOrConnectWithoutSaleInput | Prisma.SaleReturnItemCreateOrConnectWithoutSaleInput[]
-  createMany?: Prisma.SaleReturnItemCreateManySaleInputEnvelope
+export type SaleReturnItemUncheckedCreateNestedManyWithoutReturnInput = {
+  create?: Prisma.XOR<Prisma.SaleReturnItemCreateWithoutReturnInput, Prisma.SaleReturnItemUncheckedCreateWithoutReturnInput> | Prisma.SaleReturnItemCreateWithoutReturnInput[] | Prisma.SaleReturnItemUncheckedCreateWithoutReturnInput[]
+  connectOrCreate?: Prisma.SaleReturnItemCreateOrConnectWithoutReturnInput | Prisma.SaleReturnItemCreateOrConnectWithoutReturnInput[]
+  createMany?: Prisma.SaleReturnItemCreateManyReturnInputEnvelope
   connect?: Prisma.SaleReturnItemWhereUniqueInput | Prisma.SaleReturnItemWhereUniqueInput[]
 }
 
-export type SaleReturnItemUpdateManyWithoutSaleNestedInput = {
-  create?: Prisma.XOR<Prisma.SaleReturnItemCreateWithoutSaleInput, Prisma.SaleReturnItemUncheckedCreateWithoutSaleInput> | Prisma.SaleReturnItemCreateWithoutSaleInput[] | Prisma.SaleReturnItemUncheckedCreateWithoutSaleInput[]
-  connectOrCreate?: Prisma.SaleReturnItemCreateOrConnectWithoutSaleInput | Prisma.SaleReturnItemCreateOrConnectWithoutSaleInput[]
-  upsert?: Prisma.SaleReturnItemUpsertWithWhereUniqueWithoutSaleInput | Prisma.SaleReturnItemUpsertWithWhereUniqueWithoutSaleInput[]
-  createMany?: Prisma.SaleReturnItemCreateManySaleInputEnvelope
+export type SaleReturnItemUpdateManyWithoutReturnNestedInput = {
+  create?: Prisma.XOR<Prisma.SaleReturnItemCreateWithoutReturnInput, Prisma.SaleReturnItemUncheckedCreateWithoutReturnInput> | Prisma.SaleReturnItemCreateWithoutReturnInput[] | Prisma.SaleReturnItemUncheckedCreateWithoutReturnInput[]
+  connectOrCreate?: Prisma.SaleReturnItemCreateOrConnectWithoutReturnInput | Prisma.SaleReturnItemCreateOrConnectWithoutReturnInput[]
+  upsert?: Prisma.SaleReturnItemUpsertWithWhereUniqueWithoutReturnInput | Prisma.SaleReturnItemUpsertWithWhereUniqueWithoutReturnInput[]
+  createMany?: Prisma.SaleReturnItemCreateManyReturnInputEnvelope
   set?: Prisma.SaleReturnItemWhereUniqueInput | Prisma.SaleReturnItemWhereUniqueInput[]
   disconnect?: Prisma.SaleReturnItemWhereUniqueInput | Prisma.SaleReturnItemWhereUniqueInput[]
   delete?: Prisma.SaleReturnItemWhereUniqueInput | Prisma.SaleReturnItemWhereUniqueInput[]
   connect?: Prisma.SaleReturnItemWhereUniqueInput | Prisma.SaleReturnItemWhereUniqueInput[]
-  update?: Prisma.SaleReturnItemUpdateWithWhereUniqueWithoutSaleInput | Prisma.SaleReturnItemUpdateWithWhereUniqueWithoutSaleInput[]
-  updateMany?: Prisma.SaleReturnItemUpdateManyWithWhereWithoutSaleInput | Prisma.SaleReturnItemUpdateManyWithWhereWithoutSaleInput[]
+  update?: Prisma.SaleReturnItemUpdateWithWhereUniqueWithoutReturnInput | Prisma.SaleReturnItemUpdateWithWhereUniqueWithoutReturnInput[]
+  updateMany?: Prisma.SaleReturnItemUpdateManyWithWhereWithoutReturnInput | Prisma.SaleReturnItemUpdateManyWithWhereWithoutReturnInput[]
   deleteMany?: Prisma.SaleReturnItemScalarWhereInput | Prisma.SaleReturnItemScalarWhereInput[]
 }
 
-export type SaleReturnItemUncheckedUpdateManyWithoutSaleNestedInput = {
-  create?: Prisma.XOR<Prisma.SaleReturnItemCreateWithoutSaleInput, Prisma.SaleReturnItemUncheckedCreateWithoutSaleInput> | Prisma.SaleReturnItemCreateWithoutSaleInput[] | Prisma.SaleReturnItemUncheckedCreateWithoutSaleInput[]
-  connectOrCreate?: Prisma.SaleReturnItemCreateOrConnectWithoutSaleInput | Prisma.SaleReturnItemCreateOrConnectWithoutSaleInput[]
-  upsert?: Prisma.SaleReturnItemUpsertWithWhereUniqueWithoutSaleInput | Prisma.SaleReturnItemUpsertWithWhereUniqueWithoutSaleInput[]
-  createMany?: Prisma.SaleReturnItemCreateManySaleInputEnvelope
+export type SaleReturnItemUncheckedUpdateManyWithoutReturnNestedInput = {
+  create?: Prisma.XOR<Prisma.SaleReturnItemCreateWithoutReturnInput, Prisma.SaleReturnItemUncheckedCreateWithoutReturnInput> | Prisma.SaleReturnItemCreateWithoutReturnInput[] | Prisma.SaleReturnItemUncheckedCreateWithoutReturnInput[]
+  connectOrCreate?: Prisma.SaleReturnItemCreateOrConnectWithoutReturnInput | Prisma.SaleReturnItemCreateOrConnectWithoutReturnInput[]
+  upsert?: Prisma.SaleReturnItemUpsertWithWhereUniqueWithoutReturnInput | Prisma.SaleReturnItemUpsertWithWhereUniqueWithoutReturnInput[]
+  createMany?: Prisma.SaleReturnItemCreateManyReturnInputEnvelope
   set?: Prisma.SaleReturnItemWhereUniqueInput | Prisma.SaleReturnItemWhereUniqueInput[]
   disconnect?: Prisma.SaleReturnItemWhereUniqueInput | Prisma.SaleReturnItemWhereUniqueInput[]
   delete?: Prisma.SaleReturnItemWhereUniqueInput | Prisma.SaleReturnItemWhereUniqueInput[]
   connect?: Prisma.SaleReturnItemWhereUniqueInput | Prisma.SaleReturnItemWhereUniqueInput[]
-  update?: Prisma.SaleReturnItemUpdateWithWhereUniqueWithoutSaleInput | Prisma.SaleReturnItemUpdateWithWhereUniqueWithoutSaleInput[]
-  updateMany?: Prisma.SaleReturnItemUpdateManyWithWhereWithoutSaleInput | Prisma.SaleReturnItemUpdateManyWithWhereWithoutSaleInput[]
+  update?: Prisma.SaleReturnItemUpdateWithWhereUniqueWithoutReturnInput | Prisma.SaleReturnItemUpdateWithWhereUniqueWithoutReturnInput[]
+  updateMany?: Prisma.SaleReturnItemUpdateManyWithWhereWithoutReturnInput | Prisma.SaleReturnItemUpdateManyWithWhereWithoutReturnInput[]
   deleteMany?: Prisma.SaleReturnItemScalarWhereInput | Prisma.SaleReturnItemScalarWhereInput[]
 }
 
-export type SaleReturnItemCreateNestedManyWithoutSaleReturnInput = {
-  create?: Prisma.XOR<Prisma.SaleReturnItemCreateWithoutSaleReturnInput, Prisma.SaleReturnItemUncheckedCreateWithoutSaleReturnInput> | Prisma.SaleReturnItemCreateWithoutSaleReturnInput[] | Prisma.SaleReturnItemUncheckedCreateWithoutSaleReturnInput[]
-  connectOrCreate?: Prisma.SaleReturnItemCreateOrConnectWithoutSaleReturnInput | Prisma.SaleReturnItemCreateOrConnectWithoutSaleReturnInput[]
-  createMany?: Prisma.SaleReturnItemCreateManySaleReturnInputEnvelope
-  connect?: Prisma.SaleReturnItemWhereUniqueInput | Prisma.SaleReturnItemWhereUniqueInput[]
-}
-
-export type SaleReturnItemUncheckedCreateNestedManyWithoutSaleReturnInput = {
-  create?: Prisma.XOR<Prisma.SaleReturnItemCreateWithoutSaleReturnInput, Prisma.SaleReturnItemUncheckedCreateWithoutSaleReturnInput> | Prisma.SaleReturnItemCreateWithoutSaleReturnInput[] | Prisma.SaleReturnItemUncheckedCreateWithoutSaleReturnInput[]
-  connectOrCreate?: Prisma.SaleReturnItemCreateOrConnectWithoutSaleReturnInput | Prisma.SaleReturnItemCreateOrConnectWithoutSaleReturnInput[]
-  createMany?: Prisma.SaleReturnItemCreateManySaleReturnInputEnvelope
-  connect?: Prisma.SaleReturnItemWhereUniqueInput | Prisma.SaleReturnItemWhereUniqueInput[]
-}
-
-export type SaleReturnItemUpdateManyWithoutSaleReturnNestedInput = {
-  create?: Prisma.XOR<Prisma.SaleReturnItemCreateWithoutSaleReturnInput, Prisma.SaleReturnItemUncheckedCreateWithoutSaleReturnInput> | Prisma.SaleReturnItemCreateWithoutSaleReturnInput[] | Prisma.SaleReturnItemUncheckedCreateWithoutSaleReturnInput[]
-  connectOrCreate?: Prisma.SaleReturnItemCreateOrConnectWithoutSaleReturnInput | Prisma.SaleReturnItemCreateOrConnectWithoutSaleReturnInput[]
-  upsert?: Prisma.SaleReturnItemUpsertWithWhereUniqueWithoutSaleReturnInput | Prisma.SaleReturnItemUpsertWithWhereUniqueWithoutSaleReturnInput[]
-  createMany?: Prisma.SaleReturnItemCreateManySaleReturnInputEnvelope
-  set?: Prisma.SaleReturnItemWhereUniqueInput | Prisma.SaleReturnItemWhereUniqueInput[]
-  disconnect?: Prisma.SaleReturnItemWhereUniqueInput | Prisma.SaleReturnItemWhereUniqueInput[]
-  delete?: Prisma.SaleReturnItemWhereUniqueInput | Prisma.SaleReturnItemWhereUniqueInput[]
-  connect?: Prisma.SaleReturnItemWhereUniqueInput | Prisma.SaleReturnItemWhereUniqueInput[]
-  update?: Prisma.SaleReturnItemUpdateWithWhereUniqueWithoutSaleReturnInput | Prisma.SaleReturnItemUpdateWithWhereUniqueWithoutSaleReturnInput[]
-  updateMany?: Prisma.SaleReturnItemUpdateManyWithWhereWithoutSaleReturnInput | Prisma.SaleReturnItemUpdateManyWithWhereWithoutSaleReturnInput[]
-  deleteMany?: Prisma.SaleReturnItemScalarWhereInput | Prisma.SaleReturnItemScalarWhereInput[]
-}
-
-export type SaleReturnItemUncheckedUpdateManyWithoutSaleReturnNestedInput = {
-  create?: Prisma.XOR<Prisma.SaleReturnItemCreateWithoutSaleReturnInput, Prisma.SaleReturnItemUncheckedCreateWithoutSaleReturnInput> | Prisma.SaleReturnItemCreateWithoutSaleReturnInput[] | Prisma.SaleReturnItemUncheckedCreateWithoutSaleReturnInput[]
-  connectOrCreate?: Prisma.SaleReturnItemCreateOrConnectWithoutSaleReturnInput | Prisma.SaleReturnItemCreateOrConnectWithoutSaleReturnInput[]
-  upsert?: Prisma.SaleReturnItemUpsertWithWhereUniqueWithoutSaleReturnInput | Prisma.SaleReturnItemUpsertWithWhereUniqueWithoutSaleReturnInput[]
-  createMany?: Prisma.SaleReturnItemCreateManySaleReturnInputEnvelope
-  set?: Prisma.SaleReturnItemWhereUniqueInput | Prisma.SaleReturnItemWhereUniqueInput[]
-  disconnect?: Prisma.SaleReturnItemWhereUniqueInput | Prisma.SaleReturnItemWhereUniqueInput[]
-  delete?: Prisma.SaleReturnItemWhereUniqueInput | Prisma.SaleReturnItemWhereUniqueInput[]
-  connect?: Prisma.SaleReturnItemWhereUniqueInput | Prisma.SaleReturnItemWhereUniqueInput[]
-  update?: Prisma.SaleReturnItemUpdateWithWhereUniqueWithoutSaleReturnInput | Prisma.SaleReturnItemUpdateWithWhereUniqueWithoutSaleReturnInput[]
-  updateMany?: Prisma.SaleReturnItemUpdateManyWithWhereWithoutSaleReturnInput | Prisma.SaleReturnItemUpdateManyWithWhereWithoutSaleReturnInput[]
-  deleteMany?: Prisma.SaleReturnItemScalarWhereInput | Prisma.SaleReturnItemScalarWhereInput[]
-}
-
-export type SaleReturnItemCreateWithoutMedicineInput = {
+export type SaleReturnItemCreateWithoutVariantInput = {
   batchNo: string
-  expiryDate: Date | string
+  expiryDate?: Date | string | null
   returnQty: number
   saleRate: number
-  lineAmount: number
-  reason?: string | null
-  saleReturn: Prisma.SaleReturnCreateNestedOneWithoutItemsInput
-  sale?: Prisma.SaleCreateNestedOneWithoutSaleReturnItemsInput
+  amount: number
+  return: Prisma.SaleReturnCreateNestedOneWithoutItemsInput
 }
 
-export type SaleReturnItemUncheckedCreateWithoutMedicineInput = {
+export type SaleReturnItemUncheckedCreateWithoutVariantInput = {
   id?: number
-  saleReturnId: number
+  returnId: number
   batchNo: string
-  expiryDate: Date | string
+  expiryDate?: Date | string | null
   returnQty: number
   saleRate: number
-  lineAmount: number
-  reason?: string | null
-  saleId?: number | null
+  amount: number
 }
 
-export type SaleReturnItemCreateOrConnectWithoutMedicineInput = {
+export type SaleReturnItemCreateOrConnectWithoutVariantInput = {
   where: Prisma.SaleReturnItemWhereUniqueInput
-  create: Prisma.XOR<Prisma.SaleReturnItemCreateWithoutMedicineInput, Prisma.SaleReturnItemUncheckedCreateWithoutMedicineInput>
+  create: Prisma.XOR<Prisma.SaleReturnItemCreateWithoutVariantInput, Prisma.SaleReturnItemUncheckedCreateWithoutVariantInput>
 }
 
-export type SaleReturnItemCreateManyMedicineInputEnvelope = {
-  data: Prisma.SaleReturnItemCreateManyMedicineInput | Prisma.SaleReturnItemCreateManyMedicineInput[]
+export type SaleReturnItemCreateManyVariantInputEnvelope = {
+  data: Prisma.SaleReturnItemCreateManyVariantInput | Prisma.SaleReturnItemCreateManyVariantInput[]
   skipDuplicates?: boolean
 }
 
-export type SaleReturnItemUpsertWithWhereUniqueWithoutMedicineInput = {
+export type SaleReturnItemUpsertWithWhereUniqueWithoutVariantInput = {
   where: Prisma.SaleReturnItemWhereUniqueInput
-  update: Prisma.XOR<Prisma.SaleReturnItemUpdateWithoutMedicineInput, Prisma.SaleReturnItemUncheckedUpdateWithoutMedicineInput>
-  create: Prisma.XOR<Prisma.SaleReturnItemCreateWithoutMedicineInput, Prisma.SaleReturnItemUncheckedCreateWithoutMedicineInput>
+  update: Prisma.XOR<Prisma.SaleReturnItemUpdateWithoutVariantInput, Prisma.SaleReturnItemUncheckedUpdateWithoutVariantInput>
+  create: Prisma.XOR<Prisma.SaleReturnItemCreateWithoutVariantInput, Prisma.SaleReturnItemUncheckedCreateWithoutVariantInput>
 }
 
-export type SaleReturnItemUpdateWithWhereUniqueWithoutMedicineInput = {
+export type SaleReturnItemUpdateWithWhereUniqueWithoutVariantInput = {
   where: Prisma.SaleReturnItemWhereUniqueInput
-  data: Prisma.XOR<Prisma.SaleReturnItemUpdateWithoutMedicineInput, Prisma.SaleReturnItemUncheckedUpdateWithoutMedicineInput>
+  data: Prisma.XOR<Prisma.SaleReturnItemUpdateWithoutVariantInput, Prisma.SaleReturnItemUncheckedUpdateWithoutVariantInput>
 }
 
-export type SaleReturnItemUpdateManyWithWhereWithoutMedicineInput = {
+export type SaleReturnItemUpdateManyWithWhereWithoutVariantInput = {
   where: Prisma.SaleReturnItemScalarWhereInput
-  data: Prisma.XOR<Prisma.SaleReturnItemUpdateManyMutationInput, Prisma.SaleReturnItemUncheckedUpdateManyWithoutMedicineInput>
+  data: Prisma.XOR<Prisma.SaleReturnItemUpdateManyMutationInput, Prisma.SaleReturnItemUncheckedUpdateManyWithoutVariantInput>
 }
 
 export type SaleReturnItemScalarWhereInput = {
@@ -688,354 +590,219 @@ export type SaleReturnItemScalarWhereInput = {
   OR?: Prisma.SaleReturnItemScalarWhereInput[]
   NOT?: Prisma.SaleReturnItemScalarWhereInput | Prisma.SaleReturnItemScalarWhereInput[]
   id?: Prisma.IntFilter<"SaleReturnItem"> | number
-  saleReturnId?: Prisma.IntFilter<"SaleReturnItem"> | number
-  medicineId?: Prisma.IntFilter<"SaleReturnItem"> | number
+  returnId?: Prisma.IntFilter<"SaleReturnItem"> | number
+  variantId?: Prisma.IntFilter<"SaleReturnItem"> | number
   batchNo?: Prisma.StringFilter<"SaleReturnItem"> | string
-  expiryDate?: Prisma.DateTimeFilter<"SaleReturnItem"> | Date | string
+  expiryDate?: Prisma.DateTimeNullableFilter<"SaleReturnItem"> | Date | string | null
   returnQty?: Prisma.FloatFilter<"SaleReturnItem"> | number
   saleRate?: Prisma.FloatFilter<"SaleReturnItem"> | number
-  lineAmount?: Prisma.FloatFilter<"SaleReturnItem"> | number
-  reason?: Prisma.StringNullableFilter<"SaleReturnItem"> | string | null
-  saleId?: Prisma.IntNullableFilter<"SaleReturnItem"> | number | null
+  amount?: Prisma.FloatFilter<"SaleReturnItem"> | number
 }
 
-export type SaleReturnItemCreateWithoutSaleInput = {
+export type SaleReturnItemCreateWithoutReturnInput = {
   batchNo: string
-  expiryDate: Date | string
+  expiryDate?: Date | string | null
   returnQty: number
   saleRate: number
-  lineAmount: number
-  reason?: string | null
-  saleReturn: Prisma.SaleReturnCreateNestedOneWithoutItemsInput
-  medicine: Prisma.MedicineCreateNestedOneWithoutSaleReturnItemsInput
+  amount: number
+  variant: Prisma.ProductVariantCreateNestedOneWithoutSaleReturnItemsInput
 }
 
-export type SaleReturnItemUncheckedCreateWithoutSaleInput = {
+export type SaleReturnItemUncheckedCreateWithoutReturnInput = {
   id?: number
-  saleReturnId: number
-  medicineId: number
+  variantId: number
   batchNo: string
-  expiryDate: Date | string
+  expiryDate?: Date | string | null
   returnQty: number
   saleRate: number
-  lineAmount: number
-  reason?: string | null
+  amount: number
 }
 
-export type SaleReturnItemCreateOrConnectWithoutSaleInput = {
+export type SaleReturnItemCreateOrConnectWithoutReturnInput = {
   where: Prisma.SaleReturnItemWhereUniqueInput
-  create: Prisma.XOR<Prisma.SaleReturnItemCreateWithoutSaleInput, Prisma.SaleReturnItemUncheckedCreateWithoutSaleInput>
+  create: Prisma.XOR<Prisma.SaleReturnItemCreateWithoutReturnInput, Prisma.SaleReturnItemUncheckedCreateWithoutReturnInput>
 }
 
-export type SaleReturnItemCreateManySaleInputEnvelope = {
-  data: Prisma.SaleReturnItemCreateManySaleInput | Prisma.SaleReturnItemCreateManySaleInput[]
+export type SaleReturnItemCreateManyReturnInputEnvelope = {
+  data: Prisma.SaleReturnItemCreateManyReturnInput | Prisma.SaleReturnItemCreateManyReturnInput[]
   skipDuplicates?: boolean
 }
 
-export type SaleReturnItemUpsertWithWhereUniqueWithoutSaleInput = {
+export type SaleReturnItemUpsertWithWhereUniqueWithoutReturnInput = {
   where: Prisma.SaleReturnItemWhereUniqueInput
-  update: Prisma.XOR<Prisma.SaleReturnItemUpdateWithoutSaleInput, Prisma.SaleReturnItemUncheckedUpdateWithoutSaleInput>
-  create: Prisma.XOR<Prisma.SaleReturnItemCreateWithoutSaleInput, Prisma.SaleReturnItemUncheckedCreateWithoutSaleInput>
+  update: Prisma.XOR<Prisma.SaleReturnItemUpdateWithoutReturnInput, Prisma.SaleReturnItemUncheckedUpdateWithoutReturnInput>
+  create: Prisma.XOR<Prisma.SaleReturnItemCreateWithoutReturnInput, Prisma.SaleReturnItemUncheckedCreateWithoutReturnInput>
 }
 
-export type SaleReturnItemUpdateWithWhereUniqueWithoutSaleInput = {
+export type SaleReturnItemUpdateWithWhereUniqueWithoutReturnInput = {
   where: Prisma.SaleReturnItemWhereUniqueInput
-  data: Prisma.XOR<Prisma.SaleReturnItemUpdateWithoutSaleInput, Prisma.SaleReturnItemUncheckedUpdateWithoutSaleInput>
+  data: Prisma.XOR<Prisma.SaleReturnItemUpdateWithoutReturnInput, Prisma.SaleReturnItemUncheckedUpdateWithoutReturnInput>
 }
 
-export type SaleReturnItemUpdateManyWithWhereWithoutSaleInput = {
+export type SaleReturnItemUpdateManyWithWhereWithoutReturnInput = {
   where: Prisma.SaleReturnItemScalarWhereInput
-  data: Prisma.XOR<Prisma.SaleReturnItemUpdateManyMutationInput, Prisma.SaleReturnItemUncheckedUpdateManyWithoutSaleInput>
+  data: Prisma.XOR<Prisma.SaleReturnItemUpdateManyMutationInput, Prisma.SaleReturnItemUncheckedUpdateManyWithoutReturnInput>
 }
 
-export type SaleReturnItemCreateWithoutSaleReturnInput = {
-  batchNo: string
-  expiryDate: Date | string
-  returnQty: number
-  saleRate: number
-  lineAmount: number
-  reason?: string | null
-  medicine: Prisma.MedicineCreateNestedOneWithoutSaleReturnItemsInput
-  sale?: Prisma.SaleCreateNestedOneWithoutSaleReturnItemsInput
-}
-
-export type SaleReturnItemUncheckedCreateWithoutSaleReturnInput = {
+export type SaleReturnItemCreateManyVariantInput = {
   id?: number
-  medicineId: number
+  returnId: number
   batchNo: string
-  expiryDate: Date | string
+  expiryDate?: Date | string | null
   returnQty: number
   saleRate: number
-  lineAmount: number
-  reason?: string | null
-  saleId?: number | null
+  amount: number
 }
 
-export type SaleReturnItemCreateOrConnectWithoutSaleReturnInput = {
-  where: Prisma.SaleReturnItemWhereUniqueInput
-  create: Prisma.XOR<Prisma.SaleReturnItemCreateWithoutSaleReturnInput, Prisma.SaleReturnItemUncheckedCreateWithoutSaleReturnInput>
+export type SaleReturnItemUpdateWithoutVariantInput = {
+  batchNo?: Prisma.StringFieldUpdateOperationsInput | string
+  expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  returnQty?: Prisma.FloatFieldUpdateOperationsInput | number
+  saleRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  amount?: Prisma.FloatFieldUpdateOperationsInput | number
+  return?: Prisma.SaleReturnUpdateOneRequiredWithoutItemsNestedInput
 }
 
-export type SaleReturnItemCreateManySaleReturnInputEnvelope = {
-  data: Prisma.SaleReturnItemCreateManySaleReturnInput | Prisma.SaleReturnItemCreateManySaleReturnInput[]
-  skipDuplicates?: boolean
+export type SaleReturnItemUncheckedUpdateWithoutVariantInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  returnId?: Prisma.IntFieldUpdateOperationsInput | number
+  batchNo?: Prisma.StringFieldUpdateOperationsInput | string
+  expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  returnQty?: Prisma.FloatFieldUpdateOperationsInput | number
+  saleRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  amount?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
-export type SaleReturnItemUpsertWithWhereUniqueWithoutSaleReturnInput = {
-  where: Prisma.SaleReturnItemWhereUniqueInput
-  update: Prisma.XOR<Prisma.SaleReturnItemUpdateWithoutSaleReturnInput, Prisma.SaleReturnItemUncheckedUpdateWithoutSaleReturnInput>
-  create: Prisma.XOR<Prisma.SaleReturnItemCreateWithoutSaleReturnInput, Prisma.SaleReturnItemUncheckedCreateWithoutSaleReturnInput>
+export type SaleReturnItemUncheckedUpdateManyWithoutVariantInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  returnId?: Prisma.IntFieldUpdateOperationsInput | number
+  batchNo?: Prisma.StringFieldUpdateOperationsInput | string
+  expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  returnQty?: Prisma.FloatFieldUpdateOperationsInput | number
+  saleRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  amount?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
-export type SaleReturnItemUpdateWithWhereUniqueWithoutSaleReturnInput = {
-  where: Prisma.SaleReturnItemWhereUniqueInput
-  data: Prisma.XOR<Prisma.SaleReturnItemUpdateWithoutSaleReturnInput, Prisma.SaleReturnItemUncheckedUpdateWithoutSaleReturnInput>
-}
-
-export type SaleReturnItemUpdateManyWithWhereWithoutSaleReturnInput = {
-  where: Prisma.SaleReturnItemScalarWhereInput
-  data: Prisma.XOR<Prisma.SaleReturnItemUpdateManyMutationInput, Prisma.SaleReturnItemUncheckedUpdateManyWithoutSaleReturnInput>
-}
-
-export type SaleReturnItemCreateManyMedicineInput = {
+export type SaleReturnItemCreateManyReturnInput = {
   id?: number
-  saleReturnId: number
+  variantId: number
   batchNo: string
-  expiryDate: Date | string
+  expiryDate?: Date | string | null
   returnQty: number
   saleRate: number
-  lineAmount: number
-  reason?: string | null
-  saleId?: number | null
+  amount: number
 }
 
-export type SaleReturnItemUpdateWithoutMedicineInput = {
+export type SaleReturnItemUpdateWithoutReturnInput = {
   batchNo?: Prisma.StringFieldUpdateOperationsInput | string
-  expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   returnQty?: Prisma.FloatFieldUpdateOperationsInput | number
   saleRate?: Prisma.FloatFieldUpdateOperationsInput | number
-  lineAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  saleReturn?: Prisma.SaleReturnUpdateOneRequiredWithoutItemsNestedInput
-  sale?: Prisma.SaleUpdateOneWithoutSaleReturnItemsNestedInput
+  amount?: Prisma.FloatFieldUpdateOperationsInput | number
+  variant?: Prisma.ProductVariantUpdateOneRequiredWithoutSaleReturnItemsNestedInput
 }
 
-export type SaleReturnItemUncheckedUpdateWithoutMedicineInput = {
+export type SaleReturnItemUncheckedUpdateWithoutReturnInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  saleReturnId?: Prisma.IntFieldUpdateOperationsInput | number
+  variantId?: Prisma.IntFieldUpdateOperationsInput | number
   batchNo?: Prisma.StringFieldUpdateOperationsInput | string
-  expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   returnQty?: Prisma.FloatFieldUpdateOperationsInput | number
   saleRate?: Prisma.FloatFieldUpdateOperationsInput | number
-  lineAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  saleId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  amount?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
-export type SaleReturnItemUncheckedUpdateManyWithoutMedicineInput = {
+export type SaleReturnItemUncheckedUpdateManyWithoutReturnInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  saleReturnId?: Prisma.IntFieldUpdateOperationsInput | number
+  variantId?: Prisma.IntFieldUpdateOperationsInput | number
   batchNo?: Prisma.StringFieldUpdateOperationsInput | string
-  expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   returnQty?: Prisma.FloatFieldUpdateOperationsInput | number
   saleRate?: Prisma.FloatFieldUpdateOperationsInput | number
-  lineAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  saleId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-}
-
-export type SaleReturnItemCreateManySaleInput = {
-  id?: number
-  saleReturnId: number
-  medicineId: number
-  batchNo: string
-  expiryDate: Date | string
-  returnQty: number
-  saleRate: number
-  lineAmount: number
-  reason?: string | null
-}
-
-export type SaleReturnItemUpdateWithoutSaleInput = {
-  batchNo?: Prisma.StringFieldUpdateOperationsInput | string
-  expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  returnQty?: Prisma.FloatFieldUpdateOperationsInput | number
-  saleRate?: Prisma.FloatFieldUpdateOperationsInput | number
-  lineAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  saleReturn?: Prisma.SaleReturnUpdateOneRequiredWithoutItemsNestedInput
-  medicine?: Prisma.MedicineUpdateOneRequiredWithoutSaleReturnItemsNestedInput
-}
-
-export type SaleReturnItemUncheckedUpdateWithoutSaleInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  saleReturnId?: Prisma.IntFieldUpdateOperationsInput | number
-  medicineId?: Prisma.IntFieldUpdateOperationsInput | number
-  batchNo?: Prisma.StringFieldUpdateOperationsInput | string
-  expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  returnQty?: Prisma.FloatFieldUpdateOperationsInput | number
-  saleRate?: Prisma.FloatFieldUpdateOperationsInput | number
-  lineAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-}
-
-export type SaleReturnItemUncheckedUpdateManyWithoutSaleInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  saleReturnId?: Prisma.IntFieldUpdateOperationsInput | number
-  medicineId?: Prisma.IntFieldUpdateOperationsInput | number
-  batchNo?: Prisma.StringFieldUpdateOperationsInput | string
-  expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  returnQty?: Prisma.FloatFieldUpdateOperationsInput | number
-  saleRate?: Prisma.FloatFieldUpdateOperationsInput | number
-  lineAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-}
-
-export type SaleReturnItemCreateManySaleReturnInput = {
-  id?: number
-  medicineId: number
-  batchNo: string
-  expiryDate: Date | string
-  returnQty: number
-  saleRate: number
-  lineAmount: number
-  reason?: string | null
-  saleId?: number | null
-}
-
-export type SaleReturnItemUpdateWithoutSaleReturnInput = {
-  batchNo?: Prisma.StringFieldUpdateOperationsInput | string
-  expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  returnQty?: Prisma.FloatFieldUpdateOperationsInput | number
-  saleRate?: Prisma.FloatFieldUpdateOperationsInput | number
-  lineAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  medicine?: Prisma.MedicineUpdateOneRequiredWithoutSaleReturnItemsNestedInput
-  sale?: Prisma.SaleUpdateOneWithoutSaleReturnItemsNestedInput
-}
-
-export type SaleReturnItemUncheckedUpdateWithoutSaleReturnInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  medicineId?: Prisma.IntFieldUpdateOperationsInput | number
-  batchNo?: Prisma.StringFieldUpdateOperationsInput | string
-  expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  returnQty?: Prisma.FloatFieldUpdateOperationsInput | number
-  saleRate?: Prisma.FloatFieldUpdateOperationsInput | number
-  lineAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  saleId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-}
-
-export type SaleReturnItemUncheckedUpdateManyWithoutSaleReturnInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  medicineId?: Prisma.IntFieldUpdateOperationsInput | number
-  batchNo?: Prisma.StringFieldUpdateOperationsInput | string
-  expiryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  returnQty?: Prisma.FloatFieldUpdateOperationsInput | number
-  saleRate?: Prisma.FloatFieldUpdateOperationsInput | number
-  lineAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  saleId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  amount?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 
 
 export type SaleReturnItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  saleReturnId?: boolean
-  medicineId?: boolean
+  returnId?: boolean
+  variantId?: boolean
   batchNo?: boolean
   expiryDate?: boolean
   returnQty?: boolean
   saleRate?: boolean
-  lineAmount?: boolean
-  reason?: boolean
-  saleId?: boolean
-  saleReturn?: boolean | Prisma.SaleReturnDefaultArgs<ExtArgs>
-  medicine?: boolean | Prisma.MedicineDefaultArgs<ExtArgs>
-  sale?: boolean | Prisma.SaleReturnItem$saleArgs<ExtArgs>
+  amount?: boolean
+  return?: boolean | Prisma.SaleReturnDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.ProductVariantDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["saleReturnItem"]>
 
 export type SaleReturnItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  saleReturnId?: boolean
-  medicineId?: boolean
+  returnId?: boolean
+  variantId?: boolean
   batchNo?: boolean
   expiryDate?: boolean
   returnQty?: boolean
   saleRate?: boolean
-  lineAmount?: boolean
-  reason?: boolean
-  saleId?: boolean
-  saleReturn?: boolean | Prisma.SaleReturnDefaultArgs<ExtArgs>
-  medicine?: boolean | Prisma.MedicineDefaultArgs<ExtArgs>
-  sale?: boolean | Prisma.SaleReturnItem$saleArgs<ExtArgs>
+  amount?: boolean
+  return?: boolean | Prisma.SaleReturnDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.ProductVariantDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["saleReturnItem"]>
 
 export type SaleReturnItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  saleReturnId?: boolean
-  medicineId?: boolean
+  returnId?: boolean
+  variantId?: boolean
   batchNo?: boolean
   expiryDate?: boolean
   returnQty?: boolean
   saleRate?: boolean
-  lineAmount?: boolean
-  reason?: boolean
-  saleId?: boolean
-  saleReturn?: boolean | Prisma.SaleReturnDefaultArgs<ExtArgs>
-  medicine?: boolean | Prisma.MedicineDefaultArgs<ExtArgs>
-  sale?: boolean | Prisma.SaleReturnItem$saleArgs<ExtArgs>
+  amount?: boolean
+  return?: boolean | Prisma.SaleReturnDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.ProductVariantDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["saleReturnItem"]>
 
 export type SaleReturnItemSelectScalar = {
   id?: boolean
-  saleReturnId?: boolean
-  medicineId?: boolean
+  returnId?: boolean
+  variantId?: boolean
   batchNo?: boolean
   expiryDate?: boolean
   returnQty?: boolean
   saleRate?: boolean
-  lineAmount?: boolean
-  reason?: boolean
-  saleId?: boolean
+  amount?: boolean
 }
 
-export type SaleReturnItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "saleReturnId" | "medicineId" | "batchNo" | "expiryDate" | "returnQty" | "saleRate" | "lineAmount" | "reason" | "saleId", ExtArgs["result"]["saleReturnItem"]>
+export type SaleReturnItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "returnId" | "variantId" | "batchNo" | "expiryDate" | "returnQty" | "saleRate" | "amount", ExtArgs["result"]["saleReturnItem"]>
 export type SaleReturnItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  saleReturn?: boolean | Prisma.SaleReturnDefaultArgs<ExtArgs>
-  medicine?: boolean | Prisma.MedicineDefaultArgs<ExtArgs>
-  sale?: boolean | Prisma.SaleReturnItem$saleArgs<ExtArgs>
+  return?: boolean | Prisma.SaleReturnDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.ProductVariantDefaultArgs<ExtArgs>
 }
 export type SaleReturnItemIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  saleReturn?: boolean | Prisma.SaleReturnDefaultArgs<ExtArgs>
-  medicine?: boolean | Prisma.MedicineDefaultArgs<ExtArgs>
-  sale?: boolean | Prisma.SaleReturnItem$saleArgs<ExtArgs>
+  return?: boolean | Prisma.SaleReturnDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.ProductVariantDefaultArgs<ExtArgs>
 }
 export type SaleReturnItemIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  saleReturn?: boolean | Prisma.SaleReturnDefaultArgs<ExtArgs>
-  medicine?: boolean | Prisma.MedicineDefaultArgs<ExtArgs>
-  sale?: boolean | Prisma.SaleReturnItem$saleArgs<ExtArgs>
+  return?: boolean | Prisma.SaleReturnDefaultArgs<ExtArgs>
+  variant?: boolean | Prisma.ProductVariantDefaultArgs<ExtArgs>
 }
 
 export type $SaleReturnItemPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "SaleReturnItem"
   objects: {
-    saleReturn: Prisma.$SaleReturnPayload<ExtArgs>
-    medicine: Prisma.$MedicinePayload<ExtArgs>
-    sale: Prisma.$SalePayload<ExtArgs> | null
+    return: Prisma.$SaleReturnPayload<ExtArgs>
+    variant: Prisma.$ProductVariantPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    saleReturnId: number
-    medicineId: number
+    returnId: number
+    variantId: number
     batchNo: string
-    expiryDate: Date
+    expiryDate: Date | null
     returnQty: number
     saleRate: number
-    lineAmount: number
-    reason: string | null
-    saleId: number | null
+    amount: number
   }, ExtArgs["result"]["saleReturnItem"]>
   composites: {}
 }
@@ -1430,9 +1197,8 @@ readonly fields: SaleReturnItemFieldRefs;
  */
 export interface Prisma__SaleReturnItemClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  saleReturn<T extends Prisma.SaleReturnDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SaleReturnDefaultArgs<ExtArgs>>): Prisma.Prisma__SaleReturnClient<runtime.Types.Result.GetResult<Prisma.$SaleReturnPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  medicine<T extends Prisma.MedicineDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MedicineDefaultArgs<ExtArgs>>): Prisma.Prisma__MedicineClient<runtime.Types.Result.GetResult<Prisma.$MedicinePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  sale<T extends Prisma.SaleReturnItem$saleArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SaleReturnItem$saleArgs<ExtArgs>>): Prisma.Prisma__SaleClient<runtime.Types.Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  return<T extends Prisma.SaleReturnDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SaleReturnDefaultArgs<ExtArgs>>): Prisma.Prisma__SaleReturnClient<runtime.Types.Result.GetResult<Prisma.$SaleReturnPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  variant<T extends Prisma.ProductVariantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductVariantDefaultArgs<ExtArgs>>): Prisma.Prisma__ProductVariantClient<runtime.Types.Result.GetResult<Prisma.$ProductVariantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1463,15 +1229,13 @@ export interface Prisma__SaleReturnItemClient<T, Null = never, ExtArgs extends r
  */
 export interface SaleReturnItemFieldRefs {
   readonly id: Prisma.FieldRef<"SaleReturnItem", 'Int'>
-  readonly saleReturnId: Prisma.FieldRef<"SaleReturnItem", 'Int'>
-  readonly medicineId: Prisma.FieldRef<"SaleReturnItem", 'Int'>
+  readonly returnId: Prisma.FieldRef<"SaleReturnItem", 'Int'>
+  readonly variantId: Prisma.FieldRef<"SaleReturnItem", 'Int'>
   readonly batchNo: Prisma.FieldRef<"SaleReturnItem", 'String'>
   readonly expiryDate: Prisma.FieldRef<"SaleReturnItem", 'DateTime'>
   readonly returnQty: Prisma.FieldRef<"SaleReturnItem", 'Float'>
   readonly saleRate: Prisma.FieldRef<"SaleReturnItem", 'Float'>
-  readonly lineAmount: Prisma.FieldRef<"SaleReturnItem", 'Float'>
-  readonly reason: Prisma.FieldRef<"SaleReturnItem", 'String'>
-  readonly saleId: Prisma.FieldRef<"SaleReturnItem", 'Int'>
+  readonly amount: Prisma.FieldRef<"SaleReturnItem", 'Float'>
 }
     
 
@@ -1865,25 +1629,6 @@ export type SaleReturnItemDeleteManyArgs<ExtArgs extends runtime.Types.Extension
    * Limit how many SaleReturnItems to delete.
    */
   limit?: number
-}
-
-/**
- * SaleReturnItem.sale
- */
-export type SaleReturnItem$saleArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Sale
-   */
-  select?: Prisma.SaleSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Sale
-   */
-  omit?: Prisma.SaleOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.SaleInclude<ExtArgs> | null
-  where?: Prisma.SaleWhereInput
 }
 
 /**

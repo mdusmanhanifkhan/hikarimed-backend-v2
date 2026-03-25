@@ -37,25 +37,25 @@ export type GenericNameSumAggregateOutputType = {
 export type GenericNameMinAggregateOutputType = {
   id: number | null
   name: string | null
+  status: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
-  status: boolean | null
 }
 
 export type GenericNameMaxAggregateOutputType = {
   id: number | null
   name: string | null
+  status: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
-  status: boolean | null
 }
 
 export type GenericNameCountAggregateOutputType = {
   id: number
   name: number
+  status: number
   createdAt: number
   updatedAt: number
-  status: number
   _all: number
 }
 
@@ -71,25 +71,25 @@ export type GenericNameSumAggregateInputType = {
 export type GenericNameMinAggregateInputType = {
   id?: true
   name?: true
+  status?: true
   createdAt?: true
   updatedAt?: true
-  status?: true
 }
 
 export type GenericNameMaxAggregateInputType = {
   id?: true
   name?: true
+  status?: true
   createdAt?: true
   updatedAt?: true
-  status?: true
 }
 
 export type GenericNameCountAggregateInputType = {
   id?: true
   name?: true
+  status?: true
   createdAt?: true
   updatedAt?: true
-  status?: true
   _all?: true
 }
 
@@ -182,9 +182,9 @@ export type GenericNameGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 export type GenericNameGroupByOutputType = {
   id: number
   name: string
+  status: boolean
   createdAt: Date
   updatedAt: Date
-  status: boolean
   _count: GenericNameCountAggregateOutputType | null
   _avg: GenericNameAvgAggregateOutputType | null
   _sum: GenericNameSumAggregateOutputType | null
@@ -213,21 +213,19 @@ export type GenericNameWhereInput = {
   NOT?: Prisma.GenericNameWhereInput | Prisma.GenericNameWhereInput[]
   id?: Prisma.IntFilter<"GenericName"> | number
   name?: Prisma.StringFilter<"GenericName"> | string
+  status?: Prisma.BoolFilter<"GenericName"> | boolean
   createdAt?: Prisma.DateTimeFilter<"GenericName"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"GenericName"> | Date | string
-  status?: Prisma.BoolFilter<"GenericName"> | boolean
-  medicines?: Prisma.MedicineListRelationFilter
-  indentItems?: Prisma.IndentItemListRelationFilter
+  products?: Prisma.ProductListRelationFilter
 }
 
 export type GenericNameOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  status?: Prisma.SortOrder
-  medicines?: Prisma.MedicineOrderByRelationAggregateInput
-  indentItems?: Prisma.IndentItemOrderByRelationAggregateInput
+  products?: Prisma.ProductOrderByRelationAggregateInput
 }
 
 export type GenericNameWhereUniqueInput = Prisma.AtLeast<{
@@ -236,19 +234,18 @@ export type GenericNameWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.GenericNameWhereInput | Prisma.GenericNameWhereInput[]
   OR?: Prisma.GenericNameWhereInput[]
   NOT?: Prisma.GenericNameWhereInput | Prisma.GenericNameWhereInput[]
+  status?: Prisma.BoolFilter<"GenericName"> | boolean
   createdAt?: Prisma.DateTimeFilter<"GenericName"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"GenericName"> | Date | string
-  status?: Prisma.BoolFilter<"GenericName"> | boolean
-  medicines?: Prisma.MedicineListRelationFilter
-  indentItems?: Prisma.IndentItemListRelationFilter
+  products?: Prisma.ProductListRelationFilter
 }, "id" | "name">
 
 export type GenericNameOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   _count?: Prisma.GenericNameCountOrderByAggregateInput
   _avg?: Prisma.GenericNameAvgOrderByAggregateInput
   _max?: Prisma.GenericNameMaxOrderByAggregateInput
@@ -262,83 +259,74 @@ export type GenericNameScalarWhereWithAggregatesInput = {
   NOT?: Prisma.GenericNameScalarWhereWithAggregatesInput | Prisma.GenericNameScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"GenericName"> | number
   name?: Prisma.StringWithAggregatesFilter<"GenericName"> | string
+  status?: Prisma.BoolWithAggregatesFilter<"GenericName"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"GenericName"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"GenericName"> | Date | string
-  status?: Prisma.BoolWithAggregatesFilter<"GenericName"> | boolean
 }
 
 export type GenericNameCreateInput = {
   name: string
+  status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  status?: boolean
-  medicines?: Prisma.MedicineCreateNestedManyWithoutGenericNameInput
-  indentItems?: Prisma.IndentItemCreateNestedManyWithoutGenericNameInput
+  products?: Prisma.ProductCreateNestedManyWithoutGenericNameInput
 }
 
 export type GenericNameUncheckedCreateInput = {
   id?: number
   name: string
+  status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  status?: boolean
-  medicines?: Prisma.MedicineUncheckedCreateNestedManyWithoutGenericNameInput
-  indentItems?: Prisma.IndentItemUncheckedCreateNestedManyWithoutGenericNameInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutGenericNameInput
 }
 
 export type GenericNameUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  medicines?: Prisma.MedicineUpdateManyWithoutGenericNameNestedInput
-  indentItems?: Prisma.IndentItemUpdateManyWithoutGenericNameNestedInput
+  products?: Prisma.ProductUpdateManyWithoutGenericNameNestedInput
 }
 
 export type GenericNameUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  medicines?: Prisma.MedicineUncheckedUpdateManyWithoutGenericNameNestedInput
-  indentItems?: Prisma.IndentItemUncheckedUpdateManyWithoutGenericNameNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutGenericNameNestedInput
 }
 
 export type GenericNameCreateManyInput = {
   id?: number
   name: string
+  status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  status?: boolean
 }
 
 export type GenericNameUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type GenericNameUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
-}
-
-export type GenericNameNullableScalarRelationFilter = {
-  is?: Prisma.GenericNameWhereInput | null
-  isNot?: Prisma.GenericNameWhereInput | null
 }
 
 export type GenericNameCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  status?: Prisma.SortOrder
 }
 
 export type GenericNameAvgOrderByAggregateInput = {
@@ -348,156 +336,88 @@ export type GenericNameAvgOrderByAggregateInput = {
 export type GenericNameMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  status?: Prisma.SortOrder
 }
 
 export type GenericNameMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  status?: Prisma.SortOrder
 }
 
 export type GenericNameSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
 }
 
-export type GenericNameScalarRelationFilter = {
-  is?: Prisma.GenericNameWhereInput
-  isNot?: Prisma.GenericNameWhereInput
+export type GenericNameNullableScalarRelationFilter = {
+  is?: Prisma.GenericNameWhereInput | null
+  isNot?: Prisma.GenericNameWhereInput | null
 }
 
-export type GenericNameCreateNestedOneWithoutMedicinesInput = {
-  create?: Prisma.XOR<Prisma.GenericNameCreateWithoutMedicinesInput, Prisma.GenericNameUncheckedCreateWithoutMedicinesInput>
-  connectOrCreate?: Prisma.GenericNameCreateOrConnectWithoutMedicinesInput
+export type GenericNameCreateNestedOneWithoutProductsInput = {
+  create?: Prisma.XOR<Prisma.GenericNameCreateWithoutProductsInput, Prisma.GenericNameUncheckedCreateWithoutProductsInput>
+  connectOrCreate?: Prisma.GenericNameCreateOrConnectWithoutProductsInput
   connect?: Prisma.GenericNameWhereUniqueInput
 }
 
-export type GenericNameUpdateOneWithoutMedicinesNestedInput = {
-  create?: Prisma.XOR<Prisma.GenericNameCreateWithoutMedicinesInput, Prisma.GenericNameUncheckedCreateWithoutMedicinesInput>
-  connectOrCreate?: Prisma.GenericNameCreateOrConnectWithoutMedicinesInput
-  upsert?: Prisma.GenericNameUpsertWithoutMedicinesInput
+export type GenericNameUpdateOneWithoutProductsNestedInput = {
+  create?: Prisma.XOR<Prisma.GenericNameCreateWithoutProductsInput, Prisma.GenericNameUncheckedCreateWithoutProductsInput>
+  connectOrCreate?: Prisma.GenericNameCreateOrConnectWithoutProductsInput
+  upsert?: Prisma.GenericNameUpsertWithoutProductsInput
   disconnect?: Prisma.GenericNameWhereInput | boolean
   delete?: Prisma.GenericNameWhereInput | boolean
   connect?: Prisma.GenericNameWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.GenericNameUpdateToOneWithWhereWithoutMedicinesInput, Prisma.GenericNameUpdateWithoutMedicinesInput>, Prisma.GenericNameUncheckedUpdateWithoutMedicinesInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GenericNameUpdateToOneWithWhereWithoutProductsInput, Prisma.GenericNameUpdateWithoutProductsInput>, Prisma.GenericNameUncheckedUpdateWithoutProductsInput>
 }
 
-export type GenericNameCreateNestedOneWithoutIndentItemsInput = {
-  create?: Prisma.XOR<Prisma.GenericNameCreateWithoutIndentItemsInput, Prisma.GenericNameUncheckedCreateWithoutIndentItemsInput>
-  connectOrCreate?: Prisma.GenericNameCreateOrConnectWithoutIndentItemsInput
-  connect?: Prisma.GenericNameWhereUniqueInput
-}
-
-export type GenericNameUpdateOneRequiredWithoutIndentItemsNestedInput = {
-  create?: Prisma.XOR<Prisma.GenericNameCreateWithoutIndentItemsInput, Prisma.GenericNameUncheckedCreateWithoutIndentItemsInput>
-  connectOrCreate?: Prisma.GenericNameCreateOrConnectWithoutIndentItemsInput
-  upsert?: Prisma.GenericNameUpsertWithoutIndentItemsInput
-  connect?: Prisma.GenericNameWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.GenericNameUpdateToOneWithWhereWithoutIndentItemsInput, Prisma.GenericNameUpdateWithoutIndentItemsInput>, Prisma.GenericNameUncheckedUpdateWithoutIndentItemsInput>
-}
-
-export type GenericNameCreateWithoutMedicinesInput = {
+export type GenericNameCreateWithoutProductsInput = {
   name: string
+  status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  status?: boolean
-  indentItems?: Prisma.IndentItemCreateNestedManyWithoutGenericNameInput
 }
 
-export type GenericNameUncheckedCreateWithoutMedicinesInput = {
+export type GenericNameUncheckedCreateWithoutProductsInput = {
   id?: number
   name: string
+  status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  status?: boolean
-  indentItems?: Prisma.IndentItemUncheckedCreateNestedManyWithoutGenericNameInput
 }
 
-export type GenericNameCreateOrConnectWithoutMedicinesInput = {
+export type GenericNameCreateOrConnectWithoutProductsInput = {
   where: Prisma.GenericNameWhereUniqueInput
-  create: Prisma.XOR<Prisma.GenericNameCreateWithoutMedicinesInput, Prisma.GenericNameUncheckedCreateWithoutMedicinesInput>
+  create: Prisma.XOR<Prisma.GenericNameCreateWithoutProductsInput, Prisma.GenericNameUncheckedCreateWithoutProductsInput>
 }
 
-export type GenericNameUpsertWithoutMedicinesInput = {
-  update: Prisma.XOR<Prisma.GenericNameUpdateWithoutMedicinesInput, Prisma.GenericNameUncheckedUpdateWithoutMedicinesInput>
-  create: Prisma.XOR<Prisma.GenericNameCreateWithoutMedicinesInput, Prisma.GenericNameUncheckedCreateWithoutMedicinesInput>
+export type GenericNameUpsertWithoutProductsInput = {
+  update: Prisma.XOR<Prisma.GenericNameUpdateWithoutProductsInput, Prisma.GenericNameUncheckedUpdateWithoutProductsInput>
+  create: Prisma.XOR<Prisma.GenericNameCreateWithoutProductsInput, Prisma.GenericNameUncheckedCreateWithoutProductsInput>
   where?: Prisma.GenericNameWhereInput
 }
 
-export type GenericNameUpdateToOneWithWhereWithoutMedicinesInput = {
+export type GenericNameUpdateToOneWithWhereWithoutProductsInput = {
   where?: Prisma.GenericNameWhereInput
-  data: Prisma.XOR<Prisma.GenericNameUpdateWithoutMedicinesInput, Prisma.GenericNameUncheckedUpdateWithoutMedicinesInput>
+  data: Prisma.XOR<Prisma.GenericNameUpdateWithoutProductsInput, Prisma.GenericNameUncheckedUpdateWithoutProductsInput>
 }
 
-export type GenericNameUpdateWithoutMedicinesInput = {
+export type GenericNameUpdateWithoutProductsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  indentItems?: Prisma.IndentItemUpdateManyWithoutGenericNameNestedInput
 }
 
-export type GenericNameUncheckedUpdateWithoutMedicinesInput = {
+export type GenericNameUncheckedUpdateWithoutProductsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  indentItems?: Prisma.IndentItemUncheckedUpdateManyWithoutGenericNameNestedInput
-}
-
-export type GenericNameCreateWithoutIndentItemsInput = {
-  name: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  status?: boolean
-  medicines?: Prisma.MedicineCreateNestedManyWithoutGenericNameInput
-}
-
-export type GenericNameUncheckedCreateWithoutIndentItemsInput = {
-  id?: number
-  name: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  status?: boolean
-  medicines?: Prisma.MedicineUncheckedCreateNestedManyWithoutGenericNameInput
-}
-
-export type GenericNameCreateOrConnectWithoutIndentItemsInput = {
-  where: Prisma.GenericNameWhereUniqueInput
-  create: Prisma.XOR<Prisma.GenericNameCreateWithoutIndentItemsInput, Prisma.GenericNameUncheckedCreateWithoutIndentItemsInput>
-}
-
-export type GenericNameUpsertWithoutIndentItemsInput = {
-  update: Prisma.XOR<Prisma.GenericNameUpdateWithoutIndentItemsInput, Prisma.GenericNameUncheckedUpdateWithoutIndentItemsInput>
-  create: Prisma.XOR<Prisma.GenericNameCreateWithoutIndentItemsInput, Prisma.GenericNameUncheckedCreateWithoutIndentItemsInput>
-  where?: Prisma.GenericNameWhereInput
-}
-
-export type GenericNameUpdateToOneWithWhereWithoutIndentItemsInput = {
-  where?: Prisma.GenericNameWhereInput
-  data: Prisma.XOR<Prisma.GenericNameUpdateWithoutIndentItemsInput, Prisma.GenericNameUncheckedUpdateWithoutIndentItemsInput>
-}
-
-export type GenericNameUpdateWithoutIndentItemsInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  medicines?: Prisma.MedicineUpdateManyWithoutGenericNameNestedInput
-}
-
-export type GenericNameUncheckedUpdateWithoutIndentItemsInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  medicines?: Prisma.MedicineUncheckedUpdateManyWithoutGenericNameNestedInput
 }
 
 
@@ -506,13 +426,11 @@ export type GenericNameUncheckedUpdateWithoutIndentItemsInput = {
  */
 
 export type GenericNameCountOutputType = {
-  medicines: number
-  indentItems: number
+  products: number
 }
 
 export type GenericNameCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  medicines?: boolean | GenericNameCountOutputTypeCountMedicinesArgs
-  indentItems?: boolean | GenericNameCountOutputTypeCountIndentItemsArgs
+  products?: boolean | GenericNameCountOutputTypeCountProductsArgs
 }
 
 /**
@@ -528,57 +446,48 @@ export type GenericNameCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.
 /**
  * GenericNameCountOutputType without action
  */
-export type GenericNameCountOutputTypeCountMedicinesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.MedicineWhereInput
-}
-
-/**
- * GenericNameCountOutputType without action
- */
-export type GenericNameCountOutputTypeCountIndentItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.IndentItemWhereInput
+export type GenericNameCountOutputTypeCountProductsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProductWhereInput
 }
 
 
 export type GenericNameSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  status?: boolean
-  medicines?: boolean | Prisma.GenericName$medicinesArgs<ExtArgs>
-  indentItems?: boolean | Prisma.GenericName$indentItemsArgs<ExtArgs>
+  products?: boolean | Prisma.GenericName$productsArgs<ExtArgs>
   _count?: boolean | Prisma.GenericNameCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["genericName"]>
 
 export type GenericNameSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  status?: boolean
 }, ExtArgs["result"]["genericName"]>
 
 export type GenericNameSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  status?: boolean
 }, ExtArgs["result"]["genericName"]>
 
 export type GenericNameSelectScalar = {
   id?: boolean
   name?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  status?: boolean
 }
 
-export type GenericNameOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt" | "status", ExtArgs["result"]["genericName"]>
+export type GenericNameOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["genericName"]>
 export type GenericNameInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  medicines?: boolean | Prisma.GenericName$medicinesArgs<ExtArgs>
-  indentItems?: boolean | Prisma.GenericName$indentItemsArgs<ExtArgs>
+  products?: boolean | Prisma.GenericName$productsArgs<ExtArgs>
   _count?: boolean | Prisma.GenericNameCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type GenericNameIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -587,15 +496,14 @@ export type GenericNameIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.
 export type $GenericNamePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "GenericName"
   objects: {
-    medicines: Prisma.$MedicinePayload<ExtArgs>[]
-    indentItems: Prisma.$IndentItemPayload<ExtArgs>[]
+    products: Prisma.$ProductPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
+    status: boolean
     createdAt: Date
     updatedAt: Date
-    status: boolean
   }, ExtArgs["result"]["genericName"]>
   composites: {}
 }
@@ -990,8 +898,7 @@ readonly fields: GenericNameFieldRefs;
  */
 export interface Prisma__GenericNameClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  medicines<T extends Prisma.GenericName$medicinesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GenericName$medicinesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MedicinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  indentItems<T extends Prisma.GenericName$indentItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GenericName$indentItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IndentItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  products<T extends Prisma.GenericName$productsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GenericName$productsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1023,9 +930,9 @@ export interface Prisma__GenericNameClient<T, Null = never, ExtArgs extends runt
 export interface GenericNameFieldRefs {
   readonly id: Prisma.FieldRef<"GenericName", 'Int'>
   readonly name: Prisma.FieldRef<"GenericName", 'String'>
+  readonly status: Prisma.FieldRef<"GenericName", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"GenericName", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"GenericName", 'DateTime'>
-  readonly status: Prisma.FieldRef<"GenericName", 'Boolean'>
 }
     
 
@@ -1414,51 +1321,27 @@ export type GenericNameDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
 }
 
 /**
- * GenericName.medicines
+ * GenericName.products
  */
-export type GenericName$medicinesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type GenericName$productsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Medicine
+   * Select specific fields to fetch from the Product
    */
-  select?: Prisma.MedicineSelect<ExtArgs> | null
+  select?: Prisma.ProductSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Medicine
+   * Omit specific fields from the Product
    */
-  omit?: Prisma.MedicineOmit<ExtArgs> | null
+  omit?: Prisma.ProductOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.MedicineInclude<ExtArgs> | null
-  where?: Prisma.MedicineWhereInput
-  orderBy?: Prisma.MedicineOrderByWithRelationInput | Prisma.MedicineOrderByWithRelationInput[]
-  cursor?: Prisma.MedicineWhereUniqueInput
+  include?: Prisma.ProductInclude<ExtArgs> | null
+  where?: Prisma.ProductWhereInput
+  orderBy?: Prisma.ProductOrderByWithRelationInput | Prisma.ProductOrderByWithRelationInput[]
+  cursor?: Prisma.ProductWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.MedicineScalarFieldEnum | Prisma.MedicineScalarFieldEnum[]
-}
-
-/**
- * GenericName.indentItems
- */
-export type GenericName$indentItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the IndentItem
-   */
-  select?: Prisma.IndentItemSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the IndentItem
-   */
-  omit?: Prisma.IndentItemOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.IndentItemInclude<ExtArgs> | null
-  where?: Prisma.IndentItemWhereInput
-  orderBy?: Prisma.IndentItemOrderByWithRelationInput | Prisma.IndentItemOrderByWithRelationInput[]
-  cursor?: Prisma.IndentItemWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.IndentItemScalarFieldEnum | Prisma.IndentItemScalarFieldEnum[]
+  distinct?: Prisma.ProductScalarFieldEnum | Prisma.ProductScalarFieldEnum[]
 }
 
 /**

@@ -61,14 +61,50 @@ export const loginUser = async (req, res) => {
 /**
  * GET LOGGED IN USER DETAILS
  */
+// export const getMe = async (req, res) => {
+//   try {
+//     const user = await prisma.user.findUnique({
+//       where: { id: req.user.id },
+//       include: { role: true },
+//     });
+
+//     if (!user) return sendError(res, 404, "User not found");
+
+//     res.json({
+//       success: true,
+//       user: {
+//         id: user.id,
+//         name: user.name,
+//         email: user.email,
+//         role: user.role,
+//       },
+//     });
+//   } catch (error) {
+//     return sendError(res, 500, "Server error");
+//   }
+// };
+
 export const getMe = async (req, res) => {
   try {
     const user = await prisma.user.findUnique({
       where: { id: req.user.id },
-      include: { role: true },
+      include: {
+        role: {
+          include: {
+            permissions: {
+              include: { permission: true }, // fetch all permissions for this role
+            },
+          },
+        },
+      },
     });
 
     if (!user) return sendError(res, 404, "User not found");
+
+    // extract permission names (generic)
+    const allowedPermissions = user.role.permissions.map(
+      (rp) => rp.permission.name
+    );
 
     res.json({
       success: true,
@@ -76,10 +112,16 @@ export const getMe = async (req, res) => {
         id: user.id,
         name: user.name,
         email: user.email,
-        role: user.role,
+        role: {
+          id: user.role.id,
+          name: user.role.name,
+          description: user.role.description,
+        },
+        allowedPermissions, // <- generic list of all allowed permissions
       },
     });
   } catch (error) {
+    console.error(error);
     return sendError(res, 500, "Server error");
   }
 };

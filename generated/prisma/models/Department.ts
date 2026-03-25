@@ -38,6 +38,7 @@ export type DepartmentSumAggregateOutputType = {
 export type DepartmentMinAggregateOutputType = {
   id: number | null
   name: string | null
+  type: string | null
   shortCode: string | null
   location: string | null
   description: string | null
@@ -51,6 +52,7 @@ export type DepartmentMinAggregateOutputType = {
 export type DepartmentMaxAggregateOutputType = {
   id: number | null
   name: string | null
+  type: string | null
   shortCode: string | null
   location: string | null
   description: string | null
@@ -64,6 +66,7 @@ export type DepartmentMaxAggregateOutputType = {
 export type DepartmentCountAggregateOutputType = {
   id: number
   name: number
+  type: number
   shortCode: number
   location: number
   description: number
@@ -87,6 +90,7 @@ export type DepartmentSumAggregateInputType = {
 export type DepartmentMinAggregateInputType = {
   id?: true
   name?: true
+  type?: true
   shortCode?: true
   location?: true
   description?: true
@@ -100,6 +104,7 @@ export type DepartmentMinAggregateInputType = {
 export type DepartmentMaxAggregateInputType = {
   id?: true
   name?: true
+  type?: true
   shortCode?: true
   location?: true
   description?: true
@@ -113,6 +118,7 @@ export type DepartmentMaxAggregateInputType = {
 export type DepartmentCountAggregateInputType = {
   id?: true
   name?: true
+  type?: true
   shortCode?: true
   location?: true
   description?: true
@@ -213,6 +219,7 @@ export type DepartmentGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inter
 export type DepartmentGroupByOutputType = {
   id: number
   name: string
+  type: string
   shortCode: string | null
   location: string | null
   description: string | null
@@ -249,6 +256,7 @@ export type DepartmentWhereInput = {
   NOT?: Prisma.DepartmentWhereInput | Prisma.DepartmentWhereInput[]
   id?: Prisma.IntFilter<"Department"> | number
   name?: Prisma.StringFilter<"Department"> | string
+  type?: Prisma.StringFilter<"Department"> | string
   shortCode?: Prisma.StringNullableFilter<"Department"> | string | null
   location?: Prisma.StringNullableFilter<"Department"> | string | null
   description?: Prisma.StringNullableFilter<"Department"> | string | null
@@ -262,12 +270,15 @@ export type DepartmentWhereInput = {
   MedicalRecord?: Prisma.MedicalRecordListRelationFilter
   medicalRecordItems?: Prisma.MedicalRecordItemListRelationFilter
   procedures?: Prisma.ProcedureListRelationFilter
-  grns?: Prisma.GRNListRelationFilter
+  grns?: Prisma.GoodsReceiptListRelationFilter
+  categories?: Prisma.CategoryListRelationFilter
+  indent?: Prisma.IndentListRelationFilter
 }
 
 export type DepartmentOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   shortCode?: Prisma.SortOrderInput | Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -281,16 +292,19 @@ export type DepartmentOrderByWithRelationInput = {
   MedicalRecord?: Prisma.MedicalRecordOrderByRelationAggregateInput
   medicalRecordItems?: Prisma.MedicalRecordItemOrderByRelationAggregateInput
   procedures?: Prisma.ProcedureOrderByRelationAggregateInput
-  grns?: Prisma.GRNOrderByRelationAggregateInput
+  grns?: Prisma.GoodsReceiptOrderByRelationAggregateInput
+  categories?: Prisma.CategoryOrderByRelationAggregateInput
+  indent?: Prisma.IndentOrderByRelationAggregateInput
 }
 
 export type DepartmentWhereUniqueInput = Prisma.AtLeast<{
   id?: number
   name?: string
-  shortCode?: string
   AND?: Prisma.DepartmentWhereInput | Prisma.DepartmentWhereInput[]
   OR?: Prisma.DepartmentWhereInput[]
   NOT?: Prisma.DepartmentWhereInput | Prisma.DepartmentWhereInput[]
+  type?: Prisma.StringFilter<"Department"> | string
+  shortCode?: Prisma.StringNullableFilter<"Department"> | string | null
   location?: Prisma.StringNullableFilter<"Department"> | string | null
   description?: Prisma.StringNullableFilter<"Department"> | string | null
   status?: Prisma.BoolFilter<"Department"> | boolean
@@ -303,12 +317,15 @@ export type DepartmentWhereUniqueInput = Prisma.AtLeast<{
   MedicalRecord?: Prisma.MedicalRecordListRelationFilter
   medicalRecordItems?: Prisma.MedicalRecordItemListRelationFilter
   procedures?: Prisma.ProcedureListRelationFilter
-  grns?: Prisma.GRNListRelationFilter
-}, "id" | "name" | "shortCode">
+  grns?: Prisma.GoodsReceiptListRelationFilter
+  categories?: Prisma.CategoryListRelationFilter
+  indent?: Prisma.IndentListRelationFilter
+}, "id" | "name">
 
 export type DepartmentOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   shortCode?: Prisma.SortOrderInput | Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -330,6 +347,7 @@ export type DepartmentScalarWhereWithAggregatesInput = {
   NOT?: Prisma.DepartmentScalarWhereWithAggregatesInput | Prisma.DepartmentScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Department"> | number
   name?: Prisma.StringWithAggregatesFilter<"Department"> | string
+  type?: Prisma.StringWithAggregatesFilter<"Department"> | string
   shortCode?: Prisma.StringNullableWithAggregatesFilter<"Department"> | string | null
   location?: Prisma.StringNullableWithAggregatesFilter<"Department"> | string | null
   description?: Prisma.StringNullableWithAggregatesFilter<"Department"> | string | null
@@ -342,6 +360,7 @@ export type DepartmentScalarWhereWithAggregatesInput = {
 
 export type DepartmentCreateInput = {
   name: string
+  type: string
   shortCode?: string | null
   location?: string | null
   description?: string | null
@@ -355,12 +374,15 @@ export type DepartmentCreateInput = {
   MedicalRecord?: Prisma.MedicalRecordCreateNestedManyWithoutDepartmentInput
   medicalRecordItems?: Prisma.MedicalRecordItemCreateNestedManyWithoutDepartmentInput
   procedures?: Prisma.ProcedureCreateNestedManyWithoutDepartmentInput
-  grns?: Prisma.GRNCreateNestedManyWithoutDepartmentInput
+  grns?: Prisma.GoodsReceiptCreateNestedManyWithoutDepartmentInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutDepartmentInput
+  indent?: Prisma.IndentCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUncheckedCreateInput = {
   id?: number
   name: string
+  type: string
   shortCode?: string | null
   location?: string | null
   description?: string | null
@@ -374,11 +396,14 @@ export type DepartmentUncheckedCreateInput = {
   MedicalRecord?: Prisma.MedicalRecordUncheckedCreateNestedManyWithoutDepartmentInput
   medicalRecordItems?: Prisma.MedicalRecordItemUncheckedCreateNestedManyWithoutDepartmentInput
   procedures?: Prisma.ProcedureUncheckedCreateNestedManyWithoutDepartmentInput
-  grns?: Prisma.GRNUncheckedCreateNestedManyWithoutDepartmentInput
+  grns?: Prisma.GoodsReceiptUncheckedCreateNestedManyWithoutDepartmentInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutDepartmentInput
+  indent?: Prisma.IndentUncheckedCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
   shortCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -392,12 +417,15 @@ export type DepartmentUpdateInput = {
   MedicalRecord?: Prisma.MedicalRecordUpdateManyWithoutDepartmentNestedInput
   medicalRecordItems?: Prisma.MedicalRecordItemUpdateManyWithoutDepartmentNestedInput
   procedures?: Prisma.ProcedureUpdateManyWithoutDepartmentNestedInput
-  grns?: Prisma.GRNUpdateManyWithoutDepartmentNestedInput
+  grns?: Prisma.GoodsReceiptUpdateManyWithoutDepartmentNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutDepartmentNestedInput
+  indent?: Prisma.IndentUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
   shortCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -411,12 +439,15 @@ export type DepartmentUncheckedUpdateInput = {
   MedicalRecord?: Prisma.MedicalRecordUncheckedUpdateManyWithoutDepartmentNestedInput
   medicalRecordItems?: Prisma.MedicalRecordItemUncheckedUpdateManyWithoutDepartmentNestedInput
   procedures?: Prisma.ProcedureUncheckedUpdateManyWithoutDepartmentNestedInput
-  grns?: Prisma.GRNUncheckedUpdateManyWithoutDepartmentNestedInput
+  grns?: Prisma.GoodsReceiptUncheckedUpdateManyWithoutDepartmentNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutDepartmentNestedInput
+  indent?: Prisma.IndentUncheckedUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentCreateManyInput = {
   id?: number
   name: string
+  type: string
   shortCode?: string | null
   location?: string | null
   description?: string | null
@@ -429,6 +460,7 @@ export type DepartmentCreateManyInput = {
 
 export type DepartmentUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
   shortCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -442,6 +474,7 @@ export type DepartmentUpdateManyMutationInput = {
 export type DepartmentUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
   shortCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -455,6 +488,7 @@ export type DepartmentUncheckedUpdateManyInput = {
 export type DepartmentCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   shortCode?: Prisma.SortOrder
   location?: Prisma.SortOrder
   description?: Prisma.SortOrder
@@ -472,6 +506,7 @@ export type DepartmentAvgOrderByAggregateInput = {
 export type DepartmentMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   shortCode?: Prisma.SortOrder
   location?: Prisma.SortOrder
   description?: Prisma.SortOrder
@@ -485,6 +520,7 @@ export type DepartmentMaxOrderByAggregateInput = {
 export type DepartmentMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   shortCode?: Prisma.SortOrder
   location?: Prisma.SortOrder
   description?: Prisma.SortOrder
@@ -607,6 +643,36 @@ export type DepartmentUpdateOneRequiredWithoutMedicalRecordItemsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.DepartmentUpdateToOneWithWhereWithoutMedicalRecordItemsInput, Prisma.DepartmentUpdateWithoutMedicalRecordItemsInput>, Prisma.DepartmentUncheckedUpdateWithoutMedicalRecordItemsInput>
 }
 
+export type DepartmentCreateNestedOneWithoutCategoriesInput = {
+  create?: Prisma.XOR<Prisma.DepartmentCreateWithoutCategoriesInput, Prisma.DepartmentUncheckedCreateWithoutCategoriesInput>
+  connectOrCreate?: Prisma.DepartmentCreateOrConnectWithoutCategoriesInput
+  connect?: Prisma.DepartmentWhereUniqueInput
+}
+
+export type DepartmentUpdateOneWithoutCategoriesNestedInput = {
+  create?: Prisma.XOR<Prisma.DepartmentCreateWithoutCategoriesInput, Prisma.DepartmentUncheckedCreateWithoutCategoriesInput>
+  connectOrCreate?: Prisma.DepartmentCreateOrConnectWithoutCategoriesInput
+  upsert?: Prisma.DepartmentUpsertWithoutCategoriesInput
+  disconnect?: Prisma.DepartmentWhereInput | boolean
+  delete?: Prisma.DepartmentWhereInput | boolean
+  connect?: Prisma.DepartmentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DepartmentUpdateToOneWithWhereWithoutCategoriesInput, Prisma.DepartmentUpdateWithoutCategoriesInput>, Prisma.DepartmentUncheckedUpdateWithoutCategoriesInput>
+}
+
+export type DepartmentCreateNestedOneWithoutIndentInput = {
+  create?: Prisma.XOR<Prisma.DepartmentCreateWithoutIndentInput, Prisma.DepartmentUncheckedCreateWithoutIndentInput>
+  connectOrCreate?: Prisma.DepartmentCreateOrConnectWithoutIndentInput
+  connect?: Prisma.DepartmentWhereUniqueInput
+}
+
+export type DepartmentUpdateOneRequiredWithoutIndentNestedInput = {
+  create?: Prisma.XOR<Prisma.DepartmentCreateWithoutIndentInput, Prisma.DepartmentUncheckedCreateWithoutIndentInput>
+  connectOrCreate?: Prisma.DepartmentCreateOrConnectWithoutIndentInput
+  upsert?: Prisma.DepartmentUpsertWithoutIndentInput
+  connect?: Prisma.DepartmentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DepartmentUpdateToOneWithWhereWithoutIndentInput, Prisma.DepartmentUpdateWithoutIndentInput>, Prisma.DepartmentUncheckedUpdateWithoutIndentInput>
+}
+
 export type DepartmentCreateNestedOneWithoutGrnsInput = {
   create?: Prisma.XOR<Prisma.DepartmentCreateWithoutGrnsInput, Prisma.DepartmentUncheckedCreateWithoutGrnsInput>
   connectOrCreate?: Prisma.DepartmentCreateOrConnectWithoutGrnsInput
@@ -625,6 +691,7 @@ export type DepartmentUpdateOneWithoutGrnsNestedInput = {
 
 export type DepartmentCreateWithoutProceduresInput = {
   name: string
+  type: string
   shortCode?: string | null
   location?: string | null
   description?: string | null
@@ -637,12 +704,15 @@ export type DepartmentCreateWithoutProceduresInput = {
   DoctorProcedureFee?: Prisma.DoctorProcedureFeeCreateNestedManyWithoutDepartmentInput
   MedicalRecord?: Prisma.MedicalRecordCreateNestedManyWithoutDepartmentInput
   medicalRecordItems?: Prisma.MedicalRecordItemCreateNestedManyWithoutDepartmentInput
-  grns?: Prisma.GRNCreateNestedManyWithoutDepartmentInput
+  grns?: Prisma.GoodsReceiptCreateNestedManyWithoutDepartmentInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutDepartmentInput
+  indent?: Prisma.IndentCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUncheckedCreateWithoutProceduresInput = {
   id?: number
   name: string
+  type: string
   shortCode?: string | null
   location?: string | null
   description?: string | null
@@ -655,7 +725,9 @@ export type DepartmentUncheckedCreateWithoutProceduresInput = {
   DoctorProcedureFee?: Prisma.DoctorProcedureFeeUncheckedCreateNestedManyWithoutDepartmentInput
   MedicalRecord?: Prisma.MedicalRecordUncheckedCreateNestedManyWithoutDepartmentInput
   medicalRecordItems?: Prisma.MedicalRecordItemUncheckedCreateNestedManyWithoutDepartmentInput
-  grns?: Prisma.GRNUncheckedCreateNestedManyWithoutDepartmentInput
+  grns?: Prisma.GoodsReceiptUncheckedCreateNestedManyWithoutDepartmentInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutDepartmentInput
+  indent?: Prisma.IndentUncheckedCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentCreateOrConnectWithoutProceduresInput = {
@@ -676,6 +748,7 @@ export type DepartmentUpdateToOneWithWhereWithoutProceduresInput = {
 
 export type DepartmentUpdateWithoutProceduresInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
   shortCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -688,12 +761,15 @@ export type DepartmentUpdateWithoutProceduresInput = {
   DoctorProcedureFee?: Prisma.DoctorProcedureFeeUpdateManyWithoutDepartmentNestedInput
   MedicalRecord?: Prisma.MedicalRecordUpdateManyWithoutDepartmentNestedInput
   medicalRecordItems?: Prisma.MedicalRecordItemUpdateManyWithoutDepartmentNestedInput
-  grns?: Prisma.GRNUpdateManyWithoutDepartmentNestedInput
+  grns?: Prisma.GoodsReceiptUpdateManyWithoutDepartmentNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutDepartmentNestedInput
+  indent?: Prisma.IndentUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateWithoutProceduresInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
   shortCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -706,11 +782,14 @@ export type DepartmentUncheckedUpdateWithoutProceduresInput = {
   DoctorProcedureFee?: Prisma.DoctorProcedureFeeUncheckedUpdateManyWithoutDepartmentNestedInput
   MedicalRecord?: Prisma.MedicalRecordUncheckedUpdateManyWithoutDepartmentNestedInput
   medicalRecordItems?: Prisma.MedicalRecordItemUncheckedUpdateManyWithoutDepartmentNestedInput
-  grns?: Prisma.GRNUncheckedUpdateManyWithoutDepartmentNestedInput
+  grns?: Prisma.GoodsReceiptUncheckedUpdateManyWithoutDepartmentNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutDepartmentNestedInput
+  indent?: Prisma.IndentUncheckedUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentCreateWithoutDoctorLinksInput = {
   name: string
+  type: string
   shortCode?: string | null
   location?: string | null
   description?: string | null
@@ -723,12 +802,15 @@ export type DepartmentCreateWithoutDoctorLinksInput = {
   MedicalRecord?: Prisma.MedicalRecordCreateNestedManyWithoutDepartmentInput
   medicalRecordItems?: Prisma.MedicalRecordItemCreateNestedManyWithoutDepartmentInput
   procedures?: Prisma.ProcedureCreateNestedManyWithoutDepartmentInput
-  grns?: Prisma.GRNCreateNestedManyWithoutDepartmentInput
+  grns?: Prisma.GoodsReceiptCreateNestedManyWithoutDepartmentInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutDepartmentInput
+  indent?: Prisma.IndentCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUncheckedCreateWithoutDoctorLinksInput = {
   id?: number
   name: string
+  type: string
   shortCode?: string | null
   location?: string | null
   description?: string | null
@@ -741,7 +823,9 @@ export type DepartmentUncheckedCreateWithoutDoctorLinksInput = {
   MedicalRecord?: Prisma.MedicalRecordUncheckedCreateNestedManyWithoutDepartmentInput
   medicalRecordItems?: Prisma.MedicalRecordItemUncheckedCreateNestedManyWithoutDepartmentInput
   procedures?: Prisma.ProcedureUncheckedCreateNestedManyWithoutDepartmentInput
-  grns?: Prisma.GRNUncheckedCreateNestedManyWithoutDepartmentInput
+  grns?: Prisma.GoodsReceiptUncheckedCreateNestedManyWithoutDepartmentInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutDepartmentInput
+  indent?: Prisma.IndentUncheckedCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentCreateOrConnectWithoutDoctorLinksInput = {
@@ -762,6 +846,7 @@ export type DepartmentUpdateToOneWithWhereWithoutDoctorLinksInput = {
 
 export type DepartmentUpdateWithoutDoctorLinksInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
   shortCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -774,12 +859,15 @@ export type DepartmentUpdateWithoutDoctorLinksInput = {
   MedicalRecord?: Prisma.MedicalRecordUpdateManyWithoutDepartmentNestedInput
   medicalRecordItems?: Prisma.MedicalRecordItemUpdateManyWithoutDepartmentNestedInput
   procedures?: Prisma.ProcedureUpdateManyWithoutDepartmentNestedInput
-  grns?: Prisma.GRNUpdateManyWithoutDepartmentNestedInput
+  grns?: Prisma.GoodsReceiptUpdateManyWithoutDepartmentNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutDepartmentNestedInput
+  indent?: Prisma.IndentUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateWithoutDoctorLinksInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
   shortCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -792,11 +880,14 @@ export type DepartmentUncheckedUpdateWithoutDoctorLinksInput = {
   MedicalRecord?: Prisma.MedicalRecordUncheckedUpdateManyWithoutDepartmentNestedInput
   medicalRecordItems?: Prisma.MedicalRecordItemUncheckedUpdateManyWithoutDepartmentNestedInput
   procedures?: Prisma.ProcedureUncheckedUpdateManyWithoutDepartmentNestedInput
-  grns?: Prisma.GRNUncheckedUpdateManyWithoutDepartmentNestedInput
+  grns?: Prisma.GoodsReceiptUncheckedUpdateManyWithoutDepartmentNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutDepartmentNestedInput
+  indent?: Prisma.IndentUncheckedUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentCreateWithoutDoctorProcedureFeeInput = {
   name: string
+  type: string
   shortCode?: string | null
   location?: string | null
   description?: string | null
@@ -809,12 +900,15 @@ export type DepartmentCreateWithoutDoctorProcedureFeeInput = {
   MedicalRecord?: Prisma.MedicalRecordCreateNestedManyWithoutDepartmentInput
   medicalRecordItems?: Prisma.MedicalRecordItemCreateNestedManyWithoutDepartmentInput
   procedures?: Prisma.ProcedureCreateNestedManyWithoutDepartmentInput
-  grns?: Prisma.GRNCreateNestedManyWithoutDepartmentInput
+  grns?: Prisma.GoodsReceiptCreateNestedManyWithoutDepartmentInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutDepartmentInput
+  indent?: Prisma.IndentCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUncheckedCreateWithoutDoctorProcedureFeeInput = {
   id?: number
   name: string
+  type: string
   shortCode?: string | null
   location?: string | null
   description?: string | null
@@ -827,7 +921,9 @@ export type DepartmentUncheckedCreateWithoutDoctorProcedureFeeInput = {
   MedicalRecord?: Prisma.MedicalRecordUncheckedCreateNestedManyWithoutDepartmentInput
   medicalRecordItems?: Prisma.MedicalRecordItemUncheckedCreateNestedManyWithoutDepartmentInput
   procedures?: Prisma.ProcedureUncheckedCreateNestedManyWithoutDepartmentInput
-  grns?: Prisma.GRNUncheckedCreateNestedManyWithoutDepartmentInput
+  grns?: Prisma.GoodsReceiptUncheckedCreateNestedManyWithoutDepartmentInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutDepartmentInput
+  indent?: Prisma.IndentUncheckedCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentCreateOrConnectWithoutDoctorProcedureFeeInput = {
@@ -848,6 +944,7 @@ export type DepartmentUpdateToOneWithWhereWithoutDoctorProcedureFeeInput = {
 
 export type DepartmentUpdateWithoutDoctorProcedureFeeInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
   shortCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -860,12 +957,15 @@ export type DepartmentUpdateWithoutDoctorProcedureFeeInput = {
   MedicalRecord?: Prisma.MedicalRecordUpdateManyWithoutDepartmentNestedInput
   medicalRecordItems?: Prisma.MedicalRecordItemUpdateManyWithoutDepartmentNestedInput
   procedures?: Prisma.ProcedureUpdateManyWithoutDepartmentNestedInput
-  grns?: Prisma.GRNUpdateManyWithoutDepartmentNestedInput
+  grns?: Prisma.GoodsReceiptUpdateManyWithoutDepartmentNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutDepartmentNestedInput
+  indent?: Prisma.IndentUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateWithoutDoctorProcedureFeeInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
   shortCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -878,11 +978,14 @@ export type DepartmentUncheckedUpdateWithoutDoctorProcedureFeeInput = {
   MedicalRecord?: Prisma.MedicalRecordUncheckedUpdateManyWithoutDepartmentNestedInput
   medicalRecordItems?: Prisma.MedicalRecordItemUncheckedUpdateManyWithoutDepartmentNestedInput
   procedures?: Prisma.ProcedureUncheckedUpdateManyWithoutDepartmentNestedInput
-  grns?: Prisma.GRNUncheckedUpdateManyWithoutDepartmentNestedInput
+  grns?: Prisma.GoodsReceiptUncheckedUpdateManyWithoutDepartmentNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutDepartmentNestedInput
+  indent?: Prisma.IndentUncheckedUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentCreateWithoutMedicalRecordInput = {
   name: string
+  type: string
   shortCode?: string | null
   location?: string | null
   description?: string | null
@@ -895,12 +998,15 @@ export type DepartmentCreateWithoutMedicalRecordInput = {
   DoctorProcedureFee?: Prisma.DoctorProcedureFeeCreateNestedManyWithoutDepartmentInput
   medicalRecordItems?: Prisma.MedicalRecordItemCreateNestedManyWithoutDepartmentInput
   procedures?: Prisma.ProcedureCreateNestedManyWithoutDepartmentInput
-  grns?: Prisma.GRNCreateNestedManyWithoutDepartmentInput
+  grns?: Prisma.GoodsReceiptCreateNestedManyWithoutDepartmentInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutDepartmentInput
+  indent?: Prisma.IndentCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUncheckedCreateWithoutMedicalRecordInput = {
   id?: number
   name: string
+  type: string
   shortCode?: string | null
   location?: string | null
   description?: string | null
@@ -913,7 +1019,9 @@ export type DepartmentUncheckedCreateWithoutMedicalRecordInput = {
   DoctorProcedureFee?: Prisma.DoctorProcedureFeeUncheckedCreateNestedManyWithoutDepartmentInput
   medicalRecordItems?: Prisma.MedicalRecordItemUncheckedCreateNestedManyWithoutDepartmentInput
   procedures?: Prisma.ProcedureUncheckedCreateNestedManyWithoutDepartmentInput
-  grns?: Prisma.GRNUncheckedCreateNestedManyWithoutDepartmentInput
+  grns?: Prisma.GoodsReceiptUncheckedCreateNestedManyWithoutDepartmentInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutDepartmentInput
+  indent?: Prisma.IndentUncheckedCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentCreateOrConnectWithoutMedicalRecordInput = {
@@ -934,6 +1042,7 @@ export type DepartmentUpdateToOneWithWhereWithoutMedicalRecordInput = {
 
 export type DepartmentUpdateWithoutMedicalRecordInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
   shortCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -946,12 +1055,15 @@ export type DepartmentUpdateWithoutMedicalRecordInput = {
   DoctorProcedureFee?: Prisma.DoctorProcedureFeeUpdateManyWithoutDepartmentNestedInput
   medicalRecordItems?: Prisma.MedicalRecordItemUpdateManyWithoutDepartmentNestedInput
   procedures?: Prisma.ProcedureUpdateManyWithoutDepartmentNestedInput
-  grns?: Prisma.GRNUpdateManyWithoutDepartmentNestedInput
+  grns?: Prisma.GoodsReceiptUpdateManyWithoutDepartmentNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutDepartmentNestedInput
+  indent?: Prisma.IndentUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateWithoutMedicalRecordInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
   shortCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -964,11 +1076,14 @@ export type DepartmentUncheckedUpdateWithoutMedicalRecordInput = {
   DoctorProcedureFee?: Prisma.DoctorProcedureFeeUncheckedUpdateManyWithoutDepartmentNestedInput
   medicalRecordItems?: Prisma.MedicalRecordItemUncheckedUpdateManyWithoutDepartmentNestedInput
   procedures?: Prisma.ProcedureUncheckedUpdateManyWithoutDepartmentNestedInput
-  grns?: Prisma.GRNUncheckedUpdateManyWithoutDepartmentNestedInput
+  grns?: Prisma.GoodsReceiptUncheckedUpdateManyWithoutDepartmentNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutDepartmentNestedInput
+  indent?: Prisma.IndentUncheckedUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentCreateWithoutMedicalRecordItemsInput = {
   name: string
+  type: string
   shortCode?: string | null
   location?: string | null
   description?: string | null
@@ -981,12 +1096,15 @@ export type DepartmentCreateWithoutMedicalRecordItemsInput = {
   DoctorProcedureFee?: Prisma.DoctorProcedureFeeCreateNestedManyWithoutDepartmentInput
   MedicalRecord?: Prisma.MedicalRecordCreateNestedManyWithoutDepartmentInput
   procedures?: Prisma.ProcedureCreateNestedManyWithoutDepartmentInput
-  grns?: Prisma.GRNCreateNestedManyWithoutDepartmentInput
+  grns?: Prisma.GoodsReceiptCreateNestedManyWithoutDepartmentInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutDepartmentInput
+  indent?: Prisma.IndentCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentUncheckedCreateWithoutMedicalRecordItemsInput = {
   id?: number
   name: string
+  type: string
   shortCode?: string | null
   location?: string | null
   description?: string | null
@@ -999,7 +1117,9 @@ export type DepartmentUncheckedCreateWithoutMedicalRecordItemsInput = {
   DoctorProcedureFee?: Prisma.DoctorProcedureFeeUncheckedCreateNestedManyWithoutDepartmentInput
   MedicalRecord?: Prisma.MedicalRecordUncheckedCreateNestedManyWithoutDepartmentInput
   procedures?: Prisma.ProcedureUncheckedCreateNestedManyWithoutDepartmentInput
-  grns?: Prisma.GRNUncheckedCreateNestedManyWithoutDepartmentInput
+  grns?: Prisma.GoodsReceiptUncheckedCreateNestedManyWithoutDepartmentInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutDepartmentInput
+  indent?: Prisma.IndentUncheckedCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentCreateOrConnectWithoutMedicalRecordItemsInput = {
@@ -1020,6 +1140,7 @@ export type DepartmentUpdateToOneWithWhereWithoutMedicalRecordItemsInput = {
 
 export type DepartmentUpdateWithoutMedicalRecordItemsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
   shortCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1032,12 +1153,15 @@ export type DepartmentUpdateWithoutMedicalRecordItemsInput = {
   DoctorProcedureFee?: Prisma.DoctorProcedureFeeUpdateManyWithoutDepartmentNestedInput
   MedicalRecord?: Prisma.MedicalRecordUpdateManyWithoutDepartmentNestedInput
   procedures?: Prisma.ProcedureUpdateManyWithoutDepartmentNestedInput
-  grns?: Prisma.GRNUpdateManyWithoutDepartmentNestedInput
+  grns?: Prisma.GoodsReceiptUpdateManyWithoutDepartmentNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutDepartmentNestedInput
+  indent?: Prisma.IndentUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateWithoutMedicalRecordItemsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
   shortCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1050,11 +1174,14 @@ export type DepartmentUncheckedUpdateWithoutMedicalRecordItemsInput = {
   DoctorProcedureFee?: Prisma.DoctorProcedureFeeUncheckedUpdateManyWithoutDepartmentNestedInput
   MedicalRecord?: Prisma.MedicalRecordUncheckedUpdateManyWithoutDepartmentNestedInput
   procedures?: Prisma.ProcedureUncheckedUpdateManyWithoutDepartmentNestedInput
-  grns?: Prisma.GRNUncheckedUpdateManyWithoutDepartmentNestedInput
+  grns?: Prisma.GoodsReceiptUncheckedUpdateManyWithoutDepartmentNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutDepartmentNestedInput
+  indent?: Prisma.IndentUncheckedUpdateManyWithoutDepartmentNestedInput
 }
 
-export type DepartmentCreateWithoutGrnsInput = {
+export type DepartmentCreateWithoutCategoriesInput = {
   name: string
+  type: string
   shortCode?: string | null
   location?: string | null
   description?: string | null
@@ -1068,11 +1195,14 @@ export type DepartmentCreateWithoutGrnsInput = {
   MedicalRecord?: Prisma.MedicalRecordCreateNestedManyWithoutDepartmentInput
   medicalRecordItems?: Prisma.MedicalRecordItemCreateNestedManyWithoutDepartmentInput
   procedures?: Prisma.ProcedureCreateNestedManyWithoutDepartmentInput
+  grns?: Prisma.GoodsReceiptCreateNestedManyWithoutDepartmentInput
+  indent?: Prisma.IndentCreateNestedManyWithoutDepartmentInput
 }
 
-export type DepartmentUncheckedCreateWithoutGrnsInput = {
+export type DepartmentUncheckedCreateWithoutCategoriesInput = {
   id?: number
   name: string
+  type: string
   shortCode?: string | null
   location?: string | null
   description?: string | null
@@ -1086,6 +1216,204 @@ export type DepartmentUncheckedCreateWithoutGrnsInput = {
   MedicalRecord?: Prisma.MedicalRecordUncheckedCreateNestedManyWithoutDepartmentInput
   medicalRecordItems?: Prisma.MedicalRecordItemUncheckedCreateNestedManyWithoutDepartmentInput
   procedures?: Prisma.ProcedureUncheckedCreateNestedManyWithoutDepartmentInput
+  grns?: Prisma.GoodsReceiptUncheckedCreateNestedManyWithoutDepartmentInput
+  indent?: Prisma.IndentUncheckedCreateNestedManyWithoutDepartmentInput
+}
+
+export type DepartmentCreateOrConnectWithoutCategoriesInput = {
+  where: Prisma.DepartmentWhereUniqueInput
+  create: Prisma.XOR<Prisma.DepartmentCreateWithoutCategoriesInput, Prisma.DepartmentUncheckedCreateWithoutCategoriesInput>
+}
+
+export type DepartmentUpsertWithoutCategoriesInput = {
+  update: Prisma.XOR<Prisma.DepartmentUpdateWithoutCategoriesInput, Prisma.DepartmentUncheckedUpdateWithoutCategoriesInput>
+  create: Prisma.XOR<Prisma.DepartmentCreateWithoutCategoriesInput, Prisma.DepartmentUncheckedCreateWithoutCategoriesInput>
+  where?: Prisma.DepartmentWhereInput
+}
+
+export type DepartmentUpdateToOneWithWhereWithoutCategoriesInput = {
+  where?: Prisma.DepartmentWhereInput
+  data: Prisma.XOR<Prisma.DepartmentUpdateWithoutCategoriesInput, Prisma.DepartmentUncheckedUpdateWithoutCategoriesInput>
+}
+
+export type DepartmentUpdateWithoutCategoriesInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  shortCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  timeFrom?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timeTo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  doctorLinks?: Prisma.DoctorDepartmentUpdateManyWithoutDepartmentNestedInput
+  DoctorProcedureFee?: Prisma.DoctorProcedureFeeUpdateManyWithoutDepartmentNestedInput
+  MedicalRecord?: Prisma.MedicalRecordUpdateManyWithoutDepartmentNestedInput
+  medicalRecordItems?: Prisma.MedicalRecordItemUpdateManyWithoutDepartmentNestedInput
+  procedures?: Prisma.ProcedureUpdateManyWithoutDepartmentNestedInput
+  grns?: Prisma.GoodsReceiptUpdateManyWithoutDepartmentNestedInput
+  indent?: Prisma.IndentUpdateManyWithoutDepartmentNestedInput
+}
+
+export type DepartmentUncheckedUpdateWithoutCategoriesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  shortCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  timeFrom?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timeTo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  doctorLinks?: Prisma.DoctorDepartmentUncheckedUpdateManyWithoutDepartmentNestedInput
+  DoctorProcedureFee?: Prisma.DoctorProcedureFeeUncheckedUpdateManyWithoutDepartmentNestedInput
+  MedicalRecord?: Prisma.MedicalRecordUncheckedUpdateManyWithoutDepartmentNestedInput
+  medicalRecordItems?: Prisma.MedicalRecordItemUncheckedUpdateManyWithoutDepartmentNestedInput
+  procedures?: Prisma.ProcedureUncheckedUpdateManyWithoutDepartmentNestedInput
+  grns?: Prisma.GoodsReceiptUncheckedUpdateManyWithoutDepartmentNestedInput
+  indent?: Prisma.IndentUncheckedUpdateManyWithoutDepartmentNestedInput
+}
+
+export type DepartmentCreateWithoutIndentInput = {
+  name: string
+  type: string
+  shortCode?: string | null
+  location?: string | null
+  description?: string | null
+  status?: boolean
+  timeFrom?: string | null
+  timeTo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  doctorLinks?: Prisma.DoctorDepartmentCreateNestedManyWithoutDepartmentInput
+  DoctorProcedureFee?: Prisma.DoctorProcedureFeeCreateNestedManyWithoutDepartmentInput
+  MedicalRecord?: Prisma.MedicalRecordCreateNestedManyWithoutDepartmentInput
+  medicalRecordItems?: Prisma.MedicalRecordItemCreateNestedManyWithoutDepartmentInput
+  procedures?: Prisma.ProcedureCreateNestedManyWithoutDepartmentInput
+  grns?: Prisma.GoodsReceiptCreateNestedManyWithoutDepartmentInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutDepartmentInput
+}
+
+export type DepartmentUncheckedCreateWithoutIndentInput = {
+  id?: number
+  name: string
+  type: string
+  shortCode?: string | null
+  location?: string | null
+  description?: string | null
+  status?: boolean
+  timeFrom?: string | null
+  timeTo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  doctorLinks?: Prisma.DoctorDepartmentUncheckedCreateNestedManyWithoutDepartmentInput
+  DoctorProcedureFee?: Prisma.DoctorProcedureFeeUncheckedCreateNestedManyWithoutDepartmentInput
+  MedicalRecord?: Prisma.MedicalRecordUncheckedCreateNestedManyWithoutDepartmentInput
+  medicalRecordItems?: Prisma.MedicalRecordItemUncheckedCreateNestedManyWithoutDepartmentInput
+  procedures?: Prisma.ProcedureUncheckedCreateNestedManyWithoutDepartmentInput
+  grns?: Prisma.GoodsReceiptUncheckedCreateNestedManyWithoutDepartmentInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutDepartmentInput
+}
+
+export type DepartmentCreateOrConnectWithoutIndentInput = {
+  where: Prisma.DepartmentWhereUniqueInput
+  create: Prisma.XOR<Prisma.DepartmentCreateWithoutIndentInput, Prisma.DepartmentUncheckedCreateWithoutIndentInput>
+}
+
+export type DepartmentUpsertWithoutIndentInput = {
+  update: Prisma.XOR<Prisma.DepartmentUpdateWithoutIndentInput, Prisma.DepartmentUncheckedUpdateWithoutIndentInput>
+  create: Prisma.XOR<Prisma.DepartmentCreateWithoutIndentInput, Prisma.DepartmentUncheckedCreateWithoutIndentInput>
+  where?: Prisma.DepartmentWhereInput
+}
+
+export type DepartmentUpdateToOneWithWhereWithoutIndentInput = {
+  where?: Prisma.DepartmentWhereInput
+  data: Prisma.XOR<Prisma.DepartmentUpdateWithoutIndentInput, Prisma.DepartmentUncheckedUpdateWithoutIndentInput>
+}
+
+export type DepartmentUpdateWithoutIndentInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  shortCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  timeFrom?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timeTo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  doctorLinks?: Prisma.DoctorDepartmentUpdateManyWithoutDepartmentNestedInput
+  DoctorProcedureFee?: Prisma.DoctorProcedureFeeUpdateManyWithoutDepartmentNestedInput
+  MedicalRecord?: Prisma.MedicalRecordUpdateManyWithoutDepartmentNestedInput
+  medicalRecordItems?: Prisma.MedicalRecordItemUpdateManyWithoutDepartmentNestedInput
+  procedures?: Prisma.ProcedureUpdateManyWithoutDepartmentNestedInput
+  grns?: Prisma.GoodsReceiptUpdateManyWithoutDepartmentNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutDepartmentNestedInput
+}
+
+export type DepartmentUncheckedUpdateWithoutIndentInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  shortCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  timeFrom?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timeTo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  doctorLinks?: Prisma.DoctorDepartmentUncheckedUpdateManyWithoutDepartmentNestedInput
+  DoctorProcedureFee?: Prisma.DoctorProcedureFeeUncheckedUpdateManyWithoutDepartmentNestedInput
+  MedicalRecord?: Prisma.MedicalRecordUncheckedUpdateManyWithoutDepartmentNestedInput
+  medicalRecordItems?: Prisma.MedicalRecordItemUncheckedUpdateManyWithoutDepartmentNestedInput
+  procedures?: Prisma.ProcedureUncheckedUpdateManyWithoutDepartmentNestedInput
+  grns?: Prisma.GoodsReceiptUncheckedUpdateManyWithoutDepartmentNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutDepartmentNestedInput
+}
+
+export type DepartmentCreateWithoutGrnsInput = {
+  name: string
+  type: string
+  shortCode?: string | null
+  location?: string | null
+  description?: string | null
+  status?: boolean
+  timeFrom?: string | null
+  timeTo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  doctorLinks?: Prisma.DoctorDepartmentCreateNestedManyWithoutDepartmentInput
+  DoctorProcedureFee?: Prisma.DoctorProcedureFeeCreateNestedManyWithoutDepartmentInput
+  MedicalRecord?: Prisma.MedicalRecordCreateNestedManyWithoutDepartmentInput
+  medicalRecordItems?: Prisma.MedicalRecordItemCreateNestedManyWithoutDepartmentInput
+  procedures?: Prisma.ProcedureCreateNestedManyWithoutDepartmentInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutDepartmentInput
+  indent?: Prisma.IndentCreateNestedManyWithoutDepartmentInput
+}
+
+export type DepartmentUncheckedCreateWithoutGrnsInput = {
+  id?: number
+  name: string
+  type: string
+  shortCode?: string | null
+  location?: string | null
+  description?: string | null
+  status?: boolean
+  timeFrom?: string | null
+  timeTo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  doctorLinks?: Prisma.DoctorDepartmentUncheckedCreateNestedManyWithoutDepartmentInput
+  DoctorProcedureFee?: Prisma.DoctorProcedureFeeUncheckedCreateNestedManyWithoutDepartmentInput
+  MedicalRecord?: Prisma.MedicalRecordUncheckedCreateNestedManyWithoutDepartmentInput
+  medicalRecordItems?: Prisma.MedicalRecordItemUncheckedCreateNestedManyWithoutDepartmentInput
+  procedures?: Prisma.ProcedureUncheckedCreateNestedManyWithoutDepartmentInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutDepartmentInput
+  indent?: Prisma.IndentUncheckedCreateNestedManyWithoutDepartmentInput
 }
 
 export type DepartmentCreateOrConnectWithoutGrnsInput = {
@@ -1106,6 +1434,7 @@ export type DepartmentUpdateToOneWithWhereWithoutGrnsInput = {
 
 export type DepartmentUpdateWithoutGrnsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
   shortCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1119,11 +1448,14 @@ export type DepartmentUpdateWithoutGrnsInput = {
   MedicalRecord?: Prisma.MedicalRecordUpdateManyWithoutDepartmentNestedInput
   medicalRecordItems?: Prisma.MedicalRecordItemUpdateManyWithoutDepartmentNestedInput
   procedures?: Prisma.ProcedureUpdateManyWithoutDepartmentNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutDepartmentNestedInput
+  indent?: Prisma.IndentUpdateManyWithoutDepartmentNestedInput
 }
 
 export type DepartmentUncheckedUpdateWithoutGrnsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
   shortCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1137,6 +1469,8 @@ export type DepartmentUncheckedUpdateWithoutGrnsInput = {
   MedicalRecord?: Prisma.MedicalRecordUncheckedUpdateManyWithoutDepartmentNestedInput
   medicalRecordItems?: Prisma.MedicalRecordItemUncheckedUpdateManyWithoutDepartmentNestedInput
   procedures?: Prisma.ProcedureUncheckedUpdateManyWithoutDepartmentNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutDepartmentNestedInput
+  indent?: Prisma.IndentUncheckedUpdateManyWithoutDepartmentNestedInput
 }
 
 
@@ -1151,6 +1485,8 @@ export type DepartmentCountOutputType = {
   medicalRecordItems: number
   procedures: number
   grns: number
+  categories: number
+  indent: number
 }
 
 export type DepartmentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1160,6 +1496,8 @@ export type DepartmentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extens
   medicalRecordItems?: boolean | DepartmentCountOutputTypeCountMedicalRecordItemsArgs
   procedures?: boolean | DepartmentCountOutputTypeCountProceduresArgs
   grns?: boolean | DepartmentCountOutputTypeCountGrnsArgs
+  categories?: boolean | DepartmentCountOutputTypeCountCategoriesArgs
+  indent?: boolean | DepartmentCountOutputTypeCountIndentArgs
 }
 
 /**
@@ -1211,13 +1549,28 @@ export type DepartmentCountOutputTypeCountProceduresArgs<ExtArgs extends runtime
  * DepartmentCountOutputType without action
  */
 export type DepartmentCountOutputTypeCountGrnsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.GRNWhereInput
+  where?: Prisma.GoodsReceiptWhereInput
+}
+
+/**
+ * DepartmentCountOutputType without action
+ */
+export type DepartmentCountOutputTypeCountCategoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CategoryWhereInput
+}
+
+/**
+ * DepartmentCountOutputType without action
+ */
+export type DepartmentCountOutputTypeCountIndentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.IndentWhereInput
 }
 
 
 export type DepartmentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  type?: boolean
   shortCode?: boolean
   location?: boolean
   description?: boolean
@@ -1232,12 +1585,15 @@ export type DepartmentSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   medicalRecordItems?: boolean | Prisma.Department$medicalRecordItemsArgs<ExtArgs>
   procedures?: boolean | Prisma.Department$proceduresArgs<ExtArgs>
   grns?: boolean | Prisma.Department$grnsArgs<ExtArgs>
+  categories?: boolean | Prisma.Department$categoriesArgs<ExtArgs>
+  indent?: boolean | Prisma.Department$indentArgs<ExtArgs>
   _count?: boolean | Prisma.DepartmentCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["department"]>
 
 export type DepartmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  type?: boolean
   shortCode?: boolean
   location?: boolean
   description?: boolean
@@ -1251,6 +1607,7 @@ export type DepartmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
 export type DepartmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  type?: boolean
   shortCode?: boolean
   location?: boolean
   description?: boolean
@@ -1264,6 +1621,7 @@ export type DepartmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
 export type DepartmentSelectScalar = {
   id?: boolean
   name?: boolean
+  type?: boolean
   shortCode?: boolean
   location?: boolean
   description?: boolean
@@ -1274,7 +1632,7 @@ export type DepartmentSelectScalar = {
   updatedAt?: boolean
 }
 
-export type DepartmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "shortCode" | "location" | "description" | "status" | "timeFrom" | "timeTo" | "createdAt" | "updatedAt", ExtArgs["result"]["department"]>
+export type DepartmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "type" | "shortCode" | "location" | "description" | "status" | "timeFrom" | "timeTo" | "createdAt" | "updatedAt", ExtArgs["result"]["department"]>
 export type DepartmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   doctorLinks?: boolean | Prisma.Department$doctorLinksArgs<ExtArgs>
   DoctorProcedureFee?: boolean | Prisma.Department$DoctorProcedureFeeArgs<ExtArgs>
@@ -1282,6 +1640,8 @@ export type DepartmentInclude<ExtArgs extends runtime.Types.Extensions.InternalA
   medicalRecordItems?: boolean | Prisma.Department$medicalRecordItemsArgs<ExtArgs>
   procedures?: boolean | Prisma.Department$proceduresArgs<ExtArgs>
   grns?: boolean | Prisma.Department$grnsArgs<ExtArgs>
+  categories?: boolean | Prisma.Department$categoriesArgs<ExtArgs>
+  indent?: boolean | Prisma.Department$indentArgs<ExtArgs>
   _count?: boolean | Prisma.DepartmentCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type DepartmentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1295,11 +1655,14 @@ export type $DepartmentPayload<ExtArgs extends runtime.Types.Extensions.Internal
     MedicalRecord: Prisma.$MedicalRecordPayload<ExtArgs>[]
     medicalRecordItems: Prisma.$MedicalRecordItemPayload<ExtArgs>[]
     procedures: Prisma.$ProcedurePayload<ExtArgs>[]
-    grns: Prisma.$GRNPayload<ExtArgs>[]
+    grns: Prisma.$GoodsReceiptPayload<ExtArgs>[]
+    categories: Prisma.$CategoryPayload<ExtArgs>[]
+    indent: Prisma.$IndentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
+    type: string
     shortCode: string | null
     location: string | null
     description: string | null
@@ -1707,7 +2070,9 @@ export interface Prisma__DepartmentClient<T, Null = never, ExtArgs extends runti
   MedicalRecord<T extends Prisma.Department$MedicalRecordArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Department$MedicalRecordArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MedicalRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   medicalRecordItems<T extends Prisma.Department$medicalRecordItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Department$medicalRecordItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MedicalRecordItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   procedures<T extends Prisma.Department$proceduresArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Department$proceduresArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProcedurePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  grns<T extends Prisma.Department$grnsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Department$grnsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GRNPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  grns<T extends Prisma.Department$grnsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Department$grnsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GoodsReceiptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  categories<T extends Prisma.Department$categoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Department$categoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  indent<T extends Prisma.Department$indentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Department$indentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IndentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1739,6 +2104,7 @@ export interface Prisma__DepartmentClient<T, Null = never, ExtArgs extends runti
 export interface DepartmentFieldRefs {
   readonly id: Prisma.FieldRef<"Department", 'Int'>
   readonly name: Prisma.FieldRef<"Department", 'String'>
+  readonly type: Prisma.FieldRef<"Department", 'String'>
   readonly shortCode: Prisma.FieldRef<"Department", 'String'>
   readonly location: Prisma.FieldRef<"Department", 'String'>
   readonly description: Prisma.FieldRef<"Department", 'String'>
@@ -2259,23 +2625,71 @@ export type Department$proceduresArgs<ExtArgs extends runtime.Types.Extensions.I
  */
 export type Department$grnsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the GRN
+   * Select specific fields to fetch from the GoodsReceipt
    */
-  select?: Prisma.GRNSelect<ExtArgs> | null
+  select?: Prisma.GoodsReceiptSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the GRN
+   * Omit specific fields from the GoodsReceipt
    */
-  omit?: Prisma.GRNOmit<ExtArgs> | null
+  omit?: Prisma.GoodsReceiptOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.GRNInclude<ExtArgs> | null
-  where?: Prisma.GRNWhereInput
-  orderBy?: Prisma.GRNOrderByWithRelationInput | Prisma.GRNOrderByWithRelationInput[]
-  cursor?: Prisma.GRNWhereUniqueInput
+  include?: Prisma.GoodsReceiptInclude<ExtArgs> | null
+  where?: Prisma.GoodsReceiptWhereInput
+  orderBy?: Prisma.GoodsReceiptOrderByWithRelationInput | Prisma.GoodsReceiptOrderByWithRelationInput[]
+  cursor?: Prisma.GoodsReceiptWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.GRNScalarFieldEnum | Prisma.GRNScalarFieldEnum[]
+  distinct?: Prisma.GoodsReceiptScalarFieldEnum | Prisma.GoodsReceiptScalarFieldEnum[]
+}
+
+/**
+ * Department.categories
+ */
+export type Department$categoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Category
+   */
+  select?: Prisma.CategorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Category
+   */
+  omit?: Prisma.CategoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CategoryInclude<ExtArgs> | null
+  where?: Prisma.CategoryWhereInput
+  orderBy?: Prisma.CategoryOrderByWithRelationInput | Prisma.CategoryOrderByWithRelationInput[]
+  cursor?: Prisma.CategoryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CategoryScalarFieldEnum | Prisma.CategoryScalarFieldEnum[]
+}
+
+/**
+ * Department.indent
+ */
+export type Department$indentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Indent
+   */
+  select?: Prisma.IndentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Indent
+   */
+  omit?: Prisma.IndentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.IndentInclude<ExtArgs> | null
+  where?: Prisma.IndentWhereInput
+  orderBy?: Prisma.IndentOrderByWithRelationInput | Prisma.IndentOrderByWithRelationInput[]
+  cursor?: Prisma.IndentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.IndentScalarFieldEnum | Prisma.IndentScalarFieldEnum[]
 }
 
 /**

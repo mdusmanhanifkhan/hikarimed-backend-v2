@@ -1,11 +1,18 @@
-import express from "express"
-import { createRole, getRoleById, getRoles } from "../controller/roleController.js"
+import express from "express";
+import {
+  createRole,
+  listRoles,
+  updateRole,
+  deleteRole,
+  getRoleById,
+} from "../controller/roleController.js";
 
-const router = express.Router()
+const router = express.Router();
 
-// Only admin can create roles
-router.post("/role", createRole)
-router.get("/role", getRoles)
-router.get("/role/:id", getRoleById)
+router.post("/roles", createRole);
+router.get("/roles", listRoles);
+router.get("/roles/:id", getRoleById);
+router.put("/roles/:id", updateRole);
+router.delete("/roles/:id", deleteRole);
 
-export default router
+export default router;

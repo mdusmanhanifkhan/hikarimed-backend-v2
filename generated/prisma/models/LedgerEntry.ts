@@ -28,146 +28,98 @@ export type AggregateLedgerEntry = {
 
 export type LedgerEntryAvgAggregateOutputType = {
   id: number | null
-  refId: number | null
-  debit: number | null
-  credit: number | null
-  accountRefId: number | null
-  approvedBy: number | null
-  userId: number | null
+  amount: number | null
+  debitUserId: number | null
+  creditUserId: number | null
 }
 
 export type LedgerEntrySumAggregateOutputType = {
   id: number | null
-  refId: number | null
-  debit: number | null
-  credit: number | null
-  accountRefId: number | null
-  approvedBy: number | null
-  userId: number | null
+  amount: number | null
+  debitUserId: number | null
+  creditUserId: number | null
 }
 
 export type LedgerEntryMinAggregateOutputType = {
   id: number | null
   entryDate: Date | null
-  refType: string | null
-  refId: number | null
-  debit: number | null
-  credit: number | null
-  accountType: string | null
-  accountRefId: number | null
-  approvedBy: number | null
-  approvedAt: Date | null
-  remarks: string | null
+  description: string | null
+  amount: number | null
+  debitUserId: number | null
+  creditUserId: number | null
   createdAt: Date | null
-  paymentStatus: string | null
-  userId: number | null
+  updatedAt: Date | null
 }
 
 export type LedgerEntryMaxAggregateOutputType = {
   id: number | null
   entryDate: Date | null
-  refType: string | null
-  refId: number | null
-  debit: number | null
-  credit: number | null
-  accountType: string | null
-  accountRefId: number | null
-  approvedBy: number | null
-  approvedAt: Date | null
-  remarks: string | null
+  description: string | null
+  amount: number | null
+  debitUserId: number | null
+  creditUserId: number | null
   createdAt: Date | null
-  paymentStatus: string | null
-  userId: number | null
+  updatedAt: Date | null
 }
 
 export type LedgerEntryCountAggregateOutputType = {
   id: number
   entryDate: number
-  refType: number
-  refId: number
-  debit: number
-  credit: number
-  accountType: number
-  accountRefId: number
-  approvedBy: number
-  approvedAt: number
-  remarks: number
+  description: number
+  amount: number
+  debitUserId: number
+  creditUserId: number
   createdAt: number
-  paymentStatus: number
-  userId: number
+  updatedAt: number
   _all: number
 }
 
 
 export type LedgerEntryAvgAggregateInputType = {
   id?: true
-  refId?: true
-  debit?: true
-  credit?: true
-  accountRefId?: true
-  approvedBy?: true
-  userId?: true
+  amount?: true
+  debitUserId?: true
+  creditUserId?: true
 }
 
 export type LedgerEntrySumAggregateInputType = {
   id?: true
-  refId?: true
-  debit?: true
-  credit?: true
-  accountRefId?: true
-  approvedBy?: true
-  userId?: true
+  amount?: true
+  debitUserId?: true
+  creditUserId?: true
 }
 
 export type LedgerEntryMinAggregateInputType = {
   id?: true
   entryDate?: true
-  refType?: true
-  refId?: true
-  debit?: true
-  credit?: true
-  accountType?: true
-  accountRefId?: true
-  approvedBy?: true
-  approvedAt?: true
-  remarks?: true
+  description?: true
+  amount?: true
+  debitUserId?: true
+  creditUserId?: true
   createdAt?: true
-  paymentStatus?: true
-  userId?: true
+  updatedAt?: true
 }
 
 export type LedgerEntryMaxAggregateInputType = {
   id?: true
   entryDate?: true
-  refType?: true
-  refId?: true
-  debit?: true
-  credit?: true
-  accountType?: true
-  accountRefId?: true
-  approvedBy?: true
-  approvedAt?: true
-  remarks?: true
+  description?: true
+  amount?: true
+  debitUserId?: true
+  creditUserId?: true
   createdAt?: true
-  paymentStatus?: true
-  userId?: true
+  updatedAt?: true
 }
 
 export type LedgerEntryCountAggregateInputType = {
   id?: true
   entryDate?: true
-  refType?: true
-  refId?: true
-  debit?: true
-  credit?: true
-  accountType?: true
-  accountRefId?: true
-  approvedBy?: true
-  approvedAt?: true
-  remarks?: true
+  description?: true
+  amount?: true
+  debitUserId?: true
+  creditUserId?: true
   createdAt?: true
-  paymentStatus?: true
-  userId?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -260,18 +212,12 @@ export type LedgerEntryGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 export type LedgerEntryGroupByOutputType = {
   id: number
   entryDate: Date
-  refType: string
-  refId: number
-  debit: number
-  credit: number
-  accountType: string
-  accountRefId: number | null
-  approvedBy: number
-  approvedAt: Date
-  remarks: string | null
+  description: string
+  amount: number
+  debitUserId: number | null
+  creditUserId: number | null
   createdAt: Date
-  paymentStatus: string | null
-  userId: number | null
+  updatedAt: Date
   _count: LedgerEntryCountAggregateOutputType | null
   _avg: LedgerEntryAvgAggregateOutputType | null
   _sum: LedgerEntrySumAggregateOutputType | null
@@ -300,39 +246,27 @@ export type LedgerEntryWhereInput = {
   NOT?: Prisma.LedgerEntryWhereInput | Prisma.LedgerEntryWhereInput[]
   id?: Prisma.IntFilter<"LedgerEntry"> | number
   entryDate?: Prisma.DateTimeFilter<"LedgerEntry"> | Date | string
-  refType?: Prisma.StringFilter<"LedgerEntry"> | string
-  refId?: Prisma.IntFilter<"LedgerEntry"> | number
-  debit?: Prisma.FloatFilter<"LedgerEntry"> | number
-  credit?: Prisma.FloatFilter<"LedgerEntry"> | number
-  accountType?: Prisma.StringFilter<"LedgerEntry"> | string
-  accountRefId?: Prisma.IntNullableFilter<"LedgerEntry"> | number | null
-  approvedBy?: Prisma.IntFilter<"LedgerEntry"> | number
-  approvedAt?: Prisma.DateTimeFilter<"LedgerEntry"> | Date | string
-  remarks?: Prisma.StringNullableFilter<"LedgerEntry"> | string | null
+  description?: Prisma.StringFilter<"LedgerEntry"> | string
+  amount?: Prisma.FloatFilter<"LedgerEntry"> | number
+  debitUserId?: Prisma.IntNullableFilter<"LedgerEntry"> | number | null
+  creditUserId?: Prisma.IntNullableFilter<"LedgerEntry"> | number | null
   createdAt?: Prisma.DateTimeFilter<"LedgerEntry"> | Date | string
-  paymentStatus?: Prisma.StringNullableFilter<"LedgerEntry"> | string | null
-  userId?: Prisma.IntNullableFilter<"LedgerEntry"> | number | null
-  approver?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  updatedAt?: Prisma.DateTimeFilter<"LedgerEntry"> | Date | string
+  createdBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  approvedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type LedgerEntryOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   entryDate?: Prisma.SortOrder
-  refType?: Prisma.SortOrder
-  refId?: Prisma.SortOrder
-  debit?: Prisma.SortOrder
-  credit?: Prisma.SortOrder
-  accountType?: Prisma.SortOrder
-  accountRefId?: Prisma.SortOrderInput | Prisma.SortOrder
-  approvedBy?: Prisma.SortOrder
-  approvedAt?: Prisma.SortOrder
-  remarks?: Prisma.SortOrderInput | Prisma.SortOrder
+  description?: Prisma.SortOrder
+  amount?: Prisma.SortOrder
+  debitUserId?: Prisma.SortOrderInput | Prisma.SortOrder
+  creditUserId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  paymentStatus?: Prisma.SortOrderInput | Prisma.SortOrder
-  userId?: Prisma.SortOrderInput | Prisma.SortOrder
-  approver?: Prisma.UserOrderByWithRelationInput
-  user?: Prisma.UserOrderByWithRelationInput
+  updatedAt?: Prisma.SortOrder
+  createdBy?: Prisma.UserOrderByWithRelationInput
+  approvedBy?: Prisma.UserOrderByWithRelationInput
 }
 
 export type LedgerEntryWhereUniqueInput = Prisma.AtLeast<{
@@ -341,37 +275,25 @@ export type LedgerEntryWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.LedgerEntryWhereInput[]
   NOT?: Prisma.LedgerEntryWhereInput | Prisma.LedgerEntryWhereInput[]
   entryDate?: Prisma.DateTimeFilter<"LedgerEntry"> | Date | string
-  refType?: Prisma.StringFilter<"LedgerEntry"> | string
-  refId?: Prisma.IntFilter<"LedgerEntry"> | number
-  debit?: Prisma.FloatFilter<"LedgerEntry"> | number
-  credit?: Prisma.FloatFilter<"LedgerEntry"> | number
-  accountType?: Prisma.StringFilter<"LedgerEntry"> | string
-  accountRefId?: Prisma.IntNullableFilter<"LedgerEntry"> | number | null
-  approvedBy?: Prisma.IntFilter<"LedgerEntry"> | number
-  approvedAt?: Prisma.DateTimeFilter<"LedgerEntry"> | Date | string
-  remarks?: Prisma.StringNullableFilter<"LedgerEntry"> | string | null
+  description?: Prisma.StringFilter<"LedgerEntry"> | string
+  amount?: Prisma.FloatFilter<"LedgerEntry"> | number
+  debitUserId?: Prisma.IntNullableFilter<"LedgerEntry"> | number | null
+  creditUserId?: Prisma.IntNullableFilter<"LedgerEntry"> | number | null
   createdAt?: Prisma.DateTimeFilter<"LedgerEntry"> | Date | string
-  paymentStatus?: Prisma.StringNullableFilter<"LedgerEntry"> | string | null
-  userId?: Prisma.IntNullableFilter<"LedgerEntry"> | number | null
-  approver?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  updatedAt?: Prisma.DateTimeFilter<"LedgerEntry"> | Date | string
+  createdBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  approvedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
 
 export type LedgerEntryOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   entryDate?: Prisma.SortOrder
-  refType?: Prisma.SortOrder
-  refId?: Prisma.SortOrder
-  debit?: Prisma.SortOrder
-  credit?: Prisma.SortOrder
-  accountType?: Prisma.SortOrder
-  accountRefId?: Prisma.SortOrderInput | Prisma.SortOrder
-  approvedBy?: Prisma.SortOrder
-  approvedAt?: Prisma.SortOrder
-  remarks?: Prisma.SortOrderInput | Prisma.SortOrder
+  description?: Prisma.SortOrder
+  amount?: Prisma.SortOrder
+  debitUserId?: Prisma.SortOrderInput | Prisma.SortOrder
+  creditUserId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  paymentStatus?: Prisma.SortOrderInput | Prisma.SortOrder
-  userId?: Prisma.SortOrderInput | Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.LedgerEntryCountOrderByAggregateInput
   _avg?: Prisma.LedgerEntryAvgOrderByAggregateInput
   _max?: Prisma.LedgerEntryMaxOrderByAggregateInput
@@ -385,132 +307,84 @@ export type LedgerEntryScalarWhereWithAggregatesInput = {
   NOT?: Prisma.LedgerEntryScalarWhereWithAggregatesInput | Prisma.LedgerEntryScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"LedgerEntry"> | number
   entryDate?: Prisma.DateTimeWithAggregatesFilter<"LedgerEntry"> | Date | string
-  refType?: Prisma.StringWithAggregatesFilter<"LedgerEntry"> | string
-  refId?: Prisma.IntWithAggregatesFilter<"LedgerEntry"> | number
-  debit?: Prisma.FloatWithAggregatesFilter<"LedgerEntry"> | number
-  credit?: Prisma.FloatWithAggregatesFilter<"LedgerEntry"> | number
-  accountType?: Prisma.StringWithAggregatesFilter<"LedgerEntry"> | string
-  accountRefId?: Prisma.IntNullableWithAggregatesFilter<"LedgerEntry"> | number | null
-  approvedBy?: Prisma.IntWithAggregatesFilter<"LedgerEntry"> | number
-  approvedAt?: Prisma.DateTimeWithAggregatesFilter<"LedgerEntry"> | Date | string
-  remarks?: Prisma.StringNullableWithAggregatesFilter<"LedgerEntry"> | string | null
+  description?: Prisma.StringWithAggregatesFilter<"LedgerEntry"> | string
+  amount?: Prisma.FloatWithAggregatesFilter<"LedgerEntry"> | number
+  debitUserId?: Prisma.IntNullableWithAggregatesFilter<"LedgerEntry"> | number | null
+  creditUserId?: Prisma.IntNullableWithAggregatesFilter<"LedgerEntry"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"LedgerEntry"> | Date | string
-  paymentStatus?: Prisma.StringNullableWithAggregatesFilter<"LedgerEntry"> | string | null
-  userId?: Prisma.IntNullableWithAggregatesFilter<"LedgerEntry"> | number | null
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"LedgerEntry"> | Date | string
 }
 
 export type LedgerEntryCreateInput = {
   entryDate?: Date | string
-  refType: string
-  refId: number
-  debit?: number
-  credit?: number
-  accountType: string
-  accountRefId?: number | null
-  approvedAt?: Date | string
-  remarks?: string | null
+  description: string
+  amount: number
   createdAt?: Date | string
-  paymentStatus?: string | null
-  approver: Prisma.UserCreateNestedOneWithoutApprovedLedgerEntriesInput
-  user?: Prisma.UserCreateNestedOneWithoutLedgerEntriesInput
+  updatedAt?: Date | string
+  createdBy?: Prisma.UserCreateNestedOneWithoutCreatedLedgerEntriesInput
+  approvedBy?: Prisma.UserCreateNestedOneWithoutApprovedLedgerEntriesInput
 }
 
 export type LedgerEntryUncheckedCreateInput = {
   id?: number
   entryDate?: Date | string
-  refType: string
-  refId: number
-  debit?: number
-  credit?: number
-  accountType: string
-  accountRefId?: number | null
-  approvedBy: number
-  approvedAt?: Date | string
-  remarks?: string | null
+  description: string
+  amount: number
+  debitUserId?: number | null
+  creditUserId?: number | null
   createdAt?: Date | string
-  paymentStatus?: string | null
-  userId?: number | null
+  updatedAt?: Date | string
 }
 
 export type LedgerEntryUpdateInput = {
   entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  refType?: Prisma.StringFieldUpdateOperationsInput | string
-  refId?: Prisma.IntFieldUpdateOperationsInput | number
-  debit?: Prisma.FloatFieldUpdateOperationsInput | number
-  credit?: Prisma.FloatFieldUpdateOperationsInput | number
-  accountType?: Prisma.StringFieldUpdateOperationsInput | string
-  accountRefId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  approvedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  paymentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approver?: Prisma.UserUpdateOneRequiredWithoutApprovedLedgerEntriesNestedInput
-  user?: Prisma.UserUpdateOneWithoutLedgerEntriesNestedInput
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdBy?: Prisma.UserUpdateOneWithoutCreatedLedgerEntriesNestedInput
+  approvedBy?: Prisma.UserUpdateOneWithoutApprovedLedgerEntriesNestedInput
 }
 
 export type LedgerEntryUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  refType?: Prisma.StringFieldUpdateOperationsInput | string
-  refId?: Prisma.IntFieldUpdateOperationsInput | number
-  debit?: Prisma.FloatFieldUpdateOperationsInput | number
-  credit?: Prisma.FloatFieldUpdateOperationsInput | number
-  accountType?: Prisma.StringFieldUpdateOperationsInput | string
-  accountRefId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  approvedBy?: Prisma.IntFieldUpdateOperationsInput | number
-  approvedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.FloatFieldUpdateOperationsInput | number
+  debitUserId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  creditUserId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  paymentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LedgerEntryCreateManyInput = {
   id?: number
   entryDate?: Date | string
-  refType: string
-  refId: number
-  debit?: number
-  credit?: number
-  accountType: string
-  accountRefId?: number | null
-  approvedBy: number
-  approvedAt?: Date | string
-  remarks?: string | null
+  description: string
+  amount: number
+  debitUserId?: number | null
+  creditUserId?: number | null
   createdAt?: Date | string
-  paymentStatus?: string | null
-  userId?: number | null
+  updatedAt?: Date | string
 }
 
 export type LedgerEntryUpdateManyMutationInput = {
   entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  refType?: Prisma.StringFieldUpdateOperationsInput | string
-  refId?: Prisma.IntFieldUpdateOperationsInput | number
-  debit?: Prisma.FloatFieldUpdateOperationsInput | number
-  credit?: Prisma.FloatFieldUpdateOperationsInput | number
-  accountType?: Prisma.StringFieldUpdateOperationsInput | string
-  accountRefId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  approvedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  paymentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LedgerEntryUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  refType?: Prisma.StringFieldUpdateOperationsInput | string
-  refId?: Prisma.IntFieldUpdateOperationsInput | number
-  debit?: Prisma.FloatFieldUpdateOperationsInput | number
-  credit?: Prisma.FloatFieldUpdateOperationsInput | number
-  accountType?: Prisma.StringFieldUpdateOperationsInput | string
-  accountRefId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  approvedBy?: Prisma.IntFieldUpdateOperationsInput | number
-  approvedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.FloatFieldUpdateOperationsInput | number
+  debitUserId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  creditUserId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  paymentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LedgerEntryListRelationFilter = {
@@ -526,254 +400,206 @@ export type LedgerEntryOrderByRelationAggregateInput = {
 export type LedgerEntryCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   entryDate?: Prisma.SortOrder
-  refType?: Prisma.SortOrder
-  refId?: Prisma.SortOrder
-  debit?: Prisma.SortOrder
-  credit?: Prisma.SortOrder
-  accountType?: Prisma.SortOrder
-  accountRefId?: Prisma.SortOrder
-  approvedBy?: Prisma.SortOrder
-  approvedAt?: Prisma.SortOrder
-  remarks?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  amount?: Prisma.SortOrder
+  debitUserId?: Prisma.SortOrder
+  creditUserId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  paymentStatus?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type LedgerEntryAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  refId?: Prisma.SortOrder
-  debit?: Prisma.SortOrder
-  credit?: Prisma.SortOrder
-  accountRefId?: Prisma.SortOrder
-  approvedBy?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
+  amount?: Prisma.SortOrder
+  debitUserId?: Prisma.SortOrder
+  creditUserId?: Prisma.SortOrder
 }
 
 export type LedgerEntryMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   entryDate?: Prisma.SortOrder
-  refType?: Prisma.SortOrder
-  refId?: Prisma.SortOrder
-  debit?: Prisma.SortOrder
-  credit?: Prisma.SortOrder
-  accountType?: Prisma.SortOrder
-  accountRefId?: Prisma.SortOrder
-  approvedBy?: Prisma.SortOrder
-  approvedAt?: Prisma.SortOrder
-  remarks?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  amount?: Prisma.SortOrder
+  debitUserId?: Prisma.SortOrder
+  creditUserId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  paymentStatus?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type LedgerEntryMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   entryDate?: Prisma.SortOrder
-  refType?: Prisma.SortOrder
-  refId?: Prisma.SortOrder
-  debit?: Prisma.SortOrder
-  credit?: Prisma.SortOrder
-  accountType?: Prisma.SortOrder
-  accountRefId?: Prisma.SortOrder
-  approvedBy?: Prisma.SortOrder
-  approvedAt?: Prisma.SortOrder
-  remarks?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  amount?: Prisma.SortOrder
+  debitUserId?: Prisma.SortOrder
+  creditUserId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  paymentStatus?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type LedgerEntrySumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  refId?: Prisma.SortOrder
-  debit?: Prisma.SortOrder
-  credit?: Prisma.SortOrder
-  accountRefId?: Prisma.SortOrder
-  approvedBy?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
+  amount?: Prisma.SortOrder
+  debitUserId?: Prisma.SortOrder
+  creditUserId?: Prisma.SortOrder
 }
 
-export type LedgerEntryCreateNestedManyWithoutApproverInput = {
-  create?: Prisma.XOR<Prisma.LedgerEntryCreateWithoutApproverInput, Prisma.LedgerEntryUncheckedCreateWithoutApproverInput> | Prisma.LedgerEntryCreateWithoutApproverInput[] | Prisma.LedgerEntryUncheckedCreateWithoutApproverInput[]
-  connectOrCreate?: Prisma.LedgerEntryCreateOrConnectWithoutApproverInput | Prisma.LedgerEntryCreateOrConnectWithoutApproverInput[]
-  createMany?: Prisma.LedgerEntryCreateManyApproverInputEnvelope
+export type LedgerEntryCreateNestedManyWithoutCreatedByInput = {
+  create?: Prisma.XOR<Prisma.LedgerEntryCreateWithoutCreatedByInput, Prisma.LedgerEntryUncheckedCreateWithoutCreatedByInput> | Prisma.LedgerEntryCreateWithoutCreatedByInput[] | Prisma.LedgerEntryUncheckedCreateWithoutCreatedByInput[]
+  connectOrCreate?: Prisma.LedgerEntryCreateOrConnectWithoutCreatedByInput | Prisma.LedgerEntryCreateOrConnectWithoutCreatedByInput[]
+  createMany?: Prisma.LedgerEntryCreateManyCreatedByInputEnvelope
   connect?: Prisma.LedgerEntryWhereUniqueInput | Prisma.LedgerEntryWhereUniqueInput[]
 }
 
-export type LedgerEntryCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.LedgerEntryCreateWithoutUserInput, Prisma.LedgerEntryUncheckedCreateWithoutUserInput> | Prisma.LedgerEntryCreateWithoutUserInput[] | Prisma.LedgerEntryUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.LedgerEntryCreateOrConnectWithoutUserInput | Prisma.LedgerEntryCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.LedgerEntryCreateManyUserInputEnvelope
+export type LedgerEntryCreateNestedManyWithoutApprovedByInput = {
+  create?: Prisma.XOR<Prisma.LedgerEntryCreateWithoutApprovedByInput, Prisma.LedgerEntryUncheckedCreateWithoutApprovedByInput> | Prisma.LedgerEntryCreateWithoutApprovedByInput[] | Prisma.LedgerEntryUncheckedCreateWithoutApprovedByInput[]
+  connectOrCreate?: Prisma.LedgerEntryCreateOrConnectWithoutApprovedByInput | Prisma.LedgerEntryCreateOrConnectWithoutApprovedByInput[]
+  createMany?: Prisma.LedgerEntryCreateManyApprovedByInputEnvelope
   connect?: Prisma.LedgerEntryWhereUniqueInput | Prisma.LedgerEntryWhereUniqueInput[]
 }
 
-export type LedgerEntryUncheckedCreateNestedManyWithoutApproverInput = {
-  create?: Prisma.XOR<Prisma.LedgerEntryCreateWithoutApproverInput, Prisma.LedgerEntryUncheckedCreateWithoutApproverInput> | Prisma.LedgerEntryCreateWithoutApproverInput[] | Prisma.LedgerEntryUncheckedCreateWithoutApproverInput[]
-  connectOrCreate?: Prisma.LedgerEntryCreateOrConnectWithoutApproverInput | Prisma.LedgerEntryCreateOrConnectWithoutApproverInput[]
-  createMany?: Prisma.LedgerEntryCreateManyApproverInputEnvelope
+export type LedgerEntryUncheckedCreateNestedManyWithoutCreatedByInput = {
+  create?: Prisma.XOR<Prisma.LedgerEntryCreateWithoutCreatedByInput, Prisma.LedgerEntryUncheckedCreateWithoutCreatedByInput> | Prisma.LedgerEntryCreateWithoutCreatedByInput[] | Prisma.LedgerEntryUncheckedCreateWithoutCreatedByInput[]
+  connectOrCreate?: Prisma.LedgerEntryCreateOrConnectWithoutCreatedByInput | Prisma.LedgerEntryCreateOrConnectWithoutCreatedByInput[]
+  createMany?: Prisma.LedgerEntryCreateManyCreatedByInputEnvelope
   connect?: Prisma.LedgerEntryWhereUniqueInput | Prisma.LedgerEntryWhereUniqueInput[]
 }
 
-export type LedgerEntryUncheckedCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.LedgerEntryCreateWithoutUserInput, Prisma.LedgerEntryUncheckedCreateWithoutUserInput> | Prisma.LedgerEntryCreateWithoutUserInput[] | Prisma.LedgerEntryUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.LedgerEntryCreateOrConnectWithoutUserInput | Prisma.LedgerEntryCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.LedgerEntryCreateManyUserInputEnvelope
+export type LedgerEntryUncheckedCreateNestedManyWithoutApprovedByInput = {
+  create?: Prisma.XOR<Prisma.LedgerEntryCreateWithoutApprovedByInput, Prisma.LedgerEntryUncheckedCreateWithoutApprovedByInput> | Prisma.LedgerEntryCreateWithoutApprovedByInput[] | Prisma.LedgerEntryUncheckedCreateWithoutApprovedByInput[]
+  connectOrCreate?: Prisma.LedgerEntryCreateOrConnectWithoutApprovedByInput | Prisma.LedgerEntryCreateOrConnectWithoutApprovedByInput[]
+  createMany?: Prisma.LedgerEntryCreateManyApprovedByInputEnvelope
   connect?: Prisma.LedgerEntryWhereUniqueInput | Prisma.LedgerEntryWhereUniqueInput[]
 }
 
-export type LedgerEntryUpdateManyWithoutApproverNestedInput = {
-  create?: Prisma.XOR<Prisma.LedgerEntryCreateWithoutApproverInput, Prisma.LedgerEntryUncheckedCreateWithoutApproverInput> | Prisma.LedgerEntryCreateWithoutApproverInput[] | Prisma.LedgerEntryUncheckedCreateWithoutApproverInput[]
-  connectOrCreate?: Prisma.LedgerEntryCreateOrConnectWithoutApproverInput | Prisma.LedgerEntryCreateOrConnectWithoutApproverInput[]
-  upsert?: Prisma.LedgerEntryUpsertWithWhereUniqueWithoutApproverInput | Prisma.LedgerEntryUpsertWithWhereUniqueWithoutApproverInput[]
-  createMany?: Prisma.LedgerEntryCreateManyApproverInputEnvelope
+export type LedgerEntryUpdateManyWithoutCreatedByNestedInput = {
+  create?: Prisma.XOR<Prisma.LedgerEntryCreateWithoutCreatedByInput, Prisma.LedgerEntryUncheckedCreateWithoutCreatedByInput> | Prisma.LedgerEntryCreateWithoutCreatedByInput[] | Prisma.LedgerEntryUncheckedCreateWithoutCreatedByInput[]
+  connectOrCreate?: Prisma.LedgerEntryCreateOrConnectWithoutCreatedByInput | Prisma.LedgerEntryCreateOrConnectWithoutCreatedByInput[]
+  upsert?: Prisma.LedgerEntryUpsertWithWhereUniqueWithoutCreatedByInput | Prisma.LedgerEntryUpsertWithWhereUniqueWithoutCreatedByInput[]
+  createMany?: Prisma.LedgerEntryCreateManyCreatedByInputEnvelope
   set?: Prisma.LedgerEntryWhereUniqueInput | Prisma.LedgerEntryWhereUniqueInput[]
   disconnect?: Prisma.LedgerEntryWhereUniqueInput | Prisma.LedgerEntryWhereUniqueInput[]
   delete?: Prisma.LedgerEntryWhereUniqueInput | Prisma.LedgerEntryWhereUniqueInput[]
   connect?: Prisma.LedgerEntryWhereUniqueInput | Prisma.LedgerEntryWhereUniqueInput[]
-  update?: Prisma.LedgerEntryUpdateWithWhereUniqueWithoutApproverInput | Prisma.LedgerEntryUpdateWithWhereUniqueWithoutApproverInput[]
-  updateMany?: Prisma.LedgerEntryUpdateManyWithWhereWithoutApproverInput | Prisma.LedgerEntryUpdateManyWithWhereWithoutApproverInput[]
+  update?: Prisma.LedgerEntryUpdateWithWhereUniqueWithoutCreatedByInput | Prisma.LedgerEntryUpdateWithWhereUniqueWithoutCreatedByInput[]
+  updateMany?: Prisma.LedgerEntryUpdateManyWithWhereWithoutCreatedByInput | Prisma.LedgerEntryUpdateManyWithWhereWithoutCreatedByInput[]
   deleteMany?: Prisma.LedgerEntryScalarWhereInput | Prisma.LedgerEntryScalarWhereInput[]
 }
 
-export type LedgerEntryUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.LedgerEntryCreateWithoutUserInput, Prisma.LedgerEntryUncheckedCreateWithoutUserInput> | Prisma.LedgerEntryCreateWithoutUserInput[] | Prisma.LedgerEntryUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.LedgerEntryCreateOrConnectWithoutUserInput | Prisma.LedgerEntryCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.LedgerEntryUpsertWithWhereUniqueWithoutUserInput | Prisma.LedgerEntryUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.LedgerEntryCreateManyUserInputEnvelope
+export type LedgerEntryUpdateManyWithoutApprovedByNestedInput = {
+  create?: Prisma.XOR<Prisma.LedgerEntryCreateWithoutApprovedByInput, Prisma.LedgerEntryUncheckedCreateWithoutApprovedByInput> | Prisma.LedgerEntryCreateWithoutApprovedByInput[] | Prisma.LedgerEntryUncheckedCreateWithoutApprovedByInput[]
+  connectOrCreate?: Prisma.LedgerEntryCreateOrConnectWithoutApprovedByInput | Prisma.LedgerEntryCreateOrConnectWithoutApprovedByInput[]
+  upsert?: Prisma.LedgerEntryUpsertWithWhereUniqueWithoutApprovedByInput | Prisma.LedgerEntryUpsertWithWhereUniqueWithoutApprovedByInput[]
+  createMany?: Prisma.LedgerEntryCreateManyApprovedByInputEnvelope
   set?: Prisma.LedgerEntryWhereUniqueInput | Prisma.LedgerEntryWhereUniqueInput[]
   disconnect?: Prisma.LedgerEntryWhereUniqueInput | Prisma.LedgerEntryWhereUniqueInput[]
   delete?: Prisma.LedgerEntryWhereUniqueInput | Prisma.LedgerEntryWhereUniqueInput[]
   connect?: Prisma.LedgerEntryWhereUniqueInput | Prisma.LedgerEntryWhereUniqueInput[]
-  update?: Prisma.LedgerEntryUpdateWithWhereUniqueWithoutUserInput | Prisma.LedgerEntryUpdateWithWhereUniqueWithoutUserInput[]
-  updateMany?: Prisma.LedgerEntryUpdateManyWithWhereWithoutUserInput | Prisma.LedgerEntryUpdateManyWithWhereWithoutUserInput[]
+  update?: Prisma.LedgerEntryUpdateWithWhereUniqueWithoutApprovedByInput | Prisma.LedgerEntryUpdateWithWhereUniqueWithoutApprovedByInput[]
+  updateMany?: Prisma.LedgerEntryUpdateManyWithWhereWithoutApprovedByInput | Prisma.LedgerEntryUpdateManyWithWhereWithoutApprovedByInput[]
   deleteMany?: Prisma.LedgerEntryScalarWhereInput | Prisma.LedgerEntryScalarWhereInput[]
 }
 
-export type LedgerEntryUncheckedUpdateManyWithoutApproverNestedInput = {
-  create?: Prisma.XOR<Prisma.LedgerEntryCreateWithoutApproverInput, Prisma.LedgerEntryUncheckedCreateWithoutApproverInput> | Prisma.LedgerEntryCreateWithoutApproverInput[] | Prisma.LedgerEntryUncheckedCreateWithoutApproverInput[]
-  connectOrCreate?: Prisma.LedgerEntryCreateOrConnectWithoutApproverInput | Prisma.LedgerEntryCreateOrConnectWithoutApproverInput[]
-  upsert?: Prisma.LedgerEntryUpsertWithWhereUniqueWithoutApproverInput | Prisma.LedgerEntryUpsertWithWhereUniqueWithoutApproverInput[]
-  createMany?: Prisma.LedgerEntryCreateManyApproverInputEnvelope
+export type LedgerEntryUncheckedUpdateManyWithoutCreatedByNestedInput = {
+  create?: Prisma.XOR<Prisma.LedgerEntryCreateWithoutCreatedByInput, Prisma.LedgerEntryUncheckedCreateWithoutCreatedByInput> | Prisma.LedgerEntryCreateWithoutCreatedByInput[] | Prisma.LedgerEntryUncheckedCreateWithoutCreatedByInput[]
+  connectOrCreate?: Prisma.LedgerEntryCreateOrConnectWithoutCreatedByInput | Prisma.LedgerEntryCreateOrConnectWithoutCreatedByInput[]
+  upsert?: Prisma.LedgerEntryUpsertWithWhereUniqueWithoutCreatedByInput | Prisma.LedgerEntryUpsertWithWhereUniqueWithoutCreatedByInput[]
+  createMany?: Prisma.LedgerEntryCreateManyCreatedByInputEnvelope
   set?: Prisma.LedgerEntryWhereUniqueInput | Prisma.LedgerEntryWhereUniqueInput[]
   disconnect?: Prisma.LedgerEntryWhereUniqueInput | Prisma.LedgerEntryWhereUniqueInput[]
   delete?: Prisma.LedgerEntryWhereUniqueInput | Prisma.LedgerEntryWhereUniqueInput[]
   connect?: Prisma.LedgerEntryWhereUniqueInput | Prisma.LedgerEntryWhereUniqueInput[]
-  update?: Prisma.LedgerEntryUpdateWithWhereUniqueWithoutApproverInput | Prisma.LedgerEntryUpdateWithWhereUniqueWithoutApproverInput[]
-  updateMany?: Prisma.LedgerEntryUpdateManyWithWhereWithoutApproverInput | Prisma.LedgerEntryUpdateManyWithWhereWithoutApproverInput[]
+  update?: Prisma.LedgerEntryUpdateWithWhereUniqueWithoutCreatedByInput | Prisma.LedgerEntryUpdateWithWhereUniqueWithoutCreatedByInput[]
+  updateMany?: Prisma.LedgerEntryUpdateManyWithWhereWithoutCreatedByInput | Prisma.LedgerEntryUpdateManyWithWhereWithoutCreatedByInput[]
   deleteMany?: Prisma.LedgerEntryScalarWhereInput | Prisma.LedgerEntryScalarWhereInput[]
 }
 
-export type LedgerEntryUncheckedUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.LedgerEntryCreateWithoutUserInput, Prisma.LedgerEntryUncheckedCreateWithoutUserInput> | Prisma.LedgerEntryCreateWithoutUserInput[] | Prisma.LedgerEntryUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.LedgerEntryCreateOrConnectWithoutUserInput | Prisma.LedgerEntryCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.LedgerEntryUpsertWithWhereUniqueWithoutUserInput | Prisma.LedgerEntryUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.LedgerEntryCreateManyUserInputEnvelope
+export type LedgerEntryUncheckedUpdateManyWithoutApprovedByNestedInput = {
+  create?: Prisma.XOR<Prisma.LedgerEntryCreateWithoutApprovedByInput, Prisma.LedgerEntryUncheckedCreateWithoutApprovedByInput> | Prisma.LedgerEntryCreateWithoutApprovedByInput[] | Prisma.LedgerEntryUncheckedCreateWithoutApprovedByInput[]
+  connectOrCreate?: Prisma.LedgerEntryCreateOrConnectWithoutApprovedByInput | Prisma.LedgerEntryCreateOrConnectWithoutApprovedByInput[]
+  upsert?: Prisma.LedgerEntryUpsertWithWhereUniqueWithoutApprovedByInput | Prisma.LedgerEntryUpsertWithWhereUniqueWithoutApprovedByInput[]
+  createMany?: Prisma.LedgerEntryCreateManyApprovedByInputEnvelope
   set?: Prisma.LedgerEntryWhereUniqueInput | Prisma.LedgerEntryWhereUniqueInput[]
   disconnect?: Prisma.LedgerEntryWhereUniqueInput | Prisma.LedgerEntryWhereUniqueInput[]
   delete?: Prisma.LedgerEntryWhereUniqueInput | Prisma.LedgerEntryWhereUniqueInput[]
   connect?: Prisma.LedgerEntryWhereUniqueInput | Prisma.LedgerEntryWhereUniqueInput[]
-  update?: Prisma.LedgerEntryUpdateWithWhereUniqueWithoutUserInput | Prisma.LedgerEntryUpdateWithWhereUniqueWithoutUserInput[]
-  updateMany?: Prisma.LedgerEntryUpdateManyWithWhereWithoutUserInput | Prisma.LedgerEntryUpdateManyWithWhereWithoutUserInput[]
+  update?: Prisma.LedgerEntryUpdateWithWhereUniqueWithoutApprovedByInput | Prisma.LedgerEntryUpdateWithWhereUniqueWithoutApprovedByInput[]
+  updateMany?: Prisma.LedgerEntryUpdateManyWithWhereWithoutApprovedByInput | Prisma.LedgerEntryUpdateManyWithWhereWithoutApprovedByInput[]
   deleteMany?: Prisma.LedgerEntryScalarWhereInput | Prisma.LedgerEntryScalarWhereInput[]
 }
 
-export type LedgerEntryCreateWithoutApproverInput = {
+export type LedgerEntryCreateWithoutCreatedByInput = {
   entryDate?: Date | string
-  refType: string
-  refId: number
-  debit?: number
-  credit?: number
-  accountType: string
-  accountRefId?: number | null
-  approvedAt?: Date | string
-  remarks?: string | null
+  description: string
+  amount: number
   createdAt?: Date | string
-  paymentStatus?: string | null
-  user?: Prisma.UserCreateNestedOneWithoutLedgerEntriesInput
+  updatedAt?: Date | string
+  approvedBy?: Prisma.UserCreateNestedOneWithoutApprovedLedgerEntriesInput
 }
 
-export type LedgerEntryUncheckedCreateWithoutApproverInput = {
+export type LedgerEntryUncheckedCreateWithoutCreatedByInput = {
   id?: number
   entryDate?: Date | string
-  refType: string
-  refId: number
-  debit?: number
-  credit?: number
-  accountType: string
-  accountRefId?: number | null
-  approvedAt?: Date | string
-  remarks?: string | null
+  description: string
+  amount: number
+  creditUserId?: number | null
   createdAt?: Date | string
-  paymentStatus?: string | null
-  userId?: number | null
+  updatedAt?: Date | string
 }
 
-export type LedgerEntryCreateOrConnectWithoutApproverInput = {
+export type LedgerEntryCreateOrConnectWithoutCreatedByInput = {
   where: Prisma.LedgerEntryWhereUniqueInput
-  create: Prisma.XOR<Prisma.LedgerEntryCreateWithoutApproverInput, Prisma.LedgerEntryUncheckedCreateWithoutApproverInput>
+  create: Prisma.XOR<Prisma.LedgerEntryCreateWithoutCreatedByInput, Prisma.LedgerEntryUncheckedCreateWithoutCreatedByInput>
 }
 
-export type LedgerEntryCreateManyApproverInputEnvelope = {
-  data: Prisma.LedgerEntryCreateManyApproverInput | Prisma.LedgerEntryCreateManyApproverInput[]
+export type LedgerEntryCreateManyCreatedByInputEnvelope = {
+  data: Prisma.LedgerEntryCreateManyCreatedByInput | Prisma.LedgerEntryCreateManyCreatedByInput[]
   skipDuplicates?: boolean
 }
 
-export type LedgerEntryCreateWithoutUserInput = {
+export type LedgerEntryCreateWithoutApprovedByInput = {
   entryDate?: Date | string
-  refType: string
-  refId: number
-  debit?: number
-  credit?: number
-  accountType: string
-  accountRefId?: number | null
-  approvedAt?: Date | string
-  remarks?: string | null
+  description: string
+  amount: number
   createdAt?: Date | string
-  paymentStatus?: string | null
-  approver: Prisma.UserCreateNestedOneWithoutApprovedLedgerEntriesInput
+  updatedAt?: Date | string
+  createdBy?: Prisma.UserCreateNestedOneWithoutCreatedLedgerEntriesInput
 }
 
-export type LedgerEntryUncheckedCreateWithoutUserInput = {
+export type LedgerEntryUncheckedCreateWithoutApprovedByInput = {
   id?: number
   entryDate?: Date | string
-  refType: string
-  refId: number
-  debit?: number
-  credit?: number
-  accountType: string
-  accountRefId?: number | null
-  approvedBy: number
-  approvedAt?: Date | string
-  remarks?: string | null
+  description: string
+  amount: number
+  debitUserId?: number | null
   createdAt?: Date | string
-  paymentStatus?: string | null
+  updatedAt?: Date | string
 }
 
-export type LedgerEntryCreateOrConnectWithoutUserInput = {
+export type LedgerEntryCreateOrConnectWithoutApprovedByInput = {
   where: Prisma.LedgerEntryWhereUniqueInput
-  create: Prisma.XOR<Prisma.LedgerEntryCreateWithoutUserInput, Prisma.LedgerEntryUncheckedCreateWithoutUserInput>
+  create: Prisma.XOR<Prisma.LedgerEntryCreateWithoutApprovedByInput, Prisma.LedgerEntryUncheckedCreateWithoutApprovedByInput>
 }
 
-export type LedgerEntryCreateManyUserInputEnvelope = {
-  data: Prisma.LedgerEntryCreateManyUserInput | Prisma.LedgerEntryCreateManyUserInput[]
+export type LedgerEntryCreateManyApprovedByInputEnvelope = {
+  data: Prisma.LedgerEntryCreateManyApprovedByInput | Prisma.LedgerEntryCreateManyApprovedByInput[]
   skipDuplicates?: boolean
 }
 
-export type LedgerEntryUpsertWithWhereUniqueWithoutApproverInput = {
+export type LedgerEntryUpsertWithWhereUniqueWithoutCreatedByInput = {
   where: Prisma.LedgerEntryWhereUniqueInput
-  update: Prisma.XOR<Prisma.LedgerEntryUpdateWithoutApproverInput, Prisma.LedgerEntryUncheckedUpdateWithoutApproverInput>
-  create: Prisma.XOR<Prisma.LedgerEntryCreateWithoutApproverInput, Prisma.LedgerEntryUncheckedCreateWithoutApproverInput>
+  update: Prisma.XOR<Prisma.LedgerEntryUpdateWithoutCreatedByInput, Prisma.LedgerEntryUncheckedUpdateWithoutCreatedByInput>
+  create: Prisma.XOR<Prisma.LedgerEntryCreateWithoutCreatedByInput, Prisma.LedgerEntryUncheckedCreateWithoutCreatedByInput>
 }
 
-export type LedgerEntryUpdateWithWhereUniqueWithoutApproverInput = {
+export type LedgerEntryUpdateWithWhereUniqueWithoutCreatedByInput = {
   where: Prisma.LedgerEntryWhereUniqueInput
-  data: Prisma.XOR<Prisma.LedgerEntryUpdateWithoutApproverInput, Prisma.LedgerEntryUncheckedUpdateWithoutApproverInput>
+  data: Prisma.XOR<Prisma.LedgerEntryUpdateWithoutCreatedByInput, Prisma.LedgerEntryUncheckedUpdateWithoutCreatedByInput>
 }
 
-export type LedgerEntryUpdateManyWithWhereWithoutApproverInput = {
+export type LedgerEntryUpdateManyWithWhereWithoutCreatedByInput = {
   where: Prisma.LedgerEntryScalarWhereInput
-  data: Prisma.XOR<Prisma.LedgerEntryUpdateManyMutationInput, Prisma.LedgerEntryUncheckedUpdateManyWithoutApproverInput>
+  data: Prisma.XOR<Prisma.LedgerEntryUpdateManyMutationInput, Prisma.LedgerEntryUncheckedUpdateManyWithoutCreatedByInput>
 }
 
 export type LedgerEntryScalarWhereInput = {
@@ -782,160 +608,106 @@ export type LedgerEntryScalarWhereInput = {
   NOT?: Prisma.LedgerEntryScalarWhereInput | Prisma.LedgerEntryScalarWhereInput[]
   id?: Prisma.IntFilter<"LedgerEntry"> | number
   entryDate?: Prisma.DateTimeFilter<"LedgerEntry"> | Date | string
-  refType?: Prisma.StringFilter<"LedgerEntry"> | string
-  refId?: Prisma.IntFilter<"LedgerEntry"> | number
-  debit?: Prisma.FloatFilter<"LedgerEntry"> | number
-  credit?: Prisma.FloatFilter<"LedgerEntry"> | number
-  accountType?: Prisma.StringFilter<"LedgerEntry"> | string
-  accountRefId?: Prisma.IntNullableFilter<"LedgerEntry"> | number | null
-  approvedBy?: Prisma.IntFilter<"LedgerEntry"> | number
-  approvedAt?: Prisma.DateTimeFilter<"LedgerEntry"> | Date | string
-  remarks?: Prisma.StringNullableFilter<"LedgerEntry"> | string | null
+  description?: Prisma.StringFilter<"LedgerEntry"> | string
+  amount?: Prisma.FloatFilter<"LedgerEntry"> | number
+  debitUserId?: Prisma.IntNullableFilter<"LedgerEntry"> | number | null
+  creditUserId?: Prisma.IntNullableFilter<"LedgerEntry"> | number | null
   createdAt?: Prisma.DateTimeFilter<"LedgerEntry"> | Date | string
-  paymentStatus?: Prisma.StringNullableFilter<"LedgerEntry"> | string | null
-  userId?: Prisma.IntNullableFilter<"LedgerEntry"> | number | null
+  updatedAt?: Prisma.DateTimeFilter<"LedgerEntry"> | Date | string
 }
 
-export type LedgerEntryUpsertWithWhereUniqueWithoutUserInput = {
+export type LedgerEntryUpsertWithWhereUniqueWithoutApprovedByInput = {
   where: Prisma.LedgerEntryWhereUniqueInput
-  update: Prisma.XOR<Prisma.LedgerEntryUpdateWithoutUserInput, Prisma.LedgerEntryUncheckedUpdateWithoutUserInput>
-  create: Prisma.XOR<Prisma.LedgerEntryCreateWithoutUserInput, Prisma.LedgerEntryUncheckedCreateWithoutUserInput>
+  update: Prisma.XOR<Prisma.LedgerEntryUpdateWithoutApprovedByInput, Prisma.LedgerEntryUncheckedUpdateWithoutApprovedByInput>
+  create: Prisma.XOR<Prisma.LedgerEntryCreateWithoutApprovedByInput, Prisma.LedgerEntryUncheckedCreateWithoutApprovedByInput>
 }
 
-export type LedgerEntryUpdateWithWhereUniqueWithoutUserInput = {
+export type LedgerEntryUpdateWithWhereUniqueWithoutApprovedByInput = {
   where: Prisma.LedgerEntryWhereUniqueInput
-  data: Prisma.XOR<Prisma.LedgerEntryUpdateWithoutUserInput, Prisma.LedgerEntryUncheckedUpdateWithoutUserInput>
+  data: Prisma.XOR<Prisma.LedgerEntryUpdateWithoutApprovedByInput, Prisma.LedgerEntryUncheckedUpdateWithoutApprovedByInput>
 }
 
-export type LedgerEntryUpdateManyWithWhereWithoutUserInput = {
+export type LedgerEntryUpdateManyWithWhereWithoutApprovedByInput = {
   where: Prisma.LedgerEntryScalarWhereInput
-  data: Prisma.XOR<Prisma.LedgerEntryUpdateManyMutationInput, Prisma.LedgerEntryUncheckedUpdateManyWithoutUserInput>
+  data: Prisma.XOR<Prisma.LedgerEntryUpdateManyMutationInput, Prisma.LedgerEntryUncheckedUpdateManyWithoutApprovedByInput>
 }
 
-export type LedgerEntryCreateManyApproverInput = {
+export type LedgerEntryCreateManyCreatedByInput = {
   id?: number
   entryDate?: Date | string
-  refType: string
-  refId: number
-  debit?: number
-  credit?: number
-  accountType: string
-  accountRefId?: number | null
-  approvedAt?: Date | string
-  remarks?: string | null
+  description: string
+  amount: number
+  creditUserId?: number | null
   createdAt?: Date | string
-  paymentStatus?: string | null
-  userId?: number | null
+  updatedAt?: Date | string
 }
 
-export type LedgerEntryCreateManyUserInput = {
+export type LedgerEntryCreateManyApprovedByInput = {
   id?: number
   entryDate?: Date | string
-  refType: string
-  refId: number
-  debit?: number
-  credit?: number
-  accountType: string
-  accountRefId?: number | null
-  approvedBy: number
-  approvedAt?: Date | string
-  remarks?: string | null
+  description: string
+  amount: number
+  debitUserId?: number | null
   createdAt?: Date | string
-  paymentStatus?: string | null
+  updatedAt?: Date | string
 }
 
-export type LedgerEntryUpdateWithoutApproverInput = {
+export type LedgerEntryUpdateWithoutCreatedByInput = {
   entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  refType?: Prisma.StringFieldUpdateOperationsInput | string
-  refId?: Prisma.IntFieldUpdateOperationsInput | number
-  debit?: Prisma.FloatFieldUpdateOperationsInput | number
-  credit?: Prisma.FloatFieldUpdateOperationsInput | number
-  accountType?: Prisma.StringFieldUpdateOperationsInput | string
-  accountRefId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  approvedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  paymentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  user?: Prisma.UserUpdateOneWithoutLedgerEntriesNestedInput
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  approvedBy?: Prisma.UserUpdateOneWithoutApprovedLedgerEntriesNestedInput
 }
 
-export type LedgerEntryUncheckedUpdateWithoutApproverInput = {
+export type LedgerEntryUncheckedUpdateWithoutCreatedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  refType?: Prisma.StringFieldUpdateOperationsInput | string
-  refId?: Prisma.IntFieldUpdateOperationsInput | number
-  debit?: Prisma.FloatFieldUpdateOperationsInput | number
-  credit?: Prisma.FloatFieldUpdateOperationsInput | number
-  accountType?: Prisma.StringFieldUpdateOperationsInput | string
-  accountRefId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  approvedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.FloatFieldUpdateOperationsInput | number
+  creditUserId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  paymentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type LedgerEntryUncheckedUpdateManyWithoutApproverInput = {
+export type LedgerEntryUncheckedUpdateManyWithoutCreatedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  refType?: Prisma.StringFieldUpdateOperationsInput | string
-  refId?: Prisma.IntFieldUpdateOperationsInput | number
-  debit?: Prisma.FloatFieldUpdateOperationsInput | number
-  credit?: Prisma.FloatFieldUpdateOperationsInput | number
-  accountType?: Prisma.StringFieldUpdateOperationsInput | string
-  accountRefId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  approvedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.FloatFieldUpdateOperationsInput | number
+  creditUserId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  paymentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type LedgerEntryUpdateWithoutUserInput = {
+export type LedgerEntryUpdateWithoutApprovedByInput = {
   entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  refType?: Prisma.StringFieldUpdateOperationsInput | string
-  refId?: Prisma.IntFieldUpdateOperationsInput | number
-  debit?: Prisma.FloatFieldUpdateOperationsInput | number
-  credit?: Prisma.FloatFieldUpdateOperationsInput | number
-  accountType?: Prisma.StringFieldUpdateOperationsInput | string
-  accountRefId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  approvedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  paymentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  approver?: Prisma.UserUpdateOneRequiredWithoutApprovedLedgerEntriesNestedInput
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdBy?: Prisma.UserUpdateOneWithoutCreatedLedgerEntriesNestedInput
 }
 
-export type LedgerEntryUncheckedUpdateWithoutUserInput = {
+export type LedgerEntryUncheckedUpdateWithoutApprovedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  refType?: Prisma.StringFieldUpdateOperationsInput | string
-  refId?: Prisma.IntFieldUpdateOperationsInput | number
-  debit?: Prisma.FloatFieldUpdateOperationsInput | number
-  credit?: Prisma.FloatFieldUpdateOperationsInput | number
-  accountType?: Prisma.StringFieldUpdateOperationsInput | string
-  accountRefId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  approvedBy?: Prisma.IntFieldUpdateOperationsInput | number
-  approvedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.FloatFieldUpdateOperationsInput | number
+  debitUserId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  paymentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type LedgerEntryUncheckedUpdateManyWithoutUserInput = {
+export type LedgerEntryUncheckedUpdateManyWithoutApprovedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  refType?: Prisma.StringFieldUpdateOperationsInput | string
-  refId?: Prisma.IntFieldUpdateOperationsInput | number
-  debit?: Prisma.FloatFieldUpdateOperationsInput | number
-  credit?: Prisma.FloatFieldUpdateOperationsInput | number
-  accountType?: Prisma.StringFieldUpdateOperationsInput | string
-  accountRefId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  approvedBy?: Prisma.IntFieldUpdateOperationsInput | number
-  approvedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  remarks?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.FloatFieldUpdateOperationsInput | number
+  debitUserId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  paymentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -943,112 +715,82 @@ export type LedgerEntryUncheckedUpdateManyWithoutUserInput = {
 export type LedgerEntrySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   entryDate?: boolean
-  refType?: boolean
-  refId?: boolean
-  debit?: boolean
-  credit?: boolean
-  accountType?: boolean
-  accountRefId?: boolean
-  approvedBy?: boolean
-  approvedAt?: boolean
-  remarks?: boolean
+  description?: boolean
+  amount?: boolean
+  debitUserId?: boolean
+  creditUserId?: boolean
   createdAt?: boolean
-  paymentStatus?: boolean
-  userId?: boolean
-  approver?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.LedgerEntry$userArgs<ExtArgs>
+  updatedAt?: boolean
+  createdBy?: boolean | Prisma.LedgerEntry$createdByArgs<ExtArgs>
+  approvedBy?: boolean | Prisma.LedgerEntry$approvedByArgs<ExtArgs>
 }, ExtArgs["result"]["ledgerEntry"]>
 
 export type LedgerEntrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   entryDate?: boolean
-  refType?: boolean
-  refId?: boolean
-  debit?: boolean
-  credit?: boolean
-  accountType?: boolean
-  accountRefId?: boolean
-  approvedBy?: boolean
-  approvedAt?: boolean
-  remarks?: boolean
+  description?: boolean
+  amount?: boolean
+  debitUserId?: boolean
+  creditUserId?: boolean
   createdAt?: boolean
-  paymentStatus?: boolean
-  userId?: boolean
-  approver?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.LedgerEntry$userArgs<ExtArgs>
+  updatedAt?: boolean
+  createdBy?: boolean | Prisma.LedgerEntry$createdByArgs<ExtArgs>
+  approvedBy?: boolean | Prisma.LedgerEntry$approvedByArgs<ExtArgs>
 }, ExtArgs["result"]["ledgerEntry"]>
 
 export type LedgerEntrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   entryDate?: boolean
-  refType?: boolean
-  refId?: boolean
-  debit?: boolean
-  credit?: boolean
-  accountType?: boolean
-  accountRefId?: boolean
-  approvedBy?: boolean
-  approvedAt?: boolean
-  remarks?: boolean
+  description?: boolean
+  amount?: boolean
+  debitUserId?: boolean
+  creditUserId?: boolean
   createdAt?: boolean
-  paymentStatus?: boolean
-  userId?: boolean
-  approver?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.LedgerEntry$userArgs<ExtArgs>
+  updatedAt?: boolean
+  createdBy?: boolean | Prisma.LedgerEntry$createdByArgs<ExtArgs>
+  approvedBy?: boolean | Prisma.LedgerEntry$approvedByArgs<ExtArgs>
 }, ExtArgs["result"]["ledgerEntry"]>
 
 export type LedgerEntrySelectScalar = {
   id?: boolean
   entryDate?: boolean
-  refType?: boolean
-  refId?: boolean
-  debit?: boolean
-  credit?: boolean
-  accountType?: boolean
-  accountRefId?: boolean
-  approvedBy?: boolean
-  approvedAt?: boolean
-  remarks?: boolean
+  description?: boolean
+  amount?: boolean
+  debitUserId?: boolean
+  creditUserId?: boolean
   createdAt?: boolean
-  paymentStatus?: boolean
-  userId?: boolean
+  updatedAt?: boolean
 }
 
-export type LedgerEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "entryDate" | "refType" | "refId" | "debit" | "credit" | "accountType" | "accountRefId" | "approvedBy" | "approvedAt" | "remarks" | "createdAt" | "paymentStatus" | "userId", ExtArgs["result"]["ledgerEntry"]>
+export type LedgerEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "entryDate" | "description" | "amount" | "debitUserId" | "creditUserId" | "createdAt" | "updatedAt", ExtArgs["result"]["ledgerEntry"]>
 export type LedgerEntryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  approver?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.LedgerEntry$userArgs<ExtArgs>
+  createdBy?: boolean | Prisma.LedgerEntry$createdByArgs<ExtArgs>
+  approvedBy?: boolean | Prisma.LedgerEntry$approvedByArgs<ExtArgs>
 }
 export type LedgerEntryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  approver?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.LedgerEntry$userArgs<ExtArgs>
+  createdBy?: boolean | Prisma.LedgerEntry$createdByArgs<ExtArgs>
+  approvedBy?: boolean | Prisma.LedgerEntry$approvedByArgs<ExtArgs>
 }
 export type LedgerEntryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  approver?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.LedgerEntry$userArgs<ExtArgs>
+  createdBy?: boolean | Prisma.LedgerEntry$createdByArgs<ExtArgs>
+  approvedBy?: boolean | Prisma.LedgerEntry$approvedByArgs<ExtArgs>
 }
 
 export type $LedgerEntryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "LedgerEntry"
   objects: {
-    approver: Prisma.$UserPayload<ExtArgs>
-    user: Prisma.$UserPayload<ExtArgs> | null
+    createdBy: Prisma.$UserPayload<ExtArgs> | null
+    approvedBy: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     entryDate: Date
-    refType: string
-    refId: number
-    debit: number
-    credit: number
-    accountType: string
-    accountRefId: number | null
-    approvedBy: number
-    approvedAt: Date
-    remarks: string | null
+    description: string
+    amount: number
+    debitUserId: number | null
+    creditUserId: number | null
     createdAt: Date
-    paymentStatus: string | null
-    userId: number | null
+    updatedAt: Date
   }, ExtArgs["result"]["ledgerEntry"]>
   composites: {}
 }
@@ -1443,8 +1185,8 @@ readonly fields: LedgerEntryFieldRefs;
  */
 export interface Prisma__LedgerEntryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  approver<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  user<T extends Prisma.LedgerEntry$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LedgerEntry$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  createdBy<T extends Prisma.LedgerEntry$createdByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LedgerEntry$createdByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  approvedBy<T extends Prisma.LedgerEntry$approvedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LedgerEntry$approvedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1476,18 +1218,12 @@ export interface Prisma__LedgerEntryClient<T, Null = never, ExtArgs extends runt
 export interface LedgerEntryFieldRefs {
   readonly id: Prisma.FieldRef<"LedgerEntry", 'Int'>
   readonly entryDate: Prisma.FieldRef<"LedgerEntry", 'DateTime'>
-  readonly refType: Prisma.FieldRef<"LedgerEntry", 'String'>
-  readonly refId: Prisma.FieldRef<"LedgerEntry", 'Int'>
-  readonly debit: Prisma.FieldRef<"LedgerEntry", 'Float'>
-  readonly credit: Prisma.FieldRef<"LedgerEntry", 'Float'>
-  readonly accountType: Prisma.FieldRef<"LedgerEntry", 'String'>
-  readonly accountRefId: Prisma.FieldRef<"LedgerEntry", 'Int'>
-  readonly approvedBy: Prisma.FieldRef<"LedgerEntry", 'Int'>
-  readonly approvedAt: Prisma.FieldRef<"LedgerEntry", 'DateTime'>
-  readonly remarks: Prisma.FieldRef<"LedgerEntry", 'String'>
+  readonly description: Prisma.FieldRef<"LedgerEntry", 'String'>
+  readonly amount: Prisma.FieldRef<"LedgerEntry", 'Float'>
+  readonly debitUserId: Prisma.FieldRef<"LedgerEntry", 'Int'>
+  readonly creditUserId: Prisma.FieldRef<"LedgerEntry", 'Int'>
   readonly createdAt: Prisma.FieldRef<"LedgerEntry", 'DateTime'>
-  readonly paymentStatus: Prisma.FieldRef<"LedgerEntry", 'String'>
-  readonly userId: Prisma.FieldRef<"LedgerEntry", 'Int'>
+  readonly updatedAt: Prisma.FieldRef<"LedgerEntry", 'DateTime'>
 }
     
 
@@ -1884,9 +1620,28 @@ export type LedgerEntryDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
 }
 
 /**
- * LedgerEntry.user
+ * LedgerEntry.createdBy
  */
-export type LedgerEntry$userArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type LedgerEntry$createdByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+}
+
+/**
+ * LedgerEntry.approvedBy
+ */
+export type LedgerEntry$approvedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the User
    */
