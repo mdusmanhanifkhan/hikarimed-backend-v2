@@ -206,24 +206,55 @@
 import bcrypt from "bcryptjs";
 import { prisma } from "../lib/prisma.js";
 
-// List of all permissions
 const allPermissions = [
-  { name: "manage_departments", description: "Manage all departments" },
-  { name: "manage_doctors", description: "Manage all doctors" },
+  { name: "view_dashboard", description: "Access dashboard" },
+
+  // Patient
   { name: "manage_patients", description: "Manage all patients" },
-  { name: "manage_welfare", description: "Manage welfare and charity" },
-  { name: "manage_procedures", description: "Manage medical procedures" },
-  { name: "manage_fees", description: "Manage fees and invoices" },
-  { name: "view_reports", description: "View all reports" },
-  { name: "manage_patient_history", description: "Access patient history" },
-  { name: "manage_finance_report", description: "Access finance reports" },
   { name: "manage_token", description: "Manage token system" },
-  { name: "manage_pharma", description: "Manage pharmacy" },
-  { name: "manage_accounts", description: "Manage accounts" },
+  { name: "manage_patient_history", description: "Access patient history" },
+  { name: "manage_nursing", description: "Manage nursing operations" },
+
+  // Hospital
+  { name: "manage_departments", description: "Manage all departments" },
+  { name: "manage_procedures", description: "Manage medical procedures" },
+  { name: "manage_doctors", description: "Manage all doctors" },
+  { name: "manage_fees", description: "Manage fees and billing" },
+  { name: "manage_welfare", description: "Manage welfare and charity" },
   { name: "manage_organization", description: "Manage organization settings" },
-  { name: "manage_setting", description: "Manage system settings" },
+
+  // Pharmacy
+  { name: "manage_brand", description: "Manage medicine brands" },
+  { name: "manage_supplier", description: "Manage suppliers" },
+  { name: "manage_category", description: "Manage categories" },
+  { name: "manage_subcategory", description: "Manage subcategories" },
+  { name: "manage_unit", description: "Manage units" },
+  { name: "manage_generic", description: "Manage generic medicines" },
+  { name: "manage_dosageform", description: "Manage dosage forms" },
+  { name: "manage_packing_type", description: "Manage packing types" },
+
+  { name: "manage_product", description: "Manage products/medicines" },
+  { name: "manage_stock", description: "Manage stock inventory" },
+  { name: "manage_grn", description: "Manage goods received notes" },
+
+  { name: "manage_indent", description: "Manage indent requests" },
+  { name: "manage_purchase_order", description: "Manage purchase orders" },
+  { name: "manage_approved_pos", description: "Manage approved purchase orders" },
+  { name: "manage_send_to_supplier", description: "Send orders to suppliers" },
+
+  { name: "manage_sale", description: "Manage sales" },
+  { name: "manage_return", description: "Manage returns" },
+
+  // Reports & Billing
+  { name: "view_reports", description: "View all reports" },
+  { name: "view_billing", description: "View billing information" },
+
+  // Admin
   { name: "manage_users", description: "Manage users" },
-  { name: "manage_roles", description: "Manage roles" },
+  { name: "manage_roles", description: "Manage roles and permissions" },
+  { name: "manage_settings", description: "Manage system settings" },
+  { name: "manage_downloads", description: "Manage downloads" },
+  { name: "manage_uploads", description: "Manage uploads" },
 ];
 
 async function ensurePermissions() {
