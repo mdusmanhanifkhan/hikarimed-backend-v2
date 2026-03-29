@@ -562,8 +562,8 @@ export const bulkUploadPatients = async (req, res) => {
 
     for (const row of rows) {
       // ❌ Required validation
-      if (!row.name || !row.phoneNumber) {
-        skipped.push({ row, reason: "Name or phone missing" });
+      if (!row.name) {
+        skipped.push({ row, reason: "Name is missing" });
         continue;
       }
 
