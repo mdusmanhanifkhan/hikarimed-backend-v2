@@ -651,14 +651,86 @@ export const getDepartmentDoctorProcedureTree = async (req, res) => {
 // };
 
 
+// export const getOtherDepartmentDoctorProcedureTree = async (req, res) => {
+//   try {
+//     const fees = await prisma.doctorProcedureFee.findMany({
+//       where: {
+//         status: true,
+//         department: {
+//           NOT: { type: "OPD" },  // ✅ Exclude OPD
+//           status: true,
+//         },
+//       },
+//       include: {
+//         doctor: true,
+//         procedure: true,
+//         department: true,
+//       },
+//       orderBy: { id: "asc" },
+//     });
+
+//     const tree = [];
+
+//     fees.forEach((fee) => {
+//       if (!fee.department || !fee.doctor || !fee.procedure) return;
+//       if (!fee.doctor.status || !fee.procedure.status) return;
+
+//       let dept = tree.find((d) => d.id === fee.department.id);
+
+//       if (!dept) {
+//         dept = {
+//           id: fee.department.id,
+//           name: fee.department.name,
+//           doctors: [],
+//         };
+//         tree.push(dept);
+//       }
+
+//       let doc = dept.doctors.find((d) => d.id === fee.doctor.id);
+
+//       if (!doc) {
+//         doc = {
+//           id: fee.doctor.id,
+//           name: fee.doctor.name,
+//           procedures: [],
+//         };
+//         dept.doctors.push(doc);
+//       }
+
+//       doc.procedures.push({
+//         id: fee.procedure.id,
+//         name: fee.procedure.name,
+//         fee: Number(fee.procedurePrice) || 0,
+//       });
+//     });
+
+//     return res.status(200).json({
+//       success: true,
+//       data: tree,
+//     });
+//   } catch (error) {
+//     console.error("❌ Error fetching non-OPD department tree:", error);
+//     return res.status(500).json({ message: "Internal server error" });
+//   }
+// };
+
 export const getOtherDepartmentDoctorProcedureTree = async (req, res) => {
   try {
+    const excludedDepartments = ["X-Ray", "LAB", "Radiology", "Ultrasound"];
+
     const fees = await prisma.doctorProcedureFee.findMany({
       where: {
         status: true,
         department: {
-          NOT: { type: "OPD" },  // ✅ Exclude OPD
           status: true,
+
+          // ❗ Remove this line if you WANT to include OPD
+          type: { not: "OPD" },
+
+          // ✅ Exclude specific departments
+          name: {
+            notIn: excludedDepartments,
+          },
         },
       },
       include: {
@@ -671,12 +743,13 @@ export const getOtherDepartmentDoctorProcedureTree = async (req, res) => {
 
     const tree = [];
 
-    fees.forEach((fee) => {
-      if (!fee.department || !fee.doctor || !fee.procedure) return;
-      if (!fee.doctor.status || !fee.procedure.status) return;
+    for (const fee of fees) {
+      // सुरक्षा checks
+      if (!fee.department || !fee.doctor || !fee.procedure) continue;
+      if (!fee.doctor.status || !fee.procedure.status) continue;
 
+      // 🔹 Department
       let dept = tree.find((d) => d.id === fee.department.id);
-
       if (!dept) {
         dept = {
           id: fee.department.id,
@@ -686,8 +759,8 @@ export const getOtherDepartmentDoctorProcedureTree = async (req, res) => {
         tree.push(dept);
       }
 
+      // 🔹 Doctor
       let doc = dept.doctors.find((d) => d.id === fee.doctor.id);
-
       if (!doc) {
         doc = {
           id: fee.doctor.id,
@@ -697,20 +770,26 @@ export const getOtherDepartmentDoctorProcedureTree = async (req, res) => {
         dept.doctors.push(doc);
       }
 
+      // 🔹 Procedure
       doc.procedures.push({
         id: fee.procedure.id,
         name: fee.procedure.name,
         fee: Number(fee.procedurePrice) || 0,
       });
-    });
+    }
 
     return res.status(200).json({
       success: true,
+      message: "Filtered department-doctor-procedure tree fetched successfully",
       data: tree,
     });
   } catch (error) {
-    console.error("❌ Error fetching non-OPD department tree:", error);
-    return res.status(500).json({ message: "Internal server error" });
+    console.error("❌ Error fetching department tree:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: error.message || "Internal server error",
+    });
   }
 };
 
