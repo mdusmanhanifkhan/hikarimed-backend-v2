@@ -70,13 +70,18 @@ export const createMedicalRecord = async (req, res) => {
       let tokenDate = null;
 
       if (doctorId) {
-        const today = new Date().toISOString().split("T")[0];
+        const now = new Date();
+
+        // ✅ Always normalize in UTC
+        const tokenDateUTC = new Date(
+          Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()),
+        );
 
         const tokenCounter = await tx.doctorTokenCounter.upsert({
           where: {
             doctorId_tokenDate: {
               doctorId,
-              tokenDate: today,
+              tokenDate: tokenDateUTC,
             },
           },
           update: {
@@ -84,13 +89,13 @@ export const createMedicalRecord = async (req, res) => {
           },
           create: {
             doctorId,
-            tokenDate: today,
+            tokenDate: tokenDateUTC,
             lastValue: 1,
           },
         });
 
         tokenNumber = tokenCounter.lastValue;
-        tokenDate = today;
+        tokenDate = tokenDateUTC;
       }
 
       /* =====================================
