@@ -725,7 +725,7 @@ export const getOtherDepartmentDoctorProcedureTree = async (req, res) => {
           status: true,
 
           // ❗ Remove this line if you WANT to include OPD
-          type: { not: "OPD" },
+          // type: { not: "OPD" },
 
           // ✅ Exclude specific departments
           name: {
