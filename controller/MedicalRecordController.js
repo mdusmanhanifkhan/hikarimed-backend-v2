@@ -36,7 +36,6 @@ export const createMedicalRecord = async (req, res) => {
     }
 
     const medicalRecord = await prisma.$transaction(async (tx) => {
-
       /* =====================================
          1️⃣ RECEIPT NUMBER (YYMM0001)
       ====================================== */
@@ -52,10 +51,10 @@ export const createMedicalRecord = async (req, res) => {
         create: { prefix, lastValue: 1 },
       });
 
-      const receiptNo = `${prefix}${String(
-        receiptCounter.lastValue
-      ).padStart(4, "0")}`;
-
+      const receiptNo = `${prefix}${String(receiptCounter.lastValue).padStart(
+        4,
+        "0",
+      )}`;
 
       /* =====================================
          2️⃣ DOCTOR TOKEN (Per Doctor / Per Day)
@@ -71,9 +70,7 @@ export const createMedicalRecord = async (req, res) => {
       let tokenDate = null;
 
       if (doctorId) {
-
-        const today = new Date();
-        today.setHours(0, 0, 0, 0); // normalize date
+        const today = new Date().toISOString().split("T")[0];
 
         const tokenCounter = await tx.doctorTokenCounter.upsert({
           where: {
@@ -95,7 +92,6 @@ export const createMedicalRecord = async (req, res) => {
         tokenNumber = tokenCounter.lastValue;
         tokenDate = today;
       }
-
 
       /* =====================================
          3️⃣ PREPARE ITEMS
@@ -120,13 +116,12 @@ export const createMedicalRecord = async (req, res) => {
 
       const totalFee = preparedItems.reduce(
         (sum, i) => sum.plus(i.fee),
-        new Prisma.Decimal(0)
+        new Prisma.Decimal(0),
       );
 
       const finalFee = preparedItems
         .reduce((sum, i) => sum.plus(i.finalFee), new Prisma.Decimal(0))
         .minus(discount);
-
 
       /* =====================================
          4️⃣ CREATE RECORD
@@ -165,7 +160,6 @@ export const createMedicalRecord = async (req, res) => {
       success: true,
       data: medicalRecord,
     });
-
   } catch (error) {
     console.error("createMedicalRecord error:", error);
     return res.status(500).json({
@@ -486,7 +480,6 @@ export const getMedicalRecords = async (req, res) => {
   }
 };
 
-
 export const exportMedicalRecordsExcel = async (req, res) => {
   try {
     const { from, to } = req.query;
@@ -561,11 +554,11 @@ export const exportMedicalRecordsExcel = async (req, res) => {
 
     res.setHeader(
       "Content-Type",
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     );
     res.setHeader(
       "Content-Disposition",
-      `attachment; filename=medical-records.xlsx`
+      `attachment; filename=medical-records.xlsx`,
     );
 
     const buffer = XLSX.write(workbook, {
@@ -582,8 +575,6 @@ export const exportMedicalRecordsExcel = async (req, res) => {
     });
   }
 };
-
-
 
 // export const bulkUploadMedicalRecords = async (req, res) => {
 //   try {
@@ -753,7 +744,6 @@ const parseOptionalInt = (value) => {
 //     });
 //   }
 // };
-
 
 export const bulkUploadMedicalRecords = async (req, res) => {
   try {
