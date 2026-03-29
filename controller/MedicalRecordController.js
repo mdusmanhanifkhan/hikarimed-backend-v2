@@ -527,6 +527,8 @@ export const exportMedicalRecordsExcel = async (req, res) => {
           Date: record.recordDate.toISOString().split("T")[0],
           PatientID: record.patient?.patientId || "",
           PatientName: record.patient?.name || "",
+          Gender: record.patient.gender || "",
+          Age: record.patient.age || "",
           Department: record.department?.name || "",
           Doctor: record.doctor?.name || "",
           Procedure: record.procedure?.name || "",
