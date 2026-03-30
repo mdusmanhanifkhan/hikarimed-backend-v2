@@ -528,7 +528,7 @@ export const getDepartmentDoctorProcedureTree = async (req, res) => {
         department: {
           status: true,
           name: {
-            in: ["X-Ray", "LAB", "Radiology", "Ultrasound"], // ✅ filter
+            in: ["X-Ray", "LAB", "Radiology", "Ultrasound", "X-RAY"], // ✅ filter
           },
         },
       },
