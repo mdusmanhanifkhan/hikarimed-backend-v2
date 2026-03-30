@@ -716,7 +716,7 @@ export const getDepartmentDoctorProcedureTree = async (req, res) => {
 
 export const getOtherDepartmentDoctorProcedureTree = async (req, res) => {
   try {
-    const excludedDepartments = ["X-Ray", "LAB", "Radiology", "Ultrasound"];
+    const excludedDepartments = ["X-Ray", "LAB", "Radiology", "Ultrasound","X-RAY"];
 
     const fees = await prisma.doctorProcedureFee.findMany({
       where: {
