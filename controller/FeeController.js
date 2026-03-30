@@ -86,70 +86,59 @@ import { prisma } from "../lib/prisma.js";
 
 export const createDoctorFee = async (req, res) => {
   try {
-    const {
-      doctorId,
-      departmentId,
-      procedureId,
-      paymentType,
-      doctorShare,
-      hospitalShare,
-      fixedPrice,
-      procedurePrice,
-      description,
-      status,
-    } = req.body;
+    const { doctorId, procedureId, departmentId, paymentType, procedurePrice, description, status, doctorShare, hospitalShare, fixedPrice } = req.body;
 
-    // ✅ Basic validation
+    // ✅ Validate required fields
     if (!doctorId || !procedureId || !paymentType || !procedurePrice) {
-      return res.status(400).json({
-        message: "Missing required fields: doctorId, procedureId, paymentType, procedurePrice",
-      });
+      return res.status(400).json({ message: "Missing required fields" });
     }
 
-    // ✅ Use upsert to create or update automatically
-    const fee = await prisma.doctorProcedureFee.upsert({
-      where: {
-        doctorId_procedureId: { doctorId, procedureId },
-      },
-      update: {
-        departmentId,
-        paymentType,
-        procedurePrice,
-        description: description ?? null,
-        status: status ?? true,
-        overrideDoctorPercentage: doctorShare ? Number(doctorShare) : null,
-        overrideHospitalPercentage: hospitalShare ? Number(hospitalShare) : null,
-        overrideFixedAmount: fixedPrice ? Number(fixedPrice) : null,
-      },
-      create: {
-        doctorId,
-        departmentId,
-        procedureId,
-        paymentType,
-        procedurePrice,
-        description: description ?? null,
-        status: status ?? true,
-        overrideDoctorPercentage: doctorShare ? Number(doctorShare) : null,
-        overrideHospitalPercentage: hospitalShare ? Number(hospitalShare) : null,
-        overrideFixedAmount: fixedPrice ? Number(fixedPrice) : null,
-      },
-      include: {
-        doctor: true,
-        procedure: true,
-        department: true,
-      },
+    // ✅ Check if already exists
+    const existing = await prisma.doctorProcedureFee.findFirst({
+      where: { doctorId, procedureId },
     });
 
-    return res.status(200).json({
-      message: "Doctor Fee created/updated successfully",
-      data: fee,
+    if (existing) {
+      // Update existing record
+      const updated = await prisma.doctorProcedureFee.update({
+        where: { id: existing.id },
+        data: {
+          departmentId,
+          paymentType,
+          procedurePrice,
+          description: description ?? null,
+          status: status ?? true,
+          overrideDoctorPercentage: doctorShare ? Number(doctorShare) : null,
+          overrideHospitalPercentage: hospitalShare ? Number(hospitalShare) : null,
+          overrideFixedAmount: fixedPrice ? Number(fixedPrice) : null,
+        },
+        include: { doctor: true, procedure: true, department: true },
+      });
+
+      return res.status(200).json({ message: "Doctor Fee updated successfully", data: updated });
+    }
+
+    // ✅ Create new record
+    const created = await prisma.doctorProcedureFee.create({
+      data: {
+        doctorId,
+        procedureId,
+        departmentId,
+        paymentType,
+        procedurePrice,
+        description: description ?? null,
+        status: status ?? true,
+        overrideDoctorPercentage: doctorShare ? Number(doctorShare) : null,
+        overrideHospitalPercentage: hospitalShare ? Number(hospitalShare) : null,
+        overrideFixedAmount: fixedPrice ? Number(fixedPrice) : null,
+      },
+      include: { doctor: true, procedure: true, department: true },
     });
+
+    return res.status(201).json({ message: "Doctor Fee created successfully", data: created });
   } catch (error) {
     console.error("Error creating doctor fee:", error);
-    return res.status(500).json({
-      message: "Internal server error",
-      error: error.message,
-    });
+    return res.status(500).json({ message: "Internal server error", error: error.message });
   }
 };
 
