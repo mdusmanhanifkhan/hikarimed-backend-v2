@@ -8,6 +8,82 @@ import { prisma } from "../lib/prisma.js";
  *  paymentType, doctorShare, hospitalShare, fixedPrice, description, status
  * }
  */
+// export const createDoctorFee = async (req, res) => {
+//   try {
+//     const {
+//       doctorId,
+//       departmentId,
+//       procedureId,
+//       paymentType,
+//       doctorShare,
+//       hospitalShare,
+//       fixedPrice,
+//       procedurePrice,
+//       description,
+//       status,
+//     } = req.body;
+
+//     // Basic validation
+//     if (
+//       !doctorId ||
+//       !departmentId ||
+//       !procedureId ||
+//       !paymentType ||
+//       !procedurePrice
+//     )
+//       return res.status(400).json({ message: "Missing required fields" });
+
+//     // Check if already exists
+//     const existing = await prisma.doctorProcedureFee.findUnique({
+//       where: {
+//         doctorId_procedureId: { doctorId, procedureId },
+//       },
+//     });
+
+//     if (existing)
+//       return res
+//         .status(400)
+//         .json({ message: "Fee already exists for this doctor and procedure" });
+
+//     // Create entry
+//     const newFee = await prisma.doctorProcedureFee.create({
+//       data: {
+//         doctorId,
+//         departmentId,
+//         procedureId,
+//         paymentType,
+//         description,
+//         status: status ?? true,
+
+//         procedurePrice,
+//         // Overrides — only set if provided
+//         overrideDoctorPercentage: doctorShare ? Number(doctorShare) : null,
+//         overrideHospitalPercentage: hospitalShare
+//           ? Number(hospitalShare)
+//           : null,
+//         overrideFixedAmount: fixedPrice ? Number(fixedPrice) : null,
+//       },
+//       include: {
+//         doctor: true,
+//         procedure: true,
+//         department: true,
+//       },
+//     });
+
+//     return res.status(201).json({
+//       message: "Doctor Fee added successfully",
+//       data: newFee,
+//     });
+//   } catch (error) {
+//     console.error("Error creating doctor fee:", error);
+//     return res.status(500).json({
+//       message: "Internal server error",
+//       error: error.message,
+//     });
+//   }
+// };
+
+
 export const createDoctorFee = async (req, res) => {
   try {
     const {
@@ -23,44 +99,38 @@ export const createDoctorFee = async (req, res) => {
       status,
     } = req.body;
 
-    // Basic validation
-    if (
-      !doctorId ||
-      !departmentId ||
-      !procedureId ||
-      !paymentType ||
-      !procedurePrice
-    )
-      return res.status(400).json({ message: "Missing required fields" });
+    // ✅ Basic validation
+    if (!doctorId || !procedureId || !paymentType || !procedurePrice) {
+      return res.status(400).json({
+        message: "Missing required fields: doctorId, procedureId, paymentType, procedurePrice",
+      });
+    }
 
-    // Check if already exists
-    const existing = await prisma.doctorProcedureFee.findUnique({
+    // ✅ Use upsert to create or update automatically
+    const fee = await prisma.doctorProcedureFee.upsert({
       where: {
         doctorId_procedureId: { doctorId, procedureId },
       },
-    });
-
-    if (existing)
-      return res
-        .status(400)
-        .json({ message: "Fee already exists for this doctor and procedure" });
-
-    // Create entry
-    const newFee = await prisma.doctorProcedureFee.create({
-      data: {
+      update: {
+        departmentId,
+        paymentType,
+        procedurePrice,
+        description: description ?? null,
+        status: status ?? true,
+        overrideDoctorPercentage: doctorShare ? Number(doctorShare) : null,
+        overrideHospitalPercentage: hospitalShare ? Number(hospitalShare) : null,
+        overrideFixedAmount: fixedPrice ? Number(fixedPrice) : null,
+      },
+      create: {
         doctorId,
         departmentId,
         procedureId,
         paymentType,
-        description,
-        status: status ?? true,
-
         procedurePrice,
-        // Overrides — only set if provided
+        description: description ?? null,
+        status: status ?? true,
         overrideDoctorPercentage: doctorShare ? Number(doctorShare) : null,
-        overrideHospitalPercentage: hospitalShare
-          ? Number(hospitalShare)
-          : null,
+        overrideHospitalPercentage: hospitalShare ? Number(hospitalShare) : null,
         overrideFixedAmount: fixedPrice ? Number(fixedPrice) : null,
       },
       include: {
@@ -70,9 +140,9 @@ export const createDoctorFee = async (req, res) => {
       },
     });
 
-    return res.status(201).json({
-      message: "Doctor Fee added successfully",
-      data: newFee,
+    return res.status(200).json({
+      message: "Doctor Fee created/updated successfully",
+      data: fee,
     });
   } catch (error) {
     console.error("Error creating doctor fee:", error);
