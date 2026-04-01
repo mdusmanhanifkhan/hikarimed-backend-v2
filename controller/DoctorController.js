@@ -165,6 +165,7 @@ export const createDoctor = async (req, res) => {
     return sendError(
       res,
       500,
+error,
       "An internal server error occurred while creating the doctor.",
     );
   }
