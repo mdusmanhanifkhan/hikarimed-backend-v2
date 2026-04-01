@@ -162,6 +162,7 @@ export const createDoctor = async (req, res) => {
       data: doctor,
     });
   } catch (error) {
+console.log(error)
     return sendError(
       res,
       500,
