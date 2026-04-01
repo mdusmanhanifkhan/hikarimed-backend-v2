@@ -166,7 +166,6 @@ console.log(error)
     return sendError(
       res,
       500,
-error,
       "An internal server error occurred while creating the doctor.",
     );
   }
