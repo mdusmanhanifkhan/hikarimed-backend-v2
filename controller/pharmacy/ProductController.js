@@ -124,17 +124,63 @@ export const getProductById = async (req, res) => {
 
     const product = await prisma.product.findUnique({
       where: { id: parseInt(id) },
-      include: { category: true, brand: true, variants: true },
+
+      include: {
+        category: {
+          include: {
+            parent: true,     // 👈 parent category
+            children: true,   // 👈 all subcategories
+          },
+        },
+
+        brand: true,
+        genericName: true,
+
+        variants: {
+          include: {
+            strengthUnit: true,
+            packingType: true,
+            dosageForm: true,
+          },
+        },
+      },
     });
 
     if (!product) {
-      return res.status(404).json({ success: false, message: "Product not found" });
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
     }
 
-    res.json({ success: true, data: product });
+    // ✅ DETERMINE CATEGORY + SUBCATEGORY
+    let category = null;
+    let subcategory = null;
+
+    if (product.category?.parent) {
+      // Means current category is subcategory
+      category = product.category.parent;
+      subcategory = product.category;
+    } else {
+      // Means no subcategory selected
+      category = product.category;
+    }
+
+    return res.json({
+      success: true,
+      data: {
+        ...product,
+        category,
+        subcategory, // 👈 IMPORTANT
+      },
+    });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, message: "Internal Server Error" });
+    console.error("GET PRODUCT ERROR:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
   }
 };
 
