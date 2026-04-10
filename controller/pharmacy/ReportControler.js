@@ -11,11 +11,11 @@ export const getSalesReport = async (req, res) => {
     const whereClause = {};
 
     if (fromDate && toDate) {
-      whereClause.saleDate = {
-        gte: new Date(fromDate),
-        lte: new Date(toDate),
-      };
-    }
+  whereClause.saleDate = {
+    gte: new Date(fromDate),
+    lte: new Date(new Date(toDate).setHours(23, 59, 59, 999)),
+  };
+}
 
     if (productId || variantId) {
       whereClause.items = {
