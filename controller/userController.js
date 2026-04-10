@@ -107,17 +107,67 @@ export const getUser = async (req, res) => {
 export const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, email, password, roleId } = req.body;
+    const { name, email, password, newPassword, roleId } = req.body;
 
-    const user = await prisma.user.update({
+    const user = await prisma.user.findUnique({
       where: { id: parseInt(id) },
-      data: { name, email, password, roleId },
-      include: { role: { include: { permissions: { include: { permission: true } } } } },
     });
 
-    res.json(user);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // =========================
+    // PASSWORD CHANGE LOGIC
+    // =========================
+    let updatedPassword = user.password;
+
+    if (password && newPassword) {
+      const isMatch = await bcrypt.compare(password, user.password);
+
+      if (!isMatch) {
+        return res.status(400).json({
+          success: false,
+          message: "Old password is incorrect",
+        });
+      }
+
+      updatedPassword = await bcrypt.hash(newPassword, 10);
+    }
+
+    // =========================
+    // UPDATE USER
+    // =========================
+    const updatedUser = await prisma.user.update({
+      where: { id: parseInt(id) },
+      data: {
+        name,
+        email,
+        password: updatedPassword,
+        roleId: roleId ? Number(roleId) : undefined,
+      },
+      include: {
+        role: {
+          include: {
+            permissions: {
+              include: { permission: true },
+            },
+          },
+        },
+      },
+    });
+
+    return res.json({
+      success: true,
+      message: "User updated successfully",
+      user: updatedUser,
+    });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    console.log(error);
+    return res.status(400).json({
+      success: false,
+      error: error.message,
+    });
   }
 };
 

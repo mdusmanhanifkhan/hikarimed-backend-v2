@@ -113,7 +113,7 @@ console.log(lastStock )
         },
       });
     }
-
+console.log("Sale created successfully.")
     // 6️⃣ Return response including auto-generated saleNo
     return res.status(201).json({
       success: true,
