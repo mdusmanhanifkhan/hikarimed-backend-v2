@@ -1,22 +1,23 @@
-
-
 import puppeteer from "puppeteer";
 import fs from "fs";
 import path from "path";
 
 export const PurchaseOrderPdfGenerator = async (po) => {
-//  const browser = await puppeteer.launch({
-//   executablePath: '/usr/bin/google-chrome',
-//   args: ['--no-sandbox', '--disable-setuid-sandbox'],
-// })
-const browser = await puppeteer.launch({
-  headless: true,
-  args: ["--no-sandbox", "--disable-setuid-sandbox"],
-});
+
+  const browser = await puppeteer.launch({
+    headless: "new", // IMPORTANT (for newer versions)
+    executablePath: "/usr/bin/chromium-browser", // or "/usr/bin/chromium"
+    args: [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--disable-dev-shm-usage",
+      "--disable-gpu",
+    ],
+  });
 
   const page = await browser.newPage();
 
-   const html = `
+  const html = `
     <html>
     <head>
         <style>
@@ -241,7 +242,7 @@ const browser = await puppeteer.launch({
         </div>
     </body>
     </html>
-`;// your existing HTML
+`; // your existing HTML
 
   // Save in a **relative folder** from project root
   const uploadsDir = path.join(process.cwd(), "generated/uploads/po");
@@ -250,7 +251,7 @@ const browser = await puppeteer.launch({
   // Use poNo for filename instead of numeric id
   // Replace spaces/slashes just in case
   const safePoNo = po.poNo.replace(/\s+/g, "_").replace(/\//g, "_");
-  const fileName = `${safePoNo}.pdf`; 
+  const fileName = `${safePoNo}.pdf`;
   const filePath = path.join(uploadsDir, fileName);
 
   await page.setContent(html, { waitUntil: "networkidle0" });
