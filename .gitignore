@@ -2,8 +2,6 @@
 node_modules/
 
 # Environment variables (VERY IMPORTANT)
-.env
-.env.*
 !.env.example
 
 # Prisma
@@ -36,3 +34,4 @@ Thumbs.db
 
 # Coverage
 coverage/
+config.bat
