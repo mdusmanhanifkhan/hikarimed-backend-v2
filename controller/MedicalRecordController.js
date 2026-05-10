@@ -174,189 +174,6 @@ export const createMedicalRecord = async (req, res) => {
   }
 };
 
-// export const createMedicalRecordPatients = async (req, res) => {
-//   try {
-//     const userId = req.user?.id;
-
-//     if (!userId) {
-//       return res.status(401).json({
-//         success: false,
-//         message: "Unauthorized: user not found",
-//       });
-//     }
-
-//     const { patientId, recordDate, discount = 0, notes, items } = req.body;
-
-//     if (!items || !Array.isArray(items) || items.length === 0) {
-//       return res.status(400).json({
-//         success: false,
-//         message: "At least one medical record item is required",
-//       });
-//     }
-
-//     let finalRecordDate = new Date();
-//     if (recordDate) {
-//       const parsedDate = new Date(recordDate);
-//       if (isNaN(parsedDate.getTime())) {
-//         return res.status(400).json({
-//           success: false,
-//           message: "Invalid recordDate format",
-//         });
-//       }
-//       finalRecordDate = parsedDate;
-//     }
-
-//     const patient = await prisma.patient.findUnique({
-//       where: { patientId: Number(patientId) },
-//     });
-
-//     if (!patient) {
-//       return res.status(404).json({
-//         success: false,
-//         message: `Patient with id ${patientId} not found`,
-//       });
-//     }
-
-//     // 🔥 TRANSACTION START
-//     const medicalRecord = await prisma.$transaction(async (tx) => {
-//       /* ==============================
-//          1️⃣ GENERATE RECEIPT NUMBER
-//       =============================== */
-
-//       const now = new Date();
-//       const year = now.getFullYear().toString().slice(-2);
-//       const month = String(now.getMonth() + 1).padStart(2, "0");
-//       const prefix = `${year}${month}`; // e.g. 2602
-
-//       const receiptCounter = await tx.receiptCounter.upsert({
-//         where: { prefix },
-//         update: { lastValue: { increment: 1 } },
-//         create: { prefix, lastValue: 1 },
-//       });
-
-//       const receiptNo = `${prefix}${String(receiptCounter.lastValue).padStart(
-//         4,
-//         "0",
-//       )}`;
-
-//       /* ==============================
-//          2️⃣ GENERATE DOCTOR TOKEN
-//       =============================== */
-
-//       let doctorId = null;
-
-//       // Take first doctor from items (if exists)
-//       const firstDoctorItem = items.find((i) => i.doctorId);
-//       if (firstDoctorItem) {
-//         doctorId = Number(firstDoctorItem.doctorId);
-//       }
-
-//       let tokenNumber = null;
-//       let tokenDate = null;
-
-//       if (doctorId) {
-//         const today = new Date();
-//         today.setHours(0, 0, 0, 0); // normalize date
-
-//         const tokenCounter = await tx.doctorTokenCounter.upsert({
-//           where: {
-//             doctorId_tokenDate: {
-//               doctorId,
-//               tokenDate: today,
-//             },
-//           },
-//           update: {
-//             lastValue: { increment: 1 },
-//           },
-//           create: {
-//             doctorId,
-//             tokenDate: today,
-//             lastValue: 1,
-//           },
-//         });
-
-//         tokenNumber = tokenCounter.lastValue;
-//         tokenDate = today;
-//       }
-
-//       /* ==============================
-//          3️⃣ PREPARE ITEMS
-//       =============================== */
-
-//       const preparedItems = items.map((item) => {
-//         const fee = Number(item.fee || 0);
-//         const itemDiscount = Number(item.discount || 0);
-
-//         return {
-//           fee,
-//           discount: itemDiscount,
-//           finalFee: fee - itemDiscount,
-//           notes: item.notes || null,
-//           department: { connect: { id: Number(item.departmentId) } },
-//           procedure: { connect: { id: Number(item.procedureId) } },
-//           doctor: item.doctorId
-//             ? { connect: { id: Number(item.doctorId) } }
-//             : undefined,
-//         };
-//       });
-
-//       const totalFee = preparedItems.reduce((sum, i) => sum + i.fee, 0);
-//       const itemsFinalFee = preparedItems.reduce(
-//         (sum, i) => sum + i.finalFee,
-//         0,
-//       );
-
-//       const finalFee = itemsFinalFee - Number(discount);
-
-//       /* ==============================
-//          4️⃣ CREATE MEDICAL RECORD
-//       =============================== */
-
-//       const createdRecord = await tx.medicalRecord.create({
-//         data: {
-//           patientId: patient.id,
-//           receiptNo,
-//           tokenNumber,
-//           tokenDate,
-//           doctorId,
-//           recordDate: finalRecordDate,
-//           totalFee,
-//           discount: Number(discount),
-//           finalFee,
-//           notes: notes || null,
-//           userId,
-//           items: {
-//             create: preparedItems,
-//           },
-//         },
-//         include: {
-//           patient: true,
-//           items: {
-//             include: {
-//               department: true,
-//               doctor: true,
-//               procedure: true,
-//             },
-//           },
-//         },
-//       });
-
-//       return createdRecord;
-//     });
-
-//     return res.status(201).json({
-//       success: true,
-//       data: medicalRecord,
-//     });
-//   } catch (error) {
-//     console.error("createMedicalRecordPatients error:", error);
-//     return res.status(500).json({
-//       success: false,
-//       message: error.message || "Server error",
-//     });
-//   }
-// };
-
 export const getMedicalRecordsByPatient = async (req, res) => {
   try {
     const { patientId } = req.params;
@@ -583,175 +400,6 @@ export const exportMedicalRecordsExcel = async (req, res) => {
   }
 };
 
-// export const bulkUploadMedicalRecords = async (req, res) => {
-//   try {
-//     if (!req.file || !req.file.buffer) {
-//       return res.status(400).json({ message: "No file uploaded" });
-//     }
-
-//     const workbook = XLSX.read(req.file.buffer, { type: "buffer" });
-//     const sheetName = workbook.SheetNames[0];
-//     const rows = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
-
-//     let inserted = 0;
-//     let skipped = 0;
-
-//     for (let i = 0; i < rows.length; i++) {
-//       const row = rows[i];
-
-//       try {
-//         // Validate required fields
-//         if (!row.patientId || !row.userId) {
-//           console.warn(`Row ${i + 1} skipped: missing required fields`);
-//           skipped++;
-//           continue;
-//         }
-
-//         // Create medical record
-//         await prisma.medicalRecord.create({
-//           data: {
-//             id: Number(row.id),
-//             patientId: Number(row.patientId),
-//             recordDate: row.recordDate ? new Date(row.recordDate) : new Date(),
-//             totalFee: row.totalFee ?? 0,
-//             discount: row.discount ?? 0,
-//             finalFee: row.finalFee ?? 0,
-//             notes: row.notes ?? "",
-//             createdAt: row.createdAt ? new Date(row.createdAt) : new Date(),
-//             userId: Number(row.userId),
-//             departmentId: row.departmentId ? Number(row.departmentId) : null,
-//             procedureId: row.procedureId ? Number(row.procedureId) : null,
-//             doctorId: row.doctorId ? Number(row.doctorId) : null,
-//             tokenDate: row.tokenDate ? new Date(row.tokenDate) : null,
-//             tokenNumber: row.tokenNumber ?? null,
-//           },
-//         });
-
-//         inserted++;
-//       } catch (err) {
-//         console.error(`Row ${i + 1} failed:`, err.message);
-//         skipped++;
-//       }
-//     }
-
-//     res.status(200).json({
-//       message: "Bulk upload completed",
-//       inserted,
-//       skipped,
-//     });
-//   } catch (error) {
-//     console.error(error);
-//     res
-//       .status(500)
-//       .json({ message: "Internal server error", error: error.message });
-//   }
-// };
-
-// ===== Helpers (MUST be above controller) =====
-
-const parseExcelDate = (value) => {
-  if (!value) return null;
-
-  // Excel serial date (number)
-  if (typeof value === "number") {
-    return new Date(Math.round((value - 25569) * 86400 * 1000));
-  }
-
-  const date = new Date(value);
-  return isNaN(date.getTime()) ? null : date;
-};
-
-const parseOptionalInt = (value) => {
-  if (value === null || value === undefined || value === "") return null;
-  const num = Number(value);
-  return Number.isNaN(num) ? null : num;
-};
-
-// export const bulkUploadMedicalRecords = async (req, res) => {
-//   try {
-//     if (!req.file?.buffer) {
-//       return res.status(400).json({
-//         success: false,
-//         message: "Excel file is required",
-//       });
-//     }
-
-//     const userId = req.user?.id;
-//     if (!userId) {
-//       return res.status(401).json({ message: "Unauthorized" });
-//     }
-
-//     const workbook = XLSX.read(req.file.buffer, { type: "buffer" });
-//     const sheet = workbook.Sheets[workbook.SheetNames[0]];
-
-//     const rows = XLSX.utils.sheet_to_json(sheet, {
-//       defval: null,
-//       raw: false,
-//     });
-
-//     let inserted = 0;
-//     const skipped = [];
-
-//     for (let i = 0; i < rows.length; i++) {
-//       const raw = rows[i];
-
-//       try {
-//         if (!raw.patientId) {
-//           skipped.push({ row: i + 1, reason: "patientId missing" });
-//           continue;
-//         }
-
-//         const tokenDate = parseExcelDate(raw.tokenDate);
-//         const tokenNumber = parseOptionalInt(raw.tokenNumber);
-
-//         await prisma.medicalRecord.create({
-//           data: {
-//             patientId: Number(raw.patientId),
-
-//             tokenDate,
-//             tokenNumber,
-
-//             recordDate: parseExcelDate(raw.recordDate) || new Date(),
-
-//             totalFee: Number(raw.totalFee || 0),
-//             discount: Number(raw.discount || 0),
-//             finalFee: Number(raw.finalFee || 0),
-
-//             notes: raw.notes || null,
-//             createdAt: raw.createdAt || null,
-//             userId: Number(raw.userId || userId),
-
-//             departmentId: parseOptionalInt(raw.departmentId),
-//             procedureId: parseOptionalInt(raw.procedureId),
-//             doctorId: parseOptionalInt(raw.doctorId),
-//           },
-//         });
-
-//         inserted++;
-//       } catch (err) {
-//         skipped.push({
-//           row: i + 1,
-//           reason: err.message,
-//         });
-//       }
-//     }
-
-//     return res.status(201).json({
-//       success: true,
-//       message: "Medical records uploaded successfully",
-//       inserted,
-//       skipped: skipped.length,
-//       skippedRows: skipped,
-//     });
-//   } catch (error) {
-//     console.error("Bulk upload medical records error:", error);
-//     return res.status(500).json({
-//       success: false,
-//       message: error.message || "Server error",
-//     });
-//   }
-// };
-
 export const bulkUploadMedicalRecords = async (req, res) => {
   try {
     if (!req.file?.buffer) {
@@ -813,5 +461,177 @@ export const bulkUploadMedicalRecords = async (req, res) => {
   } catch (error) {
     console.error("Bulk upload MedicalRecords error:", error);
     res.status(500).json({ message: error.message || "Server error" });
+  }
+};
+
+export const getMedicalRecordByReceiptNo = async (
+  req,
+  res
+) => {
+  try {
+    const { receiptNo } = req.params;
+
+    const record = await prisma.medicalRecord.findUnique({
+      where: {
+        receiptNo,
+      },
+      include: {
+        patient: true,
+        department: true,
+        doctor: true,
+        procedure: true,
+
+        items: {
+          include: {
+            department: true,
+            doctor: true,
+            procedure: true,
+          },
+        },
+      },
+    });
+
+    if (!record) {
+      return res.status(404).json({
+        success: false,
+        message: "Medical record not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      data: record,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};
+
+export const updateMedicalRecordByReceiptNo = async (
+  req,
+  res
+) => {
+  try {
+    const { receiptNo } = req.params;
+
+    const {
+      totalFee,
+      discount,
+      finalFee,
+      notes,
+      items,
+    } = req.body;
+
+    // =========================
+    // FIND EXISTING RECORD
+    // =========================
+    const existingRecord =
+      await prisma.medicalRecord.findUnique({
+        where: {
+          receiptNo,
+        },
+      });
+
+    if (!existingRecord) {
+      return res.status(404).json({
+        success: false,
+        message: "Medical record not found",
+      });
+    }
+
+    // =========================
+    // UPDATE ONLY FEES
+    // =========================
+    await prisma.medicalRecord.update({
+      where: {
+        receiptNo,
+      },
+
+      data: {
+        totalFee: Number(totalFee),
+        discount: Number(discount),
+        finalFee: Number(finalFee),
+        notes: notes || null,
+      },
+    });
+
+    // =========================
+    // DELETE OLD ITEMS
+    // =========================
+    await prisma.medicalRecordItem.deleteMany({
+      where: {
+        medicalRecordId: existingRecord.id,
+      },
+    });
+
+    // =========================
+    // CREATE UPDATED ITEMS
+    // =========================
+    if (items && items.length > 0) {
+      await prisma.medicalRecordItem.createMany({
+        data: items.map((item) => ({
+          medicalRecordId: existingRecord.id,
+
+          departmentId: Number(item.departmentId),
+
+          doctorId: item.doctorId
+            ? Number(item.doctorId)
+            : null,
+
+          procedureId: Number(item.procedureId),
+
+          fee: Number(item.fee),
+
+          discount: Number(item.discount || 0),
+
+          finalFee:
+            Number(item.fee) -
+            Number(item.discount || 0),
+
+          notes: item.notes || null,
+        })),
+      });
+    }
+
+    // =========================
+    // GET UPDATED RECORD
+    // =========================
+    const updatedRecord =
+      await prisma.medicalRecord.findUnique({
+        where: {
+          receiptNo,
+        },
+
+        include: {
+          patient: true,
+
+          items: {
+            include: {
+              department: true,
+              doctor: true,
+              procedure: true,
+            },
+          },
+        },
+      });
+
+    return res.status(200).json({
+      success: true,
+      message: "Medical record updated successfully",
+      data: updatedRecord,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+      error: error.message,
+    });
   }
 };
