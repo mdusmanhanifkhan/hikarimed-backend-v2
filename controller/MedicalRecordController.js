@@ -512,10 +512,7 @@ export const getMedicalRecordByReceiptNo = async (
   }
 };
 
-export const updateMedicalRecordByReceiptNo = async (
-  req,
-  res
-) => {
+export const updateMedicalRecordByReceiptNo = async (req, res) => {
   try {
     const { receiptNo } = req.params;
 
@@ -527,15 +524,10 @@ export const updateMedicalRecordByReceiptNo = async (
       items,
     } = req.body;
 
-    // =========================
-    // FIND EXISTING RECORD
-    // =========================
-    const existingRecord =
-      await prisma.medicalRecord.findUnique({
-        where: {
-          receiptNo,
-        },
-      });
+    // 1. Find record
+    const existingRecord = await prisma.medicalRecord.findUnique({
+      where: { receiptNo },
+    });
 
     if (!existingRecord) {
       return res.status(404).json({
@@ -544,14 +536,9 @@ export const updateMedicalRecordByReceiptNo = async (
       });
     }
 
-    // =========================
-    // UPDATE ONLY FEES
-    // =========================
-    await prisma.medicalRecord.update({
-      where: {
-        receiptNo,
-      },
-
+    // 2. Update ONLY main fields (NO patientId change here)
+    const updatedRecord = await prisma.medicalRecord.update({
+      where: { receiptNo },
       data: {
         totalFee: Number(totalFee),
         discount: Number(discount),
@@ -560,78 +547,54 @@ export const updateMedicalRecordByReceiptNo = async (
       },
     });
 
-    // =========================
-    // DELETE OLD ITEMS
-    // =========================
+    // 3. Replace items safely
     await prisma.medicalRecordItem.deleteMany({
       where: {
         medicalRecordId: existingRecord.id,
       },
     });
 
-    // =========================
-    // CREATE UPDATED ITEMS
-    // =========================
-    if (items && items.length > 0) {
+    if (Array.isArray(items) && items.length > 0) {
       await prisma.medicalRecordItem.createMany({
         data: items.map((item) => ({
           medicalRecordId: existingRecord.id,
-
           departmentId: Number(item.departmentId),
-
-          doctorId: item.doctorId
-            ? Number(item.doctorId)
-            : null,
-
+          doctorId: item.doctorId ? Number(item.doctorId) : null,
           procedureId: Number(item.procedureId),
-
           fee: Number(item.fee),
-
           discount: Number(item.discount || 0),
-
           finalFee:
-            Number(item.fee) -
-            Number(item.discount || 0),
-
+            Number(item.fee) - Number(item.discount || 0),
           notes: item.notes || null,
         })),
       });
     }
 
-    // =========================
-    // GET UPDATED RECORD
-    // =========================
-    const updatedRecord =
-      await prisma.medicalRecord.findUnique({
-        where: {
-          receiptNo,
-        },
-
-        include: {
-          patient: true,
-
-          items: {
-            include: {
-              department: true,
-              doctor: true,
-              procedure: true,
-            },
+    const fullRecord = await prisma.medicalRecord.findUnique({
+      where: { receiptNo },
+      include: {
+        patient: true,
+        items: {
+          include: {
+            department: true,
+            doctor: true,
+            procedure: true,
           },
         },
-      });
+      },
+    });
 
     return res.status(200).json({
       success: true,
       message: "Medical record updated successfully",
-      data: updatedRecord,
+      data: fullRecord,
     });
   } catch (error) {
-    console.error(error);
+    console.error("UPDATE ERROR:", error);
 
     return res.status(500).json({
       success: false,
-      message: "Server Error",
-      error: error.message,
+      message: error.message,
     });
   }
 };
